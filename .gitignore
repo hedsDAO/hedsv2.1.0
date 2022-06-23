@@ -1,0 +1,20 @@
+# Dependency Directories
+node_modules/
+
+# Runtime Data (TBD)
+# package-lock.json
+
+# Transpiled Data
+build
+dist
+.DS_Store
+builds
+
+# KEYS
+# .env
+# .npmrc
+
+# CONTRACTS
+# contracts/
+node_modules
+hedstape

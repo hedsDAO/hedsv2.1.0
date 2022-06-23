@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	height: 100%;
+	max-height: 100%;
+	background: #171717;
+	overflow-x: hidden !important;
+	overscroll-behavior: none !important;
+}
+
+body {
+	height: auto;
+}
+
+#fullscreen {
+	max-height: 100%;
+	max-width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+}
+/* mobile-nav animated override */
+.EZDrawer__container {
+	background-color: #171717 !important;
+}
+
+.ht1-gradient {
+	-webkit-animation: colorchange-1 40s infinite alternate;
+	animation: colorchange-1 40s infinite alternate;
+}
+
+.animate-blinker {
+	animation: blinker 1.5s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+}
+
+.border-blue-500 {
+	--tw-border-opacity: 1;
+	border-color: rgb(63 131 248 / var(--tw-border-opacity));
+}
+
+.border-neutral-500 {
+	--tw-border-opacity: 1;
+	border-color: rgb(115 115 115 / var(--tw-border-opacity));
+}
+
+.border-red-500 {
+	--tw-border-opacity: 1;
+	border-color: rgb(240 82 82 / var(--tw-border-opacity));
+}
+
+.from-amber-500 {
+	--tw-gradient-from: #f59e0b;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(245 158 11 / 0));
+}
+/* .bg-neutral-950 {
+	--tw-bg-opacity: 1;
+    background-color: rgb(20 20 20 / var(--tw-bg-opacity));
+}
+.bg-neutral-850 {
+	--tw-bg-opacity: 1;
+    background-color: rgb(33 33 33 / var(--tw-bg-opacity));
+} */
+
+
+
+
+.box-shadow-v2 {
+	box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+}
+
+@keyframes blinker {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes colorchange-1 {
+	0% {
+		background: #212b42;
+	}
+	25% {
+		background: #2c3068;
+	}
+	50% {
+		background: #3e4245;
+	}
+	75% {
+		background: #212f43;
+	}
+	100% {
+		background: #212f43;
+	}
+}
+
+.ht2-gradient {
+	-webkit-animation: colorchange-2 40s infinite alternate;
+	animation: colorchange-2 40s infinite alternate;
+}
+
+@keyframes colorchange-2 {
+	0% {
+		background: #212b42;
+	}
+	25% {
+		background: #2c3068;
+	}
+	50% {
+		background: #3e4245;
+	}
+	75% {
+		background: #212f43;
+	}
+	100% {
+		background: #212f43;
+	}
+}
+
+.ht3-gradient {
+	-webkit-animation: colorchange-3 30s infinite alternate;
+	animation: colorchange-3 30s infinite alternate;
+}
+
+@keyframes colorchange-3 {
+	0% {
+		background: #212f51;
+	}
+	25% {
+		background: #282c5b;
+	}
+	50% {
+		background: #383c40;
+	}
+	75% {
+		background: #223146;
+	}
+	100% {
+		background: #263549;
+	}
+}
