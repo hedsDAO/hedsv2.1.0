@@ -1,85 +1,119 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { RootState, Dispatch } from "../../store";
-import { Link } from "react-router-dom";
-import Timeline from "../../components/TapeTimeline/Timeline";
-import DateCountdown from "../../common/countdown/Countdown";
-import Playlist from "../../common/audio/Playlist/Playlist";
-import Waveform from "../../common/audio/Waveform/Waveform";
-import SampleArtistBadge from "../../common/badges/SampleArtistBadge/SampleArtistBadge";
-import IconLinkButton from "../../common/buttons/IconLinkButton/IconLinkButton";
-import SampleWaveform from "../../common/audio/SampleWaveform/SampleWaveform";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { RootState, Dispatch } from '../../store'
+import { Link } from 'react-router-dom'
+import Timeline from '../../components/TapeTimeline/Timeline'
+import DateCountdown from '../../common/countdown/Countdown'
+import Playlist from '../../common/audio/Playlist/Playlist'
+import Waveform from '../../common/audio/Waveform/Waveform'
+import SampleArtistBadge from '../../common/badges/SampleArtistBadge/SampleArtistBadge'
+import IconLinkButton from '../../common/buttons/IconLinkButton/IconLinkButton'
+import SampleWaveform from '../../common/audio/SampleWaveform/SampleWaveform'
 
 const HedsTapes = () => {
-	const { id } = useParams<{ space?: string; tape: string; id: string }>();
-	const [selectedTrack, setSelectedTrack] = useState<string>("0");
-	const dispatch = useDispatch<Dispatch>();
-	const globalTapesData = useSelector((state: RootState) => state.globalTapesModel);
-	const tapeData = useSelector((state: RootState) => state.tapesModel);
-	const globalTapeData = globalTapesData?.hedstapes?.[parseInt(id) - 1];
-	useEffect(() => {
-		if (!tapeData?.id) dispatch.tapesModel.getTapeData(id);
-		if (tapeData?.id !== id + 1) dispatch.tapesModel.getTapeData(id);
-	}, []);
+  const { id } = useParams<{ space?: string; tape: string; id: string }>()
+  const [selectedTrack, setSelectedTrack] = useState<string>('0')
+  const dispatch = useDispatch<Dispatch>()
+  const globalTapesData = useSelector(
+    (state: RootState) => state.globalTapesModel,
+  )
+  const tapeData = useSelector((state: RootState) => state.tapesModel)
+  const globalTapeData = globalTapesData?.hedstapes?.[parseInt(id) - 1]
+  useEffect(() => {
+    if (!tapeData?.id) dispatch.tapesModel.getTapeData(id)
+    if (tapeData?.id !== id + 1) dispatch.tapesModel.getTapeData(id)
+  }, [])
 
-	const playTrack = () => {
-		dispatch.globalAudioModel.setGlobalTrack({
-			src: tapeData?.tracks?.[0]?.url
-		})
-	}
-	return (
-		<>
-			{globalTapeData && (
-				<div className="w-screen md:mt-16 mt-11 pb-56">
-					<div className={`lg:pb-0 lg:z-10 lg:relative py-3 lg:py-5`}>
-						<div className="lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto ">
-							<div className="flex justify-center lg:col-span-2 lg:-my-20 px-2 lg:py-5 py-4">
-								<div className="flex flex-col items-center">
-									<img
-										src={globalTapeData?.image}
-										className={`object-contain bg-neutral-900 border-${globalTapeData?.color}-900 border-2 p-1 rounded-full sm:max-w-sm shadow-sm`}
-									/>
-								</div>
-							</div>
-							<div className="mt-2 lg:col-span-3">
-								<div className="mx-auto max-w-md px-2 sm:max-w-2xl lg:py-8 lg:max-w-none">
-									<div className="flex flex-col md:justify-start justify-center">
-										<div className="mt-4 lg:mt-0 text-3xl font-thin font-serif text-neutral-300 text-center md:text-left">
-											<span className="rounded-sm py-0.5">hedsTAPE 06</span>
-										</div>
-										<div className="lg:py-2 py-1.5 bg-opacity-60 text-neutral-400 mt-2 text-center md:text-left md:px-0 px-3">
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-											labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-											nisi ut aliquip ex ea commodo consequat.
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="lg:max-w-2xl mx-auto mt-32">
-						<div className="flex flex-col gap-y-2">
-							{tapeData?.tracks?.length &&
-								tapeData.tracks?.map((track: any) => {
-									return (
-										<div className="grid grid-cols-12 gap-x-2 bg-neutral-950 border border-neutral-600 p-3">
-											<div onClick={() => playTrack()} className="col-span-1">
-												<img className="object-contain p-1" src={track?.image} />
-											</div>
-											<div className="col-span-3 text-neutral-300 font-thin uppercase my-auto">{track?.title}</div>
-										</div>
-									);
-								})}
-
-						</div>
-					</div>
-					{/* {globalTapeData?.status && (
+  const playTrack = (track: any) => {
+    dispatch.globalAudioModel.setGlobalAudio({
+      hasLoaded: true,
+      isPlaying: false,
+      overlay: true,
+      trackDetails: {
+        src: track?.url,
+        artist: track?.title,
+        artist_img: track?.image,
+        tape: globalTapeData?.name,
+        tape_img: globalTapeData?.image,
+      },
+    })
+  }
+  return (
+    <>
+      {globalTapeData && (
+        <div className="w-screen md:mt-16 mt-11 pb-56">
+          <div className={`lg:pb-0 lg:z-10 lg:relative py-3 lg:py-5`}>
+            <div className="lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto ">
+              <div className="flex justify-center lg:col-span-2 lg:-my-20 px-2 lg:py-5 py-4">
+                <div className="flex flex-col items-center">
+                  <img
+                    src={globalTapeData?.image}
+                    className={`object-contain bg-neutral-900 border-${globalTapeData?.color}-900 border-2 p-1 rounded-full sm:max-w-sm shadow-sm`}
+                  />
+                </div>
+              </div>
+              <div className="mt-2 lg:col-span-3">
+                <div className="mx-auto max-w-md px-2 sm:max-w-2xl lg:py-8 lg:max-w-none">
+                  <div className="flex flex-col md:justify-start justify-center">
+                    <div className="mt-4 lg:mt-0 text-3xl font-thin font-serif text-neutral-300 text-center md:text-left">
+                      <span className="rounded-sm py-0.5">hedsTAPE 06</span>
+                    </div>
+                    <div className="lg:py-2 py-1.5 bg-opacity-60 text-neutral-400 mt-2 text-center md:text-left md:px-0 px-3">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>{' '}
+          <div className="sm:max-w-7xl w-full mx-auto mt-20 my-10">
+            <div className="flex justify-center mx-auto uppercase font-thin text-neutral-200 tracking-widest text-5xl animate__animated animate__fadeInUp">
+              Explore
+            </div>
+            <div className="flex justify-center mx-auto uppercase font-thin text-neutral-400 tracking-widest text-2xl animate__animated animate__fadeInUp">
+              the tapes
+            </div>
+          </div>
+          <div className="grid grid-cols-12 mt-32 pt-10 max-w-7xl mx-auto ">
+            <div className="col-start-6 col-span-9">
+              <div className="flex flex-col gap-y-2">
+                <div className="grid grid-cols-12 gap-x-2 bg-neutral-800 border border-neutral-600 p-1">
+                  <div className="col-span-3 text-neutral-300 font-thin uppercase my-auto mx-1">
+                    ARTISTS
+                  </div>
+                </div>
+                {tapeData?.tracks?.length &&
+                  tapeData.tracks?.map((track: any) => {
+                    return (
+                      <div className="grid grid-cols-12 gap-x-2 bg-neutral-950 border border-neutral-600 p-1">
+                        <div
+                          onClick={() => playTrack(track)}
+                          className="col-span-1"
+                        >
+                          <img
+                            className="object-contain p-1 h-8"
+                            src={track?.image}
+                          />
+                        </div>
+                        <div className="text-neutral-300 font-thin uppercase my-auto col-span-11 text-right mx-1">
+                          {track?.title}
+                        </div>
+                      </div>
+                    )
+                  })}
+              </div>
+            </div>{' '}
+          </div>
+          {/* {globalTapeData?.status && (
 						<div className={`lg:pb-0 mx-auto py-3 lg:py-5 mt-10 max-w-7xl`}>
 							<Timeline tapeData={tapeData} globalTapeData={globalTapeData} />
 						</div>
 					)} */}
-					{/* <div className="sm:max-w-7xl w-full grid grid-cols-9 mx-auto mt-24 my-10">
+          {/* <div className="sm:max-w-7xl w-full grid grid-cols-9 mx-auto mt-24 my-10">
 						<div className="group col-start-3 col-span-2">
 							<img className="border border-neutral-600 rounded-sm object-contain max-h-[200px] max-w-[200px] opacity-70 group-hover:opacity-10 transition-opacity" src={globalTapeData?.sample?.image} />
 							<button className="absolute -mt-[115px] ml-[95px]"><i className="fa-solid fa-play text-3xl text-white shadow-lg" /></button>
@@ -90,12 +124,12 @@ const HedsTapes = () => {
 							{globalTapeData?.sample?.artist}
 						</div>
 					</div> */}
-				</div>
-			)}
-		</>
-	);
-};
-export default HedsTapes;
+        </div>
+      )}
+    </>
+  )
+}
+export default HedsTapes
 
 /* {globalTapeData?.name && tapeData?.id && (
 	<div className="w-screen mt-10 md:mt-1 mx-auto bg-neutral-950">

@@ -48,7 +48,7 @@ const Tapes = () => {
 				</div>
 			</div>
 			<div className="sm:max-w-7xl w-full mx-auto mt-20 my-10">
-				<div className="flex justify-center mx-auto uppercase font-thin text-neutral-200 tracking-widest text-5xl animate__animated animate__fadeInUp">
+				<div className="flex justify-center mx-auto uppercase text-neutral-300 tracking-widest text-5xl animate__animated animate__fadeInUp">
 					Explore
 				</div>
 				<div className="flex justify-center mx-auto uppercase font-thin text-neutral-400 tracking-widest text-2xl animate__animated animate__fadeInUp">

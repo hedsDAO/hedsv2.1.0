@@ -11,7 +11,6 @@ interface TrackDetails {
 }
 
 interface GlobalAudioState {
-  origin?: string;
   hasLoaded: boolean;
   isPlaying?: boolean;
   overlay: boolean;
@@ -25,11 +24,11 @@ export const globalAudioModel = createModel<RootModel>()({
   } as GlobalAudioState,
   reducers: {
     setGlobalAudio: (state, payload: GlobalAudioState) => payload || state,
-    setGlobalTrack: (state, trackDetails: TrackDetails) => ({ ...state, trackDetails }),
+    setGlobalTrack: (state, payload: GlobalAudioState) => ({ ...state, payload }),
   },
   effects: () => ({
-    async getGlobalAudio(trackDetails: GlobalAudioState) {
-      this.setGlobalAudio(trackDetails);
+    async getGlobalAudio(payload: GlobalAudioState) {
+      this.setGlobalAudio(payload);
     },
   }),
 });
