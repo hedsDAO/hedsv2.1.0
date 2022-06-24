@@ -44,7 +44,7 @@ const Navbar = () => {
 				<ul className="flex justify-between items-center gap-x-8 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-5 py-3">
 					<Link to="/">
 						<li className="">
-							<img className="w-16 md:w-20 hover:contrast-50 transition-all my-auto p-2" src={logoImg} />
+							<img className="w-16 md:w-20 hover:contrast-50 transition-all -mt-0.5 p-2" src={logoImg} />
 						</li>
 					</Link>
 					<div className="flex items-center justify-center bg-neutral-900 py-1 xl:ml-[1.9%] lg:ml-[2.8%] md:ml-[3.9%] px-1">
@@ -52,13 +52,13 @@ const Navbar = () => {
 							<div key={item.href + i}>
 								{pathname === item.href ? (
 									<Link to={item.href}>
-										<li className="hover:text-white select-none uppercase text-amber-500 bg-black px-5 py-1 font-thin text-sm">
+										<li className="hover:text-white select-none uppercase text-amber-500 bg-black px-5 py-1 text-sm">
 											{item.name}
 										</li>
 									</Link>
 								) : (
 									<Link to={item.href}>
-										<li className="hover:text-amber-500 select-none uppercase px-5 py-1 font-thin text-sm">
+										<li className="hover:text-amber-500 select-none uppercase px-5 py-1 text-sm">
 											{item.name}
 										</li>
 									</Link>
@@ -66,14 +66,7 @@ const Navbar = () => {
 							</div>
 						))}
 					</div>
-					<div className="">
-						{isAuthenticated && (
-							<button
-								onClick={() => logout()}
-								className="inline-flex items-center justify-center px-3 py-2 mr-2 text-sm hover:bg-red-900 bg-red-800 text-neutral-200 font-serif rounded-full uppercase transition-all">
-								<i className="fa-solid fa-arrow-up-left-from-circle my-auto -ml-0.25"></i>
-							</button>
-						)}
+					<div className="flex items-center">
 						<button
 							onClick={isAuthenticated ? () => history.push("/profile") : () => setIsShowingConnectModal(true)}
 							className="inline-flex items-center my-auto px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all">
@@ -81,6 +74,13 @@ const Navbar = () => {
 								{isAuthenticated ? user?.attributes?.ethAddress.slice(0, 5) : "connect"}
 							</span>
 						</button>
+						{isAuthenticated && (
+							<button
+								onClick={() => logout()}
+								className="inline-flex items-center justify-center px-3.5 py-1.5 ml-2 hover:bg-neutral-800 bg-neutral-700 text-neutral-200 font-serif rounded-full uppercase transition-all">
+								<i className="fa-regular fa-arrow-up-left-from-circle text-xs -ml-0.25 my-0.25"></i>
+							</button>
+						)}
 					</div>
 				</ul>
 			</div>
@@ -103,21 +103,20 @@ const Navbar = () => {
 							{isAuthenticated && (
 								<button
 									onClick={() => logout()}
-									className="inline-flex items-center justify-center px-3 mr-2 text-sm hover:bg-red-900 bg-red-800 text-neutral-200 font-serif rounded-full uppercase transition-all">
-									<i className="fa-solid fa-arrow-up-left-from-circle my-auto -ml-0.25"></i>
+									className="inline-flex items-center justify-center px-3 mr-2 text-sm hover:bg-gray-900 bg-gray-800 text-neutral-200 font-serif rounded-full uppercase transition-all">
+									<i className="fa-regular fa-arrow-up-left-from-circle my-auto -ml-0.25"></i>
 								</button>
 							)}
 							<button
 								onClick={
 									isAuthenticated
 										? () => {
-												history.push("/profile");
-												setIsOpen(false);
-										  }
+											setIsOpen(false);
+										}
 										: () => {
-												setIsOpen(false);
-												setIsShowingConnectModal(true);
-										  }
+											setIsOpen(false);
+											setIsShowingConnectModal(true);
+										}
 								}
 								className="inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all">
 								<span className="my-auto tracking-widest">
@@ -130,13 +129,13 @@ const Navbar = () => {
 								<div key={item.href + i}>
 									{pathname === item.href ? (
 										<Link onClick={() => setIsOpen(false)} to={item.href}>
-											<span className="hover:text-white select-none uppercase text-amber-500 bg-black px-5 py-1 font-thin text-sm">
+											<span className="hover:text-white select-none uppercase text-amber-500 bg-black px-5 py-1 text-sm">
 												{item.name}
 											</span>
 										</Link>
 									) : (
 										<Link onClick={() => setIsOpen(false)} to={item.href}>
-											<span className="hover:text-amber-500 text-neutral-400 select-none uppercase px-5 py-1 font-thin text-sm">
+											<span className="hover:text-amber-500 text-neutral-400 select-none uppercase px-5 py-1 text-sm">
 												{item.name}
 											</span>
 										</Link>

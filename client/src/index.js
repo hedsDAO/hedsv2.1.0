@@ -5,13 +5,14 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import "regenerator-runtime/runtime.js";
-import { store } from './store'
+import { store } from "./store";
 import { Provider } from "react-redux";
 import { MoralisProvider } from "react-moralis";
-import snapshot from '@snapshot-labs/snapshot.js';
+import GlobalAudioWrapper from "./common/wrappers/GlobalAudioWrapper/GlobalAudioWrapper";
+import snapshot from "@snapshot-labs/snapshot.js";
 import App from "./App";
 // snapshot client
-const hub = 'https://hub.snapshot.org'
+const hub = "https://hub.snapshot.org";
 export const snapshotClient = new snapshot.Client712(hub);
 
 const firebaseConfig = {
@@ -26,13 +27,18 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
-export const storage = getStorage(app, 'gs://heds-34ac0.appspot.com');
+export const storage = getStorage(app, "gs://heds-34ac0.appspot.com");
 
 ReactDOM.render(
-  <MoralisProvider serverUrl="https://qmwf2weydi0m.usemoralis.com:2053/server" appId="KiB7e8lPCvDMU9VkOf2uM7d8Dt7DowQGR272Wkxd">
+  <MoralisProvider
+    serverUrl="https://qmwf2weydi0m.usemoralis.com:2053/server"
+    appId="KiB7e8lPCvDMU9VkOf2uM7d8Dt7DowQGR272Wkxd"
+  >
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <GlobalAudioWrapper>
+          <App />
+        </GlobalAudioWrapper>
       </BrowserRouter>
     </Provider>
   </MoralisProvider>,

@@ -7,6 +7,7 @@ import hedDotImg from "../../../../public/heddot.png";
 const Landing = () => {
 	return (
 		<>
+
 			<div className="absolute right-12 bottom-1/3 md:bottom-[40%] md:right-[20%] z-30 px-5 pb-5">
 				<div className="flex flex-col items-end md:items-start font-serif uppercase mt-5">
 					<h3 className="text-xl md:text-7xl text-neutral-200 font-extrabold bg-black border-[0.5px] border-neutral-800 px-2 py-0.5 md:py-1 rounded-t-sm">

@@ -4,18 +4,15 @@ import ModalWrapper from "../../wrappers/ModalWrapper/ModalWrapper";
 import { ConnectModalProps } from "../../../models/common";
 import MetamaskIcon from "../../svgs/MetamaskIcon/MetamaskIcon";
 import WalletConnectIcon from "../../svgs/WalletConnectIcon/WalletConnectIcon";
-import { useHistory } from "react-router";
 
 const ConnectModal = ({ isShowingConnectModal, setIsShowingConnectModal }: ConnectModalProps) => {
-	const { authenticate, isAuthenticated, isAuthenticating, user } = useMoralis();
+	const { authenticate, isAuthenticated, isAuthenticating } = useMoralis();
 	const handleAuthenticate = async (provider: object | void) => {
 		if (isAuthenticated) setIsShowingConnectModal(false);
 		else if (provider) authenticate({ provider: "walletconnect", chainId: 1 });
 		else authenticate({ chainId: 1 });
 	};
-	const history = useHistory();
 	useEffect(() => {
-		if (isAuthenticated) history.push("/profile");
 		return () => {
 			setIsShowingConnectModal(false);
 		};
@@ -23,7 +20,7 @@ const ConnectModal = ({ isShowingConnectModal, setIsShowingConnectModal }: Conne
 
 	return (
 		<ModalWrapper isShowingModal={isShowingConnectModal} setIsShowingModal={setIsShowingConnectModal}>
-			<div className="relative z-50 inline-block align-bottom bg-neutral-950 rounded-sm py-3 px-4 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-lg sm:w-full">
+			<div className="relative z-50 inline-block align-bottom bg-neutral-950 rounded-sm py-4 px-5 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-lg sm:w-full">
 				<h5 className="mb-2 uppercase text-base font-semibold text-gray-200 lg:text-xl dark:text-white">Connect wallet</h5>
 				<p className="text-sm font-normal text-gray-400 dark:text-gray-400">
 					Connect with one of our available wallet providers or create a new one.

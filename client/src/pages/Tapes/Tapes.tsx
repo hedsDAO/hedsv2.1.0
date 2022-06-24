@@ -9,8 +9,8 @@ const Tapes = () => {
 	const globalTapesData = useSelector((state: RootState) => state.globalTapesModel);
 	const { hedstapes } = globalTapesData;
 	return (
-		<div className="w-screen md:mt-16 mt-11">
-			<div className="bg-gradient-to-t from-fuchsia-900 to-neutral-900 lg:pb-0 lg:z-10 lg:relative py-3 lg:py-5">
+		<div className="w-screen md:mt-16 mt-11 pb-56">
+			<div className=" lg:pb-0 lg:z-10 lg:relative py-3 lg:py-5">
 				<div className="lg:mx-auto lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-5 lg:gap-2">
 					<div className="flex justify-center lg:col-span-2 lg:-my-20 px-2 lg:py-5 py-4">
 						<div className="flex flex-col">

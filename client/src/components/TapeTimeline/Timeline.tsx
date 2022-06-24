@@ -11,7 +11,7 @@ const Timeline = ({ globalTapeData }: TimelineProps) => {
 	const { user } = useMoralisHooks();
 	const { status } = globalTapeData;
 	return (
-		<nav className="flex items-center justify-center py-6 max-w-6xl mx-6 lg:mx-auto">
+		<nav className="flex items-center justify-center py-6 mx-6 lg:mx-auto">
 			<ol role="list" className="flex items-end w-full justify-evenly sm:justify-between">
 				<li className="flex flex-col justify-center items-center">
 					<Sample

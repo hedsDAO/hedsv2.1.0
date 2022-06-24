@@ -4,6 +4,7 @@ import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import dacut1 from "../../../../../public/dacut4.mp4";
 
 const TapeCard = ({ tape, featured }: any) => {
+	console.log(tape)
 	const [isFlipped, setIsFlipped] = useState<boolean>(false);
 	return (
 		<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">

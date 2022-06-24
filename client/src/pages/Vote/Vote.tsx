@@ -27,7 +27,7 @@ const Vote = () => {
 	const powerMapping = [9, 6, 5, 7];
 
 	useEffect(() => {
-		if (id && id !== "5") return history.push("/");
+		// if (id && id !== "5") return history.push("/");
 		dispatch.userModel.loadUserProfile(user);
 		(async () => await getNFTs())();
 		dispatch.voteModel.loadSnapshotSpaceData();
