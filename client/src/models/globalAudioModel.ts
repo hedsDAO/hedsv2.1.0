@@ -1,7 +1,5 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
-import { TapeData } from "./globalTapesModel";
-import { TapeTrack } from "./tapesModel";
 
 interface TrackMetadata {
 	no?: string;

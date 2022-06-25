@@ -10,10 +10,10 @@ const formWaveSurferOptions = (ref: any) => ({
 	waveColor: "#eee",
 	progressColor: "#f59e0b",
 	cursorColor: "transparent",
-	barWidth: 6,
+	barWidth: 3,
 	barRadius: 2,
 	responsive: true,
-	height: 20,
+	height: 15,
 	hideScrollbar: true,
 });
 
@@ -22,9 +22,7 @@ const GlobalAudio = () => {
 	const globalAudioData = useSelector((state: RootState) => state.globalAudioModel);
 	const waveformRef = useRef(null);
 	const wavesurfer = useRef<any>(null);
-	const [playing, setPlay] = useState(false);
 	const [volume, setVolume] = useState<number>(1);
-	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		dispatch.globalAudioModel.setIsPlaying(false);
@@ -54,24 +52,30 @@ const GlobalAudio = () => {
 			{globalAudioData && (
 				<div className="bg-neutral-950 border-t-[0.25px] border-neutral-600 w-screen">
 					<div className="">
-						<div className="grid grid-cols-12 sm:grid-cols-10 items-center gap-2 lg:gap-8">
-							<div className="col-span-7 sm:col-span-2">
-								<div className="flex items-center">
-									<img src={globalAudioData?.trackDetails?.tape?.tape_img} className="max-h-[5em] p-3" />
-									<div className="flex flex-col justify-start">
-										<span className="text-neutral-300 inline-flex items-baseline lg:text-base text-sm whitespace-nowrap">
-											<i className="fa-thin fa-cassette-tape mr-2 text-sm"></i>
-											{globalAudioData?.trackDetails?.tape?.name}
-										</span>
-										<span className="uppercase text-neutral-300 inline-flex items-baseline lg:text-base text-sm whitespace-nowrap">
-											<i className="fa-thin fa-waveform mr-2 text-sm"></i>{" "}
-											{globalAudioData?.trackDetails?.track?.artist}
-										</span>
+						<div className="grid grid-cols-12 items-center">
+							<div className="col-span-7 sm:col-span-2 lg:col-span-1 gap-1">
+								<div className="flex justify-between">
+									<div className="flex items-center">
+										<img src={globalAudioData?.trackDetails?.tape?.tape_img} className="max-h-[5em] p-3" />
+										<div className="flex flex-col justify-center">
+											<span className="text-neutral-300 inline-flex items-baseline lg:text-base whitespace-nowrap">
+												<span className="inline-flex items-center px-2 text-sm font-medium text-neutral-400">
+													{globalAudioData?.trackDetails?.tape?.name}
+												</span>
+											</span>
+											<span className="text-neutral-300 inline-flex items-baseline lg:text-base whitespace-nowrap">
+												<span className="inline-flex items-center px-2 text-sm font-medium text-neutral-400">
+													{globalAudioData?.trackDetails?.track?.artist}
+												</span>
+											</span>
+											<span className="text-neutral-300 inline-flex items-baseline lg:text-base whitespace-nowrap">
+												<span className="inline-flex items-center px-2 text-sm font-medium text-neutral-400">
+													{globalAudioData?.trackDetails?.track?.no}
+												</span>
+											</span>
+										</div>
 									</div>
-									<button
-										disabled={globalAudioData?.isLoading}
-										onClick={handlePlayPause}
-										className="md:ml-auto mx-4 sm:mx-2">
+									<button disabled={globalAudioData?.isLoading} onClick={handlePlayPause} className="mr-2">
 										{globalAudioData?.isPlaying || globalAudioData?.isLoading ? (
 											<ReactLoading
 												className="h-10 w-10 my-auto rounded-full"
@@ -89,7 +93,7 @@ const GlobalAudio = () => {
 									</button>
 								</div>
 							</div>
-							<div className="col-span-5 md:col-span-8 mx-2">
+							<div className="col-span-5 sm:col-span-10 lg:col-span-11 mx-2">
 								<div id="waveform" className="" ref={waveformRef} />
 							</div>
 						</div>
