@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactCardFlip from "react-card-flip";
+import { Link } from "react-router-dom";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import dacut1 from "../../../../../public/dacut4.mp4";
 
@@ -9,6 +10,7 @@ const TapeCard = ({ tape, featured }: any) => {
 	return (
 		<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
 			<div className="flex flex-col w-full justify-center">
+				<Link to={tape?.links?.heds}>
 				{featured ? (
 					<video
 						src={dacut1}
@@ -32,6 +34,7 @@ const TapeCard = ({ tape, featured }: any) => {
 						}
 					/>
 				)}
+				</Link>
 				<div className="flex justify-between items-center">
 					<button onClick={() => setIsFlipped(!isFlipped)} className="">
 						{!featured && <DotsHorizontalIcon className="h-8 w-8 text-neutral-400" />}

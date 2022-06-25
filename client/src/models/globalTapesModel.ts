@@ -55,7 +55,7 @@ export const globalTapesModel = createModel<RootModel>()({
 		setGlobalTapesData: (state, payload: DocumentData) => payload || state,
 	},
 	effects: (dispatch) => ({
-		async getGlobalTapesData(space : string) {
+		async getGlobalTapesData(space: string) {
 			const docRef = doc(db, "spaces", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
@@ -72,7 +72,7 @@ export const globalTapesModel = createModel<RootModel>()({
 					currentTapes[parseInt(tapeNum) - 1].status = "mint";
 					currentTapes[parseInt(tapeNum) - 1].countdown = false;
 					await updateDoc(docRef, {
-						tapeData: currentTapes
+						tapeData: currentTapes,
 					});
 					this.getGlobalTapesData();
 				}

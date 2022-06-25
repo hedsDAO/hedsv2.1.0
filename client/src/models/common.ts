@@ -3,6 +3,13 @@ import Moralis from "moralis/types";
 import { TokenMapping } from "../data/whitelist";
 import { TapeData } from "./globalTapesModel";
 
+export interface MediaQueryParams {
+	space?: string;
+	tape: string;
+	id: string;
+	no?: string;
+}
+
 export interface UserFormattedOwnership {
 	name: string;
 	quantity: number;

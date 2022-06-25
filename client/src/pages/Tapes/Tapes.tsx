@@ -14,7 +14,7 @@ const Tapes = () => {
 				<div className="lg:mx-auto lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-5 lg:gap-2">
 					<div className="flex justify-center lg:col-span-2 lg:-my-20 px-2 lg:py-5 py-4">
 						<div className="flex flex-col">
-							{hedstapes?.map((tape) => {
+							{hedstapes?.slice(0, -1)?.map((tape) => {
 								if (tape.season === 2) {
 									return (
 										<div className="">
@@ -36,7 +36,7 @@ const Tapes = () => {
 									dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
 									ex ea commodo consequat.
 								</div>
-								<button className="flex items-center md:mx-0 mx-auto justify-between w-36 md:w-36 font-base py-2 px-5 text-neutral-200 bg-neutral-900 bg-opacity-30 font-sans uppercase rounded-md text-sm group my-5">
+								<button className="flex items-center md:mx-0 mx-auto justify-between w-36 md:w-36 font-base  py-2 px-5 text-neutral-200 bg-fuchsia-900 bg-opacity-40 font-sans uppercase rounded-md text-sm group my-5">
 									<Link to="/listen/hedstape/5">
 										<p className="text-sm text-neutral-200 md:tracking-widest">VIEW TAPE</p>
 									</Link>
