@@ -5,6 +5,7 @@ import ConnectModal from "../../common/modals/ConnectModal/ConnectModal";
 import { useLocation, useHistory } from "react-router";
 import logoImg from "../../../../public/hedslogo.png";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import NavDropdown from "../../common/dropdown/NavDropdown/NavDropdown";
 import profileTestImg from "../../../../public/2.png";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
@@ -58,9 +59,7 @@ const Navbar = () => {
 									</Link>
 								) : (
 									<Link to={item.href}>
-										<li className="hover:text-amber-500 select-none uppercase px-5 py-1 text-sm">
-											{item.name}
-										</li>
+										<li className="hover:text-amber-500 select-none uppercase px-5 py-1 text-sm">{item.name}</li>
 									</Link>
 								)}
 							</div>
@@ -74,12 +73,20 @@ const Navbar = () => {
 								{isAuthenticated ? user?.attributes?.ethAddress.slice(0, 5) : "connect"}
 							</span>
 						</button>
-						{isAuthenticated && (
+						{/* {isAuthenticated && (
 							<button
 								onClick={() => logout()}
 								className="inline-flex items-center justify-center px-3.5 py-1.5 ml-2 hover:bg-neutral-800 bg-neutral-700 text-neutral-200 font-serif rounded-full uppercase transition-all">
 								<i className="fa-regular fa-arrow-up-left-from-circle text-xs -ml-0.25 my-0.25"></i>
 							</button>
+						)} */}
+						{isAuthenticated && (
+							<NavDropdown />
+							// <button
+							// 	onClick={() => logout()}
+							// 	className="inline-flex items-center justify-center px-3.5 py-1.5 ml-2 hover:bg-neutral-800 bg-neutral-700 text-neutral-200 font-serif rounded-full uppercase transition-all">
+							// 	<i className="fa-regular fa-arrow-up-left-from-circle text-xs -ml-0.25 my-0.25"></i>
+							// </button>
 						)}
 					</div>
 				</ul>
@@ -111,12 +118,12 @@ const Navbar = () => {
 								onClick={
 									isAuthenticated
 										? () => {
-											setIsOpen(false);
-										}
+												setIsOpen(false);
+										  }
 										: () => {
-											setIsOpen(false);
-											setIsShowingConnectModal(true);
-										}
+												setIsOpen(false);
+												setIsShowingConnectModal(true);
+										  }
 								}
 								className="inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all">
 								<span className="my-auto tracking-widest">

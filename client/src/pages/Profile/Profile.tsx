@@ -36,9 +36,9 @@ const Profile = () => {
 			{user && (
 				<div className="bg-gradient-to-t from-fuchsia-900 to-neutral-900 lg:pb-0 lg:z-10 lg:relative py-3 lg:py-5 lg:mt-20 mt-10">
 					<div className="lg:mx-auto lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-2 gap-x-4">
-						<div className="flex flex-col items-center justify-center lg:-my-10 px-2 lg:py-2 py-1">
+						<div className="flex flex-col items-center justify-baseline -my-10 px-2 lg:py-2 py-1">
 							<img
-								className="object-fill w-[16rem] h-[16rem] bg-neutral-900 border-fuchsia-900 border-2 p-1 rounded-full lg:ml-auto"
+								className="object-fill w-[13rem] h-[13rem] bg-neutral-900 border-fuchsia-900 border-2 p-1 rounded-full lg:ml-auto"
 								src={profileTestImg}
 							/>
 						</div>

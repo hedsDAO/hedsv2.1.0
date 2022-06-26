@@ -55,8 +55,8 @@ const GlobalAudio = () => {
 				<div className={`bg-neutral-950 border-t-[0.25px] border-neutral-600 w-screen py-1`}>
 					<div className="">
 						<div className="grid grid-cols-12 items-center">
-							<div className="col-span-6 sm:col-span-5 md:col-span-4 lg:col-span-3 gap-1">
-								<div className="flex justify-evenly">
+							<div className="col-span-7 sm:col-span-5 md:col-span-4 lg:col-span-3 gap-1">
+								<div className="flex justify-between">
 									<div className="flex items-center">
 										<img
 											src={globalAudioData?.trackDetails?.tape?.tape_img}
@@ -98,7 +98,7 @@ const GlobalAudio = () => {
 									</button>
 								</div>
 							</div>
-							<div className="col-span-6 sm:col-span-7 md:col-span-8 lg:col-span-9 mx-2 lg:px-4">
+							<div className="col-span-4 sm:col-span-7 md:col-span-8 lg:col-span-9 mx-2 lg:px-4">
 								<div id="waveform" className="" ref={waveformRef} />
 							</div>
 						</div>
