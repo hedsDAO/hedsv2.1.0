@@ -57,7 +57,7 @@ const Tapes = () => {
 			</div>
 			{/* <TapesToggle /> */}
 			<hr className="sm:max-w-7xl w-full mx-auto border-[0.25px] border-neutral-600 mb-10 mt-5" />
-			<div className="grid grid-cols-2 mx-auto lg:grid-cols-5 sm:max-w-7xl lg:max-w-6xl lg:gap-3 items-center px-3 py-5 lg:p-5">
+			{/* <div className="grid grid-cols-2 mx-auto lg:grid-cols-4 sm:max-w-7xl lg:max-w-6xl lg:gap-3 items-center px-3 py-5 lg:p-5">
 				{hedstapes?.map((tape) => {
 					return (
 						<div className="mx-2 lg:mx-0.25">
@@ -65,7 +65,7 @@ const Tapes = () => {
 						</div>
 					);
 				})}
-			</div>
+			</div> */}
 		</div>
 	);
 };

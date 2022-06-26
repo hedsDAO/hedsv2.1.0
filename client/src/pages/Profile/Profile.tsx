@@ -3,6 +3,7 @@ import { Dispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import useMoralisHooks from "../../hooks/useMoralis";
 import profileTestImg from "../../../../public/2.png";
+import { Link } from "react-router-dom";
 import TapeCard from "../../common/cards/TapeCard/TapeCard";
 import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 
@@ -18,6 +19,7 @@ function classNames(...classes: any) {
 
 const Profile = () => {
 	const globalTapesData = useSelector((state: RootState) => state.globalTapesModel);
+	const userData = useSelector((state: RootState) => state.userModel);
 	const { hedstapes } = globalTapesData;
 	const { getNFTs, user } = useMoralisHooks();
 	const dispatch = useDispatch<Dispatch>();
@@ -63,20 +65,40 @@ const Profile = () => {
 					</div>
 				</div>
 			)}
-			<div className="flex gap-x-3 w-full lg:max-w-7xl mx-auto mt-2 lg:mt-20 px-5">
-				<div className="flex justify-start uppercase font-thin text-fuchsia-200 tracking-widest text-lg lg:text-xl mb-3 lg:mb-4 w-full">
+			<div className="flex gap-x-3 w-full lg:max-w-4xl mx-auto mt-2 lg:mt-20 px-5 sm:px-0">
+				<div className="flex justify-center uppercase font-thin text-fuchsia-200 tracking-widest text-2xl lg:text-xl mb-3 lg:mb-4 w-full">
 					collection
 				</div>
 			</div>
-			<hr className="w-full mx-auto border-[0.25px] border-fuchsia-900" />
-			<div className="grid grid-cols-2 mx-auto lg:grid-cols-5 lg:max-w-7xl lg:gap-2 items-center px-3 py-5 lg:p-5">
-				{hedstapes?.map((tape) => {
-					return (
-						<div className="mx-2 lg:mx-0.25">
-							<TapeCard tape={tape} />
-						</div>
-					);
-				})}
+			<hr className="w-full max-w-sm mx-auto border-[0.1px] border-fuchsia-900" />
+			<div className="sm:py-10 mx-auto md:mt-0 py-5">
+				<div className="flex max-w-4xl mx-auto justify-center lg:px-2 px-10">
+					{userData &&
+						userData?.userCollection?.map((tape) => (
+							<>
+								{tape?.quantity > 0 && (
+									<div key={tape.name} className="group relative">
+										<Link to={tape.href}>
+											<div className="max-w-[10rem] m-1 bg-gray-200 rounded-sm overflow-hidden group-hover:opacity-75 lg:aspect-none transition-all">
+												<img
+													src={tape.src}
+													className={`w-full h-full object-center object-cover lg:w-full lg:h-full ${
+														tape.quantity === 0 && "grayscale"
+													} group-hover:grayscale-0`}
+												/>
+											</div>
+											<div className="mt-2 flex justify-end">
+												<p className="text-sm font-medium text-neutral-300">
+													<span className="mr-2 text-sm">x</span>
+													{tape.quantity}
+												</p>
+											</div>
+										</Link>
+									</div>
+								)}
+							</>
+						))}
+				</div>
 			</div>
 		</>
 	);
