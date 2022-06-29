@@ -22,6 +22,8 @@ import "../../builds/app/output.css"; // tailwind output
 const App = () => {
 	const dispatch = useDispatch<Dispatch>();
 	useEffect(() => {
+		dispatch?.audioModel?.getAllAudio("heds");
+		dispatch?.audioModel?.getAllTapes(["heds", "hedstape"]);
 		dispatch.globalModel.getGlobalData();
 		dispatch.globalTapesModel.getGlobalTapesData("heds");
 	}, []);

@@ -28,7 +28,6 @@ const Navbar = () => {
 		<>
 			<ConnectModal isShowingConnectModal={isShowingConnectModal} setIsShowingConnectModal={setIsShowingConnectModal} />
 			<div className={`${pathname === "/" && "absolute"} md:hidden z-40 w-screen`}>
-				{/* MOBILE DROPDOWN AND ICONS */}
 				<div className="absolute left-5 top-5 -mb-0.25 md:left-6 md:top-6 z-40">
 					<Link to="/">
 						<img className="w-16 md:hidden hover:contrast-50 transition-all" src={logoImg} />
@@ -37,29 +36,37 @@ const Navbar = () => {
 				<button
 					onClick={() => setIsOpen(true)}
 					className="rounded-md bg-transparent text-gray-400 focus:outline-none border-transparent active:bg-transparent">
-					<MenuIcon className="md:hidden absolute top-4 right-6 h-7 w-7 z-40 mt-1" aria-hidden="true" />
+					<i
+						className="fa-duotone fa-bars-staggered md:hidden absolute top-5 right-6 z-40 text-xl text-fuchsia-500"
+						aria-hidden="true"
+					/>
 				</button>
 			</div>
-			{/* DESKTOP NAV */}
+
 			<div className={`${pathname === "/" && "absolute"} md:inline hidden right-0 z-50 w-screen`}>
-				<ul className="flex justify-between items-center gap-x-8 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-5 py-3">
+				<ul className="flex justify-between items-center gap-x-8 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-5 py-3 -mb-1">
 					<Link to="/">
 						<li className="">
 							<img className="w-16 md:w-20 hover:contrast-50 transition-all -mt-0.5 p-2" src={logoImg} />
 						</li>
 					</Link>
-					<div className="flex items-center justify-center bg-neutral-900 py-1 xl:ml-[1.9%] lg:ml-[2.8%] md:ml-[3.9%] px-1">
+					<div
+						className={`flex items-center justify-center bg-neutral-900 py-1 px-1 ${
+							isAuthenticated ? "xl:-mr-[4.5%] lg:-mr-[5.5%] md:-mr-[6.5%]" : "xl:-mr-[3.3%] lg:-mr-[4.3%] md:-mr-[5.3%]"
+						}`}>
 						{navigation.map((item, i) => (
 							<div key={item.href + i}>
 								{pathname === item.href ? (
 									<Link to={item.href}>
-										<li className="hover:text-white select-none uppercase text-amber-500 bg-black px-5 py-1 text-sm">
+										<li className="hover:text-white tracking-widest select-none uppercase text-amber-500 bg-black px-5 py-1 text-[0.9rem]">
 											{item.name}
 										</li>
 									</Link>
 								) : (
 									<Link to={item.href}>
-										<li className="hover:text-amber-500 select-none uppercase px-5 py-1 text-sm">{item.name}</li>
+										<li className="hover:text-amber-500 tracking-widest select-none uppercase px-5 py-1 text-[0.9rem]">
+											{item.name}
+										</li>
 									</Link>
 								)}
 							</div>
@@ -73,21 +80,7 @@ const Navbar = () => {
 								{isAuthenticated ? user?.attributes?.ethAddress.slice(0, 5) : "connect"}
 							</span>
 						</button>
-						{/* {isAuthenticated && (
-							<button
-								onClick={() => logout()}
-								className="inline-flex items-center justify-center px-3.5 py-1.5 ml-2 hover:bg-neutral-800 bg-neutral-700 text-neutral-200 font-serif rounded-full uppercase transition-all">
-								<i className="fa-regular fa-arrow-up-left-from-circle text-xs -ml-0.25 my-0.25"></i>
-							</button>
-						)} */}
-						{isAuthenticated && (
-							<NavDropdown />
-							// <button
-							// 	onClick={() => logout()}
-							// 	className="inline-flex items-center justify-center px-3.5 py-1.5 ml-2 hover:bg-neutral-800 bg-neutral-700 text-neutral-200 font-serif rounded-full uppercase transition-all">
-							// 	<i className="fa-regular fa-arrow-up-left-from-circle text-xs -ml-0.25 my-0.25"></i>
-							// </button>
-						)}
+						{isAuthenticated && <NavDropdown />}
 					</div>
 				</ul>
 			</div>
@@ -99,11 +92,13 @@ const Navbar = () => {
 					<div className="flex flex-col justify-evenly items-center bg-neutral-950 -p-1 h-full">
 						<div className="lg:mx-auto lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-2 gap-x-4">
 							<div className="flex flex-col items-center justify-center">
-								<img
-									onClick={() => setIsOpen(false)}
-									className="object-fill w-[5rem] h-[5rem] bg-neutral-900 border-fuchsia-900 border-2 p-1 rounded-full lg:ml-auto"
-									src={profileTestImg}
-								/>
+								<Link to="/profile">
+									<img
+										onClick={() => setIsOpen(false)}
+										className="object-fill w-[5rem] h-[5rem] bg-neutral-900 border-fuchsia-900 border-2 p-1 rounded-full lg:ml-auto"
+										src={profileTestImg}
+									/>
+								</Link>
 							</div>
 						</div>
 						<div className="flex justify-center">
@@ -136,13 +131,13 @@ const Navbar = () => {
 								<div key={item.href + i}>
 									{pathname === item.href ? (
 										<Link onClick={() => setIsOpen(false)} to={item.href}>
-											<span className="hover:text-white select-none uppercase text-amber-500 bg-black px-5 py-1 text-sm">
+											<span className="hover:text-white tracking-widest  select-none uppercase text-amber-500 bg-black px-5 py-1 text-sm">
 												{item.name}
 											</span>
 										</Link>
 									) : (
 										<Link onClick={() => setIsOpen(false)} to={item.href}>
-											<span className="hover:text-amber-500 text-neutral-400 select-none uppercase px-5 py-1 text-sm">
+											<span className="hover:text-amber-500 tracking-widest  text-neutral-400 select-none uppercase px-5 py-1 text-sm">
 												{item.name}
 											</span>
 										</Link>

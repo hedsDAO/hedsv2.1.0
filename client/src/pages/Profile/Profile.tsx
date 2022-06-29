@@ -4,23 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import useMoralisHooks from "../../hooks/useMoralis";
 import profileTestImg from "../../../../public/2.png";
 import { Link } from "react-router-dom";
-import TapeCard from "../../common/cards/TapeCard/TapeCard";
-import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
-
-const stats = [
-	{ name: "Total Subscribers", stat: "71,897", previousStat: "70,946", change: "12%", changeType: "increase" },
-	{ name: "Avg. Open Rate", stat: "58.16%", previousStat: "56.14%", change: "2.02%", changeType: "increase" },
-	{ name: "Avg. Click Rate", stat: "24.57%", previousStat: "28.62%", change: "4.05%", changeType: "decrease" },
-];
-
-function classNames(...classes: any) {
-	return classes.filter(Boolean).join(" ");
-}
+import GhostLoader from "../../common/wrappers/GhostLoader/GhostLoader";
 
 const Profile = () => {
 	const globalTapesData = useSelector((state: RootState) => state.globalTapesModel);
 	const userData = useSelector((state: RootState) => state.userModel);
-	const { hedstapes } = globalTapesData;
 	const { getNFTs, user } = useMoralisHooks();
 	const dispatch = useDispatch<Dispatch>();
 
@@ -32,11 +20,11 @@ const Profile = () => {
 	}, [user]);
 
 	return (
-		<>
+		<GhostLoader>
 			{user && (
 				<div className="bg-gradient-to-t from-fuchsia-900 to-neutral-900 lg:pb-0 lg:z-10 lg:relative py-3 lg:py-5 lg:mt-20 mt-10">
 					<div className="lg:mx-auto lg:max-w-7xl lg:px-6 lg:grid lg:grid-cols-2 gap-x-4">
-						<div className="flex flex-col items-center justify-baseline -my-10 px-2 lg:py-2 py-1">
+						<div className="flex flex-col items-center justify-baseline -my-5 lg:-my-10 px-2 lg:py-2 py-1">
 							<img
 								className="object-fill w-[13rem] h-[13rem] bg-neutral-900 border-fuchsia-900 border-2 p-1 rounded-full lg:ml-auto"
 								src={profileTestImg}
@@ -55,9 +43,23 @@ const Profile = () => {
 											{!user?.attributes?.catalogHandle && <i className="fak fa-catalog"></i>}
 										</div>
 									</div>
-									<div className="lg:py-1.5 py-3 lg:px-0 px-20 rounded-lg text-neutral-300 mt-1 text-[0.9em] lg:text-left tracking-wider text-center lg:max-w-xs mb-3 lg:mx-1.5">
+									<div className="lg:py-1.5 py-3 lg:px-0 px-20 rounded-lg text-neutral-300 mt-1 text-[0.8em] lg:text-left tracking-wider text-center lg:max-w-xs mb-3 lg:mx-1.5">
 										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
 										et dolore magna aliqua.
+									</div>
+									<div className="w-full flex justify-end gap-x-2 max-w-7xl px-5">
+										<div>
+											<i className="fa-solid fa-circle text-green-500"></i>
+										</div>
+										<div>
+											<i className="fa-solid fa-circle text-red-500"></i>
+										</div>
+										<div>
+											<i className="fa-solid fa-circle text-amber-500"></i>
+										</div>
+										<div>
+											<i className="fa-solid fa-circle text-cyan-500"></i>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -100,7 +102,7 @@ const Profile = () => {
 						))}
 				</div>
 			</div>
-		</>
+		</GhostLoader>
 	);
 };
 

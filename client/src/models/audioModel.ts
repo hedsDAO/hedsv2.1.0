@@ -23,31 +23,47 @@ interface TapeMetadata {
 }
 
 interface AudioState {
-	audio: {
-		track: [TrackMetadata];
-		tape: TapeMetadata;
-		space: "";
-	};
+	allTapes: Array<TapeData>;
+	allAudio?: [[TrackMetadata]];
 }
 
 export const audioModel = createModel<RootModel>()({
-	state: {} as AudioState,
+	state: {
+		allTapes: [],
+		allAudio: [[{}]],
+	} as AudioState,
 	reducers: {
-		setAudio: (state, payload: AudioState) => payload || state,
+		setAudio: (state, payload) => state || payload,
+		setAllAudio: (state, allAudio: any) => ({ ...state, allAudio }),
+		setAllTapes: (state, allTapes: [TapeData]) => ({ ...state, allTapes }),
 	},
 	effects: () => ({
 		async getAudioData([{ space, tape, id }, tapeData]: [MediaQueryParams, TapeData | void]) {
 			const docRef = doc(db, "audio", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				console.log(tapeData, 'help')
-				this.setAudio({
-					audio: {
-						track: docSnap.data()?.[tape]?.[id],
-						tape: { name: tapeData?.name, tape, id, tape_img: tapeData?.image },
-						space: space || "heds",
-					},
-				});
+				const audio = {
+					track: docSnap.data()?.[tape]?.[id],
+					tape: { name: tapeData?.name, tape, id, tape_img: tapeData?.image },
+					space: space || "heds",
+				};
+				this.setAudio(audio);
+			}
+		},
+		async getAllAudio(space: string) {
+			const docRef = doc(db, "audio", space || "heds");
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				console.log(docSnap.data(), "data");
+				this.setAllAudio(Object.values(docSnap.data().hedstape));
+			}
+		},
+		async getAllTapes([space, tape]: [string | void, string]) {
+			const docRef = doc(db, "spaces", space || "heds");
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const tapesWithAudio = docSnap.data()?.hedstapes.filter((el: TapeData) => el.status > 8);
+				this.setAllTapes(tapesWithAudio);
 			}
 		},
 	}),

@@ -27,7 +27,7 @@ const formatTimestamp = (time: any) => {
 	return fullTime;
 };
 
-const SampleWaveform = ({ url, selectedTrack, globalTapeData }) => {
+const SampleWaveform = ({ url, globalTapeData }) => {
 	const waveformRef = useRef(null);
 	const wavesurfer = useRef(null);
 	const videoRef = useRef(null);
@@ -66,7 +66,7 @@ const SampleWaveform = ({ url, selectedTrack, globalTapeData }) => {
 			videoRef.current?.load(url);
 			wavesurfer.current.destroy();
 		};
-	}, [selectedTrack, url]);
+	}, [url]);
 
 	const handlePlayPause = () => {
 		setIsFirstLoad(false);
@@ -134,7 +134,7 @@ const SampleWaveform = ({ url, selectedTrack, globalTapeData }) => {
 				poster={globalTapeData.image}
 				type="video/mp4"
 				id="full-screenVideo"
-				key={selectedTrack}
+				key={url}
 				ref={videoRef}
 				playsInline
 				className={`z-20 relative mx-auto w-full h-full ${

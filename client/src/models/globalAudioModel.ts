@@ -1,5 +1,6 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
+import { TapeData } from "./globalTapesModel";
 
 interface TrackMetadata {
 	no?: string;
@@ -20,9 +21,10 @@ interface TapeMetadata {
 
 interface TrackDetails {
 	track: TrackMetadata;
-	tape: TapeMetadata;
+	tape: TapeData;
 	space?: string;
 }
+
 
 interface GlobalAudioState {
 	isPlaying?: boolean;
@@ -30,6 +32,8 @@ interface GlobalAudioState {
 	trackDetails?: TrackDetails;
 	queue?: [TrackDetails];
 	isOpen: boolean;
+	duration: [string, number];
+	currentTime: [string, number];
 }
 
 export const globalAudioModel = createModel<RootModel>()({
@@ -42,6 +46,8 @@ export const globalAudioModel = createModel<RootModel>()({
 		setGlobalTrack: (state, payload: GlobalAudioState) => ({ ...state, payload }),
 		setIsPlaying: (state, isPlaying: boolean) => ({ ...state, isPlaying }),
 		setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
+		setDuration: (state, duration: [string, number]) => ({ ...state, duration }),
+		setCurrentTime: (state, currentTime: [string, number]) => ({ ...state, currentTime }),
 		setIsOpen: (state, isOpen: boolean) => ({ ...state, isOpen }),
 	},
 	effects: () => ({

@@ -1,17 +1,18 @@
-import { TapeStatus } from "./common";
+import { TapeStatus } from "../models/common";
 
 const steps = [
+
 	{
 		name: "SUBMIT",
-        icon: 'fa-regular fa-waveform',
+        icon: 'fa-solid fa-upload',
 		key: "1",
-		description: "Download the sample and submit your flip for a chance to be on the tape.",
+		description: "Submit your flip of the sample for a chance to be on the tape.",
 		href: "#",
 		status: "upcoming",
 	},
 	{
 		name: "VOTE",
-        icon: 'fa-regular fa-box-ballot',
+        icon: 'fa-solid fa-box-ballot',
 		key: "2",
 		description: "Public submissions are posted anonymously and voted on by tape owners.",
 		href: "#",

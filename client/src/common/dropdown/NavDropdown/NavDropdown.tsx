@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { useMoralis } from "react-moralis";
 import { CogIcon } from "@heroicons/react/solid";
 
 function classNames(...classes: any) {
@@ -7,6 +8,7 @@ function classNames(...classes: any) {
 }
 
 const NavDropdown = () => {
+	const {logout} = useMoralis()
 	return (
 		<Menu as="div" className="relative inline-block text-left">
 			<div>
@@ -22,14 +24,14 @@ const NavDropdown = () => {
 				leave="transition ease-in duration-75"
 				leaveFrom="transform opacity-100 scale-100"
 				leaveTo="transform opacity-0 scale-95">
-				<Menu.Items className="origin-top-right absolute right-0 mt-3 w-40 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+				<Menu.Items className="origin-top-right absolute right-0 mt-3 w-40 rounded-lg shadow-lg bg-neutral-950 ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
 					<div className="py-1">
 						<Menu.Item>
 							{({ active }) => (
 								<a
 									href="#"
 									className={classNames(
-										active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+										active ? "bg-gray-100 text-neutral-300" : "text-neutral-400",
 										"block px-4 py-2 text-sm"
 									)}>
 									settings
@@ -51,7 +53,7 @@ const NavDropdown = () => {
                         <Menu.Item>
 							{({ active }) => (
 								<a
-									href="#"
+									onClick={() => logout()}
 									className={classNames(
 										active ? "bg-gray-100 text-gray-900" : "text-gray-700",
 										"block px-4 py-2 text-sm"

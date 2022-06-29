@@ -147,6 +147,19 @@ body {
   animation: colorchange-3 30s infinite alternate;
 }
 
+.fadeOut-loading {
+  animation-delay: 2s;
+  -webkit-animation-delay: 2s;
+  -webkit-animation: fadeOut 0.5s ease-in-out;
+  animation: fadeOut 0.5s ease-in-out;
+}
+
+.imageRounding {
+  animation: imageRounding 0.5s ease-in-out;
+  -webkit-animation: imageRounding 0.5s ease-in-out;
+  border-radius: 100%;
+}
+
 @keyframes colorchange-3 {
   0% {
     background: #212f51;
@@ -166,5 +179,41 @@ body {
 
   100% {
     background: #263549;
+  }
+}
+
+@keyframes imageRounding {
+  0% {
+    border-radius: 5px
+  }
+  25% {
+    border-radius: 25px
+  }
+  50% {
+    border-radius: 50px
+  }
+  75% {
+    border-radius: 75px
+  }
+  100% {
+    border-radius: 100px
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 100%;
+  }
+  25% {
+    opacity: 75%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  75% {
+    opacity: 25%;
+  }
+  100% {
+    opacity: 0%;
   }
 }
