@@ -5,30 +5,33 @@ import { db } from "../index";
 
 export const landingModel = createModel<RootModel>()({
 	state: {
-		discord_link: "https://discord.com/invite/YPuAbCcDtg",
-		header_video: "",
-		title: "",
-		title_link: "",
-		twitter_link: "https://twitter.com/hedsDAO",
-		spotlight: {
-			tape_description: "",
-			tape_header: "",
-			tape_img: "",
-			tape_link: ""
-		}
+		textBlock: {
+			tapeName: "",
+			tapeTag: "",
+			artistName: "",
+			artistTag: "",
+		},
+		media: {
+			lg: "",
+			md: "",
+			sm: "",
+		},
+		linkButton: {
+			link: "",
+			text: "",
+		},
 	} as DocumentData,
 	reducers: {
-		setLandingData: (state, payload: DocumentData) => (payload || state)
+		setLandingData: (state, payload: DocumentData) => payload || state,
 	},
 	effects: () => ({
 		async getLandingData() {
-			const docRef = doc(db, "landing", "v2");
+			const docRef = doc(db, "landing", "2.1.0");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				// console.log(docSnap.data(), dispatch)
+				console.log(docSnap.data(), "test");
 				this.setLandingData(docSnap.data());
-				console.log(docSnap.data(), 'landing data')
 			}
-		}
-	})
+		},
+	}),
 });
