@@ -24,8 +24,8 @@ const TapeArtists = (tapeData: TapeState) => {
 		<Fragment>
 			{tapeData?.tracks?.length && (
 				<div className="col-span-12 lg:col-span-9 bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg mt-5 lg:mt-0">
-					<div className="flex flex-col gap-6 p-2">
-						<div className="grid grid-cols-10 gap-2">
+					<div className="flex flex-col lg:gap-6 lg:p-2 p-4">
+						<div className="grid grid-cols-10 lg:gap-2 gap-2 gap-y-3">
 							{tapeData.tracks.map((track: TrackMetadata, i: number) => {
 								return (
 									<div key={track?.artist_img} className="xl:col-span-2 col-span-5 rounded-sm">
@@ -65,10 +65,10 @@ const TapeArtists = (tapeData: TapeState) => {
 																? "animate-pulse"
 																: audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
 																  !audioData?.isLoading
-																? "imageRounding opacity-50 absolute z-50 -mb-32"
-																: "group-hover:opacity-50"
+																? "imageRounding opacity-50 absolute z-50 -mb-32 transition-all"
+																: "group-hover:opacity-50 transition-all"
 														}
-														 w-52 h-52 mx-auto p-0.5 transition-all rounded-lg`}
+														min-w-[13rem] min-h-[13rem] max-w-[13rem] max-h-[13rem] mx-auto p-0.5 transition-all rounded-lg`}
 													/>
 													{!audioData?.isPlaying &&
 														audioData?.tracks?.[currentTrack]?.artist !== track?.artist && (

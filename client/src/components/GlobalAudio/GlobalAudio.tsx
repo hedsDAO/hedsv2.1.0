@@ -50,9 +50,15 @@ const GlobalAudio = () => {
 	return (
 		<Fragment>
 			{playerSize !== HIDDEN && (
-				<div className={` ${playerSize > SMALL && "bg-neutral-950"} bottom-0 fixed z-50 w-screen grid grid-cols-12 transition-all`}>
+				<div
+					className={`${
+						playerSize === SMALL ? "grid grid-cols-2 max-w-sm bg-transparent ease-linear animate__animated animate__fadeIn" : "bg-neutral-950 w-screen grid grid-cols-12"
+					} bottom-0 fixed z-50 transition-all`}>
 					{wavesurfer?.current && <LeftAudioControls {...wavesurfer} />}
-					<div className={"col-span-10 w-full inline-flex items-center justify-center"}>
+					<div
+						className={`inline-flex items-center justify-center ${
+							playerSize === SMALL ? "relative -bottom-96 col-span-0" : "col-span-10"
+						}`}>
 						<div
 							className={
 								playerSize === SMALL
@@ -64,7 +70,7 @@ const GlobalAudio = () => {
 							<div
 								className={
 									playerSize === SMALL
-										? "col-span-10 lg:col-span-3 flex items-center justify-start mr-auto lg:justify-start lg:ml-10 xl:-ml-24 lg:px-3 px-8"
+										? "hidden"
 										: playerSize === MEDIUM
 										? "col-span-10 lg:col-span-3 flex items-center px-8 sm:px-5 lg:px-0 justify-start lg:justify-center"
 										: "col-span-10 lg:col-span-4 flex items-center px-8 sm:px-5 lg:px-0 justify-start"
@@ -74,18 +80,22 @@ const GlobalAudio = () => {
 									ref={videoRef}
 									src={audioData?.tracks?.[currentTrack]?.video}
 									className={
-										playerSize === LARGE
-											? "h-full w-full xl:max-h-[20rem] xl:max-w-[20rem]  max-h-[10rem] max-w-[10rem] object-fill rounded-lg animate__animated animate__fadeInUp"
-											: "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[6rem] max-w-[6rem] object-fill rounded-lg animate__animated animate__fadeInUp"
+										playerSize === SMALL
+											? "hidden"
+											: playerSize === MEDIUM
+											? "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[6rem] max-w-[6rem] object-fill rounded-lg animate__animated animate__fadeInUp"
+											: "h-full w-full xl:max-h-[20rem] xl:max-w-[20rem]  max-h-[10rem] max-w-[10rem] object-fill rounded-lg animate__animated animate__fadeInUp"
 									}
 								/>
 								{!audioData?.isLoading && <TrackDetails {...{ audioData, currentTape, currentTrack }} />}
 							</div>
 							<div
 								className={
-									playerSize === LARGE
-										? "lg:h-96 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
-										: "lg:h-52 lg:col-span-9 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+									playerSize === SMALL
+										? "hidden"
+										: playerSize === MEDIUM
+										? "lg:h-52 lg:col-span-9 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+										: "lg:h-80 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 								}>
 								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400">
 									{audioData?.currentTime && playerSize > SMALL && audioData?.currentTime[0]}
@@ -105,7 +115,7 @@ const GlobalAudio = () => {
 							</div>
 						</div>
 					</div>
-					<RightAudioControls {...wavesurfer} />
+					{audioData?.playerSize !== SMALL && <RightAudioControls {...wavesurfer} />}
 				</div>
 			)}
 		</Fragment>
