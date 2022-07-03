@@ -1,0 +1,28 @@
+export enum TapeStatus {
+	PENDING = 0,
+	SAMPLE_CLOSE,
+	SAMPLE_OPEN,
+	SUBMIT_OPEN,
+	SUBMIT_CLOSE,
+	VOTE_OPEN,
+	VOTE_CLOSE,
+	MINT_OPEN,
+	MINT_CLOSE,
+}
+
+export enum PlayerSize {
+	HIDDEN = 0,
+	SMALL,
+	MEDIUM,
+	LARGE,
+}
+
+export interface TrackMetadata {
+	no: string;
+	audio: string;
+	video: string;
+	artist: string;
+	artist_img: string;
+	wallet: string;
+	social: string;
+}

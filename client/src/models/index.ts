@@ -1,8 +1,16 @@
 import { Models } from "@rematch/core";
 import { landingModel } from "./landingModel";
+import { spaceModel } from "./spaceModel";
+import { globalModel } from "./globalModel";
+import { audioModel } from "./audioModel";
+import { tapeModel } from "./tapeModel";
 
 export interface RootModel extends Models<RootModel> {
+	spaceModel: typeof spaceModel;
+	globalModel: typeof globalModel;
 	landingModel: typeof landingModel;
+	audioModel: typeof audioModel;
+	tapeModel: typeof tapeModel;
 }
 
-export const models: RootModel = { landingModel };
+export const models: RootModel = { spaceModel, landingModel, globalModel, audioModel, tapeModel };

@@ -1,10 +1,10 @@
 import React, { useEffect, Fragment } from "react";
 import { Dispatch, RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
-import TextBlock from "../../common/container/TextBlock/TextBlock";
-import VideoContainer from "../../common/container/VideoContainer/VideoContainer";
-import LandingHead from "../../components/LandingHead/LandingHead";
+import TextBlock from "../../components/Landing/TextBlock/TextBlock";
 import LinkButton from "../../common/button/LinkButton/LinkButton";
+import LandingHead from "../../components/Landing/LandingHead/LandingHead";
+import VideoContainer from "../../components/Landing/VideoContainer/VideoContainer";
 
 const Landing = () => {
 	const dispatch = useDispatch<Dispatch>();
@@ -25,7 +25,9 @@ const Landing = () => {
 						/>
 						<div className="flex justify-end lg:justify-start items-center md:w-auto mt-8">
 							<div className="flex flex-col items-start gap-y-2">
-								<LinkButton link={landingData?.linkButton?.link}>{landingData?.linkButton?.text}</LinkButton>
+								<LinkButton bg={"bg-neutral-900"} link={landingData?.linkButton?.link}>
+									{landingData?.linkButton?.text}
+								</LinkButton>
 							</div>
 						</div>
 					</div>

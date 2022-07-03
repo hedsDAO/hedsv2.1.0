@@ -6,6 +6,9 @@ module.exports = {
       serif: ['DM Mono', 'monospace']
     },
     extend: {
+      gridTemplateColumns: {
+        24: 'repeat(24, minmax(0, 1fr))',
+      },
       height: {
         0.25: '0.075rem'
       },

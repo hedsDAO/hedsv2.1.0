@@ -1,0 +1,115 @@
+import React, { useEffect, useRef, Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, Dispatch } from "../../store";
+import WaveSurfer from "wavesurfer.js";
+import { formWaveSurferOptions } from "../../utils/formWavesurferOptions";
+import { formatTime } from "../../utils/formatTime";
+import { PlayerSize, TrackMetadata } from "../../models/common";
+import LeftAudioControls from "./LeftAudioControls/LeftAudioControls";
+import RightAudioControls from "./RightAudioControls/RightAudioControls";
+import TrackDetails from "./TrackDetails/TrackDetails";
+
+const GlobalAudio = () => {
+	const { LARGE, MEDIUM, SMALL, HIDDEN } = PlayerSize;
+	const dispatch = useDispatch<Dispatch>();
+	const audioData = useSelector((state: RootState) => state.audioModel);
+	const playerSize = useSelector((state: RootState) => state.audioModel?.playerSize);
+	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
+	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
+	const currentTape: number = Math.floor(currentTrack / 10 + 1);
+	const videoRef = useRef<HTMLVideoElement | null>(null);
+	const waveformRef = useRef<HTMLDivElement | null>(null);
+	const wavesurfer = useRef<WaveSurfer | null>();
+	useEffect(() => {
+		var options;
+		if (!audioData?.tapes?.length) dispatch.audioModel.getTapeData();
+		if (!audioData?.tracks?.length) dispatch.audioModel.getTrackData();
+		dispatch.audioModel.setPlayerSize(MEDIUM);
+		dispatch.audioModel.setIsLoading(true);
+		dispatch.audioModel.setIsPlaying(false);
+		if (waveformRef.current) options = formWaveSurferOptions(waveformRef.current);
+		if (options) wavesurfer.current = WaveSurfer.create(options);
+		if (videoRef.current) wavesurfer?.current?.load(videoRef.current);
+		wavesurfer?.current?.on("audioprocess", (res: number) => dispatch.audioModel.setCurrentTime([formatTime(res), res]));
+		wavesurfer?.current?.on("ready", () => {
+			dispatch.audioModel.setDuration([formatTime(wavesurfer?.current?.getDuration()), wavesurfer?.current?.getDuration()]);
+			wavesurfer?.current?.setVolume(1);
+			dispatch.audioModel.setVolume(1);
+		});
+		wavesurfer?.current?.on("waveform-ready", () => {
+			dispatch.audioModel.setIsLoading(false);
+			dispatch.audioModel.setIsPlaying(true);
+			wavesurfer?.current?.playPause();
+		});
+		wavesurfer?.current?.on("finish", function () {
+			if (currentTrack === tracks?.length - 1) dispatch.audioModel.setCurrentTrack(0);
+			if (tracks?.[currentTrack + 1]) dispatch.audioModel.setCurrentTrack(currentTrack + 1);
+		});
+		return () => wavesurfer?.current?.destroy();
+	}, [audioData?.currentTrack]);
+	return (
+		<Fragment>
+			{playerSize !== HIDDEN && (
+				<div className={` ${playerSize > SMALL && "bg-neutral-950"} bottom-0 fixed z-50 w-screen grid grid-cols-12 transition-all`}>
+					{wavesurfer?.current && <LeftAudioControls {...wavesurfer} />}
+					<div className={"col-span-10 w-full inline-flex items-center justify-center"}>
+						<div
+							className={
+								playerSize === SMALL
+									? "hidden"
+									: playerSize === MEDIUM
+									? "grid grid-cols-12 items-center min-w-full relative z-50"
+									: "grid grid-cols-12 min-w-full relative z-50 items-center my-5"
+							}>
+							<div
+								className={
+									playerSize === SMALL
+										? "col-span-10 lg:col-span-3 flex items-center justify-start mr-auto lg:justify-start lg:ml-10 xl:-ml-24 lg:px-3 px-8"
+										: playerSize === MEDIUM
+										? "col-span-10 lg:col-span-3 flex items-center px-8 sm:px-5 lg:px-0 justify-start lg:justify-center"
+										: "col-span-10 lg:col-span-4 flex items-center px-8 sm:px-5 lg:px-0 justify-start"
+								}>
+								<video
+									key={audioData?.tracks?.[currentTrack]?.video}
+									ref={videoRef}
+									src={audioData?.tracks?.[currentTrack]?.video}
+									className={
+										playerSize === LARGE
+											? "h-full w-full xl:max-h-[20rem] xl:max-w-[20rem]  max-h-[10rem] max-w-[10rem] object-fill rounded-lg animate__animated animate__fadeInUp"
+											: "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[6rem] max-w-[6rem] object-fill rounded-lg animate__animated animate__fadeInUp"
+									}
+								/>
+								{!audioData?.isLoading && <TrackDetails {...{ audioData, currentTape, currentTrack }} />}
+							</div>
+							<div
+								className={
+									playerSize === LARGE
+										? "lg:h-96 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+										: "lg:h-52 lg:col-span-9 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+								}>
+								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400">
+									{audioData?.currentTime && playerSize > SMALL && audioData?.currentTime[0]}
+								</span>
+								<div
+									id="waveform"
+									className={
+										playerSize === SMALL
+											? "flex-shrink-0 flex-grow-0 w-[0px]"
+											: "flex-shrink-0 flex-grow-0 lg:w-full w-[0px] lg:px-10"
+									}
+									ref={waveformRef}
+								/>
+								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-600">
+									{audioData?.duration && playerSize > SMALL && audioData?.duration[0]}
+								</span>
+							</div>
+						</div>
+					</div>
+					<RightAudioControls {...wavesurfer} />
+				</div>
+			)}
+		</Fragment>
+	);
+};
+
+export default GlobalAudio;

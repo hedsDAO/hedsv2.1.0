@@ -6,6 +6,7 @@ import "regenerator-runtime/runtime.js";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { MoralisProvider } from "react-moralis";
+import AudioWrapper from "./common/wrapper/AudioWrapper/AudioWrapper";
 import snapshot from "@snapshot-labs/snapshot.js";
 import App from "./App";
 // snapshot client
@@ -32,9 +33,11 @@ export const storage = getStorage(app, "gs://heds-34ac0.appspot.com");
 ReactDOM.render(
 	<MoralisProvider serverUrl="https://qmwf2weydi0m.usemoralis.com:2053/server" appId="KiB7e8lPCvDMU9VkOf2uM7d8Dt7DowQGR272Wkxd">
 		<Provider store={store}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
+			<AudioWrapper>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</AudioWrapper>
 		</Provider>
 	</MoralisProvider>,
 	document.getElementById("root")
