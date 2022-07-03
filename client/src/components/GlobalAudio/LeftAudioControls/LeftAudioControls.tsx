@@ -15,8 +15,12 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 		<div className={`inline-flex justify-center items-center px-2`}>
 			<div
 				className={`${
-					audioData?.playerSize === PlayerSize.LARGE ? "h-96" : "h-52"
-				} bottom-0 relative flex flex-col items-center justify-between text-center mr-auto py-2 lg:py-3 px-3`}>
+					audioData?.playerSize === PlayerSize.LARGE
+						? "h-96 bottom-0 relative flex flex-col items-center justify-between text-center lg:mr-auto py-2 px-3"
+						: audioData?.playerSize === PlayerSize.MEDIUM
+						? "h-52 bottom-0 relative flex flex-col items-center justify-between text-center lg:mr-auto py-2 px-3"
+						: "h-52 bottom-0 relative flex flex-col items-center justify-between text-center -ml-1.5 lg:-ml-0 lg:mr-auto py-2 px-3"
+				}`}>
 				<button
 					disabled={audioData?.isLoading}
 					onClick={() => {

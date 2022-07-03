@@ -65,10 +65,13 @@ const TapeArtists = (tapeData: TapeState) => {
 																? "animate-pulse"
 																: audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
 																  !audioData?.isLoading
-																? "imageRounding opacity-50 absolute z-50 -mb-32 transition-all"
+																? "imageRounding opacity-50 relative z-10 lg:absolute lg:z-50 lg:-mb-32 transition-all"
 																: "group-hover:opacity-50 transition-all"
 														}
-														min-w-[13rem] min-h-[13rem] max-w-[13rem] max-h-[13rem] mx-auto p-0.5 transition-all rounded-lg`}
+														h-full w-full
+														lg:min-w-[13rem] 
+														lg:min-h-[13rem] lg:max-w-[13rem] lg:max-h-[13rem] mx-auto p-0.5 transition-all 
+														rounded-lg`}
 													/>
 													{!audioData?.isPlaying &&
 														audioData?.tracks?.[currentTrack]?.artist !== track?.artist && (
