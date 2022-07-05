@@ -17,6 +17,7 @@ const Listen = () => {
 		dispatch.spaceModel.getSpaceData();
 		dispatch.audioModel.getTrackData();
 		dispatch.audioModel.getTapeData();
+		dispatch.audioModel.getSamples();
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, []);
 	return (

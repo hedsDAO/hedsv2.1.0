@@ -13,6 +13,7 @@ export interface TapeData {
 		wallet: string;
 	};
 	tape: {
+		id: number;
 		no: string;
 		image: string;
 		name: string;

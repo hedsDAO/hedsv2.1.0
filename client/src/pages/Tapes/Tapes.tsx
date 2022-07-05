@@ -29,11 +29,11 @@ const Tapes = () => {
 						<hr className="max-w-6xl mx-auto border-[0.25px] border-neutral-700" />
 						<div className="max-w-6xl mx-auto py-5">
 							<div className="mx-auto">
-								<ul role="list" className="grid grid-cols-2 gap-x-2 gap-y-2 sm:grid-cols-2 lg:grid-cols-3 lg:px-0 px-2">
+								<ul role="list" className="grid grid-cols-2 gap-x-2 gap-y-2 sm:grid-cols-2 lg:grid-cols-4 lg:px-0 px-2">
 									{hedsTapes?.map((tape) => {
 										return (
 											<li key={tape?.links?.route} className="relative">
-												<div className="group w-full block aspect-w-10 aspect-h-7 rounded-sm bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+												<div className="group w-full block aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
 													<img
 														src={tape?.tape?.image}
 														alt=""

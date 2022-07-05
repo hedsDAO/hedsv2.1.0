@@ -26,3 +26,12 @@ export interface TrackMetadata {
 	wallet: string;
 	social: string;
 }
+
+export interface SampleData {
+	artist: string;
+	audio: string;
+	video: string;
+	bpm: string;
+	image: string;
+	wallet: string;
+}

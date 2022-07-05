@@ -13,13 +13,12 @@ const TapeArtists = (tapeData: TapeState) => {
 	const { id } = useParams<{ id: string }>();
 	const audioData = useSelector((state: RootState) => state.audioModel);
 	const currentTrack: number = audioData?.currentTrack;
-	const currentTape: number = Math.floor(audioData?.currentTrack / 10 + 1);
+
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;
 		dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 		dispatch.audioModel.setCurrentTrack(currentTrack);
 	};
-	console.log(currentTape, currentTrack % 10);
 	return (
 		<Fragment>
 			{tapeData?.tracks?.length && (
@@ -58,15 +57,15 @@ const TapeArtists = (tapeData: TapeState) => {
 														)}
 													<img
 														src={track?.artist_img}
-														className={`
+														className={`animate__animated animate__fadeIn
 														${
 															audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
 															audioData?.isLoading
-																? "animate-pulse"
+																? "imageRounding relative z-10 lg:z-50 animate-pulse"
 																: audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
 																  !audioData?.isLoading
-																? "imageRounding opacity-50 relative z-10 lg:absolute lg:z-50 lg:-mb-32 transition-all"
-																: "group-hover:opacity-50 transition-all"
+																? "rounded-full opacity-50 relative z-10 lg:absolute lg:z-50 lg:-mb-32"
+																: "rounded-sm opacity-50 relative z-10 lg:z-50"
 														}
 														h-full w-full
 														lg:min-w-[13rem] 
