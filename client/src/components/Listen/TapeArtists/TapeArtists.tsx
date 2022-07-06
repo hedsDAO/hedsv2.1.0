@@ -22,70 +22,69 @@ const TapeArtists = (tapeData: TapeState) => {
 	return (
 		<Fragment>
 			{tapeData?.tracks?.length && (
-				<div className="col-span-12 lg:col-span-9 bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg mt-5 lg:mt-0">
-					<div className="flex flex-col lg:gap-6 lg:p-2 p-4">
-						<div className="grid grid-cols-10 lg:gap-2 gap-2 gap-y-3">
-							{tapeData.tracks.map((track: TrackMetadata, i: number) => {
-								return (
-									<div key={track?.artist_img} className="xl:col-span-2 col-span-5 rounded-sm">
-										<div className="w-full h-full mx-auto rounded-full">
-											<button
-												disabled={audioData?.isLoading}
-												onClick={() => playTrack(i)}
-												key={track?.artist_img}
-												className="flex justify-center items-center group">
-												<Fragment>
-													{audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
-														!audioData?.isLoading &&
-														audioData?.duration &&
-														audioData?.currentTime && (
-															<CircularProgressbar
-																styles={buildStyles({
-																	rotation: 0.25,
-																	strokeLinecap: "butt",
-																	textSize: "16px",
-																	pathTransitionDuration: 0.5,
-																	textColor: "#f88",
-																	pathColor: `rgba(192, 37, 211, ${
-																		(audioData?.currentTime[1] / audioData?.duration[1]) * 100
-																	})`,
-																	trailColor: "#232323",
-																})}
-																strokeWidth={3}
-																value={(audioData?.currentTime[1] / audioData?.duration[1]) * 100}
-															/>
-														)}
-													<img
-														src={track?.artist_img}
-														className={`animate__animated animate__fadeIn
+				<div className="col-span-12 lg:col-span-9 bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg py-8">
+					<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center items-center gap-y-6">
+						{tapeData.tracks.map((track: TrackMetadata, i: number) => {
+							return (
+								<div key={track?.artist_img} className="col-span-1 rounded-sm">
+									<button
+										disabled={audioData?.isLoading}
+										onClick={() => playTrack(i)}
+										key={track?.artist_img}
+										className="flex justify-center items-center group">
+										<Fragment>
+											{audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
+												!audioData?.isLoading &&
+												audioData?.duration &&
+												audioData?.currentTime && (
+													<div className="h-32 w-32 absolute z-50">
+														<CircularProgressbar
+															styles={buildStyles({
+																rotation: 0.25,
+																strokeLinecap: "butt",
+																textSize: "16px",
+																pathTransitionDuration: 0.5,
+																textColor: "#f88",
+																pathColor: `rgba(192, 37, 211, ${
+																	(audioData?.currentTime[1] / audioData?.duration[1]) * 100
+																})`,
+																trailColor: "#232323",
+															})}
+															strokeWidth={3}
+															value={(audioData?.currentTime[1] / audioData?.duration[1]) * 100}
+														/>
+													</div>
+												)}
+											<span className="h-32 w-32 inline-block relative">
+												<img
+													src={track?.artist_img}
+													className={`rounded-full relative z-10 lg:z-50 h-full w-full
 														${
 															audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
 															audioData?.isLoading
-																? "imageRounding relative z-10 lg:z-50 animate-pulse"
+																? "animate-pulse"
 																: audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
 																  !audioData?.isLoading
-																? "rounded-full opacity-50 relative z-10 lg:absolute lg:z-50 lg:-mb-32"
-																: "rounded-sm opacity-50 relative z-10 lg:z-50"
-														}
-														h-full w-full
-														lg:min-w-[13rem] 
-														lg:min-h-[13rem] lg:max-w-[13rem] lg:max-h-[13rem] mx-auto p-0.5 transition-all 
-														rounded-lg`}
-													/>
-													{!audioData?.isPlaying &&
-														audioData?.tracks?.[currentTrack]?.artist !== track?.artist && (
-															<PlayIcon
-																className="h-6 w-6 text-center text-neutral-200 absolute hidden group-hover:inline z-40 transition-all"
-																aria-hidden="true"
-															/>
-														)}
-												</Fragment>
-											</button>
-										</div>
+																? "opacity-50 lg:z-50"
+																: "opacity-100"
+														}`}
+												/>
+											</span>
+											{!audioData?.isPlaying && audioData?.tracks?.[currentTrack]?.artist !== track?.artist && (
+												<PlayIcon
+													className="h-6 w-6 text-center text-neutral-200 absolute hidden group-hover:inline z-40 transition-all"
+													aria-hidden="true"
+												/>
+											)}
+										</Fragment>
+									</button>
+									<div className="flex flex-col items-center justify-center mx-auto mt-4 text-center font-thin">
+										<span className="text-center mx-auto text-neutral-500">#{track?.no}</span>
+										<span className="text-center mx-auto text-neutral-400">{track?.artist}</span>
 									</div>
-								);
-							})}
-						</div>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			)}

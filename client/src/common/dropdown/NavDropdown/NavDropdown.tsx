@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { useMoralis } from "react-moralis";
-import { CogIcon } from "@heroicons/react/solid";
+import { DotsHorizontalIcon } from "@heroicons/react/solid";
 
 function classNames(...classes: any) {
 	return classes.filter(Boolean).join(" ");
@@ -13,7 +13,7 @@ const NavDropdown = () => {
 		<Menu as="div" className="relative inline-block text-left">
 			<div>
 				<Menu.Button className="inline-flex items-center justify-center px-3.5 py-1.5 ml-2 hover:bg-neutral-800 bg-neutral-700 text-neutral-200 font-serif rounded-full uppercase transition-all">
-					<CogIcon className="h-4 w-4" />
+					<DotsHorizontalIcon className="h-4 w-4" />
 				</Menu.Button>
 			</div>
 			<Transition

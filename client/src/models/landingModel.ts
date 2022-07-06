@@ -29,7 +29,6 @@ export const landingModel = createModel<RootModel>()({
 			const docRef = doc(db, "landing", "2.1.0");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				console.log(docSnap.data(), "test");
 				this.setLandingData(docSnap.data());
 			}
 		},

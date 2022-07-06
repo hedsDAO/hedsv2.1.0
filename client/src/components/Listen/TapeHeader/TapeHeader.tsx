@@ -15,7 +15,7 @@ const TapeHeader = (tapeData: TapeData) => {
 	};
 	return (
 		<div
-			className={`lg:pb-0 lg:z-10 lg:py-10 bg-[#141414] mt-10 lg:-mb-10 max-w-[100rem] mx-auto border-[0.25px] border-neutral-800 rounded-lg`}>
+			className={`lg:pb-0 lg:z-10 lg:py-10 bg-[#141414] mt-10 lg:mt-1 lg:-mb-10 w-screen mx-auto border-[0.25px] border-neutral-800`}>
 			<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 				<div className="flex justify-center lg:col-span-2 px-2 lg:py-5 py-4">
 					<div className="hidden lg:flex flex-col items-center group -mt-24">

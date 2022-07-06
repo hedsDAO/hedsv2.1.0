@@ -3,7 +3,7 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeInfo = (tapeData: TapeData) => {
 	return (
-		<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-3 pb-8">
+		<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-3 py-10">
 			<div className="flex flex-col w-full justify-center items-center mt-8">
 				<div className="flex -space-x-2 overflow-hidden mb-4">
 					<img src={tapeData?.sample?.image} className="h-20 w-20 inline-block rounded-full" />

@@ -64,7 +64,6 @@ export const audioModel = createModel<RootModel>()({
 				let sampleTank: Array<SampleData> = [];
 				let tapeTank: Array<TapeData | any> = Object.values(docSnap.data()?.hedstape).flat();
 				tapeTank.map((tapeData) => sampleTank.push(tapeData?.sample));
-				console.log(sampleTank);
 				this.setSamples(sampleTank);
 			}
 		},

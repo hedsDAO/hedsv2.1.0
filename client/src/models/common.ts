@@ -35,3 +35,11 @@ export interface SampleData {
 	image: string;
 	wallet: string;
 }
+
+export interface UserFormattedOwnership {
+	name: string;
+	quantity: number;
+	token_ids: Array<string>;
+	src: string;
+	href: string;
+}
