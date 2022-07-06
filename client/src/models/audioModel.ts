@@ -38,7 +38,7 @@ export const audioModel = createModel<RootModel>()({
 		setDuration: (state, duration: [string, number]) => ({ ...state, duration }),
 		setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
 		setCurrentTrack: (state, currentTrack: number) => ({ ...state, currentTrack }),
-		setAudioOff: (state, payload) => payload || state,
+		setAudioOff: (state, payload) => ({...state, ...payload}),
 	},
 	effects: () => ({
 		async getTrackData() {

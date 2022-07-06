@@ -9,13 +9,14 @@ import { Dialog, Transition } from "@headlessui/react";
  *
  * @param {Boolean} isShowingModal boolean representing display state of modal
  * @param {Dispatch} setIsShowingModal sets state for showing modal
+ * @param {boolean} fixed locks user interaction for sensitive flows in modal.
  * @param {any} children the modal content to be wrapped.
  */
 
-const ModalWrapper = ({ isShowingModal, setIsShowingModal, children }: any) => {
+const ModalWrapper = ({ isShowingModal, setIsShowingModal, fixed, children }: any) => {
 	return (
 		<Transition.Root show={isShowingModal} as={Fragment}>
-			<Dialog as="div" className="fixed z-30 inset-0 overflow-y-auto" onClose={() => setIsShowingModal(false)}>
+			<Dialog as="div" className="fixed z-30 inset-0 overflow-y-auto" onClose={fixed ? () => {} : () => setIsShowingModal(false)}>
 				<div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 					<Transition.Child
 						as={Fragment}

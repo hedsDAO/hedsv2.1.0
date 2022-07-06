@@ -45,7 +45,7 @@ const GlobalAudio = () => {
 		wavesurfer?.current?.on("finish", function () {
 			if (audioData?.isSample) {
 				dispatch.audioModel.setIsSample(false);
-				if (audioData?.tapes?.[currentTrack * 10]) dispatch.audioModel.setCurrentTrack(currentTrack * 10);
+				if (audioData?.tracks?.[currentTrack * 10]) dispatch.audioModel.setCurrentTrack(currentTrack * 10);
 				else dispatch.audioModel.setCurrentTrack(0);
 			} else {
 				if (currentTrack === tracks?.length - 1) dispatch.audioModel.setCurrentTrack(0);

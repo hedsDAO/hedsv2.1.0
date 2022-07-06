@@ -12,7 +12,7 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
 	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
 	return (
-		<div className={`inline-flex justify-center items-center px-2`}>
+		<div className={audioData?.isLoading ? `inline-flex justify-center items-center px-2.5 py-1` : `inline-flex justify-center items-center px-2 py-1`}>
 			<div
 				className={`${
 					audioData?.playerSize === PlayerSize.LARGE
@@ -59,10 +59,7 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 						onClick={() => {
 							dispatch.audioModel.setAudioOff({
 								playerSize: PlayerSize.HIDDEN,
-								isSample: false,
 								isPlaying: false,
-								isLoading: false,
-								volume: 0,
 							});
 						}}
 						className="text-center">

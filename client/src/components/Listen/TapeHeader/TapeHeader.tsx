@@ -2,30 +2,49 @@ import React from "react";
 import { PlayIcon } from "@heroicons/react/solid";
 import { TapeData } from "../../../models/spaceModel";
 import SampleContainer from "../SampleContainer/SampleContainer";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "../../../store";
 import { PlayerSize } from "../../../models/common";
+import LoadingIcon from "../../../common/svg/LoadingIcon/LoadingIcon";
 
 const TapeHeader = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
+	const audioData = useSelector((state: RootState) => state.audioModel);
 	const playTrack = () => {
-		dispatch.audioModel.setIsSample(false);
 		const track = (+tapeData.tape.no - 1) * 10;
-		dispatch.audioModel.setCurrentTrack(track);
-		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+		if (audioData?.tracks?.[track]) {
+			dispatch.audioModel.setIsSample(false);
+			dispatch.audioModel.setCurrentTrack(track);
+			dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+		}
 	};
 	return (
 		<div
 			className={`lg:pb-0 lg:z-10 lg:py-10 bg-[#141414] mt-10 lg:mt-1 lg:-mb-10 w-screen mx-auto border-[0.25px] border-neutral-800`}>
 			<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 				<div className="flex justify-center lg:col-span-2 px-2 lg:py-5 py-4">
-					<div className="hidden lg:flex flex-col items-center group -mt-24">
+					<div
+						className={
+							audioData?.tracks?.[(+tapeData.tape.no - 1) * 10]
+								? "hidden lg:flex flex-col items-center group -mt-24"
+								: "hidden lg:flex flex-col items-center -mt-24"
+						}>
 						<img
-							onClick={() => playTrack()}
-							className="object-contain rounded-lg w-full group-hover:opacity-25 transition-opacity"
+							className="object-contain rounded-lg w-full group-hover:opacity-60 transition-opacity bg-neutral-900"
 							src={tapeData.tape?.image}
 						/>
-						<PlayIcon className="relative -mt-[52%] w-8 h-8 text-neutral-300 -z-50 group-hover:z-30 transition-all" />
+						{
+							<button
+								className="relative -mt-[52%] w-8 h-8 text-neutral-300 -z-50 group-hover:z-30 transition-all"
+								disabled={audioData?.isLoading}
+								onClick={() => playTrack()}>
+								{audioData?.isLoading ? (
+									<LoadingIcon className="inline -mt-5 w-6 h-6 text-gray-200 animate-spin fill-neutral-900" />
+								) : (
+									<PlayIcon className="relative -mt-[52%] w-8 h-8 text-neutral-300 -z-50 group-hover:z-30 transition-all" />
+								)}
+							</button>
+						}
 					</div>
 					<div className="lg:hidden flex items-center justify-end flex-col mt-4">
 						<img

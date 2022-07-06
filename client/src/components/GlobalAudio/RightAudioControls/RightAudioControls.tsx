@@ -9,7 +9,7 @@ const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null
 	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
 	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
 	return (
-		<div className="inline-flex items-center justify-center px-2">
+		<div className="inline-flex items-center justify-center px-2 py-1">
 			<div
 				className={`${
 					audioData?.playerSize === PlayerSize.LARGE ? "h-96" : "h-52"
