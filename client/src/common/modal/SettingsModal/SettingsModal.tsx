@@ -1,11 +1,10 @@
 import React from "react";
-import { Dispatch, RootState } from "../../../store";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { useSelector } from "react-redux";
 import ModalWrapper from "../../wrapper/ModalWrapper/ModalWrapper";
 import { TrashIcon, UploadIcon } from "@heroicons/react/solid";
 
 const SettingsModal = ({ isShowingSettingsModal, setIsShowingSettingsModal }: any) => {
-	const dispatch = useDispatch<Dispatch>();
 	const userData = useSelector((state: RootState) => state.userModel);
 
 	return (
