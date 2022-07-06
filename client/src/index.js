@@ -33,11 +33,11 @@ export const storage = getStorage(app, "gs://heds-34ac0.appspot.com");
 ReactDOM.render(
 	<MoralisProvider serverUrl="https://qmwf2weydi0m.usemoralis.com:2053/server" appId="KiB7e8lPCvDMU9VkOf2uM7d8Dt7DowQGR272Wkxd">
 		<Provider store={store}>
-			<AudioWrapper>
-				<BrowserRouter>
+			<BrowserRouter>
+				<AudioWrapper>
 					<App />
-				</BrowserRouter>
-			</AudioWrapper>
+				</AudioWrapper>
+			</BrowserRouter>
 		</Provider>
 	</MoralisProvider>,
 	document.getElementById("root")

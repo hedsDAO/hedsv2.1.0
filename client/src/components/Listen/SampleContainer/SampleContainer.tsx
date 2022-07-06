@@ -1,17 +1,15 @@
 import React from "react";
 import { PlayIcon, DownloadIcon } from "@heroicons/react/solid";
 import { TapeData } from "../../../models/spaceModel";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch, RootState } from "../../../store";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "../../../store";
 import { PlayerSize } from "../../../models/common";
 
 const SampleContainer = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
-	const sampleData = useSelector((state: RootState) => state.audioModel.samples);
 	const playTrack = () => {
-		if (!sampleData?.length) dispatch.audioModel.getSamples();
 		dispatch.audioModel.setIsSample(true);
-		dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
+		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 		dispatch.audioModel.setCurrentTrack(tapeData.tape?.id);
 	};
 	return (

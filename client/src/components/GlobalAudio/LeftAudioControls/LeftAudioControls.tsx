@@ -43,15 +43,32 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 					{!audioData?.isPlaying && !audioData?.isLoading && <PlayIcon {...wavesurfer} />}
 					{audioData?.isPlaying && !audioData?.isLoading && <PauseIcon {...wavesurfer} />}
 				</button>
-				<button
-					disabled={audioData?.isLoading}
-					onClick={() => {
-						if (tracks?.[currentTrack - 1]) dispatch.audioModel.setCurrentTrack(currentTrack - 1);
-						else dispatch.audioModel.setCurrentTrack(tracks.length - 1);
-					}}
-					className="text-center">
-					<i className="fa-solid fa-backward text-neutral-300"></i>
-				</button>
+				{audioData?.playerSize > PlayerSize.SMALL ? (
+					<button
+						disabled={audioData?.isLoading}
+						onClick={() => {
+							if (tracks?.[currentTrack - 1]) dispatch.audioModel.setCurrentTrack(currentTrack - 1);
+							else dispatch.audioModel.setCurrentTrack(tracks.length - 1);
+						}}
+						className="text-center">
+						<i className="fa-solid fa-backward text-neutral-300"></i>
+					</button>
+				) : (
+					<button
+						disabled={audioData?.isLoading}
+						onClick={() => {
+							dispatch.audioModel.setAudioOff({
+								playerSize: PlayerSize.HIDDEN,
+								isSample: false,
+								isPlaying: false,
+								isLoading: false,
+								volume: 0,
+							});
+						}}
+						className="text-center">
+						<i className="fa-solid fa-xmark text-neutral-300"></i>
+					</button>
+				)}
 			</div>
 		</div>
 	);

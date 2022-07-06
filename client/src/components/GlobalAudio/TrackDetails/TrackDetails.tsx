@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { AudioState } from "../../../models/audioModel";
 
 interface TrackDetailsProps {
@@ -11,7 +12,9 @@ const TrackDetails = ({ audioData, currentTape, currentTrack }: TrackDetailsProp
 	return (
 		<div className="flex flex-col items-start justify-center px-5 animate__animated animate__fadeIn animate__fast">
 			<span className="text-neutral-300 text-base lg:text-lg font-base whitespace-nowrap">
-				{audioData?.isSample ? audioData?.tapes[currentTrack].tape.name : audioData?.tapes[currentTape]?.tape?.name}
+				<Link to={audioData?.tapes[currentTape - 1]?.links?.route}>
+					{audioData?.isSample ? audioData?.tapes[currentTrack].tape.name : audioData?.tapes[currentTape - 1]?.tape?.name}
+				</Link>
 			</span>
 			<span className="text-neutral-400 text-sm lg:text-base font-thin">#{audioData?.isSample ? 0 : (currentTrack % 10) + 1}</span>
 			<span className="text-neutral-500 text-xs lg:text-sm font-extralight whitespace-nowrap">

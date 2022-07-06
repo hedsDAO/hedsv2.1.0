@@ -1,6 +1,9 @@
 import React, { useEffect, Fragment } from "react";
 import { Dispatch, RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
+import { TapeData } from "../../models/spaceModel";
+import { Link } from "react-router-dom";
+import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 import emptyState from "../.././../../public/2.png";
 import Spotlight from "../../components/Tapes/Spotlight/Spotlight";
 
@@ -18,73 +21,40 @@ const Tapes = () => {
 			{hedsTapes?.length && globalData?.spotlight && (
 				<Fragment>
 					<Spotlight featured={hedsTapes?.[globalData?.spotlight?.tape]} globalData={globalData} />
-					<div className="max-w-6xl mx-auto bg-neutral-900 h-full pb-20">
-						<div className="max-w-6xl mb-5 mx-auto flex flex-col lg:items-start items-center">
-							<div className="uppercase text-neutral-300 tracking-widest text-4xl animate__animated animate__fadeInUp">
-								Explore
-							</div>
-							<div className="uppercase text-neutral-400 tracking-widest text-xl animate__animated animate__fadeInUp">
-								the tapes
-							</div>
+					<div className="col-span-12 lg:col-span-9 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg mx-auto max-w-[100rem] mt-4">
+						<div className="flex justify-between max-w-[100rem] mx-auto w-full bg-neutral-900 uppercase rounded-t-lg py-2 px-3">
+							<div className="text-left text-2xl text-neutral-500 tracking-wider">EXPLORE</div> <TapesToggle />
 						</div>
-						<hr className="max-w-6xl mx-auto border-[0.25px] border-neutral-700" />
-						<div className="max-w-6xl mx-auto py-5">
-							<div className="mx-auto">
-								<ul role="list" className="grid grid-cols-2 gap-x-2 gap-y-2 sm:grid-cols-2 lg:grid-cols-5 lg:px-0 px-2">
-									{hedsTapes?.map((tape) => {
-										return (
-											<li key={tape?.links?.route} className="relative">
-												<div className="group w-full block aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-													<img
-														src={tape?.tape?.image}
-														alt=""
-														className="object-cover pointer-events-none group-hover:opacity-75"
-													/>
-													<button type="button" className="absolute inset-0 focus:outline-none">
-														<span className="sr-only">View details for {tape?.tape.name}</span>
-													</button>
-												</div>
-											</li>
-										);
-									})}
-									<li className="relative">
-										<div className="group w-full block aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-											<img
-												src={emptyState}
-												alt=""
-												className="object-cover pointer-events-none group-hover:opacity-75"
-											/>
+						<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center items-center gap-y-2 gap-x-2 m-2">
+							<>
+								{hedsTapes &&
+									hedsTapes?.map((tape: TapeData) => (
+										<>
+											<div key={tape.tape.image} className="group relative">
+												<Link to={tape.links.route}>
+													<div className="overflow-hidden group-hover:opacity-50 opacity-75 lg:aspect-none transition-all rounded-md">
+														<img
+															src={tape.tape.image}
+															className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0`}
+														/>
+													</div>
+												</Link>
+											</div>
+										</>
+									))}
+								{["1", "2", "3", "4"].map((empty: string, i: number) => {
+									return (
+										<div key={"tapes" + i + empty} className="group relative">
+											<div className="overflow-hidden group-hover:opacity-50 opacity-75 lg:aspect-none transition-all rounded-md">
+												<img
+													src={emptyState}
+													className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0`}
+												/>
+											</div>
 										</div>
-									</li>
-									<li className="relative">
-										<div className="group w-full block aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-											<img
-												src={emptyState}
-												alt=""
-												className="object-cover pointer-events-none group-hover:opacity-75"
-											/>
-										</div>
-									</li>
-									<li className="relative">
-										<div className="group w-full block aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-											<img
-												src={emptyState}
-												alt=""
-												className="object-cover pointer-events-none group-hover:opacity-75"
-											/>
-										</div>
-									</li>
-									<li className="relative">
-										<div className="group w-full block aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-											<img
-												src={emptyState}
-												alt=""
-												className="object-cover pointer-events-none group-hover:opacity-75"
-											/>
-										</div>
-									</li>
-								</ul>
-							</div>
+									);
+								})}
+							</>
 						</div>
 					</div>
 				</Fragment>

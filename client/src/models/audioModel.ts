@@ -24,7 +24,6 @@ export const audioModel = createModel<RootModel>()({
 		playerSize: PlayerSize.HIDDEN,
 		isPlaying: false,
 		isLoading: false,
-		isSample: false,
 		volume: 0,
 	} as AudioState,
 	reducers: {
@@ -39,6 +38,7 @@ export const audioModel = createModel<RootModel>()({
 		setDuration: (state, duration: [string, number]) => ({ ...state, duration }),
 		setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
 		setCurrentTrack: (state, currentTrack: number) => ({ ...state, currentTrack }),
+		setAudioOff: (state, payload) => payload || state,
 	},
 	effects: () => ({
 		async getTrackData() {

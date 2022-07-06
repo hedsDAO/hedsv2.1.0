@@ -6,9 +6,9 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeTimeline = (tapeData: TapeData) => {
 	return (
-		<div className="my-4">
+		<div className="my-12">
 			{tapeData?.tape && (
-				<nav className="mx-auto max-w-7xl p-2 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg" aria-label="Progress">
+				<nav className="mx-auto max-w-7xl p-2 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg px-5" aria-label="Progress">
 					<ol role="list" className="rounded-sm overflow-hidden lg:flex lg:rounded-none">
 						{calculateTapeStatus(+tapeData?.status?.status).map((step, idx: number) => {
 							if (step.status === "complete") {

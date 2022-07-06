@@ -16,7 +16,7 @@ const GlobalAudio = () => {
 	const playerSize = useSelector((state: RootState) => state.audioModel?.playerSize);
 	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
 	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
-	const currentTape: number = Math.floor(currentTrack / 10 + 1);
+	const currentTape: number = Math.floor(useSelector((state: RootState) => state.audioModel.currentTrack) / 10 + 1);
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const waveformRef = useRef<HTMLDivElement | null>(null);
 	const wavesurfer = useRef<WaveSurfer | null>();
@@ -45,11 +45,16 @@ const GlobalAudio = () => {
 		wavesurfer?.current?.on("finish", function () {
 			if (audioData?.isSample) {
 				dispatch.audioModel.setIsSample(false);
-				dispatch.audioModel.setCurrentTrack(currentTrack * 10);
-			} else if (currentTrack === tracks?.length - 1) dispatch.audioModel.setCurrentTrack(0);
-			else if (tracks?.[currentTrack + 1]) dispatch.audioModel.setCurrentTrack(currentTrack + 1);
+				if (audioData?.tapes?.[currentTrack * 10]) dispatch.audioModel.setCurrentTrack(currentTrack * 10);
+				else dispatch.audioModel.setCurrentTrack(0);
+			} else {
+				if (currentTrack === tracks?.length - 1) dispatch.audioModel.setCurrentTrack(0);
+				if (tracks?.[currentTrack + 1]) dispatch.audioModel.setCurrentTrack(currentTrack + 1);
+			}
 		});
-		return () => wavesurfer?.current?.destroy();
+		return () => {
+			wavesurfer?.current?.destroy();
+		};
 	}, [audioData?.currentTrack]);
 
 	return (
@@ -83,11 +88,7 @@ const GlobalAudio = () => {
 										: "col-span-10 lg:col-span-4 flex items-center px-8 sm:px-5 lg:px-0 justify-start"
 								}>
 								<video
-									key={
-										audioData?.isSample
-											? audioData?.samples?.[currentTrack]?.video
-											: audioData?.tracks?.[currentTrack]?.video
-									}
+									key={audioData?.tracks?.[currentTrack]?.video}
 									ref={videoRef}
 									src={
 										audioData?.isSample

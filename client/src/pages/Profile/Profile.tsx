@@ -21,7 +21,7 @@ const Profile = () => {
 		<div className="min-h-screen">
 			<SettingsModal setIsShowingSettingsModal={setIsShowingSettingsModal} isShowingSettingsModal={isShowingSettingsModal} />
 			{user && userData && (
-				<div className="bg-neutral-950 lg:z-10 lg:relative py-10 lg:py-12 lg:mt-1 mt-10 border-[0.25px] border-neutral-800 max-w-7xl rounded-lg mx-auto">
+				<div className="bg-neutral-950 lg:z-10 lg:relative py-10 lg:py-12 lg:mt-1 mt-10 border-[0.25px] border-neutral-800 mx-auto">
 					<div className="lg:mx-auto lg:max-w-xl lg:px-6 lg:grid lg:grid-cols-2 gap-x-4">
 						<div className=" col-span-1 flex flex-col items-center justify-baseline px-2 lg:py-2 py-1">
 							<img
@@ -59,10 +59,10 @@ const Profile = () => {
 					</div>
 				</div>
 			)}
-			<div className="grid grid-cols-12 mx-auto gap-x-2 max-w-7xl items-start pt-2 pb-20">
+			<div className="grid grid-cols-12 mx-auto gap-x-2 items-start pt-2 pb-20 px-2">
 				<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-3">
-					<div className="w-full text-left text-lg text-neutral-500 uppercase bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
-						badges
+					<div className="w-full text-left text-lg text-neutral-500 bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
+						BADGES
 					</div>
 					<div className="flex flex-col justify-center items-center gap-y-2 my-2 mx-2 gap-x-2">
 						<div className="flex items-center justify-between w-full bg-gradient-to-r from-neutral-950 to-neutral-850 text-neutral-400 rounded-md p-3">

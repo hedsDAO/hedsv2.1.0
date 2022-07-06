@@ -20,6 +20,10 @@ const Listen = () => {
 		dispatch.audioModel.getSamples();
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, []);
+
+	useEffect(() => {
+		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
+	}, [id]);
 	return (
 		<Fragment>
 			{spaceData && audioData && (
@@ -30,7 +34,7 @@ const Listen = () => {
 					<div className="lg:mt-6">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="grid grid-cols-12 mx-auto gap-x-2 px-3 max-w-[100rem] items-start pt-6 pb-20">
+					<div className="grid grid-cols-12 mx-auto gap-x-2 px-3 max-w-[100rem] items-start pb-20">
 						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 						<TapeArtists {...tapeData} />
 					</div>

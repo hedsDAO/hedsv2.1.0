@@ -3,7 +3,7 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeInfo = (tapeData: TapeData) => {
 	return (
-		<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-3 pb-10">
+		<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-4 pb-10">
 		<div className="w-full text-left text-base text-neutral-500 uppercase bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
 			TAPE DETAILS
 		</div>

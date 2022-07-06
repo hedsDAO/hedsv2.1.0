@@ -9,9 +9,10 @@ import { PlayerSize } from "../../../models/common";
 const TapeHeader = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
 	const playTrack = () => {
+		dispatch.audioModel.setIsSample(false);
 		const track = (+tapeData.tape.no - 1) * 10;
-		dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 		dispatch.audioModel.setCurrentTrack(track);
+		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 	};
 	return (
 		<div
