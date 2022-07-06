@@ -59,7 +59,7 @@ const Profile = () => {
 					</div>
 				</div>
 			)}
-			<div className="grid grid-cols-12 mx-auto gap-x-2 items-start pt-2 pb-20 px-2">
+			<div className="grid grid-cols-12 mx-auto gap-x-2 items-start pt-2 pb-20 px-2 max-w-[100rem]">
 				<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-3">
 					<div className="w-full text-left text-lg text-neutral-500 bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
 						BADGES

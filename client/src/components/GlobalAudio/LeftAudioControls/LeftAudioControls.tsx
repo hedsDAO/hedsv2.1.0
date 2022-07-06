@@ -60,6 +60,8 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 							dispatch.audioModel.setAudioOff({
 								playerSize: PlayerSize.HIDDEN,
 								isPlaying: false,
+								isLoading: false, 
+								volume: 0,
 							});
 						}}
 						className="text-center">

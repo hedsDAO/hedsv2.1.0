@@ -9,11 +9,7 @@ const TapesToggle = () => {
 		return classes.filter(Boolean).join(" ");
 	}
 	return (
-		<div className="inline-flex items-center">
-			{/* <div className="px-1">
-				<span className={enabled ? "opacity-0" : "text-sm font-thin uppercase whitespace-nowrap text-neutral-400 mb-2"}>heds</span>
-				<span className={!enabled ? "hidden" : "text-sm font-thin uppercase whitespace-nowrap text-neutral-400"}>good society</span>
-			</div> */}
+		<div className="inline-flex items-center px-1">
 			<div className="sm:max-w-7xl mx-auto flex justify-center">
 				<Switch
 					checked={enabled}
@@ -46,6 +42,10 @@ const TapesToggle = () => {
 					</span>
 				</Switch>
 			</div>
+			{/* <div className="px-2 ml-2">
+				<span className={enabled ? "opacity-0" : "text-sm uppercase whitespace-nowrap text-neutral-400 mb-2"}>heds</span>
+				<span className={!enabled ? "hidden" : "text-sm uppercase whitespace-nowrap text-neutral-400"}>good society</span>
+			</div> */}
 		</div>
 	);
 };
