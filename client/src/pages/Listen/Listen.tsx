@@ -27,10 +27,10 @@ const Listen = () => {
 					<div className="w-screen mt-1 lg:mb-40 mb-20">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="lg:mt-10">
+					<div className="lg:mt-6">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="grid grid-cols-12 mx-auto gap-x-2 px-3 max-w-[100rem] items-center pt-10 pb-20">
+					<div className="grid grid-cols-12 mx-auto gap-x-2 px-3 max-w-[100rem] items-start pt-6 pb-20">
 						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 						<TapeArtists {...tapeData} />
 					</div>

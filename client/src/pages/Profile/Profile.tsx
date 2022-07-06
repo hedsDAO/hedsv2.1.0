@@ -18,10 +18,10 @@ const Profile = () => {
 	}, [user]);
 
 	return (
-		<>
+		<div className="min-h-screen">
 			<SettingsModal setIsShowingSettingsModal={setIsShowingSettingsModal} isShowingSettingsModal={isShowingSettingsModal} />
 			{user && userData && (
-				<div className="bg-neutral-950 lg:z-10 lg:relative py-3 lg:py-5 lg:mt-1 mt-10 border-[0.25px] border-neutral-800 max-w-7xl rounded-lg mx-auto">
+				<div className="bg-neutral-950 lg:z-10 lg:relative py-10 lg:py-12 lg:mt-1 mt-10 border-[0.25px] border-neutral-800 max-w-7xl rounded-lg mx-auto">
 					<div className="lg:mx-auto lg:max-w-xl lg:px-6 lg:grid lg:grid-cols-2 gap-x-4">
 						<div className=" col-span-1 flex flex-col items-center justify-baseline px-2 lg:py-2 py-1">
 							<img
@@ -151,7 +151,7 @@ const Profile = () => {
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -11,7 +11,7 @@ import Profile from "./pages/Profile/Profile";
 
 // components
 import Navbar from "./components/Navbar/Navbar";
-// import Footer from "./components/Footer/Footer";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
 	return (
@@ -21,7 +21,7 @@ const App = () => {
 			<Route exact path="/tapes" component={Tapes} />
 			<Route exact path="/listen/:space?/:tape/:id" component={Listen} />
 			<Route exact path="/profile" component={Profile} />
-			{/* <Route path="/" component={Footer} /> */}
+			<Route path="/" component={Footer} />
 		</Fragment>
 	);
 };

@@ -10,8 +10,8 @@ interface SpotlightProps {
 const Spotlight: React.FC<SpotlightProps> = ({ featured, globalData }: SpotlightProps) => {
 	return (
 		<div className="w-screen mx-auto bg-gradient-to-b from-neutral-900 to-neutral-950 my-10">
-			<div className="max-w-7xl w-full mx-auto py-10">
-				<div className="mx-auto max-w-5xl px-4 py-4 rounded-lg">
+			<div className="max-w-6xl w-full mx-auto py-10">
+				<div className="mx-auto max-w-4xl px-4 py-4 rounded-lg">
 					<div className="grid lg:grid-cols-2 items-center gap-x-4 place-content-center">
 						<div className="lg:col-span-1 flex flex-col items-end justify-end">
 							<img className="rounded-sm shadow-sm" src={featured?.tape?.image} />

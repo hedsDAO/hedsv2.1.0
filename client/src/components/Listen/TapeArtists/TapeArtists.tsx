@@ -22,11 +22,15 @@ const TapeArtists = (tapeData: TapeState) => {
 	return (
 		<Fragment>
 			{tapeData?.tracks?.length && (
-				<div className="col-span-12 lg:col-span-9 bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg py-8">
-					<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center items-center gap-y-6">
+				<div className="col-span-12 lg:col-span-9 bg-neutral-900 border-[0.25px] border-neutral-800 rounded-lg">
+					<div className="flex justify-between w-full items-center text-neutral-500 uppercase bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
+						<div className="text-base">ARTISTS</div>
+						<span className="text-[0.65rem] text-neutral-600 italic">click to play</span>
+					</div>
+					<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center bg-neutral-950 rounded-b-lg gap-y-3 py-5">
 						{tapeData.tracks.map((track: TrackMetadata, i: number) => {
 							return (
-								<div key={track?.artist_img} className="col-span-1 rounded-sm">
+								<div key={track?.artist_img} className="col-span-1 rounded-sm py-4">
 									<button
 										disabled={audioData?.isLoading}
 										onClick={() => playTrack(i)}
@@ -78,9 +82,9 @@ const TapeArtists = (tapeData: TapeState) => {
 											)}
 										</Fragment>
 									</button>
-									<div className="flex flex-col items-center justify-center mx-auto mt-4 text-center font-thin">
-										<span className="text-center mx-auto text-neutral-500">#{track?.no}</span>
-										<span className="text-center mx-auto text-neutral-400">{track?.artist}</span>
+									<div className="flex flex-col items-start justify-start mt-3 font-thin">
+										<span className="text-left text-neutral-500">#{track?.no}</span>
+										<span className="text-left text-neutral-400 text-sm">{track?.artist}</span>
 									</div>
 								</div>
 							);
