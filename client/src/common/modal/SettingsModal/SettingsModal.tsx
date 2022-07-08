@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
@@ -6,7 +7,6 @@ import { TrashIcon, UploadIcon } from "@heroicons/react/solid";
 
 const SettingsModal = ({ isShowingSettingsModal, setIsShowingSettingsModal }: any) => {
 	const userData = useSelector((state: RootState) => state.userModel);
-
 	return (
 		<ModalWrapper isShowingModal={isShowingSettingsModal} setIsShowingModal={setIsShowingSettingsModal}>
 			<div className="relative z-50 inline-block align-bottom bg-neutral-950 rounded-sm py-4 px-5 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-md sm:w-full">

@@ -5,6 +5,7 @@ import { globalModel } from "./globalModel";
 import { audioModel } from "./audioModel";
 import { tapeModel } from "./tapeModel";
 import { userModel } from "./userModel";
+import { exploreModel } from "./exploreModel";
 
 export interface RootModel extends Models<RootModel> {
 	spaceModel: typeof spaceModel;
@@ -13,6 +14,7 @@ export interface RootModel extends Models<RootModel> {
 	audioModel: typeof audioModel;
 	tapeModel: typeof tapeModel;
 	userModel: typeof userModel;
+	exploreModel: typeof exploreModel;
 }
 
-export const models: RootModel = { spaceModel, landingModel, globalModel, audioModel, tapeModel, userModel };
+export const models: RootModel = { spaceModel, landingModel, globalModel, audioModel, tapeModel, userModel, exploreModel };

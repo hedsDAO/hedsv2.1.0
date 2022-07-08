@@ -51,10 +51,10 @@ const Completed = ({ step, idx }: any) => {
 const Current = ({ step, idx }: any) => {
 	return (
 		<li key={step.key} className="relative overflow-hidden lg:flex-1">
-			<span
+			{/* <span
 				className="absolute top-0 left-0 w-[0.075rem] h-[80%] bg-fuchsia-600 lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto -mr-2 mt-2 lg:mt-0"
 				aria-hidden="true"
-			/>
+			/> */}
 			<a href={step.href} aria-current="step">
 				<span className={classNames(idx !== 0 ? "lg:pl-9" : "", "px-6 py-5 flex items-start text-sm font-medium")}>
 					<span className="flex-shrink-0">

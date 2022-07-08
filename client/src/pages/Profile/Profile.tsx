@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Dispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import defaultImg from "/public/images/default.png";
+// import { Link } from "react-router-dom";
 import useMoralisHooks from "../../hooks/useMoralis";
 import SettingsModal from "../../common/modal/SettingsModal/SettingsModal";
 
@@ -12,8 +13,8 @@ const Profile = () => {
 	const { getNFTs, user } = useMoralisHooks();
 	const dispatch = useDispatch<Dispatch>();
 	useEffect(() => {
-		if (user) dispatch.userModel.loadUserProfile(user);
-		if (user) dispatch.userModel.getTapeArtistsWalletIds(user?.attributes?.ethAddress.toLowerCase());
+		if (user) dispatch.userModel.getUserData(user);
+		// if (user) dispatch.userModel.getTapeArtistsWalletIds(user?.attributes?.ethAddress.toLowerCase());
 		getNFTs();
 	}, [user]);
 
@@ -26,7 +27,7 @@ const Profile = () => {
 						<div className=" col-span-1 flex flex-col items-center justify-baseline px-2 lg:py-2 py-1">
 							<img
 								className="object-fill bg-neutral-900 border-fuchsia-900 border-2 rounded-full lg:ml-auto"
-								src={userData?.userProfile?.profilePicture}
+								src={userData?.profilePicture?.length || defaultImg}
 							/>
 						</div>
 						<div className=" col-span-1 self-center">
@@ -48,11 +49,13 @@ const Profile = () => {
 										className="mx-1 px-3 rounded-sm border-2 border-neutral-800 bg-neutral-850 text-neutral-400 inline-flex items-center">
 										<DotsHorizontalIcon className="h-4 w-4" />
 									</button>
-									<button
-										onClick={() => setIsShowingSettingsModal(!isShowingSettingsModal)}
-										className="mx-1 px-3 text-xs rounded-sm border-2 border-neutral-800 bg-neutral-850 text-neutral-400 inline-flex items-center">
-										verify
-									</button>
+									{userData?.twitterHandle?.length === 0 && (
+										<button
+											onClick={() => setIsShowingSettingsModal(!isShowingSettingsModal)}
+											className="mx-1 px-3 text-xs rounded-sm border-2 border-neutral-800 bg-neutral-850 text-neutral-400 inline-flex items-center">
+											verify
+										</button>
+									)}
 								</div>
 							</div>
 						</div>
@@ -60,11 +63,11 @@ const Profile = () => {
 				</div>
 			)}
 			<div className="grid grid-cols-12 mx-auto gap-x-2 items-start pt-2 pb-20 px-2 max-w-[100rem]">
-				<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-3">
+				<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-lg col-span-12 lg:col-span-3">
 					<div className="w-full text-left text-lg text-neutral-500 bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
 						BADGES
 					</div>
-					<div className="flex flex-col justify-center items-center gap-y-2 my-2 mx-2 gap-x-2">
+					{/* <div className="flex flex-col justify-center items-center gap-y-2 my-2 mx-2 gap-x-2">
 						<div className="flex items-center justify-between w-full bg-gradient-to-r from-neutral-950 to-neutral-850 text-neutral-400 rounded-md p-3">
 							<img
 								src={
@@ -121,19 +124,19 @@ const Profile = () => {
 								</span>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 				{/*  */}
 				<div className="col-span-12 lg:col-span-9 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg">
 					<div className="w-full text-left text-lg text-neutral-500 uppercase bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
 						COLLECTION
 					</div>
-					<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center items-center gap-y-2 gap-x-2 m-2">
+					{/* <div className="grid grid-cols-2 xl:grid-cols-5 place-items-center items-center gap-y-2 gap-x-2 m-2">
 						{userData &&
 							userData?.userCollection?.map((tape) => (
 								<>
 									{tape?.quantity > 0 && (
-										<div key={tape.name} className="group relative">
+										<div key={tape.name + tape.href} className="group relative">
 											<Link to={tape.href}>
 												<div className="overflow-hidden group-hover:opacity-50 opacity-75 lg:aspect-none transition-all rounded-md">
 													<img
@@ -148,7 +151,7 @@ const Profile = () => {
 									)}
 								</>
 							))}
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

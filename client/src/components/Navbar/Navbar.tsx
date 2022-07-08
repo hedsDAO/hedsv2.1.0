@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import ConnectModal from "../../common/modal/ConnectModal/ConnectModal";
@@ -21,14 +21,14 @@ const Navbar = () => {
 	const history = useHistory();
 	const navigation = [
 		{ name: "home", href: "/" },
-		{ name: "tapes", href: "/tapes" },
+		{ name: "explore", href: "/explore" },
 		{ name: "about", href: "/about" },
 	];
 	return (
-		<>
+		<Fragment>
 			<ConnectModal isShowingConnectModal={isShowingConnectModal} setIsShowingConnectModal={setIsShowingConnectModal} />
 			<div className={`${pathname === "/" && "absolute"} md:hidden z-40 w-screen`}>
-				<div className="absolute left-5 top-5 -mb-0.25 md:left-6 md:top-6 z-40">
+				<div className="absolute left-5 top-5 -mt-0.25 md:left-6 md:top-6 z-40">
 					<Link to="/">
 						<img className="w-16 md:hidden hover:contrast-50 transition-all" src={logoImg} />
 					</Link>
@@ -42,40 +42,40 @@ const Navbar = () => {
 					/>
 				</button>
 			</div>
-
-			<div className={`${pathname === "/" && "absolute"} md:inline hidden right-0 z-50 w-screen mb-1`}>
-				<ul className="flex justify-between items-center gap-x-8 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-5 py-3 -mb-1">
+			<div className={`${pathname === "/" && "absolute"} md:inline hidden right-0 z-50 w-screen`}>
+				<ul className="flex justify-between items-center gap-x-4 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-6 py-3.5 navbar-parent mb-7">
 					<Link to="/">
-						<li className="">
-							<img className="w-16 md:w-20 hover:contrast-50 transition-all -mt-0.5 p-2" src={logoImg} />
-						</li>
+						<div className="">
+							<img className="h-8 hover:contrast-50 transition-all" src={logoImg} />
+						</div>
 					</Link>
 					<div
-						className={`flex items-center justify-center bg-neutral-900 py-1 px-1 ${
-							isAuthenticated ? "xl:-mr-[4.5%] lg:-mr-[5.5%] md:-mr-[6.5%]" : "xl:-mr-[3.3%] lg:-mr-[4.3%] md:-mr-[5.3%]"
+						className={`flex items-center justify-center  py-1 px-1 ${
+							isAuthenticated ? "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]" : "xl:-mr-[3.3%] lg:-mr-[4.3%] md:-mr-[5.3%]"
 						}`}>
 						{navigation.map((item, i) => (
 							<div key={item.href + i}>
 								{pathname === item.href ? (
-									<Link to={item.href}>
-										<li className="hover:text-white tracking-widest select-none uppercase text-amber-500 bg-black px-5 py-1 text-[0.9rem]">
-											{item.name}
-										</li>
-									</Link>
+									<li className="current" data-hover={item.name}>
+										<Link to={item.href}>{item.name}</Link>
+									</li>
 								) : (
-									<Link to={item.href}>
-										<li className="hover:text-amber-500 tracking-widest select-none uppercase px-5 py-1 text-[0.9rem]">
-											{item.name}
-										</li>
-									</Link>
+									<li className="" data-hover={item.name}>
+										<Link to={item.href}>{item.name}</Link>
+									</li>
 								)}
 							</div>
 						))}
 					</div>
 					<div className="flex items-center">
 						<button
+							key={pathname + "connect"}
 							onClick={isAuthenticated ? () => history.push("/profile") : () => setIsShowingConnectModal(true)}
-							className="inline-flex items-center my-auto px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all">
+							className={
+								pathname === "/profile"
+									? "inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 spotlight-gradient  text-neutral-200 font-serif rounded-full uppercase transition-all"
+									: "inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all"
+							}>
 							<span className="my-auto tracking-widest">
 								{isAuthenticated ? user?.attributes?.ethAddress.slice(0, 5) : "connect"}
 							</span>
@@ -120,7 +120,11 @@ const Navbar = () => {
 												setIsShowingConnectModal(true);
 										  }
 								}
-								className="inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all">
+								className={
+									pathname === "profile"
+										? "inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 spotlight-gradient text-neutral-200 font-serif rounded-full uppercase transition-all"
+										: "inline-flex px-10 py-1 text-sm hover:bg-fuchsia-800 bg-fuchsia-600 text-neutral-200 font-serif rounded-full uppercase transition-all"
+								}>
 								<span className="my-auto tracking-widest">
 									{isAuthenticated ? user?.attributes?.ethAddress.slice(0, 5) : "connect"}
 								</span>
@@ -148,7 +152,7 @@ const Navbar = () => {
 					</div>
 				</div>
 			</Drawer>
-		</>
+		</Fragment>
 	);
 };
 

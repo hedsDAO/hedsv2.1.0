@@ -217,3 +217,78 @@ body {
     opacity: 0%;
   }
 }
+
+.spotlight-gradient {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.navbar-parent {
+  font-size: 1rem !important;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.navbar-parent * {
+  box-sizing: border-box;
+}
+.navbar-parent li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 1.5em;
+  padding: 0;
+}
+.navbar-parent a {
+  padding: 0.5em 0;
+  color: rgba(255, 255, 255, 0.495);
+  position: relative;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+}
+.navbar-parent a:before,
+.navbar-parent a:after {
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.navbar-parent a:before {
+  bottom: 0;
+  display: block;
+  height: 2px;
+  width: 0%;
+  content: "";
+  background-color: #701a75;
+}
+.navbar-parent a:after {
+  left: 0;
+  top: 0;
+  padding: 0.5em 0;
+  position: absolute;
+  content: attr(data-hover);
+  color: #ffffff;
+  white-space: nowrap;
+  max-width: 0%;
+  overflow: hidden;
+}
+.navbar-parent a:hover:before,
+.navbar-parent .current a:before {
+  opacity: 1;
+  width: 100%;
+}
+.navbar-parent a:hover:after,
+.navbar-parent .current a:after {
+  max-width: 100%;
+}
