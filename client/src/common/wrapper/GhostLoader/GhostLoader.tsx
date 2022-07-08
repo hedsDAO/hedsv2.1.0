@@ -13,7 +13,7 @@ const GhostLoader = ({ children }: any) => {
 	}, []);
 
 	return (
-		<>
+		<div className="min-h-screen">
 			{loading ? (
 				<div className="w-screen h-[75vh] absolute z-50 bg-neutral-900 flex justify-center items-center  lg:mt-10">
 					<i className="fas fa-circle-notch fa-spin text-white text-3xl"></i>
@@ -21,7 +21,7 @@ const GhostLoader = ({ children }: any) => {
 			) : (
 				<div className="animate__animated animate__fadeIn">{children}</div>
 			)}
-		</>
+		</div>
 	);
 };
 

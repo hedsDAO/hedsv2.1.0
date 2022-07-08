@@ -2,6 +2,7 @@ import React from "react";
 import { TapeData } from "../../../models/spaceModel";
 import { GlobalState } from "../../../models/globalModel";
 import LinkButton from "../../../common/button/LinkButton/LinkButton";
+import HedDot from "../../../../../public/heddot.png";
 
 interface SpotlightProps {
 	featured: TapeData;
@@ -20,7 +21,7 @@ const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: Spotligh
 						<div className="flex flex-col justify-center items-center lg:items-start px-20 lg:mt-0 mt-10">
 							<div className="flex -space-x-2 overflow-hidden mb-4">
 								<img src={featured?.sample?.image} className="h-20 w-20 inline-block rounded-full" />
-								<img src={featured?.collab?.image} className="h-20 w-20 inline-block rounded-full" />
+								<img src={HedDot} className="h-20 inline-block rounded-full bg-neutral-900 p-3" />
 							</div>
 							<span className="text-black font-serif text-4xl mt-2 tracking-widest mb-3 whitespace-nowrap">
 								{featured?.tape?.name}

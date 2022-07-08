@@ -7,6 +7,7 @@ import logoImg from "../../../../public/hedslogo.png";
 import { XIcon } from "@heroicons/react/outline";
 import NavDropdown from "../../common/dropdown/NavDropdown/NavDropdown";
 import profileTestImg from "../../../../public/2.png";
+import HedDot from "../../../../public/heddot.png"
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 
@@ -45,8 +46,9 @@ const Navbar = () => {
 			<div className={`${pathname === "/" && "absolute"} md:inline hidden right-0 z-50 w-screen`}>
 				<ul className="flex justify-between items-center gap-x-4 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-6 py-3.5 navbar-parent mb-7">
 					<Link to="/">
-						<div className="">
-							<img className="h-8 hover:contrast-50 transition-all" src={logoImg} />
+						<div className="inline-flex items-center">
+							<img className="h-12 hover:contrast-50 transition-all mr-3" src={HedDot} />
+							{/* <span className="h-10 text-lg tracking-widest font-serif text-neutral-300 -mb-2">heds</span> */}
 						</div>
 					</Link>
 					<div

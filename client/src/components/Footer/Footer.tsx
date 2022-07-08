@@ -31,20 +31,31 @@ export default function Footer() {
 	return (
 		<>
 			{pathname !== "/" && (
-				<footer className="bg-neutral-900">
-					<div className="max-w-6xl mx-auto py-12 md:flex md:items-center md:justify-between">
-						<div className="flex justify-center space-x-6 md:order-2">
-							{navigation.map((item) => (
-								<a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
-									<span className="sr-only">{item.name}</span>
-									<item.icon className="h-6 w-6" aria-hidden="true" />
-								</a>
-							))}
-						</div>
-						<div className="mt-8 md:mt-0 md:order-1">
-							<p className="text-center text-base text-gray-400">&copy; 2022 HEDS INC</p>
-						</div>
-					</div>
+				<footer className="p-4 rounded-lg md:flex md:items-center md:justify-between md:p-6">
+					<span className="text-sm text-gray-500 sm:text-center dark:text-gray-400 ml-2">
+						© 2022{" "}
+						<a href="https://flowbite.com/" className="hover:underline">
+							HEDS™
+						</a>
+						. All Rights Reserved.
+					</span>
+					<ul className="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+						<li>
+							<a href="#" className="mr-4 hover:underline md:mr-4 ">
+								About
+							</a>
+						</li>
+						<li>
+							<a href="#" className="mr-4 hover:underline md:mr-4">
+								Discord
+							</a>
+						</li>
+						<li>
+							<a href="#" className="mr-4 hover:underline md:mr-4">
+								Twitter
+							</a>
+						</li>
+					</ul>
 				</footer>
 			)}
 		</>
