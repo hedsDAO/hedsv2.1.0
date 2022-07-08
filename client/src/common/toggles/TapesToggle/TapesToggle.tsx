@@ -9,9 +9,9 @@ const TapesToggle = () => {
 		return classes.filter(Boolean).join(" ");
 	}
 	return (
-		<div className="inline-flex items-center px-1 gap-y-5">
-			<div className="px-2 mr-2">
-				<span className={enabled ? "opacity-0" : "text-sm uppercase whitespace-nowrap text-neutral-400 mb-2"}>heds</span>
+		<div className="inline-flex xl:flex-row flex-col items-center justify-center px-2 gap-y-5">
+			<div className="xl:px-2 xl:mr-2">
+				<span className={enabled ? "hidden" : "text-sm uppercase whitespace-nowrap text-neutral-400 mb-2"}>heds</span>
 				<span className={!enabled ? "hidden" : "text-sm uppercase whitespace-nowrap text-neutral-400"}>good society</span>
 			</div>
 			<div className="sm:max-w-7xl mx-auto flex justify-center">

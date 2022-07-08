@@ -31,11 +31,11 @@ export default function Footer() {
 	return (
 		<>
 			{pathname !== "/" && (
-				<footer className="p-4 rounded-lg md:flex md:items-center md:justify-between md:p-6">
-					<span className="text-sm text-gray-500 sm:text-center dark:text-gray-400 ml-2">
+				<footer className="p-8 rounded-lg md:flex md:items-center md:justify-between md:p-6">
+					<span className="text-xs text-gray-500 sm:text-center dark:text-gray-400 md:ml-2">
 						© 2022{" "}
-						<a href="https://flowbite.com/" className="hover:underline">
-							HEDS™
+						<a href="https://heds.io/" className="hover:underline">
+							heds inc
 						</a>
 						. All Rights Reserved.
 					</span>
@@ -51,7 +51,7 @@ export default function Footer() {
 							</a>
 						</li>
 						<li>
-							<a href="#" className="mr-4 hover:underline md:mr-4">
+							<a href="#" className="mr-4 hover:underline md:mr-2">
 								Twitter
 							</a>
 						</li>

@@ -21,10 +21,10 @@ const Explore = () => {
 			{hedsTapes?.length && exploreData?.spotlight && (
 				<Fragment>
 					<Spotlight featured={hedsTapes?.[exploreData?.spotlight?.id]} exploreData={exploreData} />
-					<div className="max-w-7xl flex lg:flex-row flex-col justify-between mx-auto items-end lg:pt-10 pt-5 pb-5 lg:px-1 px-6 gap-y-4">
-						<div>
+					<div className="xl:max-w-7xl flex lg:flex-row flex-col justify-between mx-auto items-center xl:items-end pb-5 lg:px-1 px-6 gap-y-4 mt-10 xl:mt-20">
+						<div className="xl:mx-0 mx-2 xl:my-0 my-5 text-center lg:text-left">
 							<h1 className="text-4xl font-extrabold text-neutral-300">EXPLORE</h1>
-							<p className="mt-3 text-sm lg:text-base text-neutral-500">
+							<p className="mt-3 text-sm lg:text-base text-neutral-500 xl:whitespace-nowrap xl:max-w-full max-w-sm">
 								Listen to the collaborative collections curated by artists, heds and the community.
 							</p>
 						</div>

@@ -63,7 +63,7 @@ const GlobalAudio = () => {
 				<div
 					className={`${
 						playerSize === SMALL
-							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft -ml-1"
+							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft -ml-1 py-1"
 							: "bg-neutral-950 w-screen grid grid-cols-12 animate__animated animate__fadeInUp py-1"
 					} bottom-0 fixed z-50 transition-all`}>
 					{wavesurfer?.current && <LeftAudioControls {...wavesurfer} />}

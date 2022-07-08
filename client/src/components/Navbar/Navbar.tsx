@@ -28,10 +28,10 @@ const Navbar = () => {
 	return (
 		<Fragment>
 			<ConnectModal isShowingConnectModal={isShowingConnectModal} setIsShowingConnectModal={setIsShowingConnectModal} />
-			<div className={`${pathname === "/" && "absolute"} md:hidden z-40 w-screen`}>
-				<div className="absolute left-5 top-5 -mt-0.25 md:left-6 md:top-6 z-40">
+			<div className={`${pathname === "/" && "absolute"} md:hidden z-50 w-screen mb-10`}>
+				<div className="absolute left-5 top-5 -mt-1 md:left-6 md:top-6 z-50">
 					<Link to="/">
-						<img className="w-16 md:hidden hover:contrast-50 transition-all" src={logoImg} />
+						<img className="w-7 hover:contrast-50 transition-all" src={HedDot} />
 					</Link>
 				</div>
 				<button
@@ -43,17 +43,16 @@ const Navbar = () => {
 					/>
 				</button>
 			</div>
-			<div className={`${pathname === "/" && "absolute"} md:inline hidden right-0 z-50 w-screen`}>
-				<ul className="flex justify-between items-center gap-x-4 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-6 py-3.5 navbar-parent mb-7">
+			<div className={`${pathname === "/" && "absolute"} md:inline hidden right-0 z-50 w-screen transition-all ease-in-out`}>
+				<div className="flex justify-between items-center gap-x-4 text-neutral-200 transition-all text-sm md:text-lg tracking-widest px-8 py-5">
 					<Link to="/">
-						<div className="inline-flex items-center">
-							<img className="h-12 hover:contrast-50 transition-all mr-3" src={HedDot} />
-							{/* <span className="h-10 text-lg tracking-widest font-serif text-neutral-300 -mb-2">heds</span> */}
+						<div className="inline-flex items-end -ml-2 mt-1">
+							<img className="w-10 object-cover transition-all hover:contrast-50 mr-3" src={HedDot} />
 						</div>
 					</Link>
-					<div
-						className={`flex items-center justify-center  py-1 px-1 ${
-							isAuthenticated ? "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]" : "xl:-mr-[3.3%] lg:-mr-[4.3%] md:-mr-[5.3%]"
+					<ul
+						className={`flex items-center justify-center navbar-parent py-1 px-1 ${
+							isAuthenticated ? "xl:-mr-[4.5%] lg:-mr-[5.5%] md:-mr-[6.5%]" : "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]"
 						}`}>
 						{navigation.map((item, i) => (
 							<div key={item.href + i}>
@@ -68,7 +67,7 @@ const Navbar = () => {
 								)}
 							</div>
 						))}
-					</div>
+					</ul>
 					<div className="flex items-center">
 						<button
 							key={pathname + "connect"}
@@ -84,7 +83,7 @@ const Navbar = () => {
 						</button>
 						{isAuthenticated && <NavDropdown />}
 					</div>
-				</ul>
+				</div>
 			</div>
 			<Drawer open={isOpen} onClose={toggleDrawer} direction="top" className="">
 				<div className="relative z-40 inline-block bg-neutral-900 py-3 px-3 text-left overflow-hidden shadow-xl transition-all w-full h-full">
