@@ -3,7 +3,7 @@ import { Dispatch, RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
 import { TapeData } from "../../models/spaceModel";
 import { Link } from "react-router-dom";
-import GhostLoader from "../../common/wrapper/GhostLoader/GhostLoader";
+// import GhostLoader from "../../common/wrapper/GhostLoader/GhostLoader";
 import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 import Spotlight from "../../components/Explore/Spotlight/Spotlight";
 
@@ -17,7 +17,7 @@ const Explore = () => {
 		dispatch.exploreModel.getExploreData();
 	}, []);
 	return (
-		<GhostLoader>
+		<Fragment>
 			{hedsTapes?.length && exploreData?.spotlight && (
 				<Fragment>
 					<Spotlight featured={hedsTapes?.[exploreData?.spotlight?.id]} exploreData={exploreData} />
@@ -55,7 +55,7 @@ const Explore = () => {
 					</div>
 				</Fragment>
 			)}
-		</GhostLoader>
+		</Fragment>
 	);
 };
 

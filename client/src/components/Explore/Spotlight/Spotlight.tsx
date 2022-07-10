@@ -1,12 +1,12 @@
 import React from "react";
 import { TapeData } from "../../../models/spaceModel";
-import { GlobalState } from "../../../models/globalModel";
+import { ExploreState } from "../../../models/exploreModel";
 import LinkButton from "../../../common/button/LinkButton/LinkButton";
 import HedDot from "../../../../../public/heddot.png";
 
 interface SpotlightProps {
 	featured: TapeData;
-	exploreData: GlobalState;
+	exploreData: ExploreState;
 }
 const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: SpotlightProps) => {
 	const { space, tape } = exploreData.spotlight;
@@ -16,7 +16,10 @@ const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: Spotligh
 				<div className="mx-auto max-w-4xl px-4 py-1 xl:py-4 rounded-lg">
 					<div className="grid lg:grid-cols-2 items-center gap-x-4 place-content-center">
 						<div className="lg:col-span-1 flex flex-col items-center justify-center lg:items-end lg:justify-end">
-							<img className="max-w-[13rem] md:max-w-md lg:w-full lg:h-full rounded-lg shadow-sm" src={featured?.tape?.image} />
+							<img
+								className="max-w-[13rem] md:max-w-md lg:w-full lg:h-full rounded-lg shadow-sm"
+								src={featured?.tape?.image}
+							/>
 						</div>
 						<div className="lg:col-span-1 h-full flex items-center justify-center lg:justify-start">
 							<div className="flex flex-col justify-center items-center lg:items-start px-20 lg:mt-0 mt-10">

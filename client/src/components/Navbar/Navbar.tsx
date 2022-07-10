@@ -6,7 +6,7 @@ import { useLocation, useHistory } from "react-router";
 import { XIcon } from "@heroicons/react/outline";
 import NavDropdown from "../../common/dropdown/NavDropdown/NavDropdown";
 import profileTestImg from "../../../../public/2.png";
-import HedDot from "../../../../public/heddot.png"
+import HedDot from "../../../../public/heddot.png";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 
@@ -51,7 +51,7 @@ const Navbar = () => {
 					</Link>
 					<ul
 						className={`flex items-center justify-center navbar-parent py-1 px-1 ${
-							isAuthenticated ? "xl:-mr-[4.5%] lg:-mr-[5.5%] md:-mr-[6.5%]" : "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]"
+							isAuthenticated ? "xl:-mr-[5.6%] lg:-mr-[6.6%] md:-mr-[7.6%]" : "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]"
 						}`}>
 						{navigation.map((item, i) => (
 							<div key={item.href + i}>
