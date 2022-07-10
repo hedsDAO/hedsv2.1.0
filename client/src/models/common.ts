@@ -43,3 +43,20 @@ export interface UserFormattedOwnership {
 	src: string;
 	href: string;
 }
+
+export interface BadgeData {
+	name: string;
+	description: string;
+	image: string;
+}
+
+export interface CollectionItem {
+	name: string;
+	token_address: string;
+	token_uri: string;
+	quantity: number;
+	metadata: string;
+}
+export interface CollectionTank {
+	[address: string]: CollectionItem;
+}

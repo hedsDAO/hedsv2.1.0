@@ -23,7 +23,7 @@ const Explore = () => {
 					<Spotlight featured={hedsTapes?.[exploreData?.spotlight?.id]} exploreData={exploreData} />
 					<div className="xl:max-w-7xl flex lg:flex-row flex-col justify-between mx-auto items-center xl:items-end pb-5 lg:px-1 px-6 gap-y-4 mt-10 xl:mt-20">
 						<div className="xl:mx-0 mx-2 xl:my-0 my-5 text-center lg:text-left">
-							<h1 className="text-4xl font-extrabold text-neutral-300">EXPLORE</h1>
+							<h1 className="text-4xl tracking-wide font-extrabold text-neutral-300">EXPLORE</h1>
 							<p className="mt-3 text-sm lg:text-base text-neutral-500 xl:whitespace-nowrap xl:max-w-full max-w-sm">
 								Listen to the collaborative collections curated by artists, heds and the community.
 							</p>
@@ -37,7 +37,7 @@ const Explore = () => {
 									{hedsTapes &&
 										hedsTapes?.map((tape: TapeData) => (
 											<>
-												<div key={tape.tape.image} className="group relative">
+												<div key={tape.tape.contract} className="group relative">
 													<Link to={tape.links.route}>
 														<div className="overflow-hidden group-hover:opacity-50 lg:aspect-none transition-all rounded-md">
 															<img

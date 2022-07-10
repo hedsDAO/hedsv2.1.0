@@ -1,29 +1,31 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
-import { UserFormattedOwnership } from "./common";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../index";
+import { BadgeData, CollectionTank } from "./common";
 
-interface UserState {
+export interface UserState {
 	profilePicture: string;
 	twitterHandle: string;
-	badges: string;
+	badges: Array<BadgeData>;
 	description: string;
+	collection: CollectionTank;
+	votingPower: number;
 }
 
 export const userModel = createModel<RootModel>()({
-	state: {} as UserState,
+	state: {
+		votingPower: 0,
+	} as UserState,
 	reducers: {
-		setUserCollection: (state, userCollection: Array<UserFormattedOwnership>) => ({ ...state, userCollection }),
+		setCollection: (state, collection: CollectionTank) => ({ ...state, collection }),
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
 	},
 	effects: () => ({
-		async getUserData({ wallet }) {
+		async getUserData(wallet: string) {
 			const docRef = doc(db, "user", wallet);
 			const docSnap = await getDoc(docRef);
-			if (docSnap.exists()) {
-				this.setUserData(docSnap.data());
-			}
+			if (docSnap.exists()) this.setUserData(docSnap.data());
 		},
 	}),
 });

@@ -12,11 +12,11 @@ const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: Spotligh
 	const { space, tape } = exploreData.spotlight;
 	return (
 		<div className="col-span-12 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg max-w-[110rem] p-2 mx-2 xl:mx-auto xl:my-5">
-			<div className="lg:z-10 lg:relative py-8 lg:py-10 border-[0.25px] border-neutral-800 2xl:mx-auto spotlight-gradient max-w-[110rem] rounded-md">
-				<div className="mx-auto max-w-4xl px-4 py-4 rounded-lg">
+			<div className="lg:z-10 lg:relative py-7 lg:py-10 border-[0.25px] border-neutral-800 2xl:mx-auto spotlight-gradient max-w-[110rem] rounded-lg">
+				<div className="mx-auto max-w-4xl px-4 py-1 xl:py-4 rounded-lg">
 					<div className="grid lg:grid-cols-2 items-center gap-x-4 place-content-center">
-						<div className="lg:col-span-1 flex flex-col items-center lg:items-end lg:justify-end">
-							<img className="max-w-xs md:max-w-md lg:w-full lg:h-full rounded-lg shadow-sm" src={featured?.tape?.image} />
+						<div className="lg:col-span-1 flex flex-col items-center justify-center lg:items-end lg:justify-end">
+							<img className="max-w-[13rem] md:max-w-md lg:w-full lg:h-full rounded-lg shadow-sm" src={featured?.tape?.image} />
 						</div>
 						<div className="lg:col-span-1 h-full flex items-center justify-center lg:justify-start">
 							<div className="flex flex-col justify-center items-center lg:items-start px-20 lg:mt-0 mt-10">

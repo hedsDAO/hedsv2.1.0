@@ -2,7 +2,7 @@ import React from "react";
 
 const InfoTooltip = ({ infoText }: { infoText: string }) => {
 	return (
-		<div className="relative flex flex-col items-center group">
+		<div className="relative flex flex-col items-center group transition-all ease-in-out">
 			<svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
 				<path
 					fillRule="evenodd"
@@ -10,7 +10,7 @@ const InfoTooltip = ({ infoText }: { infoText: string }) => {
 					clipRule="evenodd"
 				/>
 			</svg>
-			<div className="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex">
+			<div className="absolute bottom-0 flex-col items-center hidden mb-6 group-hover:flex transition-all ease-in-out">
 				<span className="relative z-10 py-2 px-8 text-xs leading-none text-white whitespace-no-wrap bg-black shadow-lg">
 					{infoText}
 				</span>

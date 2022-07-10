@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import ConnectModal from "../../common/modal/ConnectModal/ConnectModal";
 import { useLocation, useHistory } from "react-router";
-import logoImg from "../../../../public/hedslogo.png";
 import { XIcon } from "@heroicons/react/outline";
 import NavDropdown from "../../common/dropdown/NavDropdown/NavDropdown";
 import profileTestImg from "../../../../public/2.png";
@@ -31,14 +30,14 @@ const Navbar = () => {
 			<div className={`${pathname === "/" && "absolute"} md:hidden z-50 w-screen mb-10`}>
 				<div className="absolute left-5 top-5 -mt-1 md:left-6 md:top-6 z-50">
 					<Link to="/">
-						<img className="w-7 hover:contrast-50 transition-all" src={HedDot} />
+						<img className="w-7 hover:contrast-50 transition-all ml-2" src={HedDot} />
 					</Link>
 				</div>
 				<button
 					onClick={() => setIsOpen(true)}
 					className="rounded-md bg-transparent text-gray-400 focus:outline-none border-transparent active:bg-transparent">
 					<i
-						className="fa-duotone fa-bars-staggered md:hidden absolute top-5 right-6 z-40 text-xl text-fuchsia-500"
+						className="fa-duotone fa-bars-staggered md:hidden absolute top-5 right-7 z-40 text-xl text-fuchsia-500"
 						aria-hidden="true"
 					/>
 				</button>

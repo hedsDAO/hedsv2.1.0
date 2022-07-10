@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useMoralis, useMoralisFile, useMoralisWeb3Api, useNFTBalances } from "react-moralis";
 import { Dispatch } from "../store";
-import parseUserCollection from "../utils/parseUserCollection";
+import { parseAddresses } from "../utils/parseAddresses";
 import { useDispatch } from "react-redux";
 import Moralis from "moralis/types";
+import { CollectionTank } from "../models/common";
 
 interface MoralisFile extends Moralis.File {
 	_hash?: string;
@@ -18,6 +19,14 @@ const useMoralisHooks = () => {
 	const dispatch = useDispatch<Dispatch>();
 	//   const IPFS_BASE_URL = "https://ipfs.io/ipfs/";
 
+	// 1. GET USER TAPE COLLECTION
+	const getNFTs = async () => {
+		await getNFTBalances().then((balance) => {
+			console.log(balance);
+			let collection: CollectionTank = parseAddresses(balance?.result);
+			dispatch.userModel.setCollection(collection);
+		});
+	};
 	const uploadFile = async (file: File) => {
 		dispatch.submissionsModel.setLoading(true);
 		if (file) {
@@ -28,14 +37,6 @@ const useMoralisHooks = () => {
 		} else {
 			dispatch.submissionsModel.setLoading(false);
 			alert("no file provided");
-		}
-	};
-
-	const getNFTs = async () => {
-		const balance = await getNFTBalances();
-		if (balance) {
-			const formattedOwnership = parseUserCollection(balance);
-			dispatch.userModel.setUserCollection(formattedOwnership);
 		}
 	};
 
