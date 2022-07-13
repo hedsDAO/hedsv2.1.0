@@ -16,7 +16,6 @@ const Profile = () => {
 	const { isAuthenticated, isUnauthenticated } = useMoralis();
 	const dispatch = useDispatch<Dispatch>();
 	useEffect(() => {
-		console.log(isAuthenticated);
 		if (!spaceData) dispatch.spaceModel.getSpaceData("heds");
 		if (user) dispatch.userModel.getUserData(user?.attributes?.ethAddress);
 		if (userData) getNFTs();

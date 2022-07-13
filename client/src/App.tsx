@@ -1,5 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { Dispatch, RootState } from "./store";
+import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
+import { useMoralis } from "react-moralis";
 import "./input.css"; // manual css stylesheet
 import "../../builds/app/output.css"; // compiled tw output
 
@@ -15,6 +18,12 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 
 const App = () => {
+	const dispatch = useDispatch<Dispatch>();
+	const userData = useSelector((state: RootState) => state.userModel);
+	const { user } = useMoralis();
+	useEffect(() => {
+		if (user && !userData?.profilePicture) dispatch.userModel.getUserData(user?.attributes?.ethAddress);
+	}, [user]);
 	return (
 		<Fragment>
 			<Route path="/" component={Navbar} />

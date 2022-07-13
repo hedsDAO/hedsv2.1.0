@@ -22,7 +22,6 @@ const useMoralisHooks = () => {
 	// 1. GET USER TAPE COLLECTION
 	const getNFTs = async () => {
 		await getNFTBalances().then((balance) => {
-			console.log(balance);
 			let collection: CollectionTank = parseAddresses(balance?.result);
 			dispatch.userModel.setCollection(collection);
 		});
@@ -41,11 +40,9 @@ const useMoralisHooks = () => {
 	};
 
 	const uploadProfilePicture = async (file: File) => {
-		console.log('here')
 		let hash = '';
 		if (file) {
 			await saveFile("profile", file, { saveIPFS: true }).then((res: MoralisFile | undefined) => {
-				console.log(`${res?._hash}`)
 				hash = `${res?._hash}`;
 			});
 		} else {
@@ -65,7 +62,6 @@ const useMoralisHooks = () => {
 				res?.name ? setEnsResult(res?.name) : setEnsResult(undefined);
 			});
 		} catch (e) {
-			console.log(e);
 			alert("ENS name not registered with this address");
 		}
 	};

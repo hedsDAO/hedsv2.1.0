@@ -36,18 +36,16 @@ const Explore = () => {
 								<>
 									{hedsTapes &&
 										hedsTapes?.map((tape: TapeData) => (
-											<>
-												<div key={tape.tape.contract} className="group relative">
-													<Link to={tape.links.route}>
-														<div className="overflow-hidden group-hover:opacity-50 lg:aspect-none transition-all rounded-md">
-															<img
-																src={tape.tape.image}
-																className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0`}
-															/>
-														</div>
-													</Link>
-												</div>
-											</>
+											<div key={tape.tape.contract + tape.tape.name} className="group relative">
+												<Link to={tape.links.route}>
+													<div className="overflow-hidden group-hover:opacity-50 lg:aspect-none transition-all rounded-md">
+														<img
+															src={tape.tape.image}
+															className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0`}
+														/>
+													</div>
+												</Link>
+											</div>
 										))}
 								</>
 							</div>

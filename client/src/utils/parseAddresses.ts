@@ -9,7 +9,6 @@ const hedsTapeAddresses: Array<string> = [
 ];
 
 const parseAddresses = (userCollection: any) => {
-	console.log(userCollection);
 	const collectionTank: CollectionTank = {};
 	if (Array.isArray(userCollection))
 		userCollection.map((item: CollectionItem) => {

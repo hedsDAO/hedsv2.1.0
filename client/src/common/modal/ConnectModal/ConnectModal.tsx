@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMoralis } from "react-moralis";
 import MetamaskIcon from "../../svg/MetamaskIcon/MetamaskIcon";
@@ -8,7 +8,6 @@ import { Dialog, Transition } from "@headlessui/react";
 
 const ConnectModal = () => {
 	const dispatch = useDispatch<Dispatch>();
-	const globalData = useSelector((state: RootState) => state.globalModel);
 	const { open } = useSelector((state: RootState) => state.globalModel.modal);
 	const { authenticate, isAuthenticated, isAuthenticating } = useMoralis();
 	const handleAuthenticate = async (provider: object | void) => {

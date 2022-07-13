@@ -7,7 +7,7 @@ export default function Footer() {
 	return (
 		<>
 			{pathname !== "/" && (
-				<footer className="p-8 rounded-lg md:flex md:items-center md:justify-between md:p-6 mx-7">
+				<footer className="px-8 py-6 rounded-lg md:flex md:items-center md:justify-between md:px-6 md:py-4 mx-7">
 					<span className="text-xs text-gray-500 sm:text-center dark:text-gray-400 md:ml-2">
 						© 2022{" "}
 						<a href="https://heds.io/" className="hover:underline">

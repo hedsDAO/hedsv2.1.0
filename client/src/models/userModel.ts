@@ -32,9 +32,7 @@ export const userModel = createModel<RootModel>()({
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const updatedUserData = { ...docSnap.data(), profilePicture };
-				await updateDoc(docRef, updatedUserData)
-					.then(() => this.setUserData(updatedUserData))
-					.catch(() => console.log("error updating user data."));
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
 		},
 		async updateDescription([wallet, description]: [string, string]) {
@@ -42,9 +40,7 @@ export const userModel = createModel<RootModel>()({
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const updatedUserData = { ...docSnap.data(), description };
-				await updateDoc(docRef, updatedUserData)
-					.then(() => this.setUserData(updatedUserData))
-					.catch(() => console.log("error updating user data."));
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
 		},
 		async updateTwitterHandle([wallet, twitterHandle]: [string, string]) {
@@ -52,9 +48,7 @@ export const userModel = createModel<RootModel>()({
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const updatedUserData = { ...docSnap.data(), twitterHandle };
-				await updateDoc(docRef, updatedUserData)
-					.then(() => this.setUserData(updatedUserData))
-					.catch(() => console.log("error updating user data."));
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
 		},
 	}),
