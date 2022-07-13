@@ -3,8 +3,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { useMoralis } from "react-moralis";
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { Dispatch, RootState } from "../../../store";
-import { Modals } from "../../../models/globalModel";
+import { Dispatch, RootState } from "../../../../store";
+import { Modals } from "../../../../models/globalModel";
 
 function classNames(...classes: any) {
 	return classes.filter(Boolean).join(" ");

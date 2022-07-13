@@ -5,7 +5,7 @@ import { useLocation, useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "../../store";
 import { Modals } from "../../models/globalModel";
-import NavDropdown from "../../common/dropdown/NavDropdown/NavDropdown";
+import NavDropdown from "./NavDropdown/NavDropdown/NavDropdown";
 import HedDot from "../../../../public/heddot.png";
 import MobileDrawer from "./MobileDrawer/MobileDrawer";
 
