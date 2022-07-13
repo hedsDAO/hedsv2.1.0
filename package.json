@@ -25,6 +25,7 @@
 		"@snapshot-labs/snapshot.js": "^0.3.83",
 		"@tailwindcss/forms": "^0.5.0",
 		"@tailwindcss/typography": "^0.5.2",
+		"@trendyol-js/react-carousel": "^3.0.0",
 		"@walletconnect/web3-provider": "^1.7.7",
 		"@web3auth/web3auth": "^0.9.1",
 		"animate.css": "^4.1.1",

@@ -3,7 +3,7 @@ import { Dispatch, RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
 import { TapeData } from "../../models/spaceModel";
 import { Link } from "react-router-dom";
-// import GhostLoader from "../../common/wrapper/GhostLoader/GhostLoader";
+import Artists from "../../components/Explore/Artists/Artists";
 import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 import Spotlight from "../../components/Explore/Spotlight/Spotlight";
 
@@ -51,6 +51,7 @@ const Explore = () => {
 							</div>
 						</div>
 					</div>
+					<Artists />
 				</Fragment>
 			)}
 		</div>
