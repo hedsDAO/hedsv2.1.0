@@ -5,7 +5,7 @@ import { badgeEmptyState } from "../../../utils/emptyStates/badgeEmptyState";
 const Badges = (userData: UserState) => {
 	return (
 		<div className="col-span-12 mt-5">
-			<h1 className="col-span-12 text-2xl tracking-widest font-semibold text-neutral-500 px-3.5 mb-2">BADGES</h1>
+			<h1 className="col-span-12 text-2xl tracking-widest font-semibold text-neutral-500 px-4 mb-2">BADGES</h1>
 			<div className="grid grid-cols-12 lg:grid-rows-2 gap-y-2 gap-x-2 mx-4 rounded-lg">
 				{userData?.badges?.length && (
 					<Fragment>

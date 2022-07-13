@@ -12,12 +12,11 @@ const Profile = () => {
 	const history = useHistory();
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { getNFTs, user } = useMoralisHooks();
-	const { isAuthenticated, isUnauthenticated } = useMoralis();
+	const { isUnauthenticated } = useMoralis();
 	useEffect(() => {
 		if (!userData?.collection) getNFTs();
 	}, [userData]);
 	useEffect(() => {
-		if (!isAuthenticated && !user) history.push("/explore");
 		if (isUnauthenticated) history.push("/explore");
 	}, []);
 	return (

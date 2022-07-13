@@ -3,6 +3,7 @@ import { Dispatch, RootState } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { useMoralis } from "react-moralis";
+import useMoralisHooks from "./hooks/useMoralis";
 import "./input.css"; // manual css stylesheet
 import "../../builds/app/output.css"; // compiled tw output
 
@@ -21,9 +22,19 @@ const App = () => {
 	const dispatch = useDispatch<Dispatch>();
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { user } = useMoralis();
+	const { getNFTs } = useMoralisHooks();
 	useEffect(() => {
-		if (user && !userData?.profilePicture) dispatch.userModel.getUserData(user?.attributes?.ethAddress);
+		if (user && !userData?.profilePicture) {
+			getNFTs();
+			dispatch.userModel.getUserData(user?.attributes?.ethAddress);
+		}
 	}, [user]);
+	useEffect(() => {
+		if (userData?.badges?.length === 0) {
+			console.log("new user");
+			dispatch.userModel.validateNewUser(user?.attributes?.ethAddress);
+		}
+	}, [userData]);
 	return (
 		<Fragment>
 			<Route path="/" component={Navbar} />

@@ -10,9 +10,9 @@ const Artists = () => {
 		dispatch.audioModel.getSamples();
 	}, []);
 	return (
-		<div className="max-w-7xl w-full mx-auto my-20">
+		<div className="max-w-7xl w-full lg:mx-auto my-20 px-1">
 			<div className="xl:max-w-7xl flex lg:flex-row flex-col justify-end mx-auto items-center pb-5 lg:px-1 px-6 gap-y-4 mt-10 xl:mt-20">
-				<div className="xl:mx-0 mx-2 xl:my-0 my-5 text-right">
+				<div className="xl:mx-0 mx-2 xl:my-0 my-5 text-center lg:text-right">
 					<h1 className="text-4xl tracking-wide font-extrabold text-neutral-300">CURATORS</h1>
 					<p className="mt-3 text-sm lg:text-base text-neutral-500 xl:whitespace-nowrap xl:max-w-full max-w-sm">
 						The tapes are built from an artist sample. View the roster of talented artists and the samples provided.

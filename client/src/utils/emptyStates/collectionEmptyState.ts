@@ -1,6 +1,6 @@
 import { CollectionItem } from "../../models/common";
 
-const emptyState: CollectionItem = {
+export const emptyState: CollectionItem = {
 	name: "",
 	metadata: "",
 	quantity: 0,
