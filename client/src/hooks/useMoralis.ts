@@ -40,6 +40,20 @@ const useMoralisHooks = () => {
 		}
 	};
 
+	const uploadProfilePicture = async (file: File) => {
+		console.log('here')
+		let hash = '';
+		if (file) {
+			await saveFile("profile", file, { saveIPFS: true }).then((res: MoralisFile | undefined) => {
+				console.log(`${res?._hash}`)
+				hash = `${res?._hash}`;
+			});
+		} else {
+			alert("no file provided");
+		}
+		return hash;
+	};
+
 	const updateUserProfile = (attribute: string, idx: number) => {
 		setUserData({ [attribute]: idx });
 		refetchUserData();
@@ -74,6 +88,7 @@ const useMoralisHooks = () => {
 		updateEnsMoralis,
 		user,
 		uploadFile,
+		uploadProfilePicture,
 		updateUserProfile,
 	};
 };

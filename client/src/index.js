@@ -7,6 +7,7 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 import { MoralisProvider } from "react-moralis";
 import AudioWrapper from "./common/wrapper/AudioWrapper/AudioWrapper";
+import GlobalWrapper from "./common/wrapper/GlobalWrapper/GlobalWrapper";
 import snapshot from "@snapshot-labs/snapshot.js";
 import App from "./App";
 // snapshot client
@@ -35,7 +36,9 @@ ReactDOM.render(
 		<Provider store={store}>
 			<BrowserRouter>
 				<AudioWrapper>
-					<App />
+					<GlobalWrapper>
+						<App />
+					</GlobalWrapper>
 				</AudioWrapper>
 			</BrowserRouter>
 		</Provider>

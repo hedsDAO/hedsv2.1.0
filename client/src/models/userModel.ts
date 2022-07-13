@@ -1,6 +1,6 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../index";
 import { BadgeData, CollectionTank } from "./common";
 
@@ -26,6 +26,36 @@ export const userModel = createModel<RootModel>()({
 			const docRef = doc(db, "user", wallet);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) this.setUserData(docSnap.data());
+		},
+		async updateProfilePicture([wallet, profilePicture]: [string, string]) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const updatedUserData = { ...docSnap.data(), profilePicture };
+				await updateDoc(docRef, updatedUserData)
+					.then(() => this.setUserData(updatedUserData))
+					.catch(() => console.log("error updating user data."));
+			}
+		},
+		async updateDescription([wallet, description]: [string, string]) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const updatedUserData = { ...docSnap.data(), description };
+				await updateDoc(docRef, updatedUserData)
+					.then(() => this.setUserData(updatedUserData))
+					.catch(() => console.log("error updating user data."));
+			}
+		},
+		async updateTwitterHandle([wallet, twitterHandle]: [string, string]) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const updatedUserData = { ...docSnap.data(), twitterHandle };
+				await updateDoc(docRef, updatedUserData)
+					.then(() => this.setUserData(updatedUserData))
+					.catch(() => console.log("error updating user data."));
+			}
 		},
 	}),
 });

@@ -16,7 +16,6 @@ const Profile = () => {
 		if (user) dispatch.userModel.getUserData(user?.attributes?.ethAddress);
 		if (userData) getNFTs();
 	}, [user]);
-
 	return (
 		<div className="min-h-screen bg-neutral-900">
 			{user && userData && <ProfileHeader user={user} userData={userData} />}

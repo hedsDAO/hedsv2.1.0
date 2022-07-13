@@ -6,7 +6,6 @@ import TapeHeader from "../../components/Listen/TapeHeader/TapeHeader";
 import TapeInfo from "../../components/Listen/TapeInfo/TapeInfo";
 import TapeArtists from "../../components/Listen/TapeArtists/TapeArtists";
 import TapeTimeline from "../../components/Listen/TapeTimeline/TapeTimeline";
-import GhostLoader from "../../common/wrapper/GhostLoader/GhostLoader";
 
 const Listen = () => {
 	const { space, tape, id } = useParams<{ space?: string; tape: string; id: string }>();
@@ -26,7 +25,7 @@ const Listen = () => {
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, [id]);
 	return (
-		<GhostLoader>
+		<Fragment>
 			{spaceData && audioData && (
 				<Fragment>
 					<div className="w-screen mt-1 lg:mb-40 mb-20">
@@ -41,7 +40,7 @@ const Listen = () => {
 					</div>
 				</Fragment>
 			)}
-		</GhostLoader>
+		</Fragment>
 	);
 };
 

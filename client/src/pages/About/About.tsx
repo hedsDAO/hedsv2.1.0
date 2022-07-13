@@ -14,7 +14,12 @@ const timeline = [
 	{
 		name: "Vote",
 		description:
-			"The community votes on their favorite submissions. Voting power is determined from hedsTAPE(s) ownership. hedsTAPE(s) with a higher ratio of owners to tapes minted in the specific collection will have a higher voting power. The 20 submissions with the most votes will then be sent to the sampe curator who will then select the final 10 submissions for the tape.",
+			"The community votes on their favorite submissions. Voting power is determined from hedsTAPE(s) ownership. hedsTAPE(s) with a higher ratio of owners to tapes minted in the specific collection will have a higher voting power.",
+	},
+	{
+		name: "Curation",
+		description:
+			"The 20 submissions with the most votes will then be sent to the sampe curator who will then select the final 10 submissions for the tape. If this number is less than 20, the curation step will move to the sample provider and 6ETH will be distributed evenly to those who submitted.",
 	},
 	{
 		name: "Mint",

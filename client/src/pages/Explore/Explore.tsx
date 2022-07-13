@@ -17,7 +17,7 @@ const Explore = () => {
 		dispatch.exploreModel.getExploreData();
 	}, []);
 	return (
-		<Fragment>
+		<div className="min-h-screen">
 			{hedsTapes?.length && exploreData?.spotlight && (
 				<Fragment>
 					<Spotlight featured={hedsTapes?.[exploreData?.spotlight?.id]} exploreData={exploreData} />
@@ -55,7 +55,7 @@ const Explore = () => {
 					</div>
 				</Fragment>
 			)}
-		</Fragment>
+		</div>
 	);
 };
 
