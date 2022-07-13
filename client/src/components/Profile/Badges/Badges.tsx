@@ -14,7 +14,7 @@ const Badges = (userData: UserState) => {
 								return (
 									<div
 										key={badge.name}
-										className="flex items-center justify-start w-full bg-neutral-400 text-neutral-900 rounded-md p-2 col-span-6 lg:col-span-3 lg:row-span-1">
+										className="flex items-center justify-start w-full bg-neutral-400 text-neutral-900 rounded-md p-2 col-span-12 lg:col-span-3 lg:row-span-1">
 										<img src={badge.image} className="w-10 h-10 rounded-lg border-[0.25px] border-neutral-950" />
 										<div className="flex flex-col items-start justify-end mx-3">
 											<span className="font-serif font-extrabold tracking-tight uppercase text-right text-sm">

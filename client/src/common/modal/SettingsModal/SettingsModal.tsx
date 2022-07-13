@@ -25,7 +25,8 @@ const SettingsModal = () => {
 	const handleSubmit = async () => {
 		setLoading(true);
 		const wallet = user?.attributes?.ethAddress;
-		if (file) {
+		if (preview && !file) dispatch.userModel.updateProfilePicture([wallet, ""]);
+		else if (file) {
 			await uploadProfilePicture(file).then((hash) => {
 				axios.post(`${PIN_HASH_TO_IPFS}/${hash}`).then((response) => {
 					let profilePicture = "https://www.heds.cloud/ipfs/" + response.data.ipfsHash;
@@ -99,7 +100,7 @@ const SettingsModal = () => {
 														onClick={() => {
 															if (inputRef.current) {
 																inputRef.current.value = "";
-																setPreview();
+																setPreview(defaultImg);
 																setFile();
 															}
 														}}
