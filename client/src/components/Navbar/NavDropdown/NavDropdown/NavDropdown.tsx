@@ -64,6 +64,7 @@ const NavDropdown = () => {
 								<button
 									onClick={() => {
 										logout();
+										dispatch.userModel.clearUserData();
 										if (pathname === "/profile") history.push("/explore");
 									}}
 									className={classNames(

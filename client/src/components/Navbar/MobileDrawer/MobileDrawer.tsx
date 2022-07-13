@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import Drawer from "react-modern-drawer";
-import { XIcon } from "@heroicons/react/solid";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
 import { useMoralis } from "react-moralis";
@@ -12,7 +11,7 @@ import "react-modern-drawer/dist/index.css";
 const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Function }) => {
 	const history = useHistory();
 	const userData = useSelector((state: RootState) => state.userModel);
-	const { pathname } = useParams<{ pathname: string }>();
+	const { pathname } = useLocation<{ pathname: string }>();
 	const dispatch = useDispatch<Dispatch>();
 	const { isAuthenticated, user, logout } = useMoralis();
 	const toggleDrawer = () => {
@@ -43,11 +42,13 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 							{isAuthenticated && (
 								<button
 									onClick={() => {
-										if (pathname === "/profile") history.push("/explore");
 										logout();
+										dispatch.userModel.clearUserData();
+										if (pathname === "/profile") history.push("/explore");
+										setIsOpen(false);
 									}}
 									className="inline-flex items-center justify-center px-3 mr-2 text-sm hover:bg-gray-900 bg-gray-800 text-neutral-200 font-serif rounded-full uppercase transition-all">
-									<i className="fa-regular fa-arrow-up-left-from-circle my-auto -ml-0.25"></i>
+									<i className="fa-regular fa-arrow-up-left-from-circle my-auto text-xs -ml-0.25"></i>
 								</button>
 							)}
 							<button
@@ -75,11 +76,11 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 							{navigation.map((item, i) => (
 								<Link onClick={() => setIsOpen(false)} to={item.href} key={item.href + i}>
 									{pathname === item.href ? (
-										<span className="hover:text-white text-center tracking-widest uppercase text-amber-500 bg-black py-1 text-sm">
+										<span className="hover:text-white text-center tracking-widest uppercase text-amber-500 py-1 inline-flex justify-center text-sm">
 											{item.name}
 										</span>
 									) : (
-										<span className="hover:text-amber-500 text-center tracking-widest  text-neutral-400 uppercase py-1 text-sm">
+										<span className="hover:text-amber-500 text-center tracking-widest  text-neutral-400 uppercase inline-flex justify-center py-1 text-sm">
 											{item.name}
 										</span>
 									)}

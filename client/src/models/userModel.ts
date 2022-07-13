@@ -5,21 +5,27 @@ import { db } from "../index";
 import { BadgeData, CollectionTank } from "./common";
 
 export interface UserState {
-	profilePicture: string;
-	twitterHandle: string;
-	badges: Array<BadgeData>;
+	profilePicture?: string;
+	twitterHandle?: string;
+	badges?: Array<BadgeData>;
 	description: string;
-	collection: CollectionTank;
+	collection?: CollectionTank;
 	votingPower: number;
 }
 
 export const userModel = createModel<RootModel>()({
 	state: {
 		votingPower: 0,
+		description: "",
 	} as UserState,
 	reducers: {
 		setCollection: (state, collection: CollectionTank) => ({ ...state, collection }),
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
+		clearUserData: (state) => {
+			let newState = { ...state };
+			newState = { votingPower: 0, description: "" };
+			return newState;
+		},
 	},
 	effects: () => ({
 		async getUserData(wallet: string) {

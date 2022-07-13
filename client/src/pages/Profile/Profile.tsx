@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Dispatch, RootState } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 import { useMoralis } from "react-moralis";
 import useMoralisHooks from "../../hooks/useMoralis";
 import Badges from "../../components/Profile/Badges/Badges";
@@ -11,17 +11,13 @@ import { useHistory } from "react-router";
 const Profile = () => {
 	const history = useHistory();
 	const userData = useSelector((state: RootState) => state.userModel);
-	const spaceData = useSelector((state: RootState) => state.spaceModel);
 	const { getNFTs, user } = useMoralisHooks();
 	const { isAuthenticated, isUnauthenticated } = useMoralis();
-	const dispatch = useDispatch<Dispatch>();
 	useEffect(() => {
-		if (!spaceData) dispatch.spaceModel.getSpaceData("heds");
-		if (user) dispatch.userModel.getUserData(user?.attributes?.ethAddress);
-		if (userData) getNFTs();
-	}, [user]);
+		if (!userData?.collection) getNFTs();
+	}, [userData]);
 	useEffect(() => {
-		if (!isAuthenticated && !user) history.push("/explore")
+		if (!isAuthenticated && !user) history.push("/explore");
 		if (isUnauthenticated) history.push("/explore");
 	}, []);
 	return (
