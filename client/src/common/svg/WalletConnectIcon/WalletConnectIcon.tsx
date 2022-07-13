@@ -10,11 +10,11 @@ const WalletConnectIcon = () => {
 			xmlnsXlink="http://www.w3.org/1999/xlink">
 			<defs>
 				<radialGradient cx="0%" cy="50%" fx="0%" fy="50%" r="100%" id="radialGradient-1">
-					<stop stop-color="#5D9DF6" offset="0%"></stop>
-					<stop stop-color="#006FFF" offset="100%"></stop>
+					<stop stopColor="#5D9DF6" offset="0%"></stop>
+					<stop stopColor="#006FFF" offset="100%"></stop>
 				</radialGradient>
 			</defs>
-			<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+			<g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
 				<g id="logo">
 					<rect id="base" fill="url(#radialGradient-1)" x="0" y="0" width="512" height="512" rx="256"></rect>
 					<path

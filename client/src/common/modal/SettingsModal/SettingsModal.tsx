@@ -18,7 +18,7 @@ const SettingsModal = () => {
 	const [error, setError] = useState<string>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [preview, setPreview] = useState<string | void>();
-	const [chars, setChars] = useState<number>(0 + userData?.description.length);
+	const [chars, setChars] = useState<number>(0 + userData?.description?.length);
 	const [description, setDescription] = useState();
 	const PIN_HASH_TO_IPFS = "https://us-central1-heds-34ac0.cloudfunctions.net/pinHashToIpfs";
 
