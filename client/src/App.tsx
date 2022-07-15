@@ -18,6 +18,7 @@ import About from "./pages/About/About";
 // components
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import Related from "./components/Listen/Related/Related";
 
 const App = () => {
 	const dispatch = useDispatch<Dispatch>();
@@ -42,6 +43,7 @@ const App = () => {
 			<Route exact path="/" component={Landing} />
 			<Route exact path="/explore" component={Explore} />
 			<Route exact path="/listen/:space?/:tape/:id" component={Listen} />
+			<Route exact path="/listen/:space?/:tape/:id" component={Related} />
 			<Route exact path="/profile" component={Profile} />
 			<Route exact path="/about" component={About} />
 			<Route path="/" component={Footer} />
