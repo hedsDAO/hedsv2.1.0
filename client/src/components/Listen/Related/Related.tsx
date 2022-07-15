@@ -8,7 +8,9 @@ import { useParams } from "react-router";
 const Related = () => {
 	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const hedsTapes = useSelector((state: RootState) => state.spaceModel?.[tape]);
-	useEffect(() => {}, [id]);
+	useEffect(() => {
+		window.scrollTo({top: 0, behavior: "smooth"});
+	}, [id]);
 	return (
 		<Fragment>
 			{hedsTapes?.length && (
