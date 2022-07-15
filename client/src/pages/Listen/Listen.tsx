@@ -28,15 +28,15 @@ const Listen = () => {
 		<Fragment>
 			{spaceData && audioData && (
 				<Fragment>
-					<div className="w-screen mt-1 lg:mb-40 mb-20">
+					<div className="w-screen">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="lg:mt-6">
+					<div className="">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="grid grid-cols-12 mx-auto gap-x-2 px-3 max-w-[100rem] items-start pb-20">
-						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
+					<div className="grid grid-cols-12 lg:mx-auto max-w-[100rem] gap-1.5 mt-1.5 rounded-lg mx-2">
 						<TapeArtists {...tapeData} />
+						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
 				</Fragment>
 			)}

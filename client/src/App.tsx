@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import useMoralisHooks from "./hooks/useMoralis";
+import "./index.scss"; // scss bg stylings
 import "./input.css"; // manual css stylesheet
 import "../../builds/app/output.css"; // compiled tw output
 

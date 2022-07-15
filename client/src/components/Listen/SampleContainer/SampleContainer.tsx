@@ -13,34 +13,39 @@ const SampleContainer = (tapeData: TapeData) => {
 		dispatch.audioModel.setCurrentTrack(tapeData.tape?.id);
 	};
 	return (
-		<div className="grid grid-cols-12 gap-x-5 max-w-lg mx-auto mt-2 px-4 py-3 sm:p-6 bg-neutral-950  border-neutral-800 shadow-sm border-[0.25px] sm:rounded-lg -mb-10">
-			<button onClick={() => playTrack()} className="col-span-4 flex flex-col items-center justify-center">
-				<div className="w-32 h-32 my-2 group">
-					<img
-						src={tapeData.sample?.image}
-						className="w-32 h-32 mx-auto p-0.5 ease-in-out rounded-full group-hover:opacity-25 transition-opacity"
-					/>
-					<PlayIcon className="h-7 w-7 relative -mt-[76px] ml-[50px] text-neutral-300 -z-50 group-hover:z-30 transition-all" />
-				</div>
-			</button>
-			<div className="col-span-8 flex flex-col items-center justify-center">
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg">
-					<span className="ml-1">artist</span>
-					<span className="bg-neutral-950 text-xs lg:text-sm text-neutral-300 px-2.5 py-0.25 rounded-md tracking-widest">
-						{tapeData.sample?.artist}
+		<div className="grid grid-cols-12 gap-x-5 lg:max-w-lg mt-2 mx-5 sm:px-5 lg:items-start items-center">
+			<div className="col-span-12 lg:px-0 px-2 lg:col-span-1 h-full flex items-center justify-center lg:justify-start">
+				<div className="flex flex-col justify-start items-center lg:items-start lg:mt-0 mt-10">
+					<div className="flex items-center justify-start mb-4">
+						<img
+							src={tapeData?.sample?.image}
+							className="h-20 w-20 aspect-square inline-block rounded-full item item--sphere flex-shrink-0 flex-grow-0"
+						/>
+						<img
+							src={tapeData?.collab?.image}
+							className="h-20 w-20 aspect-square inline-block rounded-full bg-neutral-900 p-2 item item--sphere flex-shrink-0 flex-grow-0 -ml-2"
+						/>
+					</div>
+					<div className="inline-flex items-center">
+						<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+							heds
+						</span>
+						<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+							/
+						</span>
+						<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+							hedTAPE
+						</span>
+						<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+							/
+						</span>
+						<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+							{tapeData?.tape?.no}
+						</span>
+					</div>
+					<span className="text-neutral-100 text-2xl uppercase tracking-widest whitespace-nowrap mb-3">
+						{tapeData?.sample?.artist} <span className="lowercase">x</span> Heds
 					</span>
-				</div>
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg mt-2">
-					<span className="ml-1">bpm</span>
-					<span className="bg-neutral-950 text-xs lg:text-sm text-neutral-300 px-2.5 py-0.25 rounded-md tracking-widest">
-						{tapeData.sample?.bpm}
-					</span>
-				</div>
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg mt-2">
-					<span className="ml-1">download</span>
-					<button className="bg-neutral-950 text-sm text-neutral-300 px-2 py-0.5 rounded-md tracking-widest">
-						<DownloadIcon className="h-4 w-4 text-center text-neutral-300 z-40 transition-all" aria-hidden="true" />
-					</button>
 				</div>
 			</div>
 		</div>
