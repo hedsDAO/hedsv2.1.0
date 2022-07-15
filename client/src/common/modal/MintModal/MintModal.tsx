@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
 
-const TokenBurnModal = () => {
+const MintModal = () => {
 	// @ts-ignore
 	const globalData = useSelector((state: RootState) => state.globalModel);
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
@@ -32,4 +32,4 @@ const TokenBurnModal = () => {
 	);
 };
 
-export default TokenBurnModal;
+export default MintModal;

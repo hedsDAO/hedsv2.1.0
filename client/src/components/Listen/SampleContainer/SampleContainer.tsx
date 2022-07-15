@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TapeData } from "../../../models/spaceModel";
 import { DownloadIcon, PlayIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
 import { PlayerSize } from "../../../models/common";
+import { useParams } from "react-router";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { handleDownloadFile } from "../../../utils/handleDownloadFile";
 
 const SampleContainer = (tapeData: TapeData) => {
+	const { id } = useParams<{ id: string }>();
+	const storage = getStorage();
+	const sampleRef = ref(storage, id !== "6" ? `public/samples/ht${id}.mp3` : `public/samples/ht${id}.zip`);
+	const [sampleDownloadUrl, setSampleDownloadUrl] = useState<string>("");
 	const dispatch = useDispatch<Dispatch>();
 	const audioData = useSelector((state: RootState) => state.audioModel);
 	const playSample = () => {
@@ -16,9 +23,14 @@ const SampleContainer = (tapeData: TapeData) => {
 			dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 		}
 	};
+	useEffect(() => {
+		getDownloadURL(sampleRef).then((url: string) => {
+			setSampleDownloadUrl(url);
+		});
+	}, []);
 	return (
-		<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center lg:mx-auto gap-1 py-2.5 rounded-lg px-2 mx-2">
-			<div className="w-full bg-neutral-950 inline-flex items-center justify-between rounded-md py-1.5">
+		<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center lg:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
+			<div className="w-full bg-neutral-950 inline-flex items-center justify-between rounded-md py-2">
 				<div className="inline-flex items-center">
 					<span className="px-2.5 text-neutral-400 font-serif font-semibold uppercase text-xs tracking-widest">
 						<span className="text-neutral-500 tracking-tight lg:inline hidden font-semibold">sample:</span>{" "}
@@ -29,7 +41,10 @@ const SampleContainer = (tapeData: TapeData) => {
 					</span>
 				</div>
 				<div className="inline-flex items-center gap-x-2.5 pr-2">
-					<DownloadIcon className="h-4 w-4 text-neutral-400" />
+					<DownloadIcon
+						onClick={() => handleDownloadFile(sampleDownloadUrl, `HT${id}`)}
+						className="h-4 w-4 text-green-500 hover:text-green-400 transition-all"
+					/>
 					{!audioData?.isPlaying && !audioData?.isSample ? (
 						<PlayIcon
 							onClick={() => playSample()}
