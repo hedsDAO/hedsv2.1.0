@@ -26,7 +26,7 @@ const TapeTimeline = (tapeData: TapeData) => {
 
 const Completed = ({ step, idx }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-900 rounded-md lg:m-0 m-1">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-950 rounded-md lg:m-0 m-1">
 			<a href={step.href} className="group ">
 				<span
 					className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
@@ -40,7 +40,7 @@ const Completed = ({ step, idx }: any) => {
 					</span>
 					<span className="mt-0.5 ml-4 min-w-0 flex flex-col">
 						<span className="text-xs font-semibold tracking-wide uppercase text-neutral-500 mb-1">{step.name}</span>
-						<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700">{step.description}</span>
+						<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-600">{step.description}</span>
 					</span>
 				</span>
 			</a>
@@ -50,7 +50,7 @@ const Completed = ({ step, idx }: any) => {
 
 const Current = ({ step, idx }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-900 rounded-md">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-950 rounded-md">
 			{/* <span
 				className="absolute top-0 left-0 w-[0.075rem] h-[80%] bg-fuchsia-600 lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto -mr-2 mt-2 lg:mt-0"
 				aria-hidden="true"
@@ -76,7 +76,7 @@ const Current = ({ step, idx }: any) => {
 
 const Pending = ({ step, idx }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-900 rounded-md">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-950 rounded-md">
 			<a href={step.href} className="group">
 				<span
 					className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"

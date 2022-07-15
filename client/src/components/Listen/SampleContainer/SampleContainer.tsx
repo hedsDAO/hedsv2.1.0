@@ -1,17 +1,17 @@
 import React from "react";
-import { PlayIcon, DownloadIcon } from "@heroicons/react/solid";
 import { TapeData } from "../../../models/spaceModel";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "../../../store";
-import { PlayerSize } from "../../../models/common";
+// import { PlayIcon, DownloadIcon } from "@heroicons/react/solid";
+// import { useDispatch } from "react-redux";
+// import { Dispatch } from "../../../store";
+// import { PlayerSize } from "../../../models/common";
 
 const SampleContainer = (tapeData: TapeData) => {
-	const dispatch = useDispatch<Dispatch>();
-	const playTrack = () => {
-		dispatch.audioModel.setIsSample(true);
-		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
-		dispatch.audioModel.setCurrentTrack(tapeData.tape?.id);
-	};
+	// const dispatch = useDispatch<Dispatch>();
+	// const playTrack = () => {
+	// 	dispatch.audioModel.setIsSample(true);
+	// 	dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+	// 	dispatch.audioModel.setCurrentTrack(tapeData.tape?.id);
+	// };
 	return (
 		<div className="grid grid-cols-12 gap-x-5 lg:max-w-lg mt-2 mx-5 sm:px-5 lg:items-start items-center">
 			<div className="col-span-12 lg:px-0 px-2 lg:col-span-1 h-full flex items-center justify-center lg:justify-start">

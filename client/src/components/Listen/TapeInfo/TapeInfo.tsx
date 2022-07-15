@@ -35,7 +35,9 @@ const TapeInfo = (tapeData: TapeData) => {
 							<h6 className="lg:mx-auto mr-auto font-serif text-neutral-500 lg:pt-0 pt-5 mb-3 text-sm">details:</h6>
 							<div className="inline-flex items-center justify-between w-full border-b-[0.25px] border-b-neutral-800 pb-0.5 mx-2">
 								<span className="font-thin font-serif text-neutral-600 mr-1 text-sm">status:</span>
-								<span className="uppercase font-serif text-neutral-500 text-sm">{generateStatusLanguage(tapeData?.status?.status)}</span>
+								<span className="uppercase font-serif text-neutral-500 text-sm">
+									{generateStatusLanguage(tapeData?.status?.status)}
+								</span>
 							</div>
 							<div className="inline-flex items-center justify-between w-full border-b-[0.25px] border-b-neutral-800 pb-0.5 mx-2">
 								<span className="font-thin font-serif text-neutral-600 mr-1 text-sm">space:</span>

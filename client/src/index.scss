@@ -2,7 +2,7 @@
 
 $size: 130px;
 $scale: 1.05;
-$border-radius: $size / 2;
+$border-radius: calc($size / 2);
 $grad-position: 100% 0;
 $grad-start: 25%;
 $grad-stop: 65%;

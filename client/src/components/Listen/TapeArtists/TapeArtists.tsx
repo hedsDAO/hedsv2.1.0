@@ -11,6 +11,7 @@ const TapeArtists = (tapeData: TapeState) => {
 	const { id } = useParams<{ id: string }>();
 	const audioData = useSelector((state: RootState) => state.audioModel);
 	const currentTrack: number = audioData?.currentTrack;
+	console.log(currentTrack);
 
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;

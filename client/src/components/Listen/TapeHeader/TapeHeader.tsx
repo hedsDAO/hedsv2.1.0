@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Fragment } from "react";
 import { DownloadIcon, PlayIcon } from "@heroicons/react/solid";
 import { TapeData } from "../../../models/spaceModel";
@@ -20,10 +21,10 @@ const TapeHeader = (tapeData: TapeData) => {
 
 	return (
 		<Fragment>
-			<div className="max-w-[100rem] lg:mx-auto rounded-lg mx-2 bg-neutral-975 p-2 mt-10 mb-1.5">
-				<div className="lg:z-10 max-w-[100rem] lg:mx-auto listen-gradient rounded-md py-10">
+			<div className="max-w-[100rem] lg:mx-auto rounded-lg mx-2 bg-neutral-975 p-2 lg:mt-10 mb-1.5">
+				<div className="lg:z-10 max-w-[100rem] lg:mx-auto listen-gradient rounded-md py-8">
 					<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
-						<div className="flex justify-center lg:col-span-2 px-2 lg:pt-0 pt-10">
+						<div className="flex justify-center lg:col-span-2 px-2">
 							<img
 								className="object-contain rounded-lg w-[85%] sm:w-[50%] lg:w-[18rem] bg-neutral-900"
 								src={tapeData.tape?.image}
@@ -42,8 +43,8 @@ const TapeHeader = (tapeData: TapeData) => {
 					</div>
 				</div>
 			</div>
-			<div className="max-w-[100rem] flex justify-between items-center lg:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
-				<div className="w-full bg-neutral-900 inline-flex items-center justify-between rounded-md py-1.5">
+			<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center lg:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
+				<div className="w-full bg-neutral-90 inline-flex items-center justify-between rounded-md py-1.5">
 					<div className="inline-flex items-center">
 						<span className="px-2.5 text-neutral-400 font-serif font-semibold uppercase text-xs tracking-widest">
 							<span className="text-neutral-500 tracking-tight lg:inline hidden font-semibold">sample:</span>{" "}
