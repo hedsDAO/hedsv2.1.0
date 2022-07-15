@@ -2,6 +2,7 @@ import React, { useEffect, Fragment } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../store";
+import SampleContainer from "../../components/Listen/SampleContainer/SampleContainer";
 import TapeHeader from "../../components/Listen/TapeHeader/TapeHeader";
 import TapeInfo from "../../components/Listen/TapeInfo/TapeInfo";
 import TapeArtists from "../../components/Listen/TapeArtists/TapeArtists";
@@ -30,6 +31,7 @@ const Listen = () => {
 				<Fragment>
 					<div className="w-screen">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
+						<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
 					<div className="">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />

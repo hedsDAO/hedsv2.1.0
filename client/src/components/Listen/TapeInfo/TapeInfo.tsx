@@ -42,7 +42,7 @@ const TapeInfo = (tapeData: TapeData) => {
 			<div className="grid grid-cols-1 lg:grid-cols-1 rounded-md h-full w-full">
 				<div className="flex flex-col justify-center gap-1 p-1.5 h-full rounded-md">
 					{openSeaData?.calculatedVP && (
-						<div className="flex flex-col items-center justify-evenly rounded-md bg-neutral-900 h-full w-full px-10 py-5">
+						<div className="flex flex-col items-center justify-evenly rounded-md bg-neutral-950 h-full w-full px-10 py-5">
 							<h2 className="text-xl text-center font-serif text-neutral-500 lg:pt-0 pt-5 lg:mb-5">{tapeData?.tape?.name}</h2>
 							<h6 className="lg:mx-auto mr-auto font-serif text-neutral-500 lg:pt-0 pt-5 mb-3 text-sm">details:</h6>
 							<div className="inline-flex items-center justify-between w-full border-b-[0.25px] border-b-neutral-800 pb-0.5 mx-2">
@@ -94,9 +94,14 @@ const TapeInfo = (tapeData: TapeData) => {
 								<a target={"_blank"} href={tapeData?.links?.etherscan} className="text-neutral-500 text-lg">
 									<i className="fak fa-etherscan"></i>
 								</a>
-								{tapeData?.links?.splits && <a target={"_blank"} href={tapeData?.links?.splits} className="text-lg rounded-full border-neutral-700 border-[0.25px] bg-neutral-500 p-[0.095rem]">
-									<SplitsIcon />
-								</a>}
+								{tapeData?.links?.splits && (
+									<a
+										target={"_blank"}
+										href={tapeData?.links?.splits}
+										className="text-lg rounded-full border-neutral-700 border-[0.25px] bg-neutral-500 p-[0.095rem]">
+										<SplitsIcon />
+									</a>
+								)}
 							</div>
 						</div>
 					)}
