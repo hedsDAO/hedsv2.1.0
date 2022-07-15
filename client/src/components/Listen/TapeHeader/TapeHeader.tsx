@@ -5,7 +5,6 @@ import SampleContainer from "../SampleContainer/SampleContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
 import { PlayerSize } from "../../../models/common";
-import LoadingIcon from "../../../common/svg/LoadingIcon/LoadingIcon";
 
 const TapeHeader = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -55,17 +54,22 @@ const TapeHeader = (tapeData: TapeData) => {
 					</div>
 					<div className="inline-flex items-center gap-x-2.5 pr-2">
 						<DownloadIcon className="h-4 w-4 text-neutral-400" />
-						{!audioData?.isPlaying ? (
+						{!audioData?.isPlaying && !audioData?.isSample ? (
 							<PlayIcon
 								onClick={() => playSample()}
-								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all"
+								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate__animated animate__fadeIn"
 							/>
-						) : audioData?.isSample ? (
+						) : audioData?.isSample && audioData?.isPlaying ? (
 							<PlayIcon
 								onClick={() => playSample()}
-								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all"
+								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate-pulse"
 							/>
-						) : null}
+						) : (
+							<PlayIcon
+								onClick={() => playSample()}
+								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate__animated animate__fadeIn"
+							/>
+						)}
 					</div>
 				</div>
 			</div>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import TokenBurnModal from "../../modal/TokenBurnModal/TokenBurnModal";
