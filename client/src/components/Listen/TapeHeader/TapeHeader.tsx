@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Fragment } from "react";
 import { DownloadIcon, PlayIcon } from "@heroicons/react/solid";
 import { TapeData } from "../../../models/spaceModel";
@@ -10,19 +9,19 @@ import LoadingIcon from "../../../common/svg/LoadingIcon/LoadingIcon";
 
 const TapeHeader = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
-	// const playSample = () => {
-	// 	const track = (+tapeData.tape.no - 1) * 10;
-	// 	if (audioData?.tracks?.[track]) {
-	// 		dispatch.audioModel.setIsSample(false);
-	// 		dispatch.audioModel.setCurrentTrack(track);
-	// 		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
-	// 	}
-	// };
-
+	const audioData = useSelector((state: RootState) => state.audioModel);
+	const playSample = () => {
+		const track = +tapeData.tape.no - 1;
+		if (audioData?.samples?.[track]) {
+			dispatch.audioModel.setCurrentTrack(track);
+			dispatch.audioModel.setIsSample(true);
+			dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+		}
+	};
 	return (
 		<Fragment>
 			<div className="max-w-[100rem] lg:mx-auto rounded-lg mx-2 bg-neutral-975 p-2 lg:mt-10 mb-1.5">
-				<div className="lg:z-10 max-w-[100rem] lg:mx-auto listen-gradient rounded-md py-8">
+				<div className="lg:z-10 max-w-[100rem] lg:mx-auto listen-gradient rounded-md py-8 lg:py-14">
 					<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 						<div className="flex justify-center lg:col-span-2 px-2">
 							<img
@@ -56,7 +55,17 @@ const TapeHeader = (tapeData: TapeData) => {
 					</div>
 					<div className="inline-flex items-center gap-x-2.5 pr-2">
 						<DownloadIcon className="h-4 w-4 text-neutral-400" />
-						<PlayIcon className="h-4 w-4 text-neutral-400" />
+						{!audioData?.isPlaying ? (
+							<PlayIcon
+								onClick={() => playSample()}
+								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all"
+							/>
+						) : audioData?.isSample ? (
+							<PlayIcon
+								onClick={() => playSample()}
+								className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all"
+							/>
+						) : null}
 					</div>
 				</div>
 			</div>

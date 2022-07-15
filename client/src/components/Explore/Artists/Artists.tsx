@@ -23,7 +23,9 @@ const Artists = () => {
 				<ul role="list" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 place-items-center">
 					{audioData?.samples &&
 						audioData?.samples.map((sample, index: number) => (
-							<li className="col-span-1 flex flex-col text-center rounded-lg hover:bg-neutral-900">
+							<li
+								key={sample.wallet + sample.artist}
+								className="col-span-1 flex flex-col text-center rounded-lg hover:bg-neutral-900">
 								<Link to={`/listen/heds/hedstape/${index + 1}`}>
 									<div className="flex-1 flex flex-col items-start p-2">
 										<img className="lg:w-full lg:h-full flex-shrink-0 mx-auto rounded-lg" src={sample.image} alt="" />

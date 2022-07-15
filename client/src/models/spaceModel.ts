@@ -27,6 +27,8 @@ export interface TapeData {
 		etherscan: string;
 		route: string;
 		opensea: string;
+		snapshot?: string;
+		splits?: string;
 	};
 	status: {
 		countdown: boolean;

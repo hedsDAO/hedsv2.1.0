@@ -10,8 +10,8 @@ const TapeArtists = (tapeData: TapeState) => {
 	const dispatch = useDispatch<Dispatch>();
 	const { id } = useParams<{ id: string }>();
 	const audioData = useSelector((state: RootState) => state.audioModel);
+	// @ts-ignore
 	const currentTrack: number = audioData?.currentTrack;
-	console.log(currentTrack);
 
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;
@@ -24,7 +24,7 @@ const TapeArtists = (tapeData: TapeState) => {
 			{tapeData && (
 				<div className="col-span-12 lg:col-span-9 bg-neutral-975 rounded-lg">
 					<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-2 pt-1 mx-2">
-						<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 py-2 items-start">
+						<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
 							<div className="col-span-1">
 								<span className="text-neutral-500 text-sm px-1">#</span>
 							</div>
@@ -45,7 +45,7 @@ const TapeArtists = (tapeData: TapeState) => {
 										key={track?.artist_img}
 										className="col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
 										<div className="text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
-										<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-500 px-2">
+										<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-500 px-2 whitespace-nowrap">
 											<img className="h-4 w-4 rounded-full" src={track?.artist_img} />
 											{track?.artist}
 										</div>

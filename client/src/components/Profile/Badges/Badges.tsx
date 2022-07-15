@@ -14,13 +14,13 @@ const Badges = (userData: UserState) => {
 								return (
 									<div
 										key={badge.name}
-										className="flex items-center justify-start w-full bg-neutral-400 text-neutral-900 rounded-md p-2 col-span-12 lg:col-span-3 lg:row-span-1">
+										className="flex items-center justify-start w-full bg-neutral-500 text-neutral-900 rounded-md p-2 col-span-12 lg:col-span-3 lg:row-span-1">
 										<img src={badge.image} className="w-10 h-10 rounded-lg border-[0.25px] border-neutral-950" />
 										<div className="flex flex-col items-start justify-end mx-3">
 											<span className="font-serif font-extrabold tracking-tight uppercase text-right text-sm">
 												{badge.name}
 											</span>
-											<span className="text-neutral-800 text-opacity-80 italic text-xs text-right tracking-wider">
+											<span className="text-neutral-975 text-opacity-80 italic text-xs text-right tracking-wider">
 												{badge.description}
 											</span>
 										</div>
@@ -30,7 +30,7 @@ const Badges = (userData: UserState) => {
 								return (
 									<div
 										key={index + "emptyBadge"}
-										className="hidden lg:flex items-center justify-start w-full bg-neutral-850 text-neutral-400 rounded-md p-2 col-span-6 lg:col-span-3 lg:row-span-1">
+										className="hidden lg:flex items-center justify-start w-full bg-neutral-850 text-neutral-500 rounded-md p-2 col-span-6 lg:col-span-3 lg:row-span-1">
 										<div className="flex flex-col items-start justify-end mx-3">
 											<span className="font-serif font-extrabold tracking-tight uppercase text-right text-sm">
 												{badge.name}
