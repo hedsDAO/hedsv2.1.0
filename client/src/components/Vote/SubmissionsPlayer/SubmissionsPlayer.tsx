@@ -30,9 +30,9 @@ const SubmissionsPlayer = ({ tracks, walletId }: SubmissionsPlayerProps) => {
 	}, [selectedTrack]);
 
 	return (
-		<ul role="list" className="grid grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-3 lg:grid-cols-4">
+		<ul role="list" className="grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
 			{tracks?.map((sub, idx) => (
-				<li key={idx} className="flex justify-between bg-neutral-950 py-2 px-1">
+				<li key={idx} className="flex justify-between bg-neutral-900 rounded-md py-1.5 px-1">
 					<button
 						onClick={() => dispatch.voteModel.setSelectedTrack(idx)}
 						style={{ minWidth: "150px" }}

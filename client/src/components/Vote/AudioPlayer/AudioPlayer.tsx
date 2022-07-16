@@ -121,7 +121,7 @@ const AudioPlayer = ({ tracks, selectedTrack }: AudioPlayerProps) => {
 	}, [selectedTrack]);
 
 	return (
-		<div className="bg-neutral-950 px-5 py-2 mb-3">
+		<div className="bg-neutral-900 px-5 pt-2 pb-4 mb-2 rounded-md">
 			{/* <h2 className="text-md font-thin mb-2 text-amber-500 mx-2">{formatSubId(subId)}</h2> */}
 			<div className="flex items-center md:justify-start justify-center w-12/12 md:w-1/12 sm:mx-4 ml-0.5">
 				<div className="flex md:justify-start justify-center items-center text-xs font-extralight tracking-widest text-neutral-100">

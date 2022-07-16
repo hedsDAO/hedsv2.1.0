@@ -43,7 +43,7 @@ export const submissionsModel = createModel<RootModel>()({
 	},
 	effects: (dispatch) => ({
 		async loadAllSubmissions([space, tape, id]: Array<string>) {
-			const querySnapshot = await getDocs(collection(db, "submissions"));
+			const querySnapshot = await getDocs(collection(db, "submissions"))
 			const submissionsTank: Array<UserSubmission> = [];
 			querySnapshot.forEach((doc) => {
 				// checks whether the tape submission exists
