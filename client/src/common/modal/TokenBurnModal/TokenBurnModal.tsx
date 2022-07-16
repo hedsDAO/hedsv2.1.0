@@ -22,7 +22,11 @@ const TokenBurnModal = () => {
 							leaveFrom="opacity-100 scale-100"
 							leaveTo="opacity-0 scale-95">
 							<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg align-middle transition-all mt-5">
-								<div className="relative z-50 inline-block align-bottom bg-neutral-950 border-[0.25px] border-neutral-700 rounded-lg py-4 px-5 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-md sm:w-full"></div>
+								<div className="relative z-50 inline-block align-bottom bg-neutral-950 border-[0.25px] border-neutral-700 rounded-lg py-4 px-5 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-md sm:w-full">
+									<main className="max-w-lg mx-auto">
+										<h5 className="mb-2 uppercase text-base font-semibold text-gray-200 lg:text-xl">OG HED</h5>
+									</main>
+								</div>
 							</Dialog.Panel>
 						</Transition.Child>
 					</div>

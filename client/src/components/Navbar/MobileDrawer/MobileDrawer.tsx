@@ -27,7 +27,7 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 			{userData && (
 				<Fragment>
 					<div className="flex flex-col justify-center items-stretch gap-y-2 bg-neutral-975 h-full max-w-screen">
-						<div className="flex items-center justify-center gap-x-4 gap-y-2 mt-2 h-[78%]">
+						<div className="flex items-center justify-center gap-x-4 gap-y-2 mt-2 h-[75%]">
 							<Link to="/profile">
 								<img
 									onClick={() => setIsOpen(false)}
@@ -84,7 +84,7 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 								</div>
 							</div>
 						</div>
-						<div className="flex justify-center items-center gap-x-8 px-6 w-full bg-neutral-975 min-w-screen max-w-screen max-h-[22%] mt-auto py-2">
+						<div className="flex justify-center items-center gap-x-8 px-6 w-full bg-neutral-975 min-w-screen max-w-screen max-h-[25%] mt-auto py-3">
 							{navigation.map((item, i) => (
 								<Link onClick={() => setIsOpen(false)} to={item.href} key={item.href + i}>
 									{pathname === item.href ? (

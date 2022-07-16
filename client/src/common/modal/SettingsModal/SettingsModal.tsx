@@ -34,10 +34,8 @@ const SettingsModal = () => {
 				});
 			});
 		}
-		if (description) {
-			dispatch.userModel.updateDescription([wallet, description]);
-		}
 		setLoading(false);
+		if (description) dispatch.userModel.updateDescription([wallet, description]);
 		dispatch.globalModel.setModalVisibility(false);
 	};
 

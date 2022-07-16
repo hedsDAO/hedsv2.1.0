@@ -19,10 +19,12 @@ const Listen = () => {
 		dispatch.audioModel.getTrackData();
 		dispatch.audioModel.getTapeData();
 		dispatch.audioModel.getSamples();
+		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, []);
 
 	useEffect(() => {
+		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, [id]);
 	return (
@@ -36,7 +38,7 @@ const Listen = () => {
 					<div className="">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="grid grid-cols-12 lg:mx-auto max-w-[100rem] gap-1.5 mt-1.5 rounded-lg mx-2">
+					<div className="grid grid-cols-12 xl:mx-auto max-w-[100rem] gap-1.5 mt-1.5 rounded-lg mx-2">
 						<TapeArtists {...tapeData} />
 						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 					</div>

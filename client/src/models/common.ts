@@ -60,3 +60,10 @@ export interface CollectionItem {
 export interface CollectionTank {
 	[address: string]: CollectionItem;
 }
+
+export interface UserSubmission {
+	id: string;
+	subId: string;
+	link: string;
+	index?: number;
+}

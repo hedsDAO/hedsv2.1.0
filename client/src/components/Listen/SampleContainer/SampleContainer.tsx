@@ -29,7 +29,7 @@ const SampleContainer = (tapeData: TapeData) => {
 		});
 	}, []);
 	return (
-		<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center lg:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
+		<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center xl:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
 			<div className="w-full bg-neutral-950 inline-flex items-center justify-between rounded-md py-2">
 				<div className="inline-flex items-center">
 					<span className="px-2.5 text-neutral-400 font-serif font-semibold uppercase text-xs tracking-widest">
