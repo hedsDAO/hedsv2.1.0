@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Dispatch, RootState } from "../../../store";
 import "react-circular-progressbar/dist/styles.css";
+import { formatTime } from "../../../utils/formatTime";
 
 const TapeArtists = (tapeData: TapeState) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -48,8 +49,8 @@ const TapeArtists = (tapeData: TapeState) => {
 												<img className="h-4 w-4 rounded-full" src={track?.artist_img} />
 												{track?.artist}
 											</div>
-											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto px-1 text-sm inline-flex items-center">
-												0:00
+											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">
+												{formatTime(track.duration)}
 											</div>
 										</div>
 									);
@@ -60,8 +61,10 @@ const TapeArtists = (tapeData: TapeState) => {
 										<div
 											key={"empty tape" + index}
 											className="col-span-12 bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
-											<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index+ 1}</div>
-											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">open</div>
+											<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index + 1}</div>
+											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">
+												open
+											</div>
 											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto px-1 text-sm inline-flex items-center">
 												0:00
 											</div>

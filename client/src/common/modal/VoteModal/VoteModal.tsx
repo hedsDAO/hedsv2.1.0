@@ -20,13 +20,15 @@ const VoteModal = () => {
 		};
 	}, []);
 	useEffect(() => {
-		if (isWeb3Enabled) setLoading(true);
-		(() =>
-			setTimeout(() => {
-				setLoading(false);
-				dispatch.globalModel.setModalVisibility(false);
-				history.push(`/vote/${space}/${tape}/${+id}`);
-			}, 2000))();
+		if (isWeb3Enabled) {
+			setLoading(true);
+			(() =>
+				setTimeout(() => {
+					setLoading(false);
+					dispatch.globalModel.setModalVisibility(false);
+					history.push(`/vote/${space}/${tape}/${+id}`);
+				}, 2000))();
+		}
 	}, [isWeb3Enabled]);
 	return (
 		<Transition appear show={open} as={Fragment}>

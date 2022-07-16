@@ -9,8 +9,10 @@ import { getContractAbi } from "../../../utils/getContractAbi";
 const quantities = [{ value: "1" }, { value: "3" }, { value: "5" }];
 const MintModal = () => {
 	const { web3, enableWeb3, isWeb3Enabled } = useMoralis();
+	// @ts-ignore
 	const [hasMinted, setHasMinted] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	// @ts-ignore
 	const [error, setError] = useState<string>("");
 	const [selected, setSelected] = useState({ value: "0" });
 	const { tape, id } = useSelector((state: RootState) => state.globalModel);
@@ -74,8 +76,10 @@ const MintModal = () => {
 										<span className="text-neutral-400 text-xs uppercase font-semibold mb-2">select quantity</span>
 										<Listbox value={selected} onChange={setSelected}>
 											<div className="relative mt-1 mb-10">
-												<Listbox.Button className="relative w-full cursor-default rounded-sm bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-fuchsia-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-													<span className="block truncate lg:text-base text-sm">{selected.value}</span>
+												<Listbox.Button className="relative w-full cursor-default rounded-sm bg-neutral-975 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-fuchsia-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+													<span className="block text-neutral-300 truncate lg:text-base text-sm">
+														{selected.value}
+													</span>
 													<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 														<SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
 													</span>
@@ -91,7 +95,7 @@ const MintModal = () => {
 																key={idx}
 																className={({ active }) =>
 																	`relative cursor-default select-none py-2 pl-3 lg:text-base text-sm ${
-																		active ? "bg-amber-100 text-neutral-900" : "text-gray-900"
+																		active ? "bg-amber-100 text-neutral-600" : "text-neutral-900"
 																	}`
 																}
 																value={q}>
@@ -124,12 +128,13 @@ const MintModal = () => {
 										</span>
 										<div className="gap-x-2 flex justify-center items-stretch pt-4 mt-5">
 											<button
+												disabled={isLoading}
 												onClick={() => dispatch.globalModel.setModalVisibility(false)}
 												className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
 												BACK
 											</button>
 											<button
-												disabled={+selected.value === 0 ? true : false}
+												disabled={+selected.value === 0 || isLoading ? true : false}
 												onClick={isWeb3Enabled ? () => handleMint() : () => enableWeb3()}
 												className="px-4 py-1 text-sm bg-green-900 hover:bg-green-800 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
 												{isWeb3Enabled ? "MINT" : "CONNECT"}

@@ -50,11 +50,11 @@ export interface UserNFTBalance {
 
 const parseUserCollection = (balance: UserNFTBalance): Array<UserFormattedOwnership> => {
 	const ownership: Array<UserFormattedOwnership> = [
-		{ name: "hedsTAPE 01", quantity: 0, token_ids: [], src: HT1_img, href: "/listen/hedstape/1" },
-		{ name: "hedsTAPE 02", quantity: 0, token_ids: [], src: HT2_img, href: "/listen/hedstape/2" },
-		{ name: "hedsTAPE 03", quantity: 0, token_ids: [], src: HT3_img, href: "/listen/hedstape/3" },
-		{ name: "hedsTAPE 04", quantity: 0, token_ids: [], src: HT4_img, href: "/listen/hedstape/4" },
-		{ name: "hedsTAPE 05", quantity: 0, token_ids: [], src: HT5_img, href: "/listen/hedstape/5" },
+		{ name: "hedsTAPE 01", quantity: 0, token_ids: [], src: HT1_img, href: "/listen/heds/hedstape/1" },
+		{ name: "hedsTAPE 02", quantity: 0, token_ids: [], src: HT2_img, href: "/listen/heds/hedstape/2" },
+		{ name: "hedsTAPE 03", quantity: 0, token_ids: [], src: HT3_img, href: "/listen/heds/hedstape/3" },
+		{ name: "hedsTAPE 04", quantity: 0, token_ids: [], src: HT4_img, href: "/listen/heds/hedstape/4" },
+		{ name: "hedsTAPE 05", quantity: 0, token_ids: [], src: HT5_img, href: "/listen/heds/hedstape/5" },
 		{ name: "", quantity: 1, token_ids: [], src: empty, href: "" },
 		{ name: "", quantity: 1, token_ids: [], src: empty, href: "" },
 		{ name: "", quantity: 1, token_ids: [], src: empty, href: "" },
