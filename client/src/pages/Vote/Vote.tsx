@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Dispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useMoralisHooks from "../../hooks/useMoralis";
 import AudioPlayer from "../../components/Vote/AudioPlayer/AudioPlayer";
 import SubmissionsPlayer from "../../components/Vote/SubmissionsPlayer/SubmissionsPlayer";
@@ -13,7 +13,6 @@ import VoteContentContainer from "../../components/Vote/VoteContentContainer/Vot
 import VotingButtons from "../../components/Vote/VotingButtons/VotingButtons";
 
 const Vote = () => {
-	const history = useHistory();
 	const { user, getNFTs } = useMoralisHooks();
 	const walletId = user?.attributes.ethAddress;
 	const { space, tape, id } = useParams<{ space: string; tape: string; id: string }>();
