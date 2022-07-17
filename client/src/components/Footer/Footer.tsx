@@ -17,8 +17,8 @@ export default function Footer() {
 	return (
 		<>
 			{pathname !== "/" && (
-				<footer className="mt-20">
-					<div className="max-w-sm lg:max-w-7xl mx-auto pt-12 pb-6 px-4 overflow-hidden sm:px-6 lg:px-8">
+				<footer className="pt-10 pb-4">
+					<div className="max-w-sm lg:max-w-7xl mx-auto px-4 overflow-hidden sm:px-6 lg:px-8">
 						<nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
 							{navigation.main.map((item) => (
 								<div key={item.name} className="px-5 py-1">

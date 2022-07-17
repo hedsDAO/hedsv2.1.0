@@ -8,6 +8,7 @@ import { Modals } from "../../models/globalModel";
 import NavDropdown from "./NavDropdown/NavDropdown/NavDropdown";
 import HedDot from "../../../../public/heddot.png";
 import MobileDrawer from "./MobileDrawer/MobileDrawer";
+// import DarkModeToggle from "../../common/toggles/DarkModeToggle/DarkModeToggle";
 
 const Navbar = () => {
 	const dispatch = useDispatch<Dispatch>();

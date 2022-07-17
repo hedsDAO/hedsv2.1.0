@@ -7,6 +7,7 @@ import defaultImg from "/public/images/default.png";
 import { Dialog, Transition } from "@headlessui/react";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
 import axios from "axios";
+// import DarkModeToggle from "../../toggles/DarkModeToggle/DarkModeToggle";
 
 const SettingsModal = () => {
 	const dispatch = useDispatch<Dispatch>();
@@ -117,9 +118,15 @@ const SettingsModal = () => {
 													)}
 												</small>
 											</div>
-											<div className="mb-7 pt-4 ml-2">
-												<label htmlFor="description" className="block text-sm font-semibold text-neutral-400 pb-1">
-													Description:
+											{/* <div className="flex items-center justify-center mx-8">
+												<h5 className="text-neutral-400 uppercase text-xs font-semibold">THEME:</h5>
+												<DarkModeToggle />
+											</div> */}
+											<div className="mb-7 pt-2 mx-10">
+												<label
+													htmlFor="description"
+													className="text-neutral-400 uppercase text-xs font-semibold pb-1">
+													description
 												</label>
 												<div className="mt-1.5">
 													<textarea
@@ -142,6 +149,7 @@ const SettingsModal = () => {
 													</span>
 												</div>
 											</div>
+
 											<div className="gap-x-2 flex justify-center items-stretch pt-4">
 												<button
 													onClick={() => dispatch.globalModel.setModalVisibility(false)}

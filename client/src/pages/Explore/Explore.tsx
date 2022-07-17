@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TapeData } from "../../models/spaceModel";
 import { Link } from "react-router-dom";
 import Artists from "../../components/Explore/Artists/Artists";
-import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
+// import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 import Spotlight from "../../components/Explore/Spotlight/Spotlight";
 
 const Explore = () => {
@@ -28,7 +28,7 @@ const Explore = () => {
 								Listen to the collaborative collections curated by artists, heds and the community.
 							</p>
 						</div>
-						<TapesToggle />
+						{/* <TapesToggle /> */}
 					</div>
 					<div className="grid grid-cols-12 max-w-7xl mx-auto w-full gap-x-2 lg:px-0 px-1">
 						<div className="col-span-12 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg mt-4">
