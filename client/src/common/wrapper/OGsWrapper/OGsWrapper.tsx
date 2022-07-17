@@ -22,7 +22,8 @@ const OGsWrapper = ({ children }: any) => {
 		if (user && isAuthenticated) {
 			let ethAddress = user?.attributes?.ethAddress;
 			if (whitelist.includes(ethAddress)) {
-				dispatch.globalModel?.setModal({ modal: Modals.OGHED, open: true, locked: true });
+				// todo: activate popup token burn modal
+				// dispatch.globalModel?.setModal({ modal: Modals.OGHED, open: true, locked: true });
 			}
 		}
 	}, [user, isAuthenticating]);
