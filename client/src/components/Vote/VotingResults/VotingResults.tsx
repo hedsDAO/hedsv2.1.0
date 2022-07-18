@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import useMoralisHooks from "../../../hooks/useMoralis";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
@@ -15,6 +15,7 @@ export function quadraticMath(i: any, choice: any, vp: any) {
 }
 
 const VotingResults = ({ voteData, proposalData }: any) => {
+	const [viewAll, setViewAll] = useState<boolean>(false);
 	const [voteResults, setVoteResults] = useState<Array<number>>([0]);
 	const [sortedVoteResults, setSortedVoteResults] = useState<Array<number>>([0]);
 	const { user } = useMoralisHooks();
@@ -83,51 +84,58 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 	return (
 		<div className="-my-2">
 			{!voteState?.isLoading && voteResults?.length && voteData && proposalData?.id ? (
-				sortedVoteResults?.map((vote: any) => {
-					if (round(resultsByPercentage(voteResults)[vote.i]))
-						return (
-							<div key={vote.i} className="bg-neutral-950 my-2 rounded-sm border border-neutral-900">
-								<div className="flex justify-between text-neutral-400 py-1">
-									<div
-										style={{ minWidth: "150px" }}
-										className={`text-left px-3 text-sm font-medium sm:w-6/12 md:w-8/12 py-1`}>
-										{vote.choice}
-									</div>
-									<div className="flex justify-around items-end sm:6/12 md:w-4/12 my-1 md:px-0 px-4">
-										<div className="text-green-500 text-sm sm:mr-2 mr-4 max-w-[3ch] min-w-[3ch]">
-											{round(voteResults[vote.i], 1)}
-										</div>
-										<div className="text-neutral-500 text-sm ml-2 max-w-[6ch] min-w-[6ch]">
-											{round(resultsByPercentage(voteResults)[vote.i], 2)}%{" "}
-										</div>
-									</div>
-								</div>
-								<div className="mx-3 pb-3">
-									<div className="bg-neutral-600 rounded-full h-2 dark:bg-gray-700">
+				<Fragment>
+					{(viewAll ? sortedVoteResults : sortedVoteResults.slice(0, 5))?.map((vote: any) => {
+						if (round(resultsByPercentage(voteResults)[vote.i]))
+							return (
+								<div key={vote.i} className="bg-neutral-950 my-2 rounded-sm border border-neutral-900">
+									<div className="flex justify-between text-neutral-400 py-1">
 										<div
-											className={
-												round(resultsByPercentage(resultsByUserBalance())[vote.i]) >=
-												round(resultsByPercentage(voteResults)[vote.i])
-													? "bg-blue-800 h-2 rounded-full relative z-30"
-													: "bg-blue-800 h-2 rounded-full relative z-10"
-											}
-											style={{
-												width: `${round(resultsByPercentage(voteResults)[vote.i])}%`,
-											}}
-										/>
-										{resultsByUserBalance()[vote.i] ? (
+											style={{ minWidth: "150px" }}
+											className={`text-left px-3 text-sm font-medium sm:w-6/12 md:w-8/12 py-1`}>
+											{vote.choice}
+										</div>
+										<div className="flex justify-around items-end sm:6/12 md:w-4/12 my-1 md:px-0 px-4">
+											<div className="text-green-500 text-sm sm:mr-2 mr-4 max-w-[3ch] min-w-[3ch]">
+												{round(voteResults[vote.i], 1)}
+											</div>
+											<div className="text-neutral-500 text-sm ml-2 max-w-[6ch] min-w-[6ch]">
+												{round(resultsByPercentage(voteResults)[vote.i], 2)}%{" "}
+											</div>
+										</div>
+									</div>
+									<div className="mx-3 pb-3">
+										<div className="bg-neutral-600 rounded-full h-2 dark:bg-gray-700">
 											<div
-												className="bg-teal-600 h-2 rounded-full relative -mt-2 z-20"
+												className={
+													round(resultsByPercentage(resultsByUserBalance())[vote.i]) >=
+													round(resultsByPercentage(voteResults)[vote.i])
+														? "bg-blue-800 h-2 rounded-full relative z-30"
+														: "bg-blue-800 h-2 rounded-full relative z-10"
+												}
 												style={{
-													width: `${round(resultsByPercentage(resultsByUserBalance())[vote.i])}%`,
+													width: `${round(resultsByPercentage(voteResults)[vote.i])}%`,
 												}}
 											/>
-										) : null}
+											{resultsByUserBalance()[vote.i] ? (
+												<div
+													className="bg-teal-600 h-2 rounded-full relative -mt-2 z-20"
+													style={{
+														width: `${round(resultsByPercentage(resultsByUserBalance())[vote.i])}%`,
+													}}
+												/>
+											) : null}
+										</div>
 									</div>
 								</div>
-							</div>
-						);
-				})
+							);
+					})}
+					<button
+						className="w-full mx-auto py-1 bg-neutral-850 text-neutral-400 hover:text-neutral-300 inline-flex text-center justify-center items-center text-sm px-2 gap-x-2 transition-all mb-2 rounded-md"
+						onClick={() => setViewAll(!viewAll)}>
+						{viewAll ? "less" : "more"}
+					</button>
+				</Fragment>
 			) : voteState?.isLoading ? (
 				<div className="bg-neutral-950 mx-auto my-3 py-32 flex justify-center items-center flex-col">
 					<ReactLoading className="w-10 h-10 mx-7" type={"bars"} color={"#089F6E"} height={"16"} width={"16"} />

@@ -11,8 +11,8 @@ interface SpotlightProps {
 const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: SpotlightProps) => {
 	const { space, tape } = exploreData.spotlight;
 	return (
-		<div className="col-span-12 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg lg:max-w-[110rem] p-2 mx-2 xl:mx-auto xl:my-5">
-			<div className="lg:z-10 lg:relative py-7 lg:py-10 border-[0.25px] border-neutral-800 2xl:mx-auto spotlight-gradient lg:max-w-[110rem] rounded-lg">
+		<div className="col-span-12 bg-neutral-950 rounded-lg lg:max-w-[110rem] p-2.5 mx-2 xl:mx-auto xl:my-5">
+			<div className="lg:z-10 lg:relative py-7 lg:py-10 2xl:mx-auto spotlight-gradient lg:max-w-[110rem] rounded-lg">
 				<div className="mx-auto max-w-4xl px-4 py-1 xl:py-4 rounded-lg">
 					<div className="grid lg:grid-cols-2 items-center gap-x-4 place-content-center">
 						<div className="lg:col-span-1 flex flex-col items-center justify-center lg:items-end lg:justify-end max-w-[100%]">

@@ -5,8 +5,8 @@
 html {
   height: 100%;
   max-width: 100vw;
-  /* background: #E5E5DB; */
-  background: #111111;
+  /* background: #cacab0; */
+  background: #171717;
   overflow-x: hidden !important;
   overscroll-behavior: none !important;
 }

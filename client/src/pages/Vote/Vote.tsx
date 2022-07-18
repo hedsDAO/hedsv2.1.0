@@ -44,7 +44,7 @@ const Vote = () => {
 		}
 	}, [userData?.collection]);
 	return (
-		<div className="px-3">
+		<div className="px-3 mb-10">
 			{submissions.allSubmissions?.length && voteData && proposalData && userData && currentTape && (
 				<div className="max-w-[100rem] mx-auto">
 					<VoteHeader {...currentTape} />

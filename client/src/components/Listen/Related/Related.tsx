@@ -15,7 +15,7 @@ const Related = () => {
 	return (
 		<Fragment>
 			{hedsTapes?.length && (
-				<div className="flex flex-col justify-center items-center rounded-lg mx-auto mt-20">
+				<div className="flex flex-col justify-center items-center rounded-lg mx-auto mt-20 mb-10">
 					<div className="text-neutral-500 text-center font-semibold tracking-wide text-xl mb-2 lg:mb-5">RELATED TAPES</div>
 					<div className="lg:bg-neutral-950 flex lg:flex-row flex-col items-center space-y-1 lg:space-x-2">
 						{hedsTapes &&

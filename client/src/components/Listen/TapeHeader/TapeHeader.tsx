@@ -3,7 +3,7 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeHeader = (tapeData: TapeData) => {
 	return (
-		<div className="max-w-[100rem] xl:mx-auto rounded-lg mx-2 bg-neutral-975 p-2 lg:mt-10 mb-1.5">
+		<div className="max-w-[100rem] xl:mx-auto rounded-lg mx-2 bg-neutral-975 p-2 lg:mt-5 mb-1.5">
 			<div className="lg:z-10 max-w-[100rem] lg:mx-auto listen-gradient rounded-md py-8 lg:py-14">
 				<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 					<div className="flex justify-center lg:col-span-2 px-2">

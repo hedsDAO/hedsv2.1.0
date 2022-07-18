@@ -3,12 +3,11 @@ import { useLocation } from "react-router";
 // import hedDot from "/public/icons/heds_icon.png";
 const navigation = {
 	main: [
-		{ name: "About", href: "#" },
-		{ name: "Discord", href: "#" },
-		{ name: "Twitter", href: "#" },
-		{ name: "Github", href: "#" },
+		{ name: "About", href: "https://heds.app/about" },
+		{ name: "Discord", href: "https://discord.gg/YPuAbCcDtg" },
+		{ name: "Twitter", href: "https://twitter.com/hedsDAO" },
+		{ name: "Github", href: "https://github.com/hedsDAO" },
 		{ name: "Contact", href: "#" },
-		{ name: "Partners", href: "#" },
 	],
 };
 export default function Footer() {
@@ -22,7 +21,7 @@ export default function Footer() {
 						<nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
 							{navigation.main.map((item) => (
 								<div key={item.name} className="px-5 py-1">
-									<a href={item.href} className="text-sm text-neutral-600 hover:text-gray-900">
+									<a href={item.href} className="text-sm text-neutral-600 hover:text-neutral-400 transition-all">
 										{item.name}
 									</a>
 								</div>

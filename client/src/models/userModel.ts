@@ -33,12 +33,14 @@ export const userModel = createModel<RootModel>()({
 			const newState = { ...state };
 			newState.votingPower = 0;
 			const { collection, walletId, powerMapping } = userData;
-			if (!collection) return newState;
-			if (whitelist.includes(walletId)) newState.votingPower += 10;
-			Object.values(collection).map((tape, idx) => {
-				newState.votingPower += tape.quantity * powerMapping[idx];
-			});
-			return newState;
+			if (!collection || Object.values(collection).length === 0) return newState;
+			else {
+				if (whitelist.includes(walletId)) newState.votingPower += 10;
+				Object.values(collection).map((tape, idx) => {
+					newState.votingPower += tape.quantity * powerMapping[idx];
+				});
+				return newState;
+			}
 		},
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
 		clearUserData: (state) => {

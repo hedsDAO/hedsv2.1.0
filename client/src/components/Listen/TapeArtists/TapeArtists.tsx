@@ -12,6 +12,7 @@ const TapeArtists = (tapeData: TapeState) => {
 	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const spaceData = useSelector((state: RootState) => state.spaceModel);
 	const tapeLength = spaceData?.[tape]?.[+id - 1]?.tape?.tracks;
+	const { currentTrack, tracks, isPlaying, currentTime, duration, isLoading } = useSelector((state: RootState) => state.audioModel);
 
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;
@@ -43,7 +44,22 @@ const TapeArtists = (tapeData: TapeState) => {
 										<div
 											onClick={() => playTrack(i)}
 											key={track?.artist_img}
-											className="col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
+											className={
+												tracks?.[currentTrack]?.video === track.video && isLoading
+													? "col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md animate-pulse"
+													: "col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
+											}>
+											{tracks?.[currentTrack]?.video === track.video &&
+											isPlaying &&
+											currentTime?.[1] > 0 &&
+											duration?.[1] > 0 ? (
+												<div
+													style={{ width: `${(currentTime?.[1] / duration?.[1]) * 100}%` }}
+													className={`relative h-[24px] z-50 bg-black col-span-12 -mb-24 rounded-md bg-opacity-25 animate__animated animate__fadeIn transition-all`}
+												/>
+											) : (
+												<></>
+											)}
 											<div className="text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-500 px-1 whitespace-nowrap">
 												<img className="h-4 w-4 rounded-full" src={track?.artist_img} />

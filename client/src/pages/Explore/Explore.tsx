@@ -30,19 +30,20 @@ const Explore = () => {
 						</div>
 						{/* <TapesToggle /> */}
 					</div>
-					<div className="grid grid-cols-12 max-w-7xl mx-auto w-full gap-x-2 lg:px-0 px-1">
-						<div className="col-span-12 bg-neutral-950 border-[0.25px] border-neutral-800 rounded-lg mt-4">
-							<div className="grid grid-cols-2 xl:grid-cols-6 place-items-center items-center gap-y-2 gap-x-2 m-2">
+					<div className="grid grid-cols-12 max-w-7xl mx-auto w-full gap-x-2 lg:px-0 px-2">
+						<div className="col-span-12 bg-neutral-950 rounded-lg mt-4">
+							<div className="grid grid-cols-2 xl:grid-cols-6 place-items-center items-center gap-y-3 gap-x-3 m-3">
 								<>
 									{hedsTapes &&
 										hedsTapes?.map((tape: TapeData) => (
 											<div key={tape.tape.contract + tape.tape.name} className="group relative">
 												<Link to={tape.links.route}>
-													<div className="overflow-hidden group-hover:opacity-50 lg:aspect-none transition-all rounded-md">
+													<div className="overflow-hidden group-hover:opacity-50 lg:aspect-none transition-all rounded-lg flex flex-col gap-y-2">
 														<img
 															src={tape.tape.image}
-															className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0`}
+															className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0 rounded-lg mb-1`}
 														/>
+														<div className="text-neutral-500 text-sm font-semibold lg:pl-0.5 tracking-wide">{tape?.tape?.name}</div>
 													</div>
 												</Link>
 											</div>
