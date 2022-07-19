@@ -63,12 +63,13 @@ const GlobalAudio = () => {
 				<div
 					className={`${
 						playerSize === SMALL
-							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft -ml-1"
-							: "bg-neutral-950 w-screen grid grid-cols-12 animate__animated animate__fadeInUp py-1"
-					} bottom-0 fixed z-50 transition-all`}>
+							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft delay-150 -ml-1"
+							: "bg-neutral-975 w-screen grid grid-cols-12 animate__animated animate__fadeInUp"
+					} bottom-0 fixed z-50`}>
 					{wavesurfer?.current && <LeftAudioControls {...wavesurfer} />}
+
 					<div
-						className={`inline-flex items-center justify-center ${
+						className={`inline-flex items-center justify-center  ${
 							playerSize === SMALL ? "relative -bottom-96 col-span-0" : "col-span-10"
 						}`}>
 						<div
@@ -76,7 +77,7 @@ const GlobalAudio = () => {
 								playerSize === SMALL
 									? "hidden"
 									: playerSize === MEDIUM
-									? "grid grid-cols-12 items-center min-w-full relative z-50"
+									? "grid grid-cols-12 items-center min-w-[90%] relative z-50"
 									: "grid grid-cols-12 min-w-full relative z-50 items-center my-5"
 							}>
 							<div
@@ -99,8 +100,8 @@ const GlobalAudio = () => {
 										playerSize === SMALL
 											? "hidden"
 											: playerSize === MEDIUM
-											? "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[6rem] max-w-[6rem] object-fill rounded-lg"
-											: "h-full w-full xl:max-h-[20rem] xl:max-w-[20rem]  max-h-[10rem] max-w-[10rem] object-fill rounded-lg"
+											? "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[6rem] max-w-[6rem] object-fill rounded-md"
+											: "h-full w-full xl:max-h-[20rem] xl:max-w-[20rem]  max-h-[10rem] max-w-[10rem] object-fill rounded-md"
 									}
 								/>
 								{!audioData?.isLoading ? (

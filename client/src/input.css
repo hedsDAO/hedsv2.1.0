@@ -4,7 +4,8 @@
 
 html {
   height: 100%;
-  max-height: 100%;
+  max-width: 100vw;
+  /* background: #cacab0; */
   background: #171717;
   overflow-x: hidden !important;
   overscroll-behavior: none !important;
@@ -12,7 +13,12 @@ html {
 
 body {
   height: auto;
+  max-width: 100%;
+  min-width: 100vw;
+  overflow-x: hidden; 
+  overscroll-behavior: none !important;
 }
+
 
 #fullscreen {
   max-height: 100%;
@@ -216,4 +222,106 @@ body {
   100% {
     opacity: 0%;
   }
+}
+
+
+
+.border-gradient {
+  --angle: 0deg;
+  /* … */
+  border-image: linear-gradient(-45deg, #ee6652d2, #e6673c7e, #2366a6d5, #2366d5ab) 1;
+	animation: rotate 15s ease infinite;
+}
+
+@keyframes rotate {
+	0% {
+		border-image: radial-gradient(0deg, #ee6652d2, #e6673c7e, #2366a6d5, #2366d5ab) 1;
+	}
+	50% {
+		border-image: radial-gradient(180deg, #ee6652d2, #e6673c7e, #2366a6d5, #2366d5ab) 1;
+	}
+	100% {
+		border-image: radial-gradient(360deg, #ee6652d2, #e6673c7e, #2366a6d5, #2366d5ab) 1;
+	}
+}
+
+.spotlight-gradient {
+	background: linear-gradient(-45deg, #ee6652d2, #e6673c7e, #2366a6d5, #2366d5ab);
+	background-size: 500% 500%;
+	animation: gradient 15s ease infinite;
+}
+
+.listen-gradient {
+	background: linear-gradient(-45deg, #8e825cd2, #71915f7e, #494f7dd5, #6a4261ab);
+	background-size: 500% 500%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.navbar-parent {
+  font-size: 1rem !important;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.navbar-parent * {
+  box-sizing: border-box;
+}
+.navbar-parent li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 1.5em;
+  padding: 0;
+}
+.navbar-parent a {
+  padding: 0.5em 0;
+  color: rgba(255, 255, 255, 0.495);
+  position: relative;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+}
+.navbar-parent a:before,
+.navbar-parent a:after {
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.navbar-parent a:before {
+  bottom: 0;
+  display: block;
+  height: 2px;
+  width: 0%;
+  content: "";
+  background-color: #701a75;
+}
+.navbar-parent a:after {
+  left: 0;
+  top: 0;
+  padding: 0.5em 0;
+  position: absolute;
+  content: attr(data-hover);
+  color: #ffffff;
+  white-space: nowrap;
+  max-width: 0%;
+  overflow: hidden;
+}
+.navbar-parent a:hover:before,
+.navbar-parent .current a:before {
+  opacity: 1;
+  width: 100%;
+}
+.navbar-parent a:hover:after,
+.navbar-parent .current a:after {
+  max-width: 100%;
 }

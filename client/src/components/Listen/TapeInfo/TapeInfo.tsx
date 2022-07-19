@@ -1,63 +1,93 @@
-import React from "react";
+import React, { useEffect, Fragment } from "react";
 import { TapeData } from "../../../models/spaceModel";
+import { useParams } from "react-router";
+import SplitsIcon from "../../../common/svg/SplitsIcon/SplitsIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "../../../store";
+import { generateStatusColors } from "../../../utils/generateTapeLanguage";
+import { generateStatusLanguage } from "../../../utils/generateStatusLanguage";
 
 const TapeInfo = (tapeData: TapeData) => {
+	const { space, tape, id } = useParams<{ space: string; tape: string; id: string }>();
+	const dispatch = useDispatch<Dispatch>();
+	const openSeaData = useSelector((state: RootState) => state.openSeaModel);
+	useEffect(() => {
+		dispatch.openSeaModel.getCollectionData(`hedstape-${id}`);
+	}, [id]);
+
 	return (
-		<div className="bg-neutral-950 border-[0.25px] border-neutral-800 sm:rounded-lg rounded-sm col-span-12 lg:col-span-4 pb-10">
-		<div className="w-full text-left text-base text-neutral-500 uppercase bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
-			TAPE DETAILS
-		</div>
-			<div className="flex flex-col w-full justify-center items-center mt-8">
-				<div className="flex -space-x-2 overflow-hidden mb-4">
-					<img src={tapeData?.sample?.image} className="h-20 w-20 inline-block rounded-full" />
-					<img src={tapeData?.collab?.image} className="h-20 w-20 inline-block rounded-full" />
+		<div className="col-span-12 lg:col-span-3 h-full p-1 bg-neutral-975 rounded-lg">
+			<div className="grid grid-cols-1 lg:grid-cols-1 rounded-md h-full w-full">
+				<div className="flex flex-col justify-evenly gap-1 p-1.5 h-full rounded-md">
+					<div className="flex flex-col items-center justify-evenly rounded-md bg-neutral-950 h-full w-full px-5 lg:py-0 py-5">
+						<h3 className="text-neutral-400 uppercase font-semibold tracking-wide">TAPE DETAILS</h3>
+						<div className="py-2 px-3 rounded-md flex flex-col min-w-[85%] gap-y-2">
+							<div className="inline-flex items-center justify-between w-full">
+								<span className="font-thin font-serif text-neutral-600 text-sm">status</span>
+								<span
+									className="uppercase font-serif text-neutral-500 text-sm"
+									style={{ color: generateStatusColors(tapeData?.status?.status) }}>
+									{generateStatusLanguage(tapeData?.status?.status)}
+								</span>
+							</div>
+							<div className="inline-flex items-center justify-between w-full">
+								<span className="font-thin font-serif text-neutral-600 text-sm">space</span>
+								<span className="uppercase font-serif text-neutral-500 text-sm">{space || "heds"}</span>
+							</div>
+							<div className="inline-flex items-center justify-between w-full">
+								<span className="font-thin font-serif text-neutral-600 text-sm">tape</span>
+								<span className="uppercase font-serif text-neutral-500 text-sm">{tape}</span>
+							</div>
+							<div className="inline-flex items-center justify-between w-full">
+								<span className="font-thin font-serif text-neutral-600 text-sm">no</span>
+								<span className="uppercase font-serif text-neutral-500 text-sm">{id}</span>
+							</div>
+							<div className="inline-flex items-center justify-between w-full">
+								<span className="font-thin font-serif text-neutral-600 text-sm">bpm</span>
+								<span className="uppercase font-serif text-neutral-500 text-sm">{tapeData?.sample?.bpm}</span>
+							</div>
+							{openSeaData && (
+								<Fragment>
+									<div className="inline-flex items-center justify-between w-full">
+										<span className="font-thin font-serif text-neutral-600 text-sm">voting power</span>
+										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.calculatedVP}</span>
+									</div>
+									<div className="inline-flex items-center justify-between w-full">
+										<span className="font-thin font-serif text-neutral-600 text-sm">minted</span>
+										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.minted}</span>
+									</div>
+									<div className="inline-flex items-center justify-between w-full">
+										<span className="font-thin font-serif text-neutral-600 text-sm">owners</span>
+										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.numOfOwners}</span>
+									</div>
+									<div className="inline-flex items-center justify-between w-full">
+										<span className="font-thin font-serif text-neutral-600 text-sm">volume</span>
+										<span className="uppercase font-serif text-neutral-500 text-sm">
+											{openSeaData.totalVolume.toFixed(3)} <span className="font-thin font-serif">ETH</span>
+										</span>
+									</div>
+								</Fragment>
+							)}
+						</div>
+						<div className="flex justify-center items-center gap-x-2">
+							<a target={"_blank"} href={tapeData?.links?.opensea} className="text-neutral-500 text-lg">
+								<i className="fak fa-opensea"></i>
+							</a>
+							<a target={"_blank"} href={tapeData?.links?.etherscan} className="text-neutral-500 text-lg">
+								<i className="fak fa-etherscan"></i>
+							</a>
+							{tapeData?.links?.splits && (
+								<a
+									target={"_blank"}
+									href={tapeData?.links?.splits}
+									className="text-lg rounded-full border-neutral-700 border-[0.25px] bg-neutral-500 p-[0.095rem]">
+									<SplitsIcon />
+								</a>
+							)}
+						</div>
+					</div>
 				</div>
-				<span className="text-neutral-500 mt-2 text-sm font-thin">CURATED BY</span>
-				<span className="text-neutral-200 text-lg mt-1 font-thin uppercase tracking-widest">
-					{tapeData?.sample?.artist} x {tapeData?.collab?.name}
-				</span>
 			</div>
-			<hr className="border-neutral-800 border-[0.25px] mx-12 px-4 my-4" />
-			{/* {collectionStats?.stats?.count > 0 && ( */}
-			<div className="flex flex-col justify-center items-center mt-3 px-10">
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg">
-					<span className="ml-1"> VOTING POWER</span>
-					<span className="bg-neutral-900 text-sm text-neutral-300 px-2.5 py-0.5 rounded-md">
-						{/* {calculateTapeVP([collectionStats?.stats?.num_owners, collectionStats?.stats?.count])} */}
-					</span>
-				</div>
-			</div>
-			{/* )} */}
-			{/* {collectionStats?.stats?.count > 0 && ( */}
-			<div className="flex flex-col justify-center items-center mt-2 px-10">
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg">
-					<span className="ml-1">MINTED</span>
-					<span className="bg-neutral-900 text-sm text-neutral-300 px-2.5 py-0.5 rounded-md">
-						{/* {collectionStats?.stats?.count} */}
-					</span>
-				</div>
-			</div>
-			{/* )} */}
-			{/* {collectionStats?.stats?.num_owners > 0 && ( */}
-			<div className="flex flex-col justify-center items-center mt-2 px-10">
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg">
-					<span className="ml-1">OWNERS</span>
-					<span className="bg-neutral-900 text-sm text-neutral-300 px-2.5 py-0.5 rounded-md">
-						{/* {collectionStats?.stats?.num_owners} */}
-					</span>
-				</div>
-			</div>
-			{/* )} */}
-			{/* {collectionStats?.stats?.total_volume > 0 && ( */}
-			<div className="flex flex-col justify-center items-center mt-2 px-10">
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg">
-					<span className="ml-1"> TOTAL VOLUME</span>
-					<span className="bg-neutral-900 text-sm text-neutral-300 px-2.5 py-0.5 rounded-md">
-						{/* {(collectionStats?.stats?.total_volume).toFixed(2)} ETH */}
-					</span>
-				</div>
-			</div>
-			{/* )} */}
 		</div>
 	);
 };

@@ -1,5 +1,6 @@
 module.exports = {
   content: ["./client/src/**/*.{html,js,tsx,ts}"],
+  darkMode: 'media',
   theme: {
     fontFamily: {
       sans: ['Barlow', 'sans-serif'],
@@ -22,6 +23,7 @@ module.exports = {
         'neutral': {
           850: '#212121',
           950: '#141414',
+          975: '#101010'
         }
       }
     }

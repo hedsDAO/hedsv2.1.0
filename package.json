@@ -19,12 +19,13 @@
 	"author": "Ramtin Khoee",
 	"license": "ISC",
 	"dependencies": {
-		"@headlessui/react": "^1.6.1",
+		"@headlessui/react": "^1.6.6",
 		"@heroicons/react": "^1.0.6",
 		"@rematch/core": "^2.2.0",
 		"@snapshot-labs/snapshot.js": "^0.3.83",
 		"@tailwindcss/forms": "^0.5.0",
 		"@tailwindcss/typography": "^0.5.2",
+		"@trendyol-js/react-carousel": "^3.0.0",
 		"@walletconnect/web3-provider": "^1.7.7",
 		"@web3auth/web3auth": "^0.9.1",
 		"animate.css": "^4.1.1",
@@ -54,6 +55,7 @@
 		"react-router-dom": "^5.2.0",
 		"redux": "^4.2.0",
 		"regenerator-runtime": "^0.13.9",
+		"sass": "^1.53.0",
 		"wavesurfer.js": "^6.1.0"
 	},
 	"devDependencies": {
@@ -89,6 +91,7 @@
 		"path": "^0.12.7",
 		"raf": "^3.4.1",
 		"raw-loader": "^4.0.2",
+		"sass-loader": "^13.0.2",
 		"style-loader": "^2.0.0",
 		"tailwindcss": "^3.0.23",
 		"ts-jest": "^28.0.5",

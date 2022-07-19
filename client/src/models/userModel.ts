@@ -1,82 +1,89 @@
-import { getSplitsUserBalance } from "./../utils/graphql/getSplitsUserBalance";
 import { createModel } from "@rematch/core";
-import { collection, getDocs } from "firebase/firestore";
 import type { RootModel } from ".";
-import { UserFormattedOwnership } from "./common";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../index";
-import { ethers } from "ethers";
+import { BadgeData, CollectionTank } from "./common";
+import { populateNewUser } from "../utils/populateNewUser";
+import { whitelist } from "../data/whitelists/tokenBurnWhitelist";
 
-export interface TapeTrack {
-	id: string;
-	image: string;
-	social_link: string;
-	title: string;
-	url: string;
-	video_link: string;
-	wallet_address: string;
-}
-interface UserProfile {
-	ethAddress: string;
-	twitterHandle: string;
-	profilePicture: string;
-	currentUserImage: number;
-	userImages: Array<string>;
-	currentBannerColor: number;
-	bannerColors: Array<string>;
-	userDisplayNames: Array<string>;
-	currentDisplayName: number;
+interface SetVotingPower {
+	walletId: string | any;
+	collection?: CollectionTank;
+	powerMapping: Array<number>;
 }
 
 export interface UserState {
-	userProfile: UserProfile;
-	userCollection?: Array<UserFormattedOwnership>;
-	isTapeArtist: boolean;
-	splitsBalance?: string;
+	profilePicture?: string;
+	twitterHandle?: string;
+	badges?: Array<BadgeData>;
+	description: string;
+	collection: CollectionTank;
+	votingPower: number;
 }
 
 export const userModel = createModel<RootModel>()({
 	state: {
-		isTapeArtist: false,
+		votingPower: 0,
+		description: "",
+		collection: {},
 	} as UserState,
 	reducers: {
-		setUserCollection: (state, userCollection: Array<UserFormattedOwnership>) => ({ ...state, userCollection }),
-		setUserProfile: (state, userProfile: UserProfile) => ({ ...state, userProfile }),
-		setIsTapeArtist: (state, isTapeArtist: boolean) => ({ ...state, isTapeArtist }),
-		setSplitsBalance: (state, splitsBalance: string) => ({ ...state, splitsBalance }),
+		setCollection: (state, collection: CollectionTank) => ({ ...state, collection }),
+		setVotingPower: (state, userData: SetVotingPower) => {
+			const newState = { ...state };
+			newState.votingPower = 0;
+			const { collection, walletId, powerMapping } = userData;
+			if (!collection || Object.values(collection).length === 0) return newState;
+			else {
+				if (whitelist.includes(walletId)) newState.votingPower += 10;
+				Object.values(collection).map((tape, idx) => {
+					newState.votingPower += tape.quantity * powerMapping[idx];
+				});
+				return newState;
+			}
+		},
+		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
+		clearUserData: (state) => {
+			let newState = { ...state };
+			newState = { votingPower: 0, description: "", collection: {} };
+			return newState;
+		},
 	},
 	effects: () => ({
-		async loadUserProfile(user) {
-			this.setUserProfile({
-				profilePicture: user?.attributes?.profilePicture,
-				ethAddress: user?.attributes?.ethAddress,
-				twitterHandle: user?.attributes?.twitterHandle,
-			});
+		async getUserData(wallet: string) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) this.setUserData(docSnap.data());
 		},
-		async getTapeArtistsWalletIds(walletId: string) {
-			const querySnapshot = await getDocs(collection(db, "tapes"));
-			const walletIdTank: Array<string> = [];
-			querySnapshot.forEach((doc) => {
-				const walletIds: Array<string> = doc.data()?.tracks?.map((track: TapeTrack) => {
-					return track?.wallet_address;
-				});
-				if (walletIds) return walletIdTank.push(...walletIds);
-				return;
-			});
-			const noDuplicateWalletIds = new Set(walletIdTank);
-			if (noDuplicateWalletIds.has(walletId)) {
-				this.setIsTapeArtist(true);
-				this.getSplitsBalance(walletId);
+		async validateNewUser(wallet: string) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			const newUserData = populateNewUser();
+			if (!docSnap.exists()) await setDoc(docRef, newUserData).then(() => this.setUserData(newUserData));
+		},
+		async updateProfilePicture([wallet, profilePicture]: [string, string]) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const updatedUserData = { ...docSnap.data(), profilePicture };
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
 		},
-		async getSplitsBalance(walletId: string) {
-			const balance = await getSplitsUserBalance(walletId);
-			const tokenId = balance.user.internalBalances[0].token.id;
-			const amount = balance.user.internalBalances[0].amount;
-			if (tokenId === "0x0000000000000000000000000000000000000000" && amount > 0) {
-				this.setSplitsBalance(ethers.utils.formatEther(amount));
-				return;
+		async updateDescription([wallet, description]: [string, string]) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const updatedUserData = { ...docSnap.data(), description };
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
-			return;
+		},
+		async updateTwitterHandle([wallet, twitterHandle]: [string, string]) {
+			const docRef = doc(db, "user", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const updatedUserData = { ...docSnap.data(), twitterHandle };
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
+			}
 		},
 	}),
 });

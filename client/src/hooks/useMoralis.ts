@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useMoralis, useMoralisFile, useMoralisWeb3Api, useNFTBalances } from "react-moralis";
 import { Dispatch } from "../store";
-import parseUserCollection from "../utils/parseUserCollection";
+import { parseAddresses } from "../utils/parseAddresses";
 import { useDispatch } from "react-redux";
 import Moralis from "moralis/types";
+import { CollectionTank } from "../models/common";
 
 interface MoralisFile extends Moralis.File {
 	_hash?: string;
@@ -18,6 +19,13 @@ const useMoralisHooks = () => {
 	const dispatch = useDispatch<Dispatch>();
 	//   const IPFS_BASE_URL = "https://ipfs.io/ipfs/";
 
+	// 1. GET USER TAPE COLLECTION
+	const getNFTs = async () => {
+		await getNFTBalances().then((balance) => {
+			let collection: CollectionTank = parseAddresses(balance?.result);
+			dispatch.userModel.setCollection(collection);
+		});
+	};
 	const uploadFile = async (file: File) => {
 		dispatch.submissionsModel.setLoading(true);
 		if (file) {
@@ -31,12 +39,16 @@ const useMoralisHooks = () => {
 		}
 	};
 
-	const getNFTs = async () => {
-		const balance = await getNFTBalances();
-		if (balance) {
-			const formattedOwnership = parseUserCollection(balance);
-			dispatch.userModel.setUserCollection(formattedOwnership);
+	const uploadProfilePicture = async (file: File) => {
+		let hash = '';
+		if (file) {
+			await saveFile("profile", file, { saveIPFS: true }).then((res: MoralisFile | undefined) => {
+				hash = `${res?._hash}`;
+			});
+		} else {
+			alert("no file provided");
 		}
+		return hash;
 	};
 
 	const updateUserProfile = (attribute: string, idx: number) => {
@@ -50,7 +62,6 @@ const useMoralisHooks = () => {
 				res?.name ? setEnsResult(res?.name) : setEnsResult(undefined);
 			});
 		} catch (e) {
-			console.log(e);
 			alert("ENS name not registered with this address");
 		}
 	};
@@ -73,6 +84,7 @@ const useMoralisHooks = () => {
 		updateEnsMoralis,
 		user,
 		uploadFile,
+		uploadProfilePicture,
 		updateUserProfile,
 	};
 };

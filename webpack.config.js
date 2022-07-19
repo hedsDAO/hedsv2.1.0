@@ -33,6 +33,10 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
+        test: /\.scss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.(jpg|glb|m4a|mp3|jpeg|wav|webp|png|ttf|ogg|otf|gif|svg|mp4|mov)$/,
         type: 'asset/resource'
       },

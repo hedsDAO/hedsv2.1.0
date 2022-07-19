@@ -1,35 +1,69 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../index";
+
+export enum Modals {
+	EMPTY = 0,
+	CONNECT,
+	SETTINGS,
+	TWITTER,
+	VOTE,
+	SUBMIT,
+	MINT,
+	OGHED,
+}
+
+interface ModalState {
+	open: boolean;
+	modal: Modals;
+	locked: boolean;
+}
 
 export interface GlobalState {
-	spotlight: {
-		space: string;
-		tape: number;
-		text: string;
-		description: string;
-	};
+	modal: ModalState;
+	space: string;
+	tape: string;
+	id: string;
 }
 
 export const globalModel = createModel<RootModel>()({
 	state: {
-		spotlight: {
-			space: "",
-			tape: 0,
-			text: "",
+		modal: {
+			modal: Modals.EMPTY,
+			open: false,
+			locked: false,
 		},
+		space: "",
+		tape: "",
+		id: "",
 	} as GlobalState,
 	reducers: {
-		setGlobalData: (state, payload: GlobalState) => payload || state,
-	},
-	effects: () => ({
-		async getGlobalData() {
-			const docRef = doc(db, "global", "2.1.0");
-			const docSnap = await getDoc(docRef);
-			if (docSnap.exists()) {
-				this.setGlobalData(docSnap.data());
-			}
+		setModal: (state, modal: ModalState) => {
+			const newState = { ...state };
+			newState.modal = modal;
+			return newState;
 		},
-	}),
+		setModalLock: (state, locked) => {
+			const newState = { ...state };
+			newState.modal.locked = locked;
+			return newState;
+		},
+		setSpaceTapeId: (state, [space, tape, id]) => {
+			const newState = { ...state };
+			newState.space = space;
+			newState.tape = tape;
+			newState.id = id;
+			return newState;
+		},
+		setModalVisibility: (state, open: boolean) => {
+			const newState = { ...state };
+			newState.modal.open = open;
+			return newState;
+		},
+		clearModalState: (state) => {
+			const newState = { ...state };
+			newState.modal = { modal: Modals.EMPTY, open: false, locked: false };
+			return newState;
+		},
+	},
+	effects: () => ({}),
 });

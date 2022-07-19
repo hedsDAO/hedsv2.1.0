@@ -1,46 +1,66 @@
-import React from "react";
-import { PlayIcon, DownloadIcon } from "@heroicons/react/solid";
+import React, { useEffect, useState } from "react";
 import { TapeData } from "../../../models/spaceModel";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "../../../store";
+import { DownloadIcon, PlayIcon } from "@heroicons/react/solid";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "../../../store";
 import { PlayerSize } from "../../../models/common";
+import { useParams } from "react-router";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { handleDownloadFile } from "../../../utils/handleDownloadFile";
 
 const SampleContainer = (tapeData: TapeData) => {
+	const { id } = useParams<{ id: string }>();
+	const storage = getStorage();
+	const sampleRef = ref(storage, id !== "6" ? `public/samples/ht${id}.mp3` : `public/samples/ht${id}.zip`);
+	const [sampleDownloadUrl, setSampleDownloadUrl] = useState<string>("");
 	const dispatch = useDispatch<Dispatch>();
-	const playTrack = () => {
-		dispatch.audioModel.setIsSample(true);
-		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
-		dispatch.audioModel.setCurrentTrack(tapeData.tape?.id);
+	const audioData = useSelector((state: RootState) => state.audioModel);
+	const playSample = () => {
+		const track = +tapeData.tape.no - 1;
+		if (audioData?.samples?.[track]) {
+			dispatch.audioModel.setCurrentTrack(track);
+			dispatch.audioModel.setIsSample(true);
+			dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+		}
 	};
+	useEffect(() => {
+		getDownloadURL(sampleRef).then((url: string) => {
+			setSampleDownloadUrl(url);
+		});
+	}, []);
 	return (
-		<div className="grid grid-cols-12 gap-x-5 max-w-lg mx-auto mt-2 px-4 py-3 sm:p-6 bg-neutral-950  border-neutral-800 shadow-sm border-[0.25px] sm:rounded-lg -mb-10">
-			<button onClick={() => playTrack()} className="col-span-4 flex flex-col items-center justify-center">
-				<div className="w-32 h-32 my-2 group">
-					<img
-						src={tapeData.sample?.image}
-						className="w-32 h-32 mx-auto p-0.5 ease-in-out rounded-full group-hover:opacity-25 transition-opacity"
+		<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center xl:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
+			<div className="w-full bg-neutral-950 inline-flex items-center justify-between rounded-md py-2">
+				<div className="inline-flex items-center">
+					<span className="px-2.5 text-neutral-400 font-serif font-semibold uppercase text-xs tracking-widest">
+						<span className="text-neutral-500 tracking-tight lg:inline hidden font-semibold">sample:</span>{" "}
+						{tapeData?.sample?.artist}
+					</span>
+					<span className="px-2.5 text-neutral-400 font-serif uppercase text-xs font-semibold tracking-widest">
+						<span className="text-neutral-500 tracking-tight font-semibold">bpm:</span> {tapeData?.sample?.bpm}
+					</span>
+				</div>
+				<div className="inline-flex items-center gap-x-2.5 pr-2">
+					<DownloadIcon
+						onClick={() => handleDownloadFile(sampleDownloadUrl, `HT${id}`)}
+						className="h-4 w-4 text-green-500 hover:text-green-400 transition-all"
 					/>
-					<PlayIcon className="h-7 w-7 relative -mt-[76px] ml-[50px] text-neutral-300 -z-50 group-hover:z-30 transition-all" />
-				</div>
-			</button>
-			<div className="col-span-8 flex flex-col items-center justify-center">
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg">
-					<span className="ml-1">artist</span>
-					<span className="bg-neutral-950 text-xs lg:text-sm text-neutral-300 px-2.5 py-0.25 rounded-md tracking-widest">
-						{tapeData.sample?.artist}
-					</span>
-				</div>
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg mt-2">
-					<span className="ml-1">bpm</span>
-					<span className="bg-neutral-950 text-xs lg:text-sm text-neutral-300 px-2.5 py-0.25 rounded-md tracking-widest">
-						{tapeData.sample?.bpm}
-					</span>
-				</div>
-				<div className="flex items-center justify-between w-full bg-neutral-850 text-neutral-400 uppercase px-2 py-1.5 rounded-lg mt-2">
-					<span className="ml-1">download</span>
-					<button className="bg-neutral-950 text-sm text-neutral-300 px-2 py-0.5 rounded-md tracking-widest">
-						<DownloadIcon className="h-4 w-4 text-center text-neutral-300 z-40 transition-all" aria-hidden="true" />
-					</button>
+					{!audioData?.isPlaying && !audioData?.isSample ? (
+						<PlayIcon
+							onClick={() => playSample()}
+							className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate__animated animate__fadeIn"
+						/>
+					) : audioData?.isSample && audioData?.isPlaying ? (
+						<PlayIcon
+							onClick={() => playSample()}
+							className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate-pulse"
+						/>
+					) : (
+						<PlayIcon
+							onClick={() => playSample()}
+							className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate__animated animate__fadeIn"
+						/>
+					)}
 				</div>
 			</div>
 		</div>

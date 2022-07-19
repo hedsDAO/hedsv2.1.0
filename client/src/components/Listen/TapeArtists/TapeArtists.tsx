@@ -1,113 +1,89 @@
 import React, { Fragment } from "react";
 import { TapeState } from "../../../models/tapeModel";
 import { PlayerSize, TrackMetadata } from "../../../models/common";
-import { PlayIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Dispatch, RootState } from "../../../store";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import emptyState from "/public/2.png";
 import "react-circular-progressbar/dist/styles.css";
+import { formatTime } from "../../../utils/formatTime";
 
 const TapeArtists = (tapeData: TapeState) => {
 	const dispatch = useDispatch<Dispatch>();
-	const { id } = useParams<{ id: string }>();
-	const audioData = useSelector((state: RootState) => state.audioModel);
-	const currentTrack: number = audioData?.currentTrack;
+	const { tape, id } = useParams<{ tape: string; id: string }>();
+	const spaceData = useSelector((state: RootState) => state.spaceModel);
+	const tapeLength = spaceData?.[tape]?.[+id - 1]?.tape?.tracks;
+	const { currentTrack, tracks, isPlaying, currentTime, duration, isLoading } = useSelector((state: RootState) => state.audioModel);
 
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;
 		dispatch.audioModel.setIsSample(false);
-
-		dispatch.audioModel.setCurrentTrack(currentTrack);		
+		dispatch.audioModel.setCurrentTrack(currentTrack);
 		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 	};
 	return (
 		<Fragment>
 			{tapeData && (
-				<div className="col-span-12 lg:col-span-8 bg-neutral-900 border-[0.25px] border-neutral-800 rounded-lg">
-					<div className="flex justify-between w-full items-center text-neutral-500 uppercase bg-neutral-900 py-1 px-3 rounded-t-lg mx-auto tracking-wider">
-						<div className="text-base">ARTISTS</div>
-						<span className="text-[0.65rem] text-neutral-600 italic">{tapeData?.tracks?.length ? "click to play" : "curation in progress"}</span>
-					</div>
-					<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center bg-neutral-950 rounded-b-lg gap-y-3 py-6">
+				<div className="col-span-12 lg:col-span-9 bg-neutral-975 rounded-lg">
+					<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-2 pt-1 mx-2">
+						<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
+							<div className="col-span-1">
+								<span className="text-neutral-500 text-sm px-1">#</span>
+							</div>
+							<div className="col-span-6 text-left">
+								<span className="text-neutral-500 text-sm px-1">ARTIST</span>
+							</div>
+							<div className="col-span-5 text-right">
+								<span className="text-neutral-500 text-sm px-1">
+									<i className="fa-light fa-clock"></i>
+								</span>
+							</div>
+						</div>
 						{tapeData?.tracks?.length
 							? tapeData.tracks.map((track: TrackMetadata, i: number) => {
 									return (
-										<div key={track?.artist_img} className="col-span-1 rounded-sm">
-											<button
-												disabled={audioData?.isLoading}
-												onClick={() => playTrack(i)}
-												key={track?.artist_img}
-												className="flex justify-center items-center group">
-												<Fragment>
-													{audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
-														!audioData?.isLoading &&
-														audioData?.duration &&
-														audioData?.currentTime && (
-															<div className="h-32 w-32 absolute z-50">
-																<CircularProgressbar
-																	styles={buildStyles({
-																		rotation: 0.25,
-																		strokeLinecap: "butt",
-																		textSize: "16px",
-																		pathTransitionDuration: 0.5,
-																		textColor: "#f88",
-																		pathColor: `rgba(192, 37, 211, ${
-																			(audioData?.currentTime[1] / audioData?.duration[1]) * 100
-																		})`,
-																		trailColor: "#232323",
-																	})}
-																	strokeWidth={3}
-																	value={(audioData?.currentTime[1] / audioData?.duration[1]) * 100}
-																/>
-															</div>
-														)}
-													<span className="h-32 w-32 inline-block relative">
-														<img
-															src={track?.artist_img}
-															className={`rounded-full relative z-10 lg:z-50 h-full w-full
-														${
-															audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
-															audioData?.isLoading
-																? "animate-pulse"
-																: audioData?.tracks?.[currentTrack]?.artist === track?.artist &&
-																  !audioData?.isLoading
-																? "opacity-50 lg:z-50"
-																: "opacity-100"
-														}`}
-														/>
-													</span>
-													{!audioData?.isPlaying &&
-														audioData?.tracks?.[currentTrack]?.artist !== track?.artist && (
-															<PlayIcon
-																className="h-6 w-6 text-center text-neutral-200 absolute hidden group-hover:inline z-40 transition-all"
-																aria-hidden="true"
-															/>
-														)}
-												</Fragment>
-											</button>
-											<div className="flex flex-col items-start justify-start my-3 font-thin">
-												<span className="text-left text-neutral-500">#{track?.no}</span>
-												<span className="text-left text-neutral-400 text-sm">{track?.artist}</span>
+										<div
+											onClick={() => playTrack(i)}
+											key={track?.artist_img}
+											className={
+												tracks?.[currentTrack]?.video === track.video && isLoading
+													? "col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md animate-pulse"
+													: "col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
+											}>
+											{tracks?.[currentTrack]?.video === track.video &&
+											isPlaying &&
+											currentTime?.[1] > 0 &&
+											duration?.[1] > 0 ? (
+												<div
+													style={{ width: `${(currentTime?.[1] / duration?.[1]) * 100}%` }}
+													className={`relative h-[24px] z-50 bg-black col-span-12 -mb-24 rounded-md bg-opacity-25 animate__animated animate__fadeIn transition-all`}
+												/>
+											) : (
+												<></>
+											)}
+											<div className="text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
+											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-500 px-1 whitespace-nowrap">
+												<img className="h-4 w-4 rounded-full" src={track?.artist_img} />
+												{track?.artist}
+											</div>
+											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">
+												{formatTime(track.duration)}
 											</div>
 										</div>
 									);
 							  })
-							: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"].map((val: string, i: number) => {
+							: // @ts-ignore
+							  Array.apply(null, Array(tapeLength)).map((el: any, index: number) => {
 									return (
-										<div key={val + i + "tapeartists"} className="col-span-1 rounded-sm py-2">
-											<button
-												disabled={true}
-												onClick={() => playTrack(i)}
-												className="flex justify-center items-center group">
-												<span className="h-32 w-32 inline-block relative">
-													<img
-														src={emptyState}
-														className={`rounded-full relative z-10 lg:z-50 h-full w-full opacity-100`}
-													/>
-												</span>
-											</button>
+										<div
+											key={"empty tape" + index}
+											className="col-span-12 bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
+											<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index + 1}</div>
+											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">
+												open
+											</div>
+											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto px-1 text-sm inline-flex items-center">
+												0:00
+											</div>
 										</div>
 									);
 							  })}

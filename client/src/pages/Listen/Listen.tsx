@@ -2,6 +2,7 @@ import React, { useEffect, Fragment } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../store";
+import SampleContainer from "../../components/Listen/SampleContainer/SampleContainer";
 import TapeHeader from "../../components/Listen/TapeHeader/TapeHeader";
 import TapeInfo from "../../components/Listen/TapeInfo/TapeInfo";
 import TapeArtists from "../../components/Listen/TapeArtists/TapeArtists";
@@ -18,25 +19,28 @@ const Listen = () => {
 		dispatch.audioModel.getTrackData();
 		dispatch.audioModel.getTapeData();
 		dispatch.audioModel.getSamples();
+		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, []);
 
 	useEffect(() => {
+		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, [id]);
 	return (
 		<Fragment>
 			{spaceData && audioData && (
 				<Fragment>
-					<div className="w-screen mt-1 lg:mb-40 mb-20">
+					<div className="w-screen">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
+						<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="lg:mt-6">
+					<div className="">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="grid grid-cols-12 mx-auto gap-x-2 px-3 max-w-[100rem] items-start pb-20">
-						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
+					<div className="grid grid-cols-12 xl:mx-auto max-w-[100rem] gap-1.5 mt-1.5 rounded-lg mx-2">
 						<TapeArtists {...tapeData} />
+						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
 				</Fragment>
 			)}

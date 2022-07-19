@@ -25,6 +25,7 @@ export interface TrackMetadata {
 	artist_img: string;
 	wallet: string;
 	social: string;
+	duration: number;
 }
 
 export interface SampleData {
@@ -42,4 +43,45 @@ export interface UserFormattedOwnership {
 	token_ids: Array<string>;
 	src: string;
 	href: string;
+}
+
+export interface BadgeData {
+	name: string;
+	description: string;
+	image: string;
+}
+
+export interface CollectionItem {
+	name: string;
+	token_address: string;
+	token_uri: string;
+	quantity: number;
+	metadata: string;
+}
+export interface CollectionTank {
+	[address: string]: CollectionItem;
+}
+
+export interface UserSubmission {
+	id: string;
+	subId: string;
+	link: string;
+	index?: number;
+}
+
+export interface PublicSubmission {
+	id: string;
+	subId: string;
+	link: string;
+	index: number;
+}
+
+export interface SubmissionsPlayerProps {
+	tracks?: Array<UserSubmission>;
+	walletId: string;
+}
+
+export interface AudioPlayerProps {
+	tracks: Array<UserSubmission>;
+	selectedTrack: number;
 }
