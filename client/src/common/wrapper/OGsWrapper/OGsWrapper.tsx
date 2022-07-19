@@ -1,8 +1,7 @@
-// @ts-nocheck
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useMoralis } from "react-moralis";
-import TokenBurnModal from "../../modal/TokenBurnModal/TokenBurnModal";
-import { whitelist, tokenMapping } from "../../../data/whitelists/tokenBurnWhitelist";
+import { useLocation } from "react-router";
+import { whitelist } from "../../../data/whitelists/tokenBurnWhitelist";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "../../../store";
 import { Modals } from "../../../models/globalModel";
@@ -15,6 +14,7 @@ import { Modals } from "../../../models/globalModel";
  */
 
 const OGsWrapper = ({ children }: any) => {
+	const { pathname } = useLocation<{ pathname: string }>();
 	const dispatch = useDispatch<Dispatch>();
 	const { isAuthenticated, user, isAuthenticating } = useMoralis();
 
@@ -22,11 +22,10 @@ const OGsWrapper = ({ children }: any) => {
 		if (user && isAuthenticated) {
 			let ethAddress = user?.attributes?.ethAddress;
 			if (whitelist.includes(ethAddress)) {
-				// todo: activate popup token burn modal
-				// dispatch.globalModel?.setModal({ modal: Modals.OGHED, open: true, locked: true });
+				if (pathname === "/profile") dispatch.globalModel?.setModal({ modal: Modals.OGHED, open: true, locked: true });
 			}
 		}
-	}, [user, isAuthenticating]);
+	}, [user, isAuthenticating, pathname]);
 	return <Fragment>{children}</Fragment>;
 };
 
