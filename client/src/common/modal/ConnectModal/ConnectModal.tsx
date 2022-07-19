@@ -9,10 +9,12 @@ import { Dialog, Transition } from "@headlessui/react";
 const ConnectModal = () => {
 	const dispatch = useDispatch<Dispatch>();
 	const { open } = useSelector((state: RootState) => state.globalModel.modal);
-	const { authenticate, isAuthenticated, isAuthenticating } = useMoralis();
+	const { authenticate, isAuthenticated, isAuthenticating, user } = useMoralis();
 	const handleAuthenticate = async (provider: object | void) => {
-		if (isAuthenticated) dispatch.globalModel.clearModalState();
-		else if (provider) authenticate({ provider: "walletconnect", chainId: 1 });
+		if (isAuthenticated) {
+			dispatch.userModel.validateNewUser(user?.attributes?.ethAddress);
+			dispatch.globalModel.clearModalState();
+		} else if (provider) authenticate({ provider: "walletconnect", chainId: 1 });
 		else authenticate({ chainId: 1 });
 	};
 	useEffect(() => {
