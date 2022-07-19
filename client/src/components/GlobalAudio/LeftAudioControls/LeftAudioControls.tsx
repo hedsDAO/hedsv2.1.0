@@ -12,14 +12,14 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
 	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
 	return (
-		<div className={audioData?.isLoading ? `inline-flex justify-center items-center px-2.5 py-1` : `inline-flex justify-center items-center px-2 py-1`}>
+		<div className={audioData?.isLoading ? `inline-flex justify-center items-center px-2.5 py-1 mb-1` : `inline-flex justify-center items-center px-2 py-1 mb-1`}>
 			<div
 				className={`${
 					audioData?.playerSize === PlayerSize.LARGE
-						? "h-96 bottom-0 relative flex flex-col items-center justify-between text-center lg:mr-auto py-2 px-3"
+						? "h-96 bottom-0 relative flex flex-col items-center justify-between text-center lg:mr-auto py-2 px-2.5"
 						: audioData?.playerSize === PlayerSize.MEDIUM
-						? "h-52 bottom-0 relative flex flex-col items-center justify-between text-center lg:mr-auto py-2 px-3"
-						: "h-52 bottom-0 relative flex flex-col items-center justify-between text-center -ml-1.5 lg:-ml-0 lg:mr-auto py-2 px-3"
+						? "h-[190px] bottom-0 relative flex flex-col items-center justify-between text-center lg:mr-auto py-2 px-2.5"
+						: "h-[190px] bottom-0 relative flex flex-col items-center justify-between text-center -ml-1 lg:-ml-0 lg:mr-auto py-2 px-3"
 				}`}>
 				<button
 					disabled={audioData?.isLoading}
@@ -33,7 +33,7 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 					}}
 					className="text-center">
 					<i
-						className={`fa-solid fa-angle-right text-neutral-300 ${
+						className={`fa-solid fa-angle-right text-sm text-neutral-300 transition-all ${
 							audioData?.playerSize > PlayerSize.SMALL ? "rotate-180" : "rotate-0"
 						}`}
 					/>
@@ -51,7 +51,7 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 							else dispatch.audioModel.setCurrentTrack(tracks.length - 1);
 						}}
 						className="text-center">
-						<i className="fa-solid fa-backward text-neutral-300"></i>
+						<i className="fa-solid fa-backward text-sm text-neutral-300"></i>
 					</button>
 				) : (
 					<button
@@ -65,7 +65,7 @@ const LeftAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null 
 							});
 						}}
 						className="text-center">
-						<i className="fa-solid fa-xmark text-neutral-300"></i>
+						<i className="fa-solid fa-xmark text-neutral-300 text-sm"></i>
 					</button>
 				)}
 			</div>

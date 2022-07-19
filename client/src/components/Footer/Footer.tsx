@@ -3,12 +3,11 @@ import { useLocation } from "react-router";
 // import hedDot from "/public/icons/heds_icon.png";
 const navigation = {
 	main: [
-		{ name: "About", href: "#" },
-		{ name: "Discord", href: "#" },
-		{ name: "Twitter", href: "#" },
-		{ name: "Github", href: "#" },
+		{ name: "About", href: "https://heds.app/about" },
+		{ name: "Discord", href: "https://discord.gg/YPuAbCcDtg" },
+		{ name: "Twitter", href: "https://twitter.com/hedsDAO" },
+		{ name: "Github", href: "https://github.com/hedsDAO" },
 		{ name: "Contact", href: "#" },
-		{ name: "Partners", href: "#" },
 	],
 };
 export default function Footer() {
@@ -17,12 +16,12 @@ export default function Footer() {
 	return (
 		<>
 			{pathname !== "/" && (
-				<footer className="mt-20">
-					<div className="max-w-sm lg:max-w-7xl mx-auto pt-12 pb-6 px-4 overflow-hidden sm:px-6 lg:px-8">
+				<footer className="pt-10 pb-4">
+					<div className="max-w-sm lg:max-w-7xl mx-auto px-4 overflow-hidden sm:px-6 lg:px-8">
 						<nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
 							{navigation.main.map((item) => (
 								<div key={item.name} className="px-5 py-1">
-									<a href={item.href} className="text-sm text-neutral-600 hover:text-gray-900">
+									<a href={item.href} className="text-sm text-neutral-600 hover:text-neutral-400 transition-all">
 										{item.name}
 									</a>
 								</div>

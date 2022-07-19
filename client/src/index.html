@@ -6,6 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="mobile-web-app-capable" content="yes" />
+		<script>
+			if (
+				localStorage.getItem("color-theme") === "dark" ||
+				(!("color-theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
+			) {
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
+			}
+		</script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://kit.fontawesome.com/df4fc895e4.js" crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>

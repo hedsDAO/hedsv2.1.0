@@ -4,6 +4,13 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../index";
 import { BadgeData, CollectionTank } from "./common";
 import { populateNewUser } from "../utils/populateNewUser";
+import { whitelist } from "../data/whitelists/tokenBurnWhitelist";
+
+interface SetVotingPower {
+	walletId: string | any;
+	collection?: CollectionTank;
+	powerMapping: Array<number>;
+}
 
 export interface UserState {
 	profilePicture?: string;
@@ -22,6 +29,19 @@ export const userModel = createModel<RootModel>()({
 	} as UserState,
 	reducers: {
 		setCollection: (state, collection: CollectionTank) => ({ ...state, collection }),
+		setVotingPower: (state, userData: SetVotingPower) => {
+			const newState = { ...state };
+			newState.votingPower = 0;
+			const { collection, walletId, powerMapping } = userData;
+			if (!collection || Object.values(collection).length === 0) return newState;
+			else {
+				if (whitelist.includes(walletId)) newState.votingPower += 10;
+				Object.values(collection).map((tape, idx) => {
+					newState.votingPower += tape.quantity * powerMapping[idx];
+				});
+				return newState;
+			}
+		},
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
 		clearUserData: (state) => {
 			let newState = { ...state };

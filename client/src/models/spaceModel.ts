@@ -22,6 +22,7 @@ export interface TapeData {
 		duration: string;
 		quantity: string;
 		season: string;
+		tracks: number;
 	};
 	links: {
 		etherscan: string;

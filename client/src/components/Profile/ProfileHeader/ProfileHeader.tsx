@@ -13,7 +13,7 @@ const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attribut
 	const globalData = useSelector((state: RootState) => state.globalModel);
 	return (
 		<div className="border-neutral-950 rounded-lg lg:max-w-6xl flex lg:justify-start justify-center mx-auto">
-			<div className="bg-neutral-900 py-7 rounded-lg">
+			<div className="py-7 rounded-lg">
 				<div className="lg:mx-auto lg:max-w-xl lg:grid lg:grid-cols-2 gap-x-4">
 					<div className="col-span-1 flex flex-col items-center justify-baseline px-2 lg:py-2 py-1 lg:max-w-[18rem] md:max-h-[18rem] max-h-[12rem]">
 						<img

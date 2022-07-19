@@ -6,6 +6,10 @@ export enum Modals {
 	CONNECT,
 	SETTINGS,
 	TWITTER,
+	VOTE,
+	SUBMIT,
+	MINT,
+	OGHED,
 }
 
 interface ModalState {
@@ -16,6 +20,9 @@ interface ModalState {
 
 export interface GlobalState {
 	modal: ModalState;
+	space: string;
+	tape: string;
+	id: string;
 }
 
 export const globalModel = createModel<RootModel>()({
@@ -25,6 +32,9 @@ export const globalModel = createModel<RootModel>()({
 			open: false,
 			locked: false,
 		},
+		space: "",
+		tape: "",
+		id: "",
 	} as GlobalState,
 	reducers: {
 		setModal: (state, modal: ModalState) => {
@@ -35,6 +45,13 @@ export const globalModel = createModel<RootModel>()({
 		setModalLock: (state, locked) => {
 			const newState = { ...state };
 			newState.modal.locked = locked;
+			return newState;
+		},
+		setSpaceTapeId: (state, [space, tape, id]) => {
+			const newState = { ...state };
+			newState.space = space;
+			newState.tape = tape;
+			newState.id = id;
 			return newState;
 		},
 		setModalVisibility: (state, open: boolean) => {

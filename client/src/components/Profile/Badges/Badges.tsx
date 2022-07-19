@@ -6,7 +6,7 @@ const Badges = (userData: UserState) => {
 	return (
 		<div className="col-span-12 mt-5">
 			<h1 className="col-span-12 text-2xl tracking-widest font-semibold text-neutral-500 px-4 mb-2">BADGES</h1>
-			<div className="grid grid-cols-12 lg:grid-rows-2 gap-y-2 gap-x-2 mx-4 rounded-lg">
+			<div className="grid grid-cols-12 lg:grid-rows-1 gap-y-2 gap-x-2 mx-4 rounded-lg">
 				{userData?.badges?.length && (
 					<Fragment>
 						{badgeEmptyState(userData.badges).map((badge, index: number) => {
@@ -14,7 +14,7 @@ const Badges = (userData: UserState) => {
 								return (
 									<div
 										key={badge.name}
-										className="flex items-center justify-start w-full bg-neutral-500 text-neutral-900 rounded-md p-2 col-span-12 lg:col-span-3 lg:row-span-1">
+										className="flex items-center justify-start w-full bg-gradient-to-r from-neutral-500 to-neutral-400 text-neutral-900 rounded-md p-2 col-span-12 lg:col-span-3 lg:row-span-1">
 										<img src={badge.image} className="w-10 h-10 rounded-lg border-[0.25px] border-neutral-950" />
 										<div className="flex flex-col items-start justify-end mx-3">
 											<span className="font-serif font-extrabold tracking-tight uppercase text-right text-sm">

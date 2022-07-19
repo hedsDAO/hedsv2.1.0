@@ -20,7 +20,7 @@ const Profile = () => {
 		if (isUnauthenticated) history.push("/explore");
 	}, []);
 	return (
-		<div className="min-h-screen bg-neutral-900">
+		<div className="min-h-screen bg-gradient-to-b">
 			{user && userData && <ProfileHeader user={user} userData={userData} />}
 			<div className="grid grid-cols-12 gap-x-1 w-full max-w-6xl mx-auto rounded-lg pb-2">
 				<Collection {...userData} />
