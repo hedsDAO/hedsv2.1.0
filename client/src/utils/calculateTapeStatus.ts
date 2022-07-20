@@ -7,7 +7,7 @@ const steps = [
 		key: "1",
 		description: "Submit your flip of the sample for a chance to be on the tape.",
 		href: "#",
-		status: "upcoming",
+		status: "pending",
 	},
 	{
 		name: "VOTE",
@@ -15,7 +15,7 @@ const steps = [
 		key: "2",
 		description: "Public submissions are posted anonymously and voted on by tape owners.",
 		href: "#",
-		status: "upcoming",
+		status: "pending",
 	},
 	{
 		name: "MINT",
@@ -23,31 +23,49 @@ const steps = [
 		key: "3",
 		description: "The collection has been released. Minting will be open for 24 hours.",
 		href: "#",
-		status: "upcoming",
+		status: "pending",
 	},
 ];
 
 const calculateTapeStatus = (status: number) => {
 	const updatedSteps = [...steps];
-	if (status < TapeStatus.SUBMIT_CLOSE) {
+	if (status <= TapeStatus.SAMPLE_OPEN) {
+		updatedSteps[0].status = "pending";
+		updatedSteps[1].status = "pending";
+		updatedSteps[2].status = "pending";
+		return updatedSteps;
+	}
+	if (status === TapeStatus.SUBMIT_OPEN) {
 		updatedSteps[0].status = "current";
 		updatedSteps[1].status = "pending";
 		updatedSteps[2].status = "pending";
 		return updatedSteps;
 	}
-	if (status > TapeStatus.SUBMIT_CLOSE && status < TapeStatus.VOTE_CLOSE) {
+	if (status === TapeStatus.SUBMIT_CLOSE) {
+		updatedSteps[0].status = "complete";
+		updatedSteps[1].status = "pending";
+		updatedSteps[2].status = "pending";
+		return updatedSteps;
+	}
+	if (status === TapeStatus.VOTE_OPEN) {
 		updatedSteps[0].status = "complete";
 		updatedSteps[1].status = "current";
 		updatedSteps[2].status = "pending";
 		return updatedSteps;
 	}
-	if (status > TapeStatus.VOTE_CLOSE && status < TapeStatus.MINT_CLOSE) {
+	if (status === TapeStatus.VOTE_CLOSE) {
+		updatedSteps[0].status = "complete";
+		updatedSteps[1].status = "complete";
+		updatedSteps[2].status = "pending";
+		return updatedSteps;
+	}
+	if (status === TapeStatus.MINT_OPEN) {
 		updatedSteps[0].status = "complete";
 		updatedSteps[1].status = "complete";
 		updatedSteps[2].status = "current";
 		return updatedSteps;
 	}
-	if (status >= TapeStatus.MINT_CLOSE) {
+	if (status === TapeStatus.MINT_CLOSE) {
 		updatedSteps[0].status = "complete";
 		updatedSteps[1].status = "complete";
 		updatedSteps[2].status = "complete";

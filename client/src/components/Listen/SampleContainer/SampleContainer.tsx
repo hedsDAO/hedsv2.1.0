@@ -7,6 +7,7 @@ import { PlayerSize } from "../../../models/common";
 import { useParams } from "react-router";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { handleDownloadFile } from "../../../utils/handleDownloadFile";
+import { Modals } from "../../../models/globalModel";
 
 const SampleContainer = (tapeData: TapeData) => {
 	const { id } = useParams<{ id: string }>();
@@ -15,6 +16,7 @@ const SampleContainer = (tapeData: TapeData) => {
 	const [sampleDownloadUrl, setSampleDownloadUrl] = useState<string>("");
 	const dispatch = useDispatch<Dispatch>();
 	const audioData = useSelector((state: RootState) => state.audioModel);
+	const userData = useSelector((state: RootState) => state.userModel);
 	const playSample = () => {
 		const track = +tapeData.tape.no - 1;
 		if (audioData?.samples?.[track]) {
@@ -42,7 +44,11 @@ const SampleContainer = (tapeData: TapeData) => {
 				</div>
 				<div className="inline-flex items-center gap-x-2.5 pr-2">
 					<DownloadIcon
-						onClick={() => handleDownloadFile(sampleDownloadUrl, `HT${id}`)}
+						onClick={
+							userData?.twitterHandle
+								? () => handleDownloadFile(sampleDownloadUrl, `HT${id}`)
+								: () => dispatch.globalModel.setModal({ open: true, modal: Modals.WARNING, locked: true })
+						}
 						className="h-4 w-4 text-green-500 hover:text-green-400 transition-all"
 					/>
 					{!audioData?.isPlaying && !audioData?.isSample ? (
