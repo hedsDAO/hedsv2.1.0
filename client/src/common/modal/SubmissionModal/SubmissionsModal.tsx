@@ -36,9 +36,9 @@ const SubmissionModal = () => {
 
 	const handleSubmit = async () => {
 		const subId = await generateSubmissionId();
-		if (userData?.twitterHandle && subId) {
+		if (userData?.twitterHandle && subId && duration) {
 			dispatch.submissionsModel.setLoading(true);
-			const options = handlePinataMetadata(walletId, userData.twitterHandle, subId?.data, space, tape, id);
+			const options = handlePinataMetadata(walletId, userData.twitterHandle, subId?.data, space, tape, id, duration);
 			axios.post(`${PIN_HASH_TO_IPFS}/${currentSubmission}`, options).then((response) => {
 				const pinnedHash = response.data.ipfsHash;
 				submissionData[0] = PINATA_IPFS_URL + pinnedHash;
