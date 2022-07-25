@@ -22,7 +22,7 @@ const OGsWrapper = ({ children }: any) => {
 		if (user && isAuthenticated) {
 			let ethAddress = user?.attributes?.ethAddress;
 			if (whitelist.includes(ethAddress)) {
-				if (pathname === "/profile") dispatch.globalModel?.setModal({ modal: Modals.OGHED, open: true, locked: true });
+				if (pathname === "/undefined") dispatch.globalModel?.setModal({ modal: Modals.OGHED, open: true, locked: true });
 			}
 		}
 	}, [user, isAuthenticating, pathname]);
