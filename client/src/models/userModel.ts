@@ -53,13 +53,14 @@ export const userModel = createModel<RootModel>()({
 		async getUserData(wallet: string) {
 			const docRef = doc(db, "user", wallet);
 			const docSnap = await getDoc(docRef);
-			if (docSnap.exists()) this.setUserData(docSnap.data());
-		},
-		async validateNewUser(wallet: string) {
-			const docRef = doc(db, "user", wallet);
-			const docSnap = await getDoc(docRef);
-			const newUserData = populateNewUser();
-			if (!docSnap.exists()) await setDoc(docRef, newUserData).then(() => this.setUserData(newUserData));
+			if (docSnap.exists()) {
+				this.setUserData(docSnap.data());
+			} else {
+				const newUserData = populateNewUser();
+				await setDoc(docRef, newUserData).then(() => {
+					this.setUserData(newUserData);
+				})
+			}
 		},
 		async updateProfilePicture([wallet, profilePicture]: [string, string]) {
 			const docRef = doc(db, "user", wallet);

@@ -85,8 +85,8 @@ const GlobalAudio = () => {
 									playerSize === SMALL
 										? "hidden"
 										: playerSize === MEDIUM
-										? "col-span-10 lg:col-span-3 flex items-center px-8 sm:px-5 lg:px-0 justify-start lg:justify-center"
-										: "col-span-10 lg:col-span-4 flex items-center px-8 sm:px-5 lg:px-0 justify-start"
+										? "col-span-10 lg:col-span-2 flex items-center px-8 sm:px-5 lg:px-0 justify-start lg:justify-center"
+										: "col-span-10 lg:col-span-3 flex items-center px-8 sm:px-5 lg:px-0 justify-start"
 								}>
 								<video
 									key={audioData?.tracks?.[currentTrack]?.video}
@@ -125,8 +125,8 @@ const GlobalAudio = () => {
 									playerSize === SMALL
 										? "hidden"
 										: playerSize === MEDIUM
-										? "lg:h-52 lg:col-span-9 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
-										: "lg:h-80 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+										? "lg:h-52 lg:col-start-5 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+										: "lg:h-80 lg:col-start-6 lg:col-span-7 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 								}>
 								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400">
 									{audioData?.currentTime && !audioData?.isLoading && playerSize > SMALL && audioData?.currentTime[0]}

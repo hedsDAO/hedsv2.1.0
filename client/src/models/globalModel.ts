@@ -10,6 +10,7 @@ export enum Modals {
 	SUBMIT,
 	MINT,
 	OGHED,
+	WARNING,
 }
 
 interface ModalState {

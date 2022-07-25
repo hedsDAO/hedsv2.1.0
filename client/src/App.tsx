@@ -32,12 +32,6 @@ const App = () => {
 			dispatch.userModel.getUserData(user?.attributes?.ethAddress);
 		}
 	}, [user]);
-	useEffect(() => {
-		if (userData?.badges?.length === 0) {
-			console.log("new user");
-			dispatch.userModel.validateNewUser(user?.attributes?.ethAddress);
-		}
-	}, [userData]);
 	return (
 		<Fragment>
 			<Route path="/" component={Navbar} />

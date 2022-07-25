@@ -1,4 +1,4 @@
-const handlePinataMetadata = (walletId: string, twitterHandle: string, submissionId: string, space: string, tape: string, id: string) => {
+const handlePinataMetadata = (walletId: string, twitterHandle: string, submissionId: string, space: string, tape: string, id: string, duration: number) => {
 	const options = {
 		pinataMetadata: {
 			name: id + "-" + walletId,
@@ -7,6 +7,7 @@ const handlePinataMetadata = (walletId: string, twitterHandle: string, submissio
 				id: submissionId,
 				space: space || "heds",
 				tape: tape,
+				duration: duration
 			},
 		},
 	};

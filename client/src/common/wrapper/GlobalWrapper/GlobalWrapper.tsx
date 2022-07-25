@@ -7,19 +7,29 @@ import SettingsModal from "../../modal/SettingsModal/SettingsModal";
 import TwitterModal from "../../modal/TwitterModal/TwitterModal";
 import SubmissionModal from "../../modal/SubmissionModal/SubmissionsModal";
 import MintModal from "../../modal/MintModal/MintModal";
+import WarningModal from "../../modal/WarningModal/WarningModal";
 import TokenBurnModal from "../../modal/TokenBurnModal/TokenBurnModal";
 import VoteModal from "../../modal/VoteModal/VoteModal";
+const warningTitle = "Unverified Account";
+const warningMessageTwitter = "Verify your account with twitter to continue.";
+const warningMessageUser = "Connect you wallet to download the sample.";
 
 const GlobalWrapper = ({ children }: { children: JSX.Element }) => {
+	const userData = useSelector((state: RootState) => state.userModel);
 	const globalData = useSelector((state: RootState) => state.globalModel);
 	const modalTypes = {
 		[Modals.CONNECT]: <ConnectModal />,
 		[Modals.SETTINGS]: <SettingsModal />,
 		[Modals.TWITTER]: <TwitterModal />,
-		[Modals.VOTE]: <VoteModal />,
-		[Modals.SUBMIT]: <SubmissionModal />,
+		[Modals.VOTE]: userData?.twitterHandle ? <VoteModal /> : <WarningModal title={warningTitle} message={warningMessageTwitter} />,
+		[Modals.SUBMIT]: userData?.twitterHandle ? (
+			<SubmissionModal />
+		) : (
+			<WarningModal title={warningTitle} message={warningMessageTwitter} />
+		),
 		[Modals.MINT]: <MintModal />,
 		[Modals.OGHED]: <TokenBurnModal />,
+		[Modals.WARNING]: <WarningModal title={warningTitle} message={warningMessageUser} />,
 	};
 
 	return (
