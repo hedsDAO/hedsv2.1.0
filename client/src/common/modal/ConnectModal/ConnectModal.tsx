@@ -12,7 +12,7 @@ const ConnectModal = () => {
 	const { authenticate, isAuthenticated, isAuthenticating, user } = useMoralis();
 	const handleAuthenticate = async (provider: object | void) => {
 		if (isAuthenticated) {
-			dispatch.userModel.validateNewUser(user?.attributes?.ethAddress);
+			dispatch.userModel.getUserData(user?.attributes?.ethAddress);
 			dispatch.globalModel.clearModalState();
 		} else if (provider) authenticate({ provider: "walletconnect", chainId: 1 });
 		else authenticate({ chainId: 1 });

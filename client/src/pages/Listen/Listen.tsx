@@ -7,6 +7,7 @@ import TapeHeader from "../../components/Listen/TapeHeader/TapeHeader";
 import TapeInfo from "../../components/Listen/TapeInfo/TapeInfo";
 import TapeArtists from "../../components/Listen/TapeArtists/TapeArtists";
 import TapeTimeline from "../../components/Listen/TapeTimeline/TapeTimeline";
+import { TapeStatus } from "../../models/common";
 
 const Listen = () => {
 	const { space, tape, id } = useParams<{ space?: string; tape: string; id: string }>();
@@ -33,7 +34,9 @@ const Listen = () => {
 				<Fragment>
 					<div className="w-screen">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
-						<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
+						{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.SAMPLE_OPEN && (
+							<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
+						)}
 					</div>
 					<div className="">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { useLocation, useHistory } from "react-router";
@@ -15,6 +15,11 @@ const Navbar = () => {
 	const { isAuthenticated, user } = useMoralis();
 	const { pathname } = useLocation<{ pathname: string }>();
 	const history = useHistory();
+
+	useEffect(() => {
+		if (user) dispatch.userModel.getUserData(user?.attributes?.ethAddress);
+	}, [isAuthenticated]);
+	
 	const navigation = [
 		{ name: "home", href: "/" },
 		{ name: "explore", href: "/explore" },
@@ -45,9 +50,8 @@ const Navbar = () => {
 						</div>
 					</Link>
 					<ul
-						className={`flex items-center justify-center navbar-parent py-1 px-1 ${
-							isAuthenticated ? "xl:-mr-[5.6%] lg:-mr-[6.6%] md:-mr-[7.6%]" : "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]"
-						}`}>
+						className={`flex items-center justify-center navbar-parent py-1 px-1 ${isAuthenticated ? "xl:-mr-[5.6%] lg:-mr-[6.6%] md:-mr-[7.6%]" : "xl:-mr-[4.3%] lg:-mr-[5.3%] md:-mr-[6.3%]"
+							}`}>
 						{navigation.map((item, i) => (
 							<div key={item.href + i}>
 								{pathname === item.href ? (

@@ -91,7 +91,7 @@ const Pending = ({ step, idx }: any) => {
 			/>
 			<span className={classNames(idx !== 0 ? "lg:pl-9" : "", "px-6 py-5 flex items-start text-sm font-medium")}>
 				<span className="flex-shrink-0 pt-2">
-					<span className="w-8 h-8 flex items-center justify-center bg-amber-600 bg-opacity-75 rounded-full mx-1.5">
+					<span className="w-8 h-8 flex items-center justify-center bg-neutral-600 bg-opacity-75 rounded-full mx-1.5">
 						<span className="text-neutral-900 uppercase tracking-wide ">
 							<i className={step.icon} />
 						</span>
