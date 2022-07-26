@@ -4,45 +4,55 @@ import { useDispatch, useSelector } from "react-redux";
 import { TrashIcon } from "@heroicons/react/solid";
 import useMoralisHooks from "../../../hooks/useMoralis";
 import defaultImg from "/public/images/default.png";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { Dialog, Transition } from "@headlessui/react";
+import { getCurrentImagePath } from "../../../utils/getCurrentImagePath";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
-import axios from "axios";
-// import DarkModeToggle from "../../toggles/DarkModeToggle/DarkModeToggle";
 
 const SettingsModal = () => {
+	const storage = getStorage();
 	const dispatch = useDispatch<Dispatch>();
 	const inputRef = useRef<HTMLInputElement>(null);
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { open, locked } = useSelector((state: RootState) => state.globalModel.modal);
-	const { user, uploadProfilePicture } = useMoralisHooks();
+	const { user } = useMoralisHooks();
 	const [file, setFile] = useState<File | void>();
+	const [fileType, setFileType] = useState<string | void>();
 	const [error, setError] = useState<string>();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [preview, setPreview] = useState<string | void>();
 	const [chars, setChars] = useState<number>(0 + userData?.description?.length);
 	const [description, setDescription] = useState();
-	const PIN_HASH_TO_IPFS = "https://us-central1-heds-34ac0.cloudfunctions.net/pinHashToIpfs";
 
 	const handleSubmit = async () => {
 		setLoading(true);
 		const wallet = user?.attributes?.ethAddress;
 		if (preview && !file) dispatch.userModel.updateProfilePicture([wallet, ""]);
-		else if (file) {
-			await uploadProfilePicture(file).then((hash) => {
-				axios.post(`${PIN_HASH_TO_IPFS}/${hash}`).then((response) => {
-					let profilePicture = "https://www.heds.cloud/ipfs/" + response.data.ipfsHash;
-					dispatch.userModel.updateProfilePicture([wallet, profilePicture]);
+		else if (fileType && file) {
+			if (userData?.profilePicture) {
+				const currentImagePath = getCurrentImagePath(userData.profilePicture, wallet);
+				const currentImageRef = ref(storage, "users/" + currentImagePath);
+				deleteObject(currentImageRef);
+			} 
+			const storageRef = ref(storage, "users/" + wallet + fileType);
+			uploadBytes(storageRef, file).then((snapshot) => {
+				getDownloadURL(snapshot.ref).then((downloadURL) => {
+					dispatch.userModel.updateProfilePicture([wallet, downloadURL]);
+					setLoading(false);
+					dispatch.globalModel.setModalVisibility(false);
 				});
 			});
 		}
-		setLoading(false);
-		if (description) dispatch.userModel.updateDescription([wallet, description]);
-		dispatch.globalModel.setModalVisibility(false);
+		else if (description) {
+			dispatch.userModel.updateDescription([wallet, description]);
+			dispatch.globalModel.setModalVisibility(false);
+		} else setLoading(false);
 	};
+
 
 	return (
 		<Transition appear show={open} as={Fragment}>
-			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => {} : () => dispatch.globalModel.setModalVisibility(false)}>
+			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex bg-neutral-950/90 min-h-full items-center justify-center text-center">
 						<Transition.Child
@@ -88,6 +98,7 @@ const SettingsModal = () => {
 																} else if (fileSize > 10000000) {
 																	setError("max file size exceeded");
 																} else {
+																	setFileType("." + input.files[0].type.split('/')[1])
 																	setPreview(URL.createObjectURL(input.files[0]));
 																	setFile(input.files[0]);
 																	setError("");

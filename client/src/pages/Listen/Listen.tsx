@@ -41,7 +41,7 @@ const Listen = () => {
 					<div className="">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="grid grid-cols-12 xl:mx-auto max-w-[100rem] gap-1.5 mt-1.5 rounded-lg mx-2">
+					<div className="grid grid-cols-12 xl:mx-auto max-w-[100rem] gap-1.5 mt-1.5 rounded-lg mx-2 items-start">
 						<TapeArtists {...tapeData} />
 						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
