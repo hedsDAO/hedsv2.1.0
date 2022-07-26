@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import { TapeData } from "../../../models/spaceModel";
 import { useParams } from "react-router";
-import SplitsIcon from "../../../common/svg/SplitsIcon/SplitsIcon";
+// import SplitsIcon from "../../../common/svg/SplitsIcon/SplitsIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
 import { generateStatusColors } from "../../../utils/generateTapeLanguage";
@@ -16,13 +16,11 @@ const TapeInfo = (tapeData: TapeData) => {
 	}, [id]);
 
 	return (
-		<div className="col-span-12 lg:col-span-3 h-full p-1 bg-neutral-975 rounded-lg">
-			<div className="grid grid-cols-1 lg:grid-cols-1 rounded-md h-full w-full">
-				<div className="flex flex-col justify-evenly gap-1 p-1.5 h-full rounded-md">
-					<div className="flex flex-col items-center justify-evenly rounded-md bg-neutral-950 h-full w-full px-5 lg:py-0 py-5">
-						<h3 className="text-neutral-400 uppercase font-semibold tracking-wide">TAPE DETAILS</h3>
-						<div className="py-2 px-3 rounded-md flex flex-col min-w-[85%] gap-y-2">
-							<div className="inline-flex items-center justify-between w-full">
+		<div className="col-span-12 lg:col-span-3 p-1 bg-neutral-975 rounded-lg">
+			<div className="grid grid-cols-1 lg:grid-cols-1 rounded-md w-full">
+				<div className="flex flex-col justify-start gap-1 p-1.5 rounded-md">
+						<h3 className="text-neutral-500 uppercase font-semibold tracking-wide mb-2 mx-1">TAPE DETAILS</h3>
+							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 								<span className="font-thin font-serif text-neutral-600 text-sm">status</span>
 								<span
 									className="uppercase font-serif text-neutral-500 text-sm"
@@ -30,37 +28,37 @@ const TapeInfo = (tapeData: TapeData) => {
 									{generateStatusLanguage(tapeData?.status?.status)}
 								</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full">
+							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 								<span className="font-thin font-serif text-neutral-600 text-sm">space</span>
 								<span className="uppercase font-serif text-neutral-500 text-sm">{space || "heds"}</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full">
+							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 								<span className="font-thin font-serif text-neutral-600 text-sm">tape</span>
 								<span className="uppercase font-serif text-neutral-500 text-sm">{tape}</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full">
+							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 								<span className="font-thin font-serif text-neutral-600 text-sm">no</span>
 								<span className="uppercase font-serif text-neutral-500 text-sm">{id}</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full">
+							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 								<span className="font-thin font-serif text-neutral-600 text-sm">bpm</span>
 								<span className="uppercase font-serif text-neutral-500 text-sm">{tapeData?.sample?.bpm}</span>
 							</div>
 							{openSeaData && (
 								<Fragment>
-									<div className="inline-flex items-center justify-between w-full">
+									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 										<span className="font-thin font-serif text-neutral-600 text-sm">voting power</span>
 										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.calculatedVP}</span>
 									</div>
-									<div className="inline-flex items-center justify-between w-full">
+									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 										<span className="font-thin font-serif text-neutral-600 text-sm">minted</span>
 										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.minted}</span>
 									</div>
-									<div className="inline-flex items-center justify-between w-full">
+									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 										<span className="font-thin font-serif text-neutral-600 text-sm">owners</span>
 										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.numOfOwners}</span>
 									</div>
-									<div className="inline-flex items-center justify-between w-full">
+									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 										<span className="font-thin font-serif text-neutral-600 text-sm">volume</span>
 										<span className="uppercase font-serif text-neutral-500 text-sm">
 											{openSeaData.totalVolume.toFixed(3)} <span className="font-thin font-serif">ETH</span>
@@ -69,7 +67,10 @@ const TapeInfo = (tapeData: TapeData) => {
 								</Fragment>
 							)}
 						</div>
-						<div className="flex justify-center items-center gap-x-2">
+					{/* </div> */}
+				{/* </div> */}
+			</div>
+			{/* <div className="flex justify-center items-center gap-x-2 mx-1 my-2 px-2">
 							<a target={"_blank"} href={tapeData?.links?.opensea} className="text-neutral-500 text-lg">
 								<i className="fak fa-opensea"></i>
 							</a>
@@ -84,10 +85,7 @@ const TapeInfo = (tapeData: TapeData) => {
 									<SplitsIcon />
 								</a>
 							)}
-						</div>
-					</div>
-				</div>
-			</div>
+						</div> */}
 		</div>
 	);
 };

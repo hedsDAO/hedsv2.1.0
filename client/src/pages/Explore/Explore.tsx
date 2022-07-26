@@ -31,7 +31,7 @@ const Explore = () => {
 						{/* <TapesToggle /> */}
 					</div>
 					<div className="grid grid-cols-12 max-w-7xl mx-auto w-full gap-x-2 lg:px-0 px-2">
-						<div className="col-span-12 bg-neutral-975 rounded-lg mt-4">
+						<div className="col-span-12 bg-neutral-850 rounded-lg mt-4">
 							<div className="grid grid-cols-2 xl:grid-cols-6 place-items-center items-center gap-y-3 gap-x-3 m-3">
 								<>
 									{hedsTapes &&

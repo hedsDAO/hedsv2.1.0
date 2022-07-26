@@ -19,7 +19,7 @@ const Artists = () => {
 					</p>
 				</div>
 			</div>
-			<div className="col-span-12 bg-neutral-975 rounded-lg p-1">
+			<div className="col-span-12 bg-neutral-850 rounded-lg p-1">
 				<ul role="list" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 place-items-center">
 					{audioData?.samples &&
 						audioData?.samples.map((sample, index: number) => (
