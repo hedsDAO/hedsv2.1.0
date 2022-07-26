@@ -18,8 +18,8 @@ const TapeInfo = (tapeData: TapeData) => {
 	return (
 		<div className="col-span-12 lg:col-span-3 p-1 bg-neutral-975 rounded-lg">
 			<div className="grid grid-cols-1 lg:grid-cols-1 rounded-md w-full">
-				<div className="flex flex-col justify-start gap-1 p-1.5 rounded-md">
-						<h3 className="text-neutral-500 uppercase font-semibold tracking-wide mb-2 mx-1">TAPE DETAILS</h3>
+				<div className="flex flex-col justify-start gap-1 p-1 rounded-md">
+						<h3 className="text-neutral-500 uppercase font-semibold tracking-wide mb-1.5 mx-1">TAPE DETAILS</h3>
 							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
 								<span className="font-thin font-serif text-neutral-600 text-sm">status</span>
 								<span
