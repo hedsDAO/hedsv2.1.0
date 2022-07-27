@@ -7,7 +7,7 @@ import { generateStatusColors } from "../../../utils/generateTapeLanguage";
 import { generateStatusLanguage } from "../../../utils/generateStatusLanguage";
 
 const TapeInfo = (tapeData: TapeData) => {
-	const { space, tape, id } = useParams<{ space: string; tape: string; id: string }>();
+	const { tape, id } = useParams<{ space: string; tape: string; id: string }>();
 	const dispatch = useDispatch<Dispatch>();
 	const openSeaData = useSelector((state: RootState) => state.openSeaModel);
 	useEffect(() => {
@@ -27,10 +27,10 @@ const TapeInfo = (tapeData: TapeData) => {
 							{generateStatusLanguage(tapeData?.status?.status)}
 						</span>
 					</div>
-					<div className="inline-flex items-center justify-between w-full bg-neutral-200 dark:bg-neutral-900 px-2.5 py-1.5 rounded-sm">
+					{/* <div className="inline-flex items-center justify-between w-full bg-neutral-200 dark:bg-neutral-900 px-2.5 py-1.5 rounded-sm">
 						<span className="font-thin font-serif text-neutral-500 dark:text-neutral-500 text-sm">space</span>
 						<span className="uppercase font-serif text-neutral-800 dark:text-neutral-500 text-sm">{space || "heds"}</span>
-					</div>
+					</div> */}
 					<div className="inline-flex items-center justify-between w-full bg-neutral-200 dark:bg-neutral-900 px-2.5 py-1.5 rounded-sm">
 						<span className="font-thin font-serif text-neutral-500 dark:text-neutral-500 text-sm">tape</span>
 						<span className="uppercase font-serif text-neutral-800 dark:text-neutral-500 text-sm">{tape}</span>

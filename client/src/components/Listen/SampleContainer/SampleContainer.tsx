@@ -32,14 +32,14 @@ const SampleContainer = (tapeData: TapeData) => {
 	}, []);
 	return (
 		<div className="max-w-[80rem] bg-gray-300 dark:bg-neutral-975 flex justify-between items-center xl:mx-auto gap-1 rounded-md px-1 mx-2 my-1 py-1">
-			<div className="w-full bg-neutral-200 dark:bg-neutral-900 inline-flex items-center justify-between rounded-md py-2 transition-all">
+			<div className="w-full bg-neutral-200 dark:bg-neutral-900 inline-flex items-center justify-between rounded-md transition-all py-2 px-2">
 				<div className="inline-flex items-center">
-					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif font-medium uppercase text-xs tracking-widest">
-						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight lg:inline hidden font-semibold"><i className="fa-regular fa-waveform mr-1"></i></span>{" "}
+					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif font-semibold uppercase tracking-widest text-base">
+						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight lg:inline hidden font-semibold text-sm"><i className="fa-regular fa-waveform mr-1"></i></span>{" "}
 						{tapeData?.sample?.artist}
 					</span>
-					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif uppercase text-xs font-semibold tracking-widest">
-						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-medium">bpm</span> {tapeData?.sample?.bpm}
+					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif uppercase font-semibold tracking-widest text-base">
+						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-medium text-sm">bpm</span> {tapeData?.sample?.bpm}
 					</span>
 				</div>
 				<div className="inline-flex items-center gap-x-2 pr-2">

@@ -38,7 +38,7 @@ const About = () => {
 				<div className="text-lg max-w-prose mx-auto">
 					<h1>
 						<span className="block text-base text-center text-fuchsia-500 tracking-wide">heds / hedsDAO</span>
-						<span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-neutral-900 dark:text-neutral-300 sm:text-4xl">
+						<span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-neutral-700 dark:text-neutral-300 sm:text-4xl">
 							HOW IT STARTED
 						</span>
 					</h1>
@@ -53,25 +53,25 @@ const About = () => {
 					</p>
 				</div>
 				<hr className="border-neutral-700 h-2 max-w-3xl mx-auto w-full my-10 " />
-				<div className="max-w-xl text-gray-500 mx-auto px-3">
+				<div className="max-w-2xl text-gray-500 mx-auto px-3">
 					<nav aria-label="Progress">
 						<ol role="list" className="overflow-hidden">
 							{timeline.map((step, stepIdx) => (
 								<li key={step.name} className={classNames(stepIdx !== timeline.length - 1 ? "pb-10" : "", "relative")}>
 									{stepIdx !== timeline.length - 1 ? (
 										<div
-											className="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-fuchsia-600"
+											className="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-fuchsia-700"
 											aria-hidden="true"
 										/>
 									) : null}
 									<div className="relative flex items-start group">
 										<span className="h-9 flex items-center">
-											<span className="relative z-10 w-8 h-8 flex items-center justify-center bg-neutral-950 text-fuchsia-400 border-2 border-fuchsia-900 rounded-full">
+											<span className="relative z-10 w-8 h-8 flex items-center justify-center bg-[#f2f0e9] dark:bg-[#202020] text-fuchsia-600 dark:text-fuchsia-400 border-2 border-fuchsia-900 rounded-full">
 												{stepIdx + 1}
 											</span>
 										</span>
 										<span className="ml-4 min-w-0 flex flex-col">
-											<span className="text-lg text-fuchsia-500 font-base tracking-wide uppercase mb-1">
+											<span className="text-lg dark:font-medium text-fuchsia-500 dark:text-fuchsia-300 font-base tracking-wide uppercase mb-1">
 												{step.name}
 											</span>
 											<span className="text-sm text-gray-500">{step.description}</span>
