@@ -24,7 +24,7 @@ const TapeArtists = (tapeData: TapeState) => {
 		<Fragment>
 			{tapeData && (
 				<div className="col-span-12 lg:col-span-9 bg-gray-300 dark:bg-neutral-975 rounded-md">
-					<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-2 pt-1 mx-2">
+					<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
 						<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
 							<div className="col-span-1">
 								<span className="text-neutral-700 dark:text-neutral-500 text-sm px-1">#</span>
@@ -46,8 +46,8 @@ const TapeArtists = (tapeData: TapeState) => {
 											key={track?.artist_img}
 											className={
 												tracks?.[currentTrack]?.video === track.video && isLoading
-													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md animate-pulse"
-													: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
+													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm animate-pulse"
+													: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
 											}>
 											{tracks?.[currentTrack]?.video === track.video &&
 											isPlaying &&
