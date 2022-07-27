@@ -36,7 +36,9 @@ const TwitterModal = () => {
 		if (userTweetUrl?.length) {
 			let urlTank = [""];
 			urlTank = userTweetUrl.split("/");
-			const parsedLink = urlTank[urlTank.length - 1];
+			let parsedLink = urlTank[urlTank.length - 1];
+			parsedLink = parsedLink.slice(0, 19);
+			console.log(parsedLink, 'parsed')
 			axios
 				.get(TWITTER_AUTH_CLOUD_FN + parsedLink)
 				.then((res) => {
@@ -119,7 +121,7 @@ const TwitterModal = () => {
 												className="focus:ring-indigo-500 focus:border-indigo-500 rounded-none sm:text-sm border-neutral-100 truncate flex mx-auto w-8/12"
 												placeholder="https://twitter.com/you/status/1517702864168099840"
 												onChange={(e) => {
-													if (e.target.value.split("status/")[1].length === 19) setTweetUrl(e.target.value);
+													setTweetUrl(e.target.value);
 												}}
 											/>
 											<button
