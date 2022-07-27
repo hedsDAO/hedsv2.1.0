@@ -75,7 +75,7 @@ const TwitterModal = () => {
 			<Dialog
 				as="div"
 				className="relative z-10"
-				onClose={globalData?.modal?.locked ? () => {} : () => dispatch.globalModel.setModalVisibility(false)}>
+				onClose={globalData?.modal?.locked ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex bg-neutral-950/95 min-h-full items-center justify-center text-center">
 						<Transition.Child

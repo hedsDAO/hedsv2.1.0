@@ -27,18 +27,20 @@ const SettingsModal = () => {
 	const handleSubmit = async () => {
 		setLoading(true);
 		const wallet = user?.attributes?.ethAddress;
-		if (description) dispatch.userModel.updateDescription([wallet, description.trim()]);
+		
 		if (preview && !file) {
 			if (userData?.profilePicture?.length) {
 				const currentImagePath = getCurrentImagePath(userData.profilePicture, wallet);
 				const currentImageRef = ref(storage, "users/" + currentImagePath);
 				deleteObject(currentImageRef);
 			}
+			if (description) dispatch.userModel.updateDescription([wallet, description.trim()]);
 			dispatch.userModel.updateProfilePicture([wallet, ""]);
 			setLoading(false);
 			dispatch.globalModel.setModalVisibility(false);
 		}
 		else if (fileType && file) {
+			if (description) dispatch.userModel.updateDescription([wallet, description.trim()]);
 			if (userData?.profilePicture?.length) {
 				const currentImagePath = getCurrentImagePath(userData.profilePicture, wallet);
 				const currentImageRef = ref(storage, "users/" + currentImagePath);
@@ -52,6 +54,10 @@ const SettingsModal = () => {
 					dispatch.globalModel.setModalVisibility(false);
 				});
 			});
+		} else {
+			if (description) dispatch.userModel.updateDescription([wallet, description.trim()]);
+			setLoading(false);
+			dispatch.globalModel.setModalVisibility(false);
 		}
 	};
 
