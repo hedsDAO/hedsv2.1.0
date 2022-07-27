@@ -6,9 +6,14 @@ html {
   height: 100%;
   max-width: 100vw;
   /* background: #cacab0; */
-  background: #171717;
+  background: #f2f0e9; 
   overflow-x: hidden !important;
   overscroll-behavior: none !important;
+}
+
+html.dark {
+  background: #202020;
+
 }
 
 body {
@@ -270,10 +275,10 @@ body {
 }
 
 .navbar-parent {
-  font-size: 1rem !important;
+  font-size: 0.9rem !important;
   text-align: center;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 500;
 }
 .navbar-parent * {
   box-sizing: border-box;
@@ -281,12 +286,11 @@ body {
 .navbar-parent li {
   display: inline-block;
   list-style: outside none none;
-  margin: 0 1.5em;
+  margin: 0 1em;
   padding: 0;
 }
 .navbar-parent a {
-  padding: 0.5em 0;
-  color: rgba(255, 255, 255, 0.495);
+  padding: 0.3em 0;
   position: relative;
   letter-spacing: 1.5px;
   text-decoration: none;
@@ -311,7 +315,6 @@ body {
   padding: 0.5em 0;
   position: absolute;
   content: attr(data-hover);
-  color: #ffffff;
   white-space: nowrap;
   max-width: 0%;
   overflow: hidden;

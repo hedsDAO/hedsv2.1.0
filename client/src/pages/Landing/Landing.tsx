@@ -31,9 +31,9 @@ const Landing = () => {
 							</div>
 						</div>
 					</div>
-					<VideoContainer src={landingData?.media?.sm} size="sm" />
+					<VideoContainer src={landingData?.media?.lg} size="sm" />
 					<LandingHead src={landingData?.media?.md} />
-					<VideoContainer src={landingData?.media.lg} size="lg" />
+					<VideoContainer src={landingData?.media.sm} size="lg" />
 				</Fragment>
 			)}
 		</Fragment>

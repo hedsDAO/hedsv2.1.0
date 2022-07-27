@@ -22,18 +22,28 @@ const SettingsModal = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [preview, setPreview] = useState<string | void>();
 	const [chars, setChars] = useState<number>(0 + userData?.description?.length);
-	const [description, setDescription] = useState();
+	const [description, setDescription] = useState<string | void>();
 
 	const handleSubmit = async () => {
 		setLoading(true);
 		const wallet = user?.attributes?.ethAddress;
-		if (preview && !file) dispatch.userModel.updateProfilePicture([wallet, ""]);
-		else if (fileType && file) {
-			if (userData?.profilePicture) {
+		if (description) dispatch.userModel.updateDescription([wallet, description.trim()]);
+		if (preview && !file) {
+			if (userData?.profilePicture?.length) {
 				const currentImagePath = getCurrentImagePath(userData.profilePicture, wallet);
 				const currentImageRef = ref(storage, "users/" + currentImagePath);
 				deleteObject(currentImageRef);
-			} 
+			}
+			dispatch.userModel.updateProfilePicture([wallet, ""]);
+			setLoading(false);
+			dispatch.globalModel.setModalVisibility(false);
+		}
+		else if (fileType && file) {
+			if (userData?.profilePicture?.length) {
+				const currentImagePath = getCurrentImagePath(userData.profilePicture, wallet);
+				const currentImageRef = ref(storage, "users/" + currentImagePath);
+				deleteObject(currentImageRef);
+			}
 			const storageRef = ref(storage, "users/" + wallet + fileType);
 			uploadBytes(storageRef, file).then((snapshot) => {
 				getDownloadURL(snapshot.ref).then((downloadURL) => {
@@ -43,10 +53,6 @@ const SettingsModal = () => {
 				});
 			});
 		}
-		else if (description) {
-			dispatch.userModel.updateDescription([wallet, description]);
-			dispatch.globalModel.setModalVisibility(false);
-		} else setLoading(false);
 	};
 
 
@@ -94,7 +100,7 @@ const SettingsModal = () => {
 																	fileType !== "image/jpg" &&
 																	fileType !== "image/jpeg"
 																) {
-																	setError("please upload a .wav or .mp3 file");
+																	setError("please upload a .png, .jpeg or .jpg file");
 																} else if (fileSize > 10000000) {
 																	setError("max file size exceeded");
 																} else {
@@ -129,10 +135,6 @@ const SettingsModal = () => {
 													)}
 												</small>
 											</div>
-											{/* <div className="flex items-center justify-center mx-8">
-												<h5 className="text-neutral-400 uppercase text-xs font-semibold">THEME:</h5>
-												<DarkModeToggle />
-											</div> */}
 											<div className="mb-7 pt-2 mx-10">
 												<label
 													htmlFor="description"

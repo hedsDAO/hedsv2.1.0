@@ -16,51 +16,51 @@ const TapeInfo = (tapeData: TapeData) => {
 	}, [id]);
 
 	return (
-		<div className="col-span-12 lg:col-span-3 p-1 bg-neutral-975 rounded-lg">
+		<div className="col-span-12 lg:col-span-3 p-1 bg-neutral-400 dark:bg-neutral-975 rounded-lg">
 			<div className="grid grid-cols-1 lg:grid-cols-1 rounded-md w-full">
 				<div className="flex flex-col justify-start gap-1 p-1 rounded-md">
-						<h3 className="text-neutral-500 uppercase font-semibold tracking-wide mb-1.5 mx-1">TAPE DETAILS</h3>
-							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-								<span className="font-thin font-serif text-neutral-600 text-sm">status</span>
+						<h3 className="text-neutral-600 dark:text-neutral-500 uppercase font-semibold tracking-wide mb-1 -mt-0.5 mx-1.5">TAPE DETAILS</h3>
+							<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+								<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">status</span>
 								<span
-									className="uppercase font-serif text-neutral-500 text-sm"
+									className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm"
 									style={{ color: generateStatusColors(tapeData?.status?.status) }}>
 									{generateStatusLanguage(tapeData?.status?.status)}
 								</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-								<span className="font-thin font-serif text-neutral-600 text-sm">space</span>
-								<span className="uppercase font-serif text-neutral-500 text-sm">{space || "heds"}</span>
+							<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+								<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">space</span>
+								<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{space || "heds"}</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-								<span className="font-thin font-serif text-neutral-600 text-sm">tape</span>
-								<span className="uppercase font-serif text-neutral-500 text-sm">{tape}</span>
+							<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+								<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">tape</span>
+								<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{tape}</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-								<span className="font-thin font-serif text-neutral-600 text-sm">no</span>
-								<span className="uppercase font-serif text-neutral-500 text-sm">{id}</span>
+							<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+								<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">no</span>
+								<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{id}</span>
 							</div>
-							<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-								<span className="font-thin font-serif text-neutral-600 text-sm">bpm</span>
-								<span className="uppercase font-serif text-neutral-500 text-sm">{tapeData?.sample?.bpm}</span>
+							<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+								<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">bpm</span>
+								<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{tapeData?.sample?.bpm}</span>
 							</div>
 							{openSeaData && (
 								<Fragment>
-									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-										<span className="font-thin font-serif text-neutral-600 text-sm">voting power</span>
-										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.calculatedVP}</span>
+									<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+										<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">voting power</span>
+										<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{openSeaData?.calculatedVP}</span>
 									</div>
-									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-										<span className="font-thin font-serif text-neutral-600 text-sm">minted</span>
-										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.minted}</span>
+									<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+										<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">minted</span>
+										<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{openSeaData?.minted}</span>
 									</div>
-									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-										<span className="font-thin font-serif text-neutral-600 text-sm">owners</span>
-										<span className="uppercase font-serif text-neutral-500 text-sm">{openSeaData?.numOfOwners}</span>
+									<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+										<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">owners</span>
+										<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">{openSeaData?.numOfOwners}</span>
 									</div>
-									<div className="inline-flex items-center justify-between w-full bg-neutral-900 px-2 py-1 rounded-md">
-										<span className="font-thin font-serif text-neutral-600 text-sm">volume</span>
-										<span className="uppercase font-serif text-neutral-500 text-sm">
+									<div className="inline-flex items-center justify-between w-full bg-neutral-500 dark:bg-neutral-900 px-2 py-1 rounded-md">
+										<span className="font-thin font-serif text-neutral-300 dark:text-neutral-500 text-sm">volume</span>
+										<span className="uppercase font-serif text-neutral-300 dark:text-neutral-500 text-sm">
 											{openSeaData.totalVolume.toFixed(3)} <span className="font-thin font-serif">ETH</span>
 										</span>
 									</div>

@@ -1,6 +1,6 @@
 module.exports = {
   content: ["./client/src/**/*.{html,js,tsx,ts}"],
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     fontFamily: {
       sans: ['Barlow', 'sans-serif'],

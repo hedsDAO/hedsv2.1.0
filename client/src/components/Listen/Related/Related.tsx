@@ -17,7 +17,7 @@ const Related = () => {
 			{hedsTapes?.length && (
 				<div className="flex flex-col justify-center items-center rounded-lg mx-auto mt-20 mb-10">
 					<div className="text-neutral-500 text-center font-semibold tracking-wide text-xl mb-2 lg:mb-5">RELATED TAPES</div>
-					<div className="lg:bg-neutral-950 flex lg:flex-row flex-col items-center space-y-1 lg:space-x-2">
+					<div className=" flex lg:flex-row flex-col items-center space-y-1 lg:space-x-2">
 						{hedsTapes &&
 							hedsTapes?.map((tape: TapeData) => {
 								if (+id - 1 != tape?.tape?.id && +tape?.status?.status >= TapeStatus?.MINT_CLOSE)
@@ -27,7 +27,7 @@ const Related = () => {
 												<div className="text-neutral-400 font-semibold inline-block relative top-8 left-4 z-40 lg:hidden">
 													{tape?.tape?.name}
 												</div>
-												<div className="overflow-hidden group-hover:opacity-75 opacity-50 lg:opacity-100 lg:aspect-none transition-all rounded-md max-h-20 lg:min-w-[11rem] lg:min-h-[11rem] lg:max-h-[11rem] lg:max-w-[11rem]">
+												<div className="overflow-hidden group-hover:opacity-75 opacity-50 lg:opacity-100 lg:aspect-none transition-all rounded-md max-h-16 lg:min-w-[10rem] lg:min-h-[10rem] lg:max-h-[10rem] lg:max-w-[10rem]">
 													<img
 														src={tape.tape.image}
 														className={`w-full h-full object-center object-cover lg:w-[11rem] lg:h-[11rem] group-hover:grayscale-0`}

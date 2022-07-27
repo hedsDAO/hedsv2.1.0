@@ -38,12 +38,12 @@ const About = () => {
 				<div className="text-lg max-w-prose mx-auto">
 					<h1>
 						<span className="block text-base text-center text-fuchsia-500 tracking-wide">heds / hedsDAO</span>
-						<span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-neutral-300 sm:text-4xl">
+						<span className="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-neutral-900 dark:text-neutral-300 sm:text-4xl">
 							HOW IT STARTED
 						</span>
 					</h1>
 					<p className="text-neutral-500 text-base mt-6 text-center">
-						<span className="text-neutral-400">{`Heds started as a simple twitter group chat. `}</span>
+						<span className="text-neutral-700 dark:text-neutral-400 font-medium">{`Heds started as a simple twitter group chat. `}</span>
 						{`10 producers, 2 software
 						engineers, 1 sample, and some simple guidelines. No genre restrictions. Engineering went to work creating the first
 						version of the heds interface that you see today, and the artists went about throwing together a completely
