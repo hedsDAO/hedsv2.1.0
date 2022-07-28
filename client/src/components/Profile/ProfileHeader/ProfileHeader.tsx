@@ -30,7 +30,7 @@ const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attribut
 									</span>
 								</div>
 								{userData?.twitterHandle && (
-									<div className="flex flex-col justify-center lg:items-start items-center mt-6 text-xs font-base font-serif lg:max-w-xs lg:px-1.5 lg:mb-0 mb-1 lg:mt-1">
+									<div className="flex flex-col justify-center lg:items-start items-center mt-3 text-xs font-base font-serif lg:max-w-xs lg:px-1.5 lg:mb-0 mb-1 lg:mt-1">
 										<span className="rounded-sm uppercase text-neutral-500 dark:text-neutral-300 tracking-widest text-center lg:text-left">
 											<i className="fa-brands fa-twitter mr-2" />
 											{userData?.twitterHandle}

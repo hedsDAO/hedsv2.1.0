@@ -45,7 +45,7 @@ export const userModel = createModel<RootModel>()({
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
 		clearUserData: (state) => {
 			let newState = { ...state };
-			newState = { votingPower: 0, description: "", collection: {} };
+			newState = { votingPower: 0, description: "", collection: {}, twitterHandle: "", profilePicture: "" };
 			return newState;
 		},
 	},

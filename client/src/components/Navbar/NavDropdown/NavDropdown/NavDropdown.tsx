@@ -36,7 +36,10 @@ const NavDropdown = () => {
 						<Menu.Item>
 							{() => (
 								<button
-									onClick={() => dispatch.globalModel.setModal({ open: true, modal: Modals.SETTINGS, locked: true })}
+									onClick={() => {
+										dispatch.globalModel.setModal({ open: true, modal: Modals.SETTINGS, locked: true })
+
+									}}
 									className={classNames(
 										"hover:text-neutral-100 text-neutral-300 block px-4 py-2 text-sm transition-all ml-auto"
 									)}>
