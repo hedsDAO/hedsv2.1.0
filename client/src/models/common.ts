@@ -22,7 +22,7 @@ export interface TrackMetadata {
 	audio: string;
 	video: string;
 	artist: string;
-	artist_img: string;
+	profilePicture: string;
 	wallet: string;
 	social: string;
 	duration: number;

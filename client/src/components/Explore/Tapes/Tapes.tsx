@@ -1,0 +1,31 @@
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { TapeData } from "../../../models/spaceModel";
+
+const Tapes = (hedsTapes: TapeData[]) => {
+    return (
+        <Fragment>
+            <div className="grid grid-cols-12 max-w-7xl mx-auto w-full gap-x-2 xl:px-0 lg:px-2 px-2">
+                <div className="col-span-12 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 place-content-center items-center gap-y-1 gap-x-1 mt-4">
+                    <>
+                        {hedsTapes &&
+                            Object.values(hedsTapes)?.map((tape: TapeData) => (
+                                <div key={tape.tape.contract + tape.tape.name} className="flex col-span-1 bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-850 transition-all p-2 rounded-md">
+                                    <Link to={tape.links.route}>
+                                        <div className="overflow-hidden lg:aspect-none transition-all rounded-md flex flex-col gap-y-2">
+                                            <img
+                                                src={tape.tape.image}
+                                                className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0 rounded-md mb-1`}
+                                            />
+                                            <div className="text-neutral-900 dark:text-neutral-300 text-sm font-semibold pl-1.5 tracking-wide pb-1 transition-all">{tape?.tape?.name}</div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                    </>
+                </div>
+            </div>
+        </Fragment>
+    )
+}
+export default Tapes;

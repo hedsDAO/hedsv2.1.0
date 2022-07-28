@@ -20,20 +20,22 @@ const TapeArtists = (tapeData: TapeState) => {
 		dispatch.audioModel.setCurrentTrack(currentTrack);
 		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 	};
+
+	console.log(tapeData)
 	return (
 		<Fragment>
 			{tapeData && (
-				<div className="col-span-12 lg:col-span-9 bg-neutral-975 rounded-lg">
-					<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-2 pt-1 mx-2">
+				<div className="col-span-12 lg:col-span-9 bg-gray-300 dark:bg-neutral-975 rounded-md">
+					<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
 						<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
 							<div className="col-span-1">
-								<span className="text-neutral-500 text-sm px-1">#</span>
+								<span className="text-neutral-700 dark:text-neutral-500 text-sm px-1">#</span>
 							</div>
 							<div className="col-span-6 text-left">
-								<span className="text-neutral-500 text-sm px-1">ARTIST</span>
+								<span className="text-neutral-700 dark:text-neutral-500 text-sm px-1">ARTIST</span>
 							</div>
 							<div className="col-span-5 text-right">
-								<span className="text-neutral-500 text-sm px-1">
+								<span className="text-neutral-700 dark:text-neutral-500 text-sm px-1">
 									<i className="fa-light fa-clock"></i>
 								</span>
 							</div>
@@ -43,11 +45,11 @@ const TapeArtists = (tapeData: TapeState) => {
 									return (
 										<div
 											onClick={() => playTrack(i)}
-											key={track?.artist_img}
+											key={track?.profilePicture}
 											className={
 												tracks?.[currentTrack]?.video === track.video && isLoading
-													? "col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md animate-pulse"
-													: "col-span-12 bg-neutral-900 hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
+													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm animate-pulse"
+													: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
 											}>
 											{tracks?.[currentTrack]?.video === track.video &&
 											isPlaying &&
@@ -60,12 +62,12 @@ const TapeArtists = (tapeData: TapeState) => {
 											) : (
 												<></>
 											)}
-											<div className="text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
-											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-500 px-1 whitespace-nowrap">
-												<img className="h-4 w-4 rounded-full" src={track?.artist_img} />
+											<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
+											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">
+												<img className="h-4 w-4 rounded-full" src={track?.profilePicture} />
 												{track?.artist}
 											</div>
-											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">
+											<div className="text-neutral-800 dark:text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">
 												{formatTime(track.duration)}
 											</div>
 										</div>
@@ -76,7 +78,7 @@ const TapeArtists = (tapeData: TapeState) => {
 									return (
 										<div
 											key={"empty tape" + index}
-											className="col-span-12 bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
+											className="col-span-12 bg-neutral-200 dark:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
 											<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">
 												open

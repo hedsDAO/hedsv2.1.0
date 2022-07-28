@@ -31,40 +31,40 @@ const SampleContainer = (tapeData: TapeData) => {
 		});
 	}, []);
 	return (
-		<div className="max-w-[100rem] bg-neutral-975 flex justify-between items-center xl:mx-auto gap-1 py-2 rounded-lg px-2 mx-2">
-			<div className="w-full bg-neutral-950 inline-flex items-center justify-between rounded-md py-2">
+		<div className="max-w-[80rem] bg-gray-300 dark:bg-neutral-975 flex justify-between items-center xl:mx-auto gap-1 rounded-md px-1 mx-2 my-1 py-1">
+			<div className="w-full bg-neutral-200 dark:bg-neutral-900 inline-flex items-center justify-between rounded-md transition-all py-2 px-2">
 				<div className="inline-flex items-center">
-					<span className="px-2.5 text-neutral-400 font-serif font-semibold uppercase text-xs tracking-widest">
-						<span className="text-neutral-500 tracking-tight lg:inline hidden font-semibold">sample:</span>{" "}
+					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif font-semibold uppercase tracking-widest text-base">
+						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight lg:inline hidden font-semibold text-sm"><i className="fa-regular fa-waveform mr-1"></i></span>{" "}
 						{tapeData?.sample?.artist}
 					</span>
-					<span className="px-2.5 text-neutral-400 font-serif uppercase text-xs font-semibold tracking-widest">
-						<span className="text-neutral-500 tracking-tight font-semibold">bpm:</span> {tapeData?.sample?.bpm}
+					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif uppercase font-semibold tracking-widest text-base">
+						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-medium text-sm">bpm</span> {tapeData?.sample?.bpm}
 					</span>
 				</div>
-				<div className="inline-flex items-center gap-x-2.5 pr-2">
+				<div className="inline-flex items-center gap-x-2 pr-2">
 					<DownloadIcon
 						onClick={
 							userData?.twitterHandle
 								? () => handleDownloadFile(sampleDownloadUrl, `HT${id}`)
 								: () => dispatch.globalModel.setModal({ open: true, modal: Modals.WARNING, locked: true })
 						}
-						className="h-4 w-4 text-green-500 hover:text-green-400 transition-all"
+						className="h-4 w-4 text-green-300 dark:text-green-500 hover:text-green-400 transition-all"
 					/>
 					{!audioData?.isPlaying && !audioData?.isSample ? (
 						<PlayIcon
 							onClick={() => playSample()}
-							className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate__animated animate__fadeIn"
+							className="h-4 w-4 text-neutral-400 hover:text-neutral-500 transition-all animate__animated animate__fadeIn"
 						/>
 					) : audioData?.isSample && audioData?.isPlaying ? (
 						<PlayIcon
 							onClick={() => playSample()}
-							className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate-pulse"
+							className="h-4 w-4 text-neutral-400 hover:text-neutral-500 transition-all animate-pulse"
 						/>
 					) : (
 						<PlayIcon
 							onClick={() => playSample()}
-							className="h-4 w-4 text-neutral-400 hover:text-neutral-200 transition-all animate__animated animate__fadeIn"
+							className="h-4 w-4 text-neutral-400 hover:text-neutral-500 transition-all animate__animated animate__fadeIn"
 						/>
 					)}
 				</div>

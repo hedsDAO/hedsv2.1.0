@@ -19,11 +19,11 @@ export const exploreModel = createModel<RootModel>()({
 		setExploreData: (state, payload: ExploreState) => payload || state,
 	},
 	effects: () => ({
-		async getExploreData() {
-			const docRef = doc(db, "explore", "v2.1.0");
+		async getSpotlightData() {
+			const docRef = doc(db, "explore", "spotlight");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				this.setExploreData(docSnap.data());
+				this.setExploreData({spotlight: docSnap.data()});
 			}
 		},
 	}),

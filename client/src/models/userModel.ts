@@ -2,7 +2,7 @@ import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../index";
-import { BadgeData, CollectionTank } from "./common";
+import { BadgeData, CollectionTank, TrackMetadata } from "./common";
 import { populateNewUser } from "../utils/populateNewUser";
 import { whitelist } from "../data/whitelists/tokenBurnWhitelist";
 
@@ -51,27 +51,41 @@ export const userModel = createModel<RootModel>()({
 	},
 	effects: () => ({
 		async getUserData(wallet: string) {
-			const docRef = doc(db, "user", wallet);
+			const docRef = doc(db, "users", wallet);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				this.setUserData(docSnap.data());
 			} else {
-				const newUserData = populateNewUser();
+				const newUserData = populateNewUser(wallet);
 				await setDoc(docRef, newUserData).then(() => {
 					this.setUserData(newUserData);
 				})
 			}
 		},
 		async updateProfilePicture([wallet, profilePicture]: [string, string]) {
-			const docRef = doc(db, "user", wallet);
+			const docRef = doc(db, "users", wallet);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const updatedUserData = { ...docSnap.data(), profilePicture };
 				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
+			const audioRef = doc(db, "audio", "heds");
+			const audioSnap = await getDoc(audioRef);
+			if (audioSnap.exists()) {
+				const newSpaceData = {...audioSnap.data()};
+				const { hedstape } = newSpaceData;
+				Object.keys(hedstape).map((tapeNum) => {
+					hedstape[tapeNum].map((track: TrackMetadata) => {
+						if (track?.wallet.toLowerCase() === wallet.toLowerCase()) {
+							track.profilePicture = profilePicture;
+						}
+					})
+				})
+				if (newSpaceData !== audioSnap.data()) await setDoc(audioRef, newSpaceData);
+			}
 		},
 		async updateDescription([wallet, description]: [string, string]) {
-			const docRef = doc(db, "user", wallet);
+			const docRef = doc(db, "users", wallet);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const updatedUserData = { ...docSnap.data(), description };
@@ -79,7 +93,7 @@ export const userModel = createModel<RootModel>()({
 			}
 		},
 		async updateTwitterHandle([wallet, twitterHandle]: [string, string]) {
-			const docRef = doc(db, "user", wallet);
+			const docRef = doc(db, "users", wallet);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const updatedUserData = { ...docSnap.data(), twitterHandle };

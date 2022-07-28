@@ -3,12 +3,12 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeHeader = (tapeData: TapeData) => {
 	return (
-		<div className="max-w-[100rem] xl:mx-auto rounded-lg mx-2 bg-neutral-975 p-2 lg:mt-5 mb-1.5">
-			<div className="lg:z-10 max-w-[100rem] lg:mx-auto listen-gradient rounded-md py-8 lg:py-14">
+		<div className="max-w-[80rem] xl:mx-auto rounded-md mx-2 bg-gray-300 dark:bg-neutral-900 p-1 transiton-all">
+			<div className="lg:z-10 max-w-[80rem] lg:mx-auto listen-gradient rounded-md py-8 lg:py-10">
 				<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 					<div className="flex justify-center lg:col-span-2 px-2">
 						<img
-							className="object-contain rounded-lg w-[85%] sm:w-[50%] lg:w-[18rem] bg-neutral-900"
+							className="object-contain rounded-md w-[85%] sm:w-[50%] lg:w-[19rem] bg-neutral-900"
 							src={tapeData.tape?.image}
 						/>
 					</div>
@@ -51,7 +51,7 @@ const TapeHeader = (tapeData: TapeData) => {
 						</div>
 						<div className="px-10 lg:max-w-xl ">
 							<div className="flex flex-col md:items-start items-center">
-								<div className="lg:px-0 px-5 bg-opacity-60 text-neutral-300 text-sm text-center md:text-left tracking-wider min-h-[75px] lg:pb-0 lg:pt-0 pb-10 pt-5">
+								<div className="lg:px-0 px-5 bg-opacity-60 text-neutral-300 text-xs text-center md:text-left tracking-wider min-h-[75px] lg:pb-0 lg:pt-0 pb-10 pt-5">
 									{tapeData.tape?.description}
 								</div>
 							</div>

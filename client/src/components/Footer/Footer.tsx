@@ -20,7 +20,7 @@ export default function Footer() {
 						<nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
 							{navigation.main.map((item) => (
 								<div key={item.name} className="px-5 py-1">
-									<a href={item.href} target="_blank" className="text-sm text-neutral-600 hover:text-neutral-400 transition-all">
+									<a href={item.href} target={item.name === "About" ? "_self" : "_blank"} className="text-sm text-neutral-600 hover:text-neutral-400 transition-all">
 										{item.name}
 									</a>
 								</div>
