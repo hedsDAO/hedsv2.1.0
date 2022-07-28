@@ -17,7 +17,7 @@ const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attribut
 				<div className="lg:mx-auto lg:max-w-xl lg:grid lg:grid-cols-2 gap-x-4">
 					<div className="col-span-1 flex flex-col items-center justify-baseline px-2 lg:py-2 py-1 lg:max-w-[18rem] md:max-h-[18rem] max-h-[12rem]">
 						<img
-							className={`lg:w-full md:min-w-[18rem] md:min-h-[18rem] max-w-[12rem] min-w-[12rem] min-h-[12rem] md:max-w-md bg-neutral-400 dark:bg-neutral-600 p-1 object-cover mx-auto lg:ml-auto rounded-lg`}
+							className={`lg:w-full md:min-w-[18rem] md:min-h-[18rem] max-w-[12rem] min-w-[12rem] min-h-[12rem] md:max-w-md bg-neutral-400 dark:bg-neutral-600 p-1.5 object-cover mx-auto lg:ml-auto rounded-xl`}
 							src={userData?.profilePicture || defaultImg}
 						/>
 					</div>

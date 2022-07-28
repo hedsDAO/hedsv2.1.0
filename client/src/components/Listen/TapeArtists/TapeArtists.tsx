@@ -43,7 +43,7 @@ const TapeArtists = (tapeData: TapeState) => {
 									return (
 										<div
 											onClick={() => playTrack(i)}
-											key={track?.artist_img}
+											key={track?.profilePicture}
 											className={
 												tracks?.[currentTrack]?.video === track.video && isLoading
 													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm animate-pulse"
@@ -62,7 +62,7 @@ const TapeArtists = (tapeData: TapeState) => {
 											)}
 											<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">
-												<img className="h-4 w-4 rounded-full" src={track?.artist_img} />
+												<img className="h-4 w-4 rounded-full" src={track?.profilePicture} />
 												{track?.artist}
 											</div>
 											<div className="text-neutral-800 dark:text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">

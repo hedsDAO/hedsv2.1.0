@@ -53,7 +53,7 @@ export const spaceModel = createModel<RootModel>()({
 	},
 	effects: (dispatch) => ({
 		async getSpaceData(space?: string) {
-			const docRef = doc(db, "spaces", space || "hedsv2.1");
+			const docRef = doc(db, "spaces", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				dispatch.spaceModel.setSpaceData(docSnap.data());

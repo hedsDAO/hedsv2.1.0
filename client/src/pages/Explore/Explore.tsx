@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { TapeData } from "../../models/spaceModel";
 import { Link } from "react-router-dom";
 import Artists from "../../components/Explore/Artists/Artists";
-// import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 import Spotlight from "../../components/Explore/Spotlight/Spotlight";
 
 const Explore = () => {
@@ -14,7 +13,7 @@ const Explore = () => {
 	const hedsTapes = spaceData?.hedstape;
 	useEffect(() => {
 		dispatch.spaceModel.getSpaceData();
-		dispatch.exploreModel.getExploreData();
+		dispatch.exploreModel.getSpotlightData();
 	}, []);
 	return (
 		<div className="min-h-screen">
@@ -32,15 +31,14 @@ const Explore = () => {
 								Listen to the collaborative collections curated by artists, heds and the community.
 							</p>
 						</div>
-						{/* <TapesToggle /> */}
 					</div>
 					<div className="grid grid-cols-12 max-w-7xl mx-auto w-full gap-x-2 px-3">
 						<div className="col-span-12 rounded-lg mt-4">
-							<div className="grid grid-cols-2 xl:grid-cols-6 place-items-center items-center gap-y-1 gap-x-1">
+							<div className="grid grid-cols-2 xl:grid-cols-5 place-items-center items-center gap-y-1 gap-x-1">
 								<>
 									{hedsTapes &&
 										hedsTapes?.map((tape: TapeData) => (
-											<div key={tape.tape.contract + tape.tape.name} className="relative bg-neutral-300 dark:bg-neutral-975 hover:bg-neutral-400 dark:hover:bg-neutral-850 transition-all p-2 rounded-md">
+											<div key={tape.tape.contract + tape.tape.name} className="relative bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-850 transition-all p-2 rounded-md">
 												<Link to={tape.links.route}>
 													<div className="overflow-hidden lg:aspect-none transition-all rounded-md flex flex-col gap-y-2">
 														<img

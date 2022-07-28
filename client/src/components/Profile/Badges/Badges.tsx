@@ -6,7 +6,7 @@ const Badges = (userData: UserState) => {
 	return (
 		<div className="col-span-12 mt-5">
 			<h1 className="col-span-12 text-2xl tracking-widest font-semibold text-neutral-500 px-2 mb-2 w-full min-w-full lg:text-left text-center">BADGES</h1>
-			<div className="grid grid-cols-12 lg:grid-rows-1 gap-y-1 gap-x-1 mx-2 rounded-md bg-neutral-400 dark:bg-neutral-700 p-1">
+			<div className="grid grid-cols-12 lg:grid-rows-1 gap-y-1 gap-x-2 mx-2 rounded-md bg-neutral-400 dark:bg-neutral-700 p-2">
 				{userData?.badges?.length && (
 					<Fragment>
 						{badgeEmptyState(userData.badges).map((badge, index: number) => {

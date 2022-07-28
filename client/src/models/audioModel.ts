@@ -54,7 +54,7 @@ export const audioModel = createModel<RootModel>()({
 			}
 		},
 		async getTapeData() {
-			const docRef = doc(db, "spaces", "hedsv2.1");
+			const docRef = doc(db, "spaces", "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const tapes = Object.values(docSnap.data()?.hedstape).flat();
@@ -62,7 +62,7 @@ export const audioModel = createModel<RootModel>()({
 			}
 		},
 		async getSamples() {
-			const docRef = doc(db, "spaces", "hedsv2.1");
+			const docRef = doc(db, "spaces", "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				let sampleTank: Array<SampleData> = [];
