@@ -19,13 +19,13 @@ const Artists = () => {
 					</p>
 				</div>
 			</div>
-			<div className="col-span-12 items-center place-content-center rounded-md p-1">
-				<ul role="list" className="flex justify-center items-center gap-x-1 gap-y-1 max-w-7xl mx-auto">
+			<div className="col-span-12 items-center justify-items-center place-items-center rounded-md p-1">
+				<ul className="col-span-12 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 place-content-center items-center gap-y-1 gap-x-1 mt-4 max-w-7xl mx-auto">
 					{audioData?.samples &&
 						audioData?.samples.map((sample, index: number) => (
 							<li
 								key={sample.wallet + sample.artist}
-								className="w-full text-center rounded-lg bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-800 transition-all">
+								className="flex col-span-1 text-center rounded-lg bg-neutral-300 dark:bg-neutral-700 hover:bg-neutral-400 dark:hover:bg-neutral-800 transition-all">
 								<Link to={`/listen/heds/hedstape/${index + 1}`}>
 									<div className="flex-1 flex flex-col items-start p-2">
 										<img className="lg:w-full lg:h-full flex-shrink-0 mx-auto rounded-lg" src={sample.image} alt="" />
@@ -38,7 +38,8 @@ const Artists = () => {
 										</div>
 									</div>
 								</Link>
-							</li>)
+							</li>
+						)
 						)}
 				</ul>
 			</div>

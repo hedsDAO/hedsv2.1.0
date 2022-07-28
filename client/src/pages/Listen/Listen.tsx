@@ -38,7 +38,7 @@ const Listen = () => {
 					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (<div className="mb-2 mt-1">
 						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 					</div>)}
-					<div className="w-screen mb-2 mt-1">
+					<div className="w-screen mb-1 mt-1">
 						{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.SAMPLE_OPEN && (
 							<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
 						)}

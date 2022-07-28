@@ -20,6 +20,8 @@ const TapeArtists = (tapeData: TapeState) => {
 		dispatch.audioModel.setCurrentTrack(currentTrack);
 		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 	};
+
+	console.log(tapeData)
 	return (
 		<Fragment>
 			{tapeData && (
@@ -76,7 +78,7 @@ const TapeArtists = (tapeData: TapeState) => {
 									return (
 										<div
 											key={"empty tape" + index}
-											className="col-span-12 bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
+											className="col-span-12 bg-neutral-200 dark:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
 											<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">
 												open
