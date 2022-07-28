@@ -4,18 +4,16 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
 import { useMoralis } from "react-moralis";
-// import profileTestImg from "../../../../../public/2.png";
 import { Modals } from "../../../models/globalModel";
 import "react-modern-drawer/dist/index.css";
 import DarkModeToggle from "../../../common/toggles/DarkModeToggle/DarkModeToggle";
-import NavDropdown from "../NavDropdown/NavDropdown/NavDropdown";
 
 const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Function }) => {
 	const history = useHistory();
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { pathname } = useLocation<{ pathname: string }>();
 	const dispatch = useDispatch<Dispatch>();
-	const { isAuthenticated, user, logout } = useMoralis();
+	const { isAuthenticated, user } = useMoralis();
 	const toggleDrawer = () => {
 		setIsOpen((prevState: boolean) => !prevState);
 	};
@@ -71,7 +69,6 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 											{isAuthenticated ? user?.attributes?.ethAddress.slice(0, 5) : "connect"}
 										</span>
 									</button>
-									{isAuthenticated && <NavDropdown />}
 								</div>
 							</div>
 						</div>
