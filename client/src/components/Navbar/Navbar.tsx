@@ -31,7 +31,7 @@ const Navbar = () => {
 			<div className={`${pathname === "/" && "absolute"} md:hidden z-50 w-screen mb-10`}>
 				<div className="absolute left-5 top-5 -mt-1 md:left-6 md:top-6 z-50">
 					<Link to="/">
-						<img className="w-7 hover:contrast-50 transition-all ml-2" src={HedDot} />
+						<img className="w-7 hover:contrast-50 transition-all ml-2 invert dark:invert-0" src={HedDot} />
 					</Link>
 				</div>
 				<button

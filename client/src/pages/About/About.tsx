@@ -33,7 +33,7 @@ function classNames(...classes: any) {
 
 const About = () => {
 	return (
-		<div className="relative py-16 overflow-hidden">
+		<div className="relative pb-10 lg:py-16 overflow-hidden">
 			<div className="relative px-4 sm:px-6 lg:px-8">
 				<div className="text-lg max-w-prose mx-auto">
 					<h1>
