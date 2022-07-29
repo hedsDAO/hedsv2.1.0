@@ -42,11 +42,13 @@ const DarkModeToggle = () => {
 		<div className={`inline-flex xl:flex-row flex-col items-center justify-center gap-y-5 ${pathname === '/' && 'opacity-0'}`}>
 			<div className="sm:max-w-7xl mx-auto flex justify-center">
 				<Switch
+					disabled={pathname !== '/' ? false : true}
 					checked={enabled}
 					onChange={() => toggleTheme()}
 					className={classNames(
 						enabled ? "bg-fuchsia-600" : "bg-yellow-300",
-						"relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-sm cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none"
+						pathname === '/' ? "pointer-events-none" : "cursor-pointer",
+						"relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-sm transition-colors ease-in-out duration-200 focus:outline-none"
 					)}>
 					<span
 						className={classNames(

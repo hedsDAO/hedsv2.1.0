@@ -27,15 +27,16 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 			{userData && (
 				<Fragment>
 					<div className="flex flex-col justify-center items-stretch gap-y-2 bg-[#f2f0e9] dark:bg-neutral-975 max-w-screen">
-						<div className="flex items-center justify-center gap-x-4 gap-y-2 mt-2">
+						<div className="flex items-center justify-center gap-x-4 mt-2">
 							<div className="flex flex-col justify-center items-stretch h-full">
-								<div className="flex flex-col justify-center items-center text-2xl font-base font-serif lg:max-w-xs pt-2">
-									{user?.attributes?.ethAddress && <button onClick={() => {
-										setIsOpen(false);
-										history.push("/profile")
-									}} className="rounded-sm uppercase text-neutral-800 dark:text-neutral-400 tracking-widest text-center lg:text-center ml-1">
-										{user?.attributes?.ethAddress?.slice(0, 6)}
-									</button>}
+								<div className="flex flex-col justify-center items-center text-2xl font-base font-serif lg:max-w-xs pt-4">
+									{user?.attributes?.ethAddress &&
+										<button onClick={() => {
+											setIsOpen(false);
+											history.push("/profile")
+										}} className="rounded-sm uppercase text-neutral-800 dark:text-neutral-400 tracking-widest text-center lg:text-center ml-1">
+											{user?.attributes?.ethAddress?.slice(0, 6)}
+										</button>}
 								</div>
 								{userData?.twitterHandle && (
 									<div className="flex flex-col justify-center items-center text-xs font-serif font-thin lg:max-w-xs mt-0.5 mb-1">
@@ -45,7 +46,10 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 										</span>
 									</div>
 								)}
-								<div className="flex items-center gap-x-2.5 h-full py-3">
+								<div className={`flex items-center gap-x-2.5 h-full 
+												${user?.attributes?.ethAddress && userData?.twitterHandle ? 
+												"py-2" : user?.attributes?.ethAddress && !userData?.twitterHandle ? 
+												"py-[1.1rem]" : "py-10"}`}>
 									{pathname === "/" ? <></> : <DarkModeToggle />}
 									<button
 										key={pathname + "connect"}

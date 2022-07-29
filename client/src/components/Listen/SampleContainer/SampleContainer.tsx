@@ -61,26 +61,26 @@ const SampleContainer = (tapeData: TapeData) => {
 								user?.attributes?.ethAddress
 									? () => handleGetSample()
 									: () => dispatch.globalModel.setModal({ open: true, modal: Modals.WARNING, locked: true })
-							} className="text-neutral-800 dark:text-neutral-400 tracking-wide font-semibold text-xs lg:text-sm">DOWNLOAD</button>
+							} className="text-neutral-800 dark:text-neutral-400 tracking-widest font-medium text-xs lg:text-sm">DOWNLOAD</button>
 						</div>
-						<div className="flex justify-center items-center hover:bg-neutral-300 dark:hover:bg-neutral-700 bg-gray-300 dark:bg-neutral-850 rounded-md py-[0.4rem] px-2 mx-1 group">
+						<button onClick={() => playSample()} className="flex justify-center items-center hover:bg-neutral-300 dark:hover:bg-neutral-700 bg-gray-300 dark:bg-neutral-850 rounded-md py-[0.4rem] px-2 mx-1 group">
 							{!audioData?.isPlaying && !audioData?.isSample ? (
 								<PlayIcon
-									onClick={() => playSample()}
+
 									className="h-4 w-4 dark:text-neutral-400 text-neutral-700 hover:text-neutral-600 transition-all animate__animated animate__fadeIn"
 								/>
 							) : audioData?.isSample && audioData?.isPlaying ? (
 								<PlayIcon
-									onClick={() => playSample()}
+
 									className="h-4 w-4 dark:text-neutral-400 text-neutral-700 group-hover:text-neutral-600 dark:group-hover:text-neutral-600 transition-all animate-pulse"
 								/>
 							) : (
 								<PlayIcon
-									onClick={() => playSample()}
+
 									className="h-4 w-4 dark:text-neutral-400 text-neutral-700 group-hover:text-neutral-600 dark:group-hover:text-neutral-600 transition-all animate__animated animate__fadeIn"
 								/>
 							)}
-						</div>
+						</button>
 					</div>
 				</div>
 			</div>
