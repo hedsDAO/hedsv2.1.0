@@ -94,6 +94,8 @@ body {
   box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
 }
 
+
+
 @keyframes blinker {
   from {
     opacity: 1;

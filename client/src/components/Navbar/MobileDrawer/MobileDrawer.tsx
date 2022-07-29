@@ -23,12 +23,12 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 		{ name: "about", href: "/about" },
 	];
 	return (
-		<Drawer open={isOpen} onClose={toggleDrawer} direction="top" className="">
+		<Drawer open={isOpen} onClose={toggleDrawer} direction="top" className="h-auto">
 			{userData && (
 				<Fragment>
-					<div className="flex flex-col justify-center items-stretch gap-y-2 bg-[#f2f0e9] dark:bg-neutral-975 h-full max-w-screen">
-						<div className="flex items-center justify-center gap-x-4 gap-y-2 mt-2 h-[73%]">
-							<div className="flex flex-col justify-center items-center">
+					<div className="flex flex-col justify-center items-stretch gap-y-2 bg-[#f2f0e9] dark:bg-neutral-975 max-w-screen">
+						<div className="flex items-center justify-center gap-x-4 gap-y-2 mt-2 py-6">
+							<div className="flex flex-col justify-center items-stretch h-full">
 								<div className="flex flex-col justify-center items-center text-2xl font-base font-serif lg:max-w-xs">
 									{user?.attributes?.ethAddress && <button onClick={() => {
 										setIsOpen(false);
@@ -45,8 +45,8 @@ const MobileDrawer = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: Funct
 										</span>
 									</div>
 								)}
-								<div className="flex items-center gap-x-2.5 mt-5">
-									<DarkModeToggle />
+								<div className="flex items-center gap-x-2.5 h-full pt-2">
+								{pathname === "/" ? <></> : <DarkModeToggle />}
 									<button
 										key={pathname + "connect"}
 										onClick={

@@ -29,26 +29,26 @@ const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: Spotligh
 									<img src={featured?.tape?.image} className="h-16 lg:h-20 w-16 lg:w-20 inline-block rounded-full lg:hidden lg:opacity-0" />
 								</div>
 								<div className="inline-flex items-center">
-									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
+									<span className="dark:text-neutral-200 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										heds
 									</span>
-									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
+									<span className="dark:text-neutral-200 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										/
 									</span>
-									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
+									<span className="dark:text-neutral-200 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										hedTAPE
 									</span>
-									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
+									<span className="dark:text-neutral-200 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										/
 									</span>
-									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
+									<span className="dark:text-neutral-200 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										5
 									</span>
 								</div>
-								<span className="dark:text-neutral-900 text-neutral-100 text-2xl uppercase tracking-widest mb-4 whitespace-nowrap font-semibold">
+								<span className="dark:text-neutral-200 text-neutral-100 text-2xl uppercase tracking-widest mb-4 whitespace-nowrap font-semibold">
 									{featured?.sample?.artist} <span className="lowercase">x</span> Heds
 								</span>
-								<span className="dark:text-neutral-900 text-neutral-200 mb-6 text-sm tracking-widest lg:text-left text-center">
+								<span className="dark:text-neutral-200 text-neutral-200 mb-6 text-sm tracking-widest lg:text-left text-center">
 									{exploreData?.spotlight?.description}
 								</span>
 								<LinkButton bg="bg-neutral-200 dark:bg-neutral-800 bg-opacity-100 dark:hover:bg-neutral-900 rounded-md transition-all" link={`/listen/${space}/${tape}/${featured?.tape?.no}`}>

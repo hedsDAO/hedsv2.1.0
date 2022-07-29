@@ -35,6 +35,12 @@ $noise: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEEAAABBCAMAAAC5KTl3A
     &::after { @include radial-gradient-item($grad-position, 50%, 75%, $color3); }
 }
 
+.EZDrawer {
+ .EZDrawer__container {
+  height: 150px !important;
+ }
+}
+
 $light: #ffecd2;
 $dark: #222;
 $color1: #7f5fff;

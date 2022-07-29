@@ -89,6 +89,7 @@ const GlobalAudio = () => {
 										: "col-span-10 lg:col-span-3 flex items-center px-3 sm:px-5 lg:px-0 justify-start"
 								}>
 								<video
+									playsInline
 									key={audioData?.tracks?.[currentTrack]?.video}
 									ref={videoRef}
 									src={

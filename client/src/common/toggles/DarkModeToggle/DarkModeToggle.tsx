@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { Switch } from "@headlessui/react";
 
 const DarkModeToggle = () => {
+	const { pathname } = useLocation();
 	const [enabled, setEnabled] = useState<boolean>(false);
 	function classNames(...classes: any) {
 		return classes.filter(Boolean).join(" ");
@@ -37,7 +39,7 @@ const DarkModeToggle = () => {
 	}, [])
 
 	return (
-		<div className="inline-flex xl:flex-row flex-col items-center justify-center gap-y-5">
+		<div className={`inline-flex xl:flex-row flex-col items-center justify-center gap-y-5 ${pathname === '/' && 'opacity-0'}`}>
 			<div className="sm:max-w-7xl mx-auto flex justify-center">
 				<Switch
 					checked={enabled}

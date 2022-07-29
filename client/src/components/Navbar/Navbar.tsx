@@ -48,14 +48,14 @@ const Navbar = () => {
 					<Link to="/">
 						<div className="inline-flex items-end -ml-2 mt-1">
 							<img className={pathname === '/' ?
-								"w-10 object-cover transition-all hover:contrast-50 mr-3 mt-1.5 dark:invert-0 invert" :
+								"w-10 object-cover transition-all hover:contrast-50 mr-3 mt-1.5 invert" :
 								"w-10 object-cover transition-all hover:contrast-50 mr-3 mt-1.5 invert dark:invert-0"
 							} src={HedDot} />
 						</div>
 					</Link>
 					<ul
 						className={`static w-screen py-1 text-left`}>
-						<div className={"inline-flex items-center justify-start navbar-parent dark:text-neutral-200 text-neutral-975 font-semibold"}>
+						<div className={`inline-flex items-center justify-start navbar-parent ${pathname === "/" ? "dark:text-neutral-900" : "dark:text-neutral-300"} text-neutral-975 font-semibold`}>
 							{navigation.map((item, i) => (
 								<div key={item.href + i}>
 									{pathname === item.href ? (
@@ -72,7 +72,7 @@ const Navbar = () => {
 						</div>
 					</ul>
 					<div className="flex items-center gap-x-2.5">
-						<DarkModeToggle />
+					<DarkModeToggle />
 						<button
 							key={pathname + "connect"}
 							onClick={
