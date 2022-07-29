@@ -28,9 +28,12 @@ const DarkModeToggle = () => {
 	};
 
 	useEffect(() => {
-		if (localStorage.getItem("color-theme")) {
-			if (localStorage.getItem("color-theme") === "dark") setEnabled(true);
-		} else setEnabled(false);
+		if (!localStorage.getItem("color-theme")) {
+			document.documentElement.classList.remove("dark");
+			localStorage.setItem("color-theme", "light");
+		} else if (localStorage.getItem("color-theme") === 'light') {
+			setEnabled(false);
+		} else setEnabled(true)
 	}, [])
 
 	return (

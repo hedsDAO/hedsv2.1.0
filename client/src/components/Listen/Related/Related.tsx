@@ -15,32 +15,30 @@ const Related = () => {
 	return (
 		<Fragment>
 			{hedsTapes?.length && (
-				<div className="flex flex-col justify-center items-center rounded-lg mx-auto mt-20 mb-10">
+				<div className="flex flex-col justify-center items-center rounded-lg mt-20 mb-10 lg:mx-auto mx-2">
 					<div className="text-neutral-500 text-center font-semibold tracking-wide text-xl mb-2 lg:mb-5">RELATED TAPES</div>
-					<div className=" flex lg:flex-row flex-col items-center space-y-1 lg:space-x-2">
+					<div className="flex lg:flex-row flex-col items-evenly gap-1 p-1 dark:bg-neutral-900 bg-neutral-300 rounded-md">
 						{hedsTapes &&
-							hedsTapes?.map((tape: TapeData) => {
+							hedsTapes?.map((tape: TapeData, index: number) => {
 								if (+id - 1 != tape?.tape?.id && +tape?.status?.status >= TapeStatus?.MINT_CLOSE)
 									return (
-										<div key={tape.tape.contract + tape.tape.image} className="group lg:mx-0 mx-4">
-											<Link to={tape.links.route}>
-												<div className="text-neutral-400 font-semibold inline-block relative top-8 left-4 z-40 lg:hidden">
-													{tape?.tape?.name}
-												</div>
-												<div className="overflow-hidden group-hover:opacity-75 opacity-50 lg:opacity-100 lg:aspect-none transition-all rounded-md max-h-16 lg:min-w-[10rem] lg:min-h-[10rem] lg:max-h-[10rem] lg:max-w-[10rem]">
+										<Link key={tape.links.route + index} to={tape.links.route}>
+											<div key={tape.tape.contract + tape.tape.image} className="flex items-center justify-between">
+												<div className="overflow-hidden group-hover:opacity-75 opacity-50 lg:opacity-100 lg:aspect-none transition-all rounded-md max-h-10 lg:min-w-[10rem] lg:min-h-[10rem] lg:max-h-[10rem] lg:max-w-[10rem] object-contain">
 													<img
 														src={tape.tape.image}
 														className={`w-full h-full object-center object-cover lg:w-[11rem] lg:h-[11rem] group-hover:grayscale-0`}
 													/>
 												</div>
-											</Link>
-										</div>
+												<div className="lg:hidden absolute ml-3 z-20 text-neutral-400 text-center">{tape.tape.name}</div>
+											</div>
+										</Link>
 									);
 							})}
 					</div>
 				</div>
 			)}
-		</Fragment>
+		</Fragment> 
 	);
 };
 

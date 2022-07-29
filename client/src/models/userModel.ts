@@ -5,6 +5,9 @@ import { db } from "../index";
 import { BadgeData, CollectionTank, TrackMetadata } from "./common";
 import { populateNewUser } from "../utils/populateNewUser";
 import { whitelist } from "../data/whitelists/tokenBurnWhitelist";
+import { getSplitsUserBalance } from "../utils/graphql/getSplitsUserBalance";
+import { ethers } from "ethers"
+
 
 interface SetVotingPower {
 	walletId: string | any;
@@ -19,6 +22,8 @@ export interface UserState {
 	description: string;
 	collection: CollectionTank;
 	votingPower: number;
+	splitsBalance?: string;
+	isTapeArtist?: boolean;
 }
 
 export const userModel = createModel<RootModel>()({
@@ -43,6 +48,8 @@ export const userModel = createModel<RootModel>()({
 			}
 		},
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
+		setSplitsBalance: (state, splitsBalance: string) => ({ ...state, splitsBalance }),
+		setIsTapeArtist: (state, isTapeArtist: boolean) => ({...state, isTapeArtist}),
 		clearUserData: (state) => {
 			let newState = { ...state };
 			newState = { votingPower: 0, description: "", collection: {}, twitterHandle: "", profilePicture: "" };
@@ -62,6 +69,24 @@ export const userModel = createModel<RootModel>()({
 				})
 			}
 		},
+		async getTapeArtistsWalletIds(wallet: string) {
+			const docRef = doc(db, "audio", 'heds');
+			const docSnap = await getDoc(docRef);
+			const walletIdTank: Array<string> = [];
+			if (docSnap.exists()) {
+				Object.values(docSnap.data().hedstape).map((tape: any) => {
+					const walletIds: Array<string> = tape.map((track: any) => track.wallet.toLowerCase());
+					if (walletIds) return walletIdTank.push(...walletIds);
+				})
+	
+				const noDuplicateWalletIds = new Set(walletIdTank);
+				console.log(noDuplicateWalletIds)
+				if (noDuplicateWalletIds.has(wallet)) {
+					this.setIsTapeArtist(true);
+					this.getSplitsBalance(wallet);
+				} else this.setIsTapeArtist(false);
+			}
+		},
 		async updateProfilePicture([wallet, profilePicture]: [string, string]) {
 			const docRef = doc(db, "users", wallet);
 			const docSnap = await getDoc(docRef);
@@ -72,7 +97,7 @@ export const userModel = createModel<RootModel>()({
 			const audioRef = doc(db, "audio", "heds");
 			const audioSnap = await getDoc(audioRef);
 			if (audioSnap.exists()) {
-				const newSpaceData = {...audioSnap.data()};
+				const newSpaceData = { ...audioSnap.data() };
 				const { hedstape } = newSpaceData;
 				Object.keys(hedstape).map((tapeNum) => {
 					hedstape[tapeNum].map((track: TrackMetadata) => {
@@ -99,6 +124,16 @@ export const userModel = createModel<RootModel>()({
 				const updatedUserData = { ...docSnap.data(), twitterHandle };
 				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
+		},
+		async getSplitsBalance(walletId: string) {
+			const balance = await getSplitsUserBalance(walletId);
+			const tokenId = balance.user.internalBalances[0].token.id;
+			const amount = balance.user.internalBalances[0].amount;
+			if (tokenId === "0x0000000000000000000000000000000000000000" && amount > 0) {
+				this.setSplitsBalance(ethers.utils.formatEther(amount));
+				return;
+			}
+			return;
 		},
 	}),
 });

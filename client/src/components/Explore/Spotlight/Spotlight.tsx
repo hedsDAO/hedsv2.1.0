@@ -11,13 +11,13 @@ interface SpotlightProps {
 const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: SpotlightProps) => {
 	const { space, tape } = exploreData.spotlight;
 	return (
-		<div className="col-span-12 dark:bg-neutral-700 bg-neutral-300 rounded-xl lg:max-w-[100rem] p-2 mx-2 xl:mx-auto xl:my-5">
-			<div className="lg:z-10 lg:relative py-7 lg:py-10 2xl:mx-auto spotlight-gradient lg:max-w-[110rem] rounded-lg">
+		<div className="col-span-12 bg-neutral-300 dark:bg-neutral-800 rounded-xl lg:max-w-[100rem] p-2 mx-2 xl:mx-auto xl:my-5 shadow-sm">
+			<div className="lg:z-10 lg:relative py-7 lg:py-10 2xl:mx-auto spotlight-gradient shadow-sm lg:max-w-[110rem] rounded-lg">
 				<div className="mx-auto max-w-4xl px-4 py-1 xl:py-4 rounded-sm">
 					<div className="grid lg:grid-cols-2 items-center gap-x-4 place-content-center">
 						<div className="lg:col-span-1 flex flex-col items-center justify-center lg:items-end lg:justify-end max-w-[100%]">
 							<img
-								className="hidden lg:inline lg:w-full lg:h-full rounded-lg shadow-sm"
+								className="hidden lg:inline lg:w-full lg:h-full rounded-lg shadow-md"
 								src={featured?.tape?.image}
 							/>
 						</div>
@@ -29,29 +29,29 @@ const Spotlight: React.FC<SpotlightProps> = ({ featured, exploreData }: Spotligh
 									<img src={featured?.tape?.image} className="h-16 lg:h-20 w-16 lg:w-20 inline-block rounded-full lg:hidden lg:opacity-0" />
 								</div>
 								<div className="inline-flex items-center">
-									<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										heds
 									</span>
-									<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										/
 									</span>
-									<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										hedTAPE
 									</span>
-									<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										/
 									</span>
-									<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
+									<span className="dark:text-neutral-900 text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5 font-medium">
 										5
 									</span>
 								</div>
-								<span className="text-neutral-100 text-2xl uppercase tracking-widest mb-4 whitespace-nowrap">
+								<span className="dark:text-neutral-900 text-neutral-100 text-2xl uppercase tracking-widest mb-4 whitespace-nowrap font-semibold">
 									{featured?.sample?.artist} <span className="lowercase">x</span> Heds
 								</span>
-								<span className="text-neutral-200 mb-6 font-thin text-sm tracking-widest lg:text-left text-center">
+								<span className="dark:text-neutral-900 text-neutral-200 mb-6 text-sm tracking-widest lg:text-left text-center">
 									{exploreData?.spotlight?.description}
 								</span>
-								<LinkButton bg="bg-neutral-900 bg-opacity-100 hover:bg-neutral-800 transition-all" link={`/listen/${space}/${tape}/${featured?.tape?.no}`}>
+								<LinkButton bg="bg-neutral-200 dark:bg-neutral-800 bg-opacity-100 dark:hover:bg-neutral-900 rounded-md transition-all" link={`/listen/${space}/${tape}/${featured?.tape?.no}`}>
 									{exploreData?.spotlight?.text}
 								</LinkButton>
 							</div>

@@ -6,6 +6,7 @@ import { UserState } from "../../../models/userModel";
 import defaultImg from "/public/images/default.png";
 import { DotsHorizontalIcon } from "@heroicons/react/solid";
 import { Modals } from "../../../models/globalModel";
+import SplitsIcon from "../../../common/svg/SplitsIcon/SplitsIcon";
 
 const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attributes> | null; userData: UserState }) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -15,9 +16,9 @@ const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attribut
 		<div className="border-neutral-500 dark:border-neutral-950 rounded-md lg:max-w-6xl flex lg:justify-start justify-center mx-auto">
 			<div className="py-7 rounded-md">
 				<div className="lg:mx-auto lg:max-w-xl lg:grid lg:grid-cols-2 gap-x-4">
-					<div className="col-span-1 flex flex-col items-center justify-baseline px-2 lg:py-2 py-1 lg:max-w-[18rem] md:max-h-[18rem] max-h-[12rem]">
+					<div className="col-span-1 flex flex-col items-center justify-baseline lg:max-w-[18rem] md:max-h-[18rem] max-h-[12rem]">
 						<img
-							className={`lg:w-full md:min-w-[18rem] md:min-h-[18rem] max-w-[12rem] min-w-[12rem] min-h-[12rem] md:max-w-md bg-neutral-400 dark:bg-neutral-600 p-1.5 object-cover mx-auto lg:ml-auto rounded-xl`}
+							className={`lg:w-full md:min-w-[18rem] md:min-h-[18rem] max-w-[12rem] min-w-[12rem] min-h-[12rem] md:max-w-md bg-neutral-300 dark:bg-neutral-800 p-1.5 object-cover mx-auto lg:ml-auto rounded-xl shadow-sm`}
 							src={userData?.profilePicture || defaultImg}
 						/>
 					</div>
@@ -44,13 +45,26 @@ const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attribut
 							<div className="inline-flex lg:justify-start justify-center items-center w-full">
 								<button
 									onClick={() => dispatch.globalModel.setModal({ open: true, modal: Modals.SETTINGS, locked: true })}
-									className="mx-1 px-3 py-0.5 rounded-sm border-1 border-neutral-500 dark:border-neutral-800 bg-neutral-600 dark:bg-neutral-700 text-neutral-300 inline-flex items-center">
+									className="mx-1 px-3 py-0.5 rounded-sm border-1 border-neutral-500 dark:border-neutral-800 bg-neutral-300 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-300 inline-flex items-center">
 									<DotsHorizontalIcon className="h-4 w-4" />
 								</button>
+								{userData?.splitsBalance && (
+									<button className="mx-1 px-2 py-0.5 rounded-sm border-1 border-neutral-500 dark:border-neutral-800 bg-neutral-300 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-300 inline-flex items-center">
+										<a
+											target="_blank"
+											className="flex justify-start items-center gap-x-1"
+											href={`https://app.0xsplits.xyz/accounts/${user?.attributes?.ethAddress.toLowerCase()}`}>
+											<div className="inline dark:hidden"><SplitsIcon color="#121212" /></div>
+											<div className="dark:inline hidden"><SplitsIcon /></div>
+											<span className="ml-1 text-xs font-semibold">{userData?.splitsBalance.slice(0, 5)}</span>
+											<span className="font-regular text-xs">ETH</span>
+										</a>
+									</button>
+								)}
 								{userData?.twitterHandle?.length === 0 && (
 									<button
 										onClick={() => dispatch.globalModel.setModal({ open: true, modal: Modals.TWITTER, locked: true })}
-										className="mx-1 px-3 py-0.5 text-xs rounded-sm border-1 border-neutral-500 dark:border-neutral-800 bg-neutral-600 dark:bg-neutral-700 text-neutral-300 inline-flex items-center">
+										className="mx-1 px-3 py-0.5 text-xs rounded-sm border-1 border-neutral-500 dark:border-neutral-800 bg-neutral-300 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-300 inline-flex items-center tracking-widest">
 										verify
 									</button>
 								)}

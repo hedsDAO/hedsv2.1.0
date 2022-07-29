@@ -12,16 +12,13 @@ const TapeArtists = (tapeData: TapeState) => {
 	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const spaceData = useSelector((state: RootState) => state.spaceModel);
 	const tapeLength = spaceData?.[tape]?.[+id - 1]?.tape?.tracks;
-	const { currentTrack, tracks, isPlaying, currentTime, duration, isLoading } = useSelector((state: RootState) => state.audioModel);
-
+	const { currentTrack, tracks, isPlaying, currentTime, duration, isLoading, isSample } = useSelector((state: RootState) => state.audioModel);
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;
 		dispatch.audioModel.setIsSample(false);
 		dispatch.audioModel.setCurrentTrack(currentTrack);
 		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
 	};
-
-	console.log(tapeData)
 	return (
 		<Fragment>
 			{tapeData && (
@@ -42,53 +39,54 @@ const TapeArtists = (tapeData: TapeState) => {
 						</div>
 						{tapeData?.tracks?.length
 							? tapeData.tracks.map((track: TrackMetadata, i: number) => {
-									return (
-										<div
-											onClick={() => playTrack(i)}
-											key={track?.profilePicture}
-											className={
-												tracks?.[currentTrack]?.video === track.video && isLoading
-													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm animate-pulse"
-													: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
-											}>
-											{tracks?.[currentTrack]?.video === track.video &&
+								return (
+									<div
+										onClick={() => playTrack(i)}
+										key={track?.profilePicture}
+										className={
+											tracks?.[currentTrack]?.video === track.video && isLoading
+												? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
+												: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
+										}>
+										{tracks?.[currentTrack]?.video === track.video &&
 											isPlaying &&
+											!isSample &&
 											currentTime?.[1] > 0 &&
 											duration?.[1] > 0 ? (
-												<div
-													style={{ width: `${(currentTime?.[1] / duration?.[1]) * 100}%` }}
-													className={`relative h-[24px] z-50 bg-black col-span-12 -mb-24 rounded-md bg-opacity-25 animate__animated animate__fadeIn transition-all`}
-												/>
-											) : (
-												<></>
-											)}
-											<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
-											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">
-												<img className="h-4 w-4 rounded-full" src={track?.profilePicture} />
-												{track?.artist}
-											</div>
-											<div className="text-neutral-800 dark:text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">
-												{formatTime(track.duration)}
-											</div>
+											<div
+												style={{ width: `${(currentTime?.[1] / duration?.[1]) * 100}%` }}
+												className={`relative h-[24px] z-50 bg-black col-span-12 -mb-24 rounded-md bg-opacity-25 animate__animated animate__fadeIn transition-all`}
+											/>
+										) : (
+											<></>
+										)}
+										<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
+										<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">
+											<img className="h-4 w-4 rounded-full" src={track?.profilePicture} />
+											{track?.artist}
 										</div>
-									);
-							  })
+										<div className="text-neutral-800 dark:text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto text-sm inline-flex items-center justify-end px-1 min-w-[4.5ch] max-w-[4.5ch]">
+											{formatTime(track.duration)}
+										</div>
+									</div>
+								);
+							})
 							: // @ts-ignore
-							  Array.apply(null, Array(tapeLength)).map((el: any, index: number) => {
-									return (
-										<div
-											key={"empty tape" + index}
-											className="col-span-12 bg-neutral-200 dark:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
-											<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index + 1}</div>
-											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">
-												open
-											</div>
-											<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto px-1 text-sm inline-flex items-center">
-												0:00
-											</div>
+							Array.apply(null, Array(tapeLength)).map((el: any, index: number) => {
+								return (
+									<div
+										key={"empty tape" + index}
+										className="col-span-12 bg-neutral-200 dark:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-2 rounded-md">
+										<div className="col-span-1 font-thin text-neutral-600 text-xs px-1">{index + 1}</div>
+										<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-600 whitespace-nowrap px-1">
+											open
 										</div>
-									);
-							  })}
+										<div className="text-neutral-500 font-thin uppercase tracking-widest col-span-5 ml-auto px-1 text-sm inline-flex items-center">
+											0:00
+										</div>
+									</div>
+								);
+							})}
 					</div>
 				</div>
 			)}

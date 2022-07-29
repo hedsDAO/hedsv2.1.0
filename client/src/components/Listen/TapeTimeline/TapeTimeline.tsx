@@ -20,8 +20,8 @@ const TapeTimeline = (tapeData: TapeData) => {
 	return (
 		<div className="">
 			{tapeData?.tape && (
-				<nav className="xl:mx-auto lg:p-1 mx-2 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg mt-1.5" aria-label="Progress">
-					<ol role="list" className="rounded-sm overflow-hidden lg:flex lg:rounded-none gap-x-1">
+				<nav className="xl:mx-auto p-1 mx-2 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg mt-1.5" aria-label="Progress">
+					<ol role="list" className="rounded-sm overflow-hidden flex lg:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
 						{calculateTapeStatus(+tapeData?.status?.status).map((step, idx: number) => {
 							if (step.status === "complete") {
 								return <Completed key={step.key} step={step} idx={idx} />;

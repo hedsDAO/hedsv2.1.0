@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { Dispatch, RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
 import { useMoralis } from "react-moralis";
 import useMoralisHooks from "../../hooks/useMoralis";
 import Badges from "../../components/Profile/Badges/Badges";
@@ -9,12 +9,14 @@ import ProfileHeader from "../../components/Profile/ProfileHeader/ProfileHeader"
 import { useHistory } from "react-router";
 
 const Profile = () => {
+	const dispatch = useDispatch<Dispatch>();
 	const history = useHistory();
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { getNFTs, user } = useMoralisHooks();
 	const { isUnauthenticated } = useMoralis();
 	useEffect(() => {
 		if (!userData?.collection) getNFTs();
+		if (!userData?.isTapeArtist) dispatch.userModel.getTapeArtistsWalletIds(user?.attributes?.ethAddress.toLowerCase());
 	}, [userData]);
 	useEffect(() => {
 		if (isUnauthenticated) history.push("/explore");

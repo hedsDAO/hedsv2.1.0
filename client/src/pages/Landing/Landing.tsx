@@ -25,7 +25,7 @@ const Landing = () => {
 						/>
 						<div className="flex justify-end lg:justify-start items-center md:w-auto mt-8">
 							<div className="flex flex-col items-start gap-y-2">
-								<LinkButton bg={"bg-neutral-900"} link={landingData?.linkButton?.link}>
+								<LinkButton bg={"bg-neutral-100 dark:bg-neutral-900 shadow-sm border border-neutral-900 dark:border-transparent rounded-none "} link={landingData?.linkButton?.link}>
 									{landingData?.linkButton?.text}
 								</LinkButton>
 							</div>
