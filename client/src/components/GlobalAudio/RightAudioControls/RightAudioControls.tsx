@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
 import { PlayerSize, TrackMetadata } from "../../../models/common";
 import { toggleFullScreen } from "../../../utils/toggleFullScreen";
+import { isMobile } from "react-device-detect"
 
 const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null | undefined>) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -26,7 +27,7 @@ const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null
 							}`}
 					/>
 				</button>
-				{audioData?.playerSize === PlayerSize.LARGE ?
+				{audioData?.playerSize === PlayerSize.LARGE && isMobile ?
 					<button className="" onClick={() => toggleFullScreen()}>
 						<i className="fa-solid fa-expand text-neutral-900 dark:text-neutral-300"></i>
 					</button>
