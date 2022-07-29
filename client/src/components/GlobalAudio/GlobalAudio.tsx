@@ -57,6 +57,7 @@ const GlobalAudio = () => {
 		};
 	}, [audioData?.currentTrack]);
 
+
 	return (
 		<Fragment>
 			{playerSize !== HIDDEN && (
