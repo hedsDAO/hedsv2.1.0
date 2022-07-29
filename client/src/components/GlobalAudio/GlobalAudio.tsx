@@ -63,11 +63,10 @@ const GlobalAudio = () => {
 				<div
 					className={`${
 						playerSize === SMALL
-							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft delay-150 -ml-1"
-							: "bg-neutral-200 dark:bg-neutral-975 w-screen grid grid-cols-12 animate__animated animate__fadeInUp md:px-2 px-3.5 py-2"
+							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft delay-150 -ml-1 lg:py-2 py-3"
+							: "bg-neutral-200 dark:bg-neutral-975 w-screen grid grid-cols-12 animate__animated animate__fadeInUp md:px-2 px-3.5 lg:py-2 py-3"
 					} bottom-0 fixed z-50`}>
 					{wavesurfer?.current && <LeftAudioControls {...wavesurfer} />}
-
 					<div
 						className={`inline-flex items-center justify-center  ${
 							playerSize === SMALL ? "relative -bottom-96 col-span-0" : "col-span-10"
