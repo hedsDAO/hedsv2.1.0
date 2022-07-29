@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TapeData } from "../../../models/spaceModel";
-import { DownloadIcon, PlayIcon } from "@heroicons/react/solid";
+import { PlayIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
 import { PlayerSize } from "../../../models/common";
@@ -31,24 +31,55 @@ const SampleContainer = (tapeData: TapeData) => {
 		});
 	}, []);
 	return (
-		<div className="max-w-[80rem] bg-gray-300 dark:bg-neutral-975 flex justify-between items-center xl:mx-auto gap-1 rounded-md px-1 mx-2 my-1 py-1">
-			<div className="w-full bg-neutral-200 dark:bg-neutral-900 inline-flex items-center justify-between rounded-md transition-all py-2 px-2">
-				<div className="inline-flex items-center">
-					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif font-semibold uppercase tracking-widest text-base">
-						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight lg:inline hidden font-semibold text-sm"><i className="fa-regular fa-waveform mr-1"></i></span>{" "}
+		<div className="w-full max-w-lg mx-auto gap-1 m-1 mb-2 lg:mb-6 px-2">
+			<div className="flex justify-center items-center rounded-md px-3">
+				<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-xl mb-3">
+					<i className="fa-regular fa-waveform text-neutral-800 dark:text-neutral-400 mr-1" /> THE SAMPLE</span>
+			</div>
+			<div className="flex justify-between lg:justify-evenly items-center lg:mx-auto bg-neutral-300 dark:bg-neutral-950 rounded-lg px-4 py-3.5">
+				<img src={tapeData?.sample?.image} className="w-16 h-16 rounded-md m-0.5 justify-self-start" />
+				<div className="flex flex-col lg:px-2 px-3 items-start justify-center w-full">
+					<span className="lg:px-2.5 text-neutral-700 dark:text-neutral-400 font-medium uppercase tracking-widest text-xs lg:text-base">
 						{tapeData?.sample?.artist}
 					</span>
-					<span className="px-2.5 text-neutral-700 dark:text-neutral-400 font-serif uppercase font-semibold tracking-widest text-base">
-						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-medium text-sm">bpm</span> {tapeData?.sample?.bpm}
+					<span className="inline-flex items-baseline lg:px-2.5 text-neutral-700 dark:text-neutral-400 uppercase font-semibold tracking-widest text-sm lg:text-base">
+						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-medium text-sm lg:text-base mr-2">bpm</span> {tapeData?.sample?.bpm}
 					</span>
 				</div>
-				<div className="inline-flex items-center gap-x-2 pr-2">
-					<DownloadIcon
-						onClick={
+				<div className="flex justify-center items-center">
+					<div className="flex justify-center items-center hover:bg-neutral-100 dark:hover:bg-neutral-700 bg-neutral-200 dark:bg-neutral-850 rounded-md py-1.5 px-2.5 mx-1 transition-all">
+						<button onClick={
 							userData?.twitterHandle
 								? () => handleDownloadFile(sampleDownloadUrl, `HT${id}`)
 								: () => dispatch.globalModel.setModal({ open: true, modal: Modals.WARNING, locked: true })
-						}
+						} className="text-neutral-950 dark:text-neutral-400 tracking-widest text-xs lg:text-sm">DOWNLOAD</button>
+					</div>
+					<div className="flex justify-center items-center bg-neutral-200 dark:bg-neutral-850 rounded-md py-1.5 px-2 mx-1">
+						{!audioData?.isPlaying && !audioData?.isSample ? (
+							<PlayIcon
+								onClick={() => playSample()}
+								className="lg:h-5 lg:w-5 h-4 w-4 dark:text-neutral-400 text-neutral-700 hover:text-neutral-500 transition-all animate__animated animate__fadeIn"
+							/>
+						) : audioData?.isSample && audioData?.isPlaying ? (
+							<PlayIcon
+								onClick={() => playSample()}
+								className="lg:h-5 lg:w-5 h-4 w-4 dark:text-neutral-400 text-neutral-700 hover:text-neutral-500 transition-all animate-pulse"
+							/>
+						) : (
+							<PlayIcon
+								onClick={() => playSample()}
+								className="lg:h-5 lg:w-5 h-4 w-4 dark:text-neutral-400 text-neutral-700 hover:text-neutral-500 transition-all animate__animated animate__fadeIn"
+							/>
+						)}
+					</div>
+				</div>
+			</div>
+			{/* <div className="inline-flex items-center">
+		
+				</div> */}
+			{/* <div className="inline-flex items-center gap-x-2 pr-2">
+					<DownloadIcon
+						
 						className="h-4 w-4 text-green-300 dark:text-green-500 hover:text-green-400 transition-all"
 					/>
 					{!audioData?.isPlaying && !audioData?.isSample ? (
@@ -67,8 +98,7 @@ const SampleContainer = (tapeData: TapeData) => {
 							className="h-4 w-4 text-neutral-400 hover:text-neutral-500 transition-all animate__animated animate__fadeIn"
 						/>
 					)}
-				</div>
-			</div>
+				</div> */}
 		</div>
 	);
 };

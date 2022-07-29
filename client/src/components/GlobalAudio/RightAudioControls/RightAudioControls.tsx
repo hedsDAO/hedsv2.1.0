@@ -22,13 +22,13 @@ const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null
 					}}
 					className="text-center transition-all">
 					<i
-						className={`fa-solid fa-angle-up text-sm text-neutral-300 transition-all ${
+						className={`fa-solid fa-angle-up lg:text-sm text-neutral-900 dark:text-neutral-300 transition-all ${
 							audioData?.playerSize > PlayerSize.MEDIUM ? "rotate-180" : "rotate-0"
 						}`}
 					/>
 				</button>
 				<button disabled={audioData?.isLoading} onClick={() => wavesurfer?.current?.skipForward(5)} className="text-center">
-					<i className="fa-solid fa-rotate-right text-neutral-300"></i>
+					<i className="fa-solid fa-rotate-right text-neutral-900 dark:text-neutral-300"></i>
 				</button>
 				<button
 					disabled={audioData?.isLoading}
@@ -37,7 +37,7 @@ const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null
 						else dispatch.audioModel.setCurrentTrack(0);
 					}}
 					className="text-center">
-					<i className="fa-solid fa-forward text-sm text-neutral-300"></i>
+					<i className="fa-solid fa-forward lg:text-sm text-neutral-900 dark:text-neutral-300"></i>
 				</button>
 			</div>
 		</div>

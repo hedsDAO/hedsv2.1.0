@@ -3,12 +3,12 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeHeader = (tapeData: TapeData) => {
 	return (
-		<div className="max-w-[80rem] xl:mx-auto rounded-md mx-2 bg-gray-300 dark:bg-neutral-900 p-1 transiton-all">
-			<div className="lg:z-10 max-w-[80rem] lg:mx-auto listen-gradient rounded-md py-8 lg:py-10">
-				<div className="lg:max-w-6xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
+		<div className="w-screen xl:mx-auto bg-gray-300 dark:bg-neutral-950 transiton-all mb-7">
+			<div className="lg:z-10 w-screen lg:mx-auto bg-neutral-700 dark:bg-neutral-900 py-8 lg:py-10">
+				<div className="lg:max-w-4xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 					<div className="flex justify-center lg:col-span-2 px-2">
 						<img
-							className="object-contain rounded-md w-[85%] sm:w-[50%] lg:w-[19rem] bg-neutral-900"
+							className="object-contain rounded-sm w-[85%] sm:w-[50%] lg:w-[19rem] bg-neutral-900"
 							src={tapeData.tape?.image}
 						/>
 					</div>

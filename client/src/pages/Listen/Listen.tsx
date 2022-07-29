@@ -35,14 +35,14 @@ const Listen = () => {
 					<div className="w-screen">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (<div className="mb-2 mt-1">
-						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
-					</div>)}
 					<div className="w-screen mb-1 mt-1">
 						{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.SAMPLE_OPEN && (
 							<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
 						)}
 					</div>
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (<div className="mb-2 mt-1">
+						<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
+					</div>)}
 					<div className="grid grid-cols-12 xl:mx-auto max-w-[80rem] gap-1 rounded-lg mx-2 items-start">
 						<TapeArtists {...tapeData} />
 						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
