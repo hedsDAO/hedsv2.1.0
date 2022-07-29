@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { TapeData } from "../../../models/spaceModel";
 
+
 const Tapes = (hedsTapes: TapeData[]) => {
     return (
         <Fragment>
@@ -10,14 +11,14 @@ const Tapes = (hedsTapes: TapeData[]) => {
                     <>
                         {hedsTapes &&
                             Object.values(hedsTapes)?.map((tape: TapeData) => (
-                                <div key={tape.tape.contract + tape.tape.name} className="flex col-span-1 bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 hover:bg-neutral-400 transition-all p-2 rounded-md shadow-sm">
+                                <div key={tape.tape.contract + tape.tape.name} className="flex col-span-1 bg-gray-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 hover:bg-neutral-200 transition-all p-2 rounded-md shadow-sm">
                                     <Link to={tape.links.route}>
                                         <div className="overflow-hidden lg:aspect-none transition-all object-cover rounded-md flex flex-col gap-y-2">
                                             <img
                                                 src={tape.tape.image}
                                                 className={`w-full h-full object-center object-cover lg:w-full lg:h-full group-hover:grayscale-0 rounded-md mb-1`}
                                             />
-                                            <div className="text-neutral-975 dark:text-neutral-400 text-sm font-semibold pl-1.5 tracking-wide pb-1 transition-all">{tape?.tape?.name}</div>
+                                            <div className="text-neutral-900 dark:text-neutral-400 text-sm font-semibold pl-1.5 tracking-wide pb-1 transition-all">{tape?.tape?.name}</div>
                                         </div>
                                     </Link>
                                 </div>

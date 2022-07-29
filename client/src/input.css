@@ -264,6 +264,18 @@ body {
 	animation: gradient 15s ease infinite;
 }
 
+.dark-gradient {
+	background: linear-gradient(-45deg, #11110fd2, #040303d4, #020202d5, #080202ab);
+	background-size: 500% 500%;
+	animation: gradient 15s ease infinite;
+}
+
+.light-gradient {
+	background: linear-gradient(-45deg, #11110f60, #04030354, #02020256, #08020268);
+	background-size: 500% 500%;
+	animation: gradient 15s ease infinite;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;

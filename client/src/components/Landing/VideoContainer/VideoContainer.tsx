@@ -21,7 +21,7 @@ const VideoContainer = ({ src, size, placeholder }: VideoContainerProps) => {
 			loop
 			className={
 				size === "lg"
-					? "object-cover absolute md:inline hidden right-0 bottom-0 z-10 max-h-[54vh] animate__animated animate__fadeInLeft"
+					? "object-cover absolute md:inline hidden right-0 bottom-0 z-10 max-h-[54vh]"
 					: "absolute object-cover w-full md:w-7/12 h-screen z-20"
 			}
 			src={src}

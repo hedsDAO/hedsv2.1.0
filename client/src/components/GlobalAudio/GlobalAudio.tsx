@@ -61,33 +61,32 @@ const GlobalAudio = () => {
 		<Fragment>
 			{playerSize !== HIDDEN && (
 				<div
-					className={`${
-						playerSize === SMALL
-							? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft delay-150 -ml-1 lg:py-2 py-3"
-							: "bg-neutral-200 dark:bg-neutral-975 w-screen grid grid-cols-12 animate__animated animate__fadeInUp md:px-2 px-3.5 lg:py-2 py-3"
-					} bottom-0 fixed z-50`}>
+					className={`${playerSize === SMALL
+						? "grid grid-cols-2 max-w-sm bg-transparent animate__animated animate__fadeInLeft delay-150 -ml-1 lg:py-2 py-3"
+						: "bg-neutral-200 dark:bg-neutral-975 w-screen grid grid-cols-12 animate__animated animate__fadeInUp md:px-2 px-4 lg:py-2 py-3.5"
+						} bottom-0 fixed z-50`}>
 					{wavesurfer?.current && <LeftAudioControls {...wavesurfer} />}
 					<div
-						className={`inline-flex items-center justify-center  ${
-							playerSize === SMALL ? "relative -bottom-96 col-span-0" : "col-span-10"
-						}`}>
+						className={`inline-flex items-center justify-center  ${playerSize === SMALL ? "relative -bottom-96 col-span-0" : "col-span-10 px-2"
+							}`}>
 						<div
 							className={
 								playerSize === SMALL
 									? "hidden"
 									: playerSize === MEDIUM
-									? "grid grid-cols-12 items-center min-w-[90%] relative z-50"
-									: "grid grid-cols-12 min-w-full relative z-50 items-center my-5"
+										? "grid grid-cols-12 items-center min-w-[90%] relative z-50 px-3"
+										: "grid grid-cols-12 min-w-full relative z-50 items-center my-5 px-3"
 							}>
 							<div
 								className={
 									playerSize === SMALL
 										? "hidden"
 										: playerSize === MEDIUM
-										? "col-span-10 lg:col-span-2 flex items-center px-3 sm:px-5 lg:px-0 justify-start lg:justify-center"
-										: "col-span-10 lg:col-span-3 flex items-center px-3 sm:px-5 lg:px-0 justify-start"
+											? "col-span-10 lg:col-span-2 flex items-center px-3 sm:px-5 lg:px-0 justify-start lg:justify-center"
+											: "col-span-10 lg:col-span-3 flex items-center px-3 sm:px-5 lg:px-0 justify-start"
 								}>
 								<video
+									id="full-screenVideo"
 									playsInline
 									key={audioData?.tracks?.[currentTrack]?.video}
 									ref={videoRef}
@@ -100,22 +99,17 @@ const GlobalAudio = () => {
 										playerSize === SMALL
 											? "hidden"
 											: playerSize === MEDIUM
-											? "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[8rem] max-w-[8rem] object-fill rounded-md"
-											: "h-full w-full xl:max-h-[30rem] xl:max-w-[30rem] max-h-[9rem] max-w-[9rem] object-fill rounded-md"
+												? "h-full w-full xl:max-h-[10rem] xl:max-w-[10rem] max-h-[8rem] max-w-[8rem] object-fill rounded-md"
+												: "h-full w-full xl:max-h-[30rem] xl:max-w-[30rem] max-h-[9rem] max-w-[9rem] object-fill rounded-md"
 									}
 								/>
+
 								{!audioData?.isLoading ? (
 									<TrackDetails {...{ audioData, currentTape, currentTrack }} />
 								) : (
 									<div className="flex flex-col items-start justify-center px-6 animate__animated animate__fadeIn">
-										<span className="text-neutral-900 dark:text-neutral-300 text-base lg:text-lg font-base whitespace-nowrapanimate-pulse rounded-full min-w-[10ch]">
-											#######
-										</span>
-										<span className="text-neutral-800 dark:text-neutral-400 text-sm lg:text-base font-thin animate-pulse rounded-full min-w-[10ch]">
-											#####
-										</span>
-										<span className="text-neutral-700 dark:text-neutral-500 text-xs lg:text-sm font-extralight whitespace-nowrap animate-pulse rounded-full  min-w-[10ch]">
-											###
+										<span className="text-neutral-900 dark:text-neutral-400 text-base lg:text-lg font-base whitespace-nowrapanimate-pulse rounded-full min-w-[10ch] px-2 font-thin">
+											Loading<span className="one">.</span><span className="two">.</span><span className="three">.</span>
 										</span>
 									</div>
 								)}
@@ -125,8 +119,8 @@ const GlobalAudio = () => {
 									playerSize === SMALL
 										? "hidden"
 										: playerSize === MEDIUM
-										? "lg:h-52 lg:col-start-5 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
-										: "lg:h-80 lg:col-start-6 lg:col-span-7 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+											? "lg:h-52 lg:col-start-5 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
+											: "lg:h-80 lg:col-start-6 lg:col-span-7 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 								}>
 								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400">
 									{audioData?.currentTime && !audioData?.isLoading && playerSize > SMALL && audioData?.currentTime[0]}

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Artists from "../../components/Explore/Artists/Artists";
 import Spotlight from "../../components/Explore/Spotlight/Spotlight";
 import Tapes from "../../components/Explore/Tapes/Tapes";
+// import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 
 const Explore = () => {
 	const dispatch = useDispatch<Dispatch>();
@@ -28,7 +29,8 @@ const Explore = () => {
 							<p className="mt-3 text-sm lg:text-base text-neutral-500 xl:whitespace-nowrap xl:max-w-full max-w-sm">
 								Listen to the collaborative collections curated by artists, heds and the community.
 							</p>
-						</div>
+						</div>				
+						{/* <TapesToggle /> */}
 					</div>
 					<Tapes {...hedsTapes} />
 					<Artists />

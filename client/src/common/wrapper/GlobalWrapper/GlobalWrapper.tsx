@@ -12,7 +12,7 @@ import TokenBurnModal from "../../modal/TokenBurnModal/TokenBurnModal";
 import VoteModal from "../../modal/VoteModal/VoteModal";
 const warningTitle = "Unverified Account";
 const warningMessageTwitter = "Verify your account with twitter to continue.";
-const warningMessageUser = "Connect you wallet to download the sample.";
+const warningMessageUser = "Connect your wallet to download the sample.";
 
 const GlobalWrapper = ({ children }: { children: JSX.Element }) => {
 	const userData = useSelector((state: RootState) => state.userModel);
