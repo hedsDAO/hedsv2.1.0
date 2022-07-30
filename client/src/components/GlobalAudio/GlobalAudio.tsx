@@ -123,7 +123,7 @@ const GlobalAudio = () => {
 											? "lg:h-52 lg:col-start-5 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 											: "lg:h-80 lg:col-start-6 lg:col-span-7 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 								}>
-								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400">
+								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400 lg:-mb-0 -mb-10">
 									{audioData?.currentTime && !audioData?.isLoading && playerSize > SMALL && audioData?.currentTime[0]}
 								</span>
 								<div
@@ -135,7 +135,7 @@ const GlobalAudio = () => {
 									}
 									ref={waveformRef}
 								/>
-								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-600">
+								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-600 lg:-mb-0 -mb-10">
 									{audioData?.duration && !audioData?.isLoading && playerSize > SMALL && audioData?.duration[0]}
 								</span>
 							</div>
