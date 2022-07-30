@@ -35,21 +35,24 @@ const Listen = () => {
 					<div className="lg:w-full">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="lg:w-full">
+					<div className="max-w-[80rem] flex-col items-center lg:mx-auto w-full lg:max-w-lg inline-flex justify-between gap-x-1">
 						{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.SAMPLE_OPEN && (
-							<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
+							<Fragment>
+								<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
+							</Fragment>
 						)}
 					</div>
 					{+spaceData?.[tape]?.[+id - 1]?.status?.status > TapeStatus.MINT_CLOSE && (<div className="lg:w-full">
 						<TapeArtists {...tapeData} />
 					</div>)}
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status > TapeStatus.MINT_CLOSE && <div className="max-w-[80rem] w-full mx-auto">
+						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
+					</div>}
 					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (
 						<div className="lg:w-full">
 							<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 						</div>)}
-					<div className="lg:w-full">
-						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
-					</div>
+
 				</div>
 			)}
 		</Fragment>

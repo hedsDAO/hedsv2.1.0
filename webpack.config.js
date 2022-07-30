@@ -11,7 +11,7 @@ module.exports = {
   entry: "./client/src/index.js",
   output: {
     publicPath: "/",
-    path: path.resolve(__dirname, "builds/hedsv2-1"),
+    path: path.resolve(__dirname, "builds/app"),
     filename: "bundle.js",
   },
   module: {

@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"outDir": "./builds/hedsv2-1", // Output directory for types
+		"outDir": "./builds/app", // Output directory for types
 		"target": "es6", // Specify ECMAScript target version
 		"lib": ["dom", "dom.iterable", "esnext"], // List of library files to be included in the compilation
 		"allowJs": true, // Allow JavaScript files to be compiled

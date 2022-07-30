@@ -18,12 +18,12 @@ const TapeTimeline = (tapeData: TapeData) => {
 		if (status === TapeStatus.MINT_OPEN) return () => dispatch.globalModel.setModal({ open: true, modal: Modals.MINT, locked: true });
 	};
 	return (
-		<div className="max-w-[80rem] mx-auto">
-			<div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:mt-4 mb-1.5">
+		<div className="max-w-[80rem] mx-auto lg:mt-10 mt-4">
+			{/* <div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:mt-4 mb-1.5">
 				<i className="fa-regular fa-clock text-neutral-700 dark:text-neutral-400 text-xs place-self-center self-center -mb-0.25" />
-				<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">TAPE TIMELINE</span>
+				<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">TAPE TIMELINE</span> */}
 				{/* <span className="font-light text-sm dark:text-neutral-500 text-neutral-600 tracking-widest">{tapeData?.sample?.artist}</span> */}
-			</div>
+			{/* </div> */}
 			{tapeData?.tape && (
 				<nav className="mx-auto p-1 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg" aria-label="Progress">
 					<ol role="list" className="rounded-sm overflow-hidden flex lg:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">

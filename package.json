@@ -11,8 +11,8 @@
 		"build": "webpack",
 		"start": "NODE_ENV=production webpack serve --hot --open",
 		"dev": "NODE_ENV=development webpack serve --hot --open",
-		"tw": "tailwindcss -i ./client/src/input.css -o ./builds/hedsv2-1/output.css --watch",
-		"tw-prod": "tailwindcss -i ./client/src/input.css -o ./builds/hedsv2-1/output.css",
+		"tw": "tailwindcss -i ./client/src/input.css -o ./builds/app/output.css --watch",
+		"tw-prod": "tailwindcss -i ./client/src/input.css -o ./builds/app/output.css",
 		"test": "jest --env=jsdom",
 		"unit-test": ""
 	},

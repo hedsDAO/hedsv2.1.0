@@ -6,7 +6,7 @@ import { useMoralis } from "react-moralis";
 import useMoralisHooks from "./hooks/useMoralis";
 import "./index.scss"; // scss bg stylings
 import "./input.css"; // manual css stylesheet
-import "../../builds/hedsv2-1/output.css"; // compiled tw output
+import "../../builds/app/output.css"; // compiled tw output
 
 // pages
 import Landing from "./pages/Landing/Landing";
