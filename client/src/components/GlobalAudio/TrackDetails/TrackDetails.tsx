@@ -11,7 +11,7 @@ interface TrackDetailsProps {
 const TrackDetails = ({ audioData, currentTape, currentTrack }: TrackDetailsProps) => {
 	return (
 		<div className="flex flex-col items-start justify-center px-6 animate__animated animate__fadeIn animate__fast">
-			<span className="text-neutral-900 dark:text-neutral-300 text-base lg:text-lg font-base whitespace-nowrap">
+			<span className="text-neutral-900 dark:text-neutral-300 text-sm md:text-base lg:text-lg font-base whitespace-nowrap">
 				<Link to={audioData?.tapes[currentTape - 1]?.links?.route}>
 					{audioData?.isSample ? audioData?.tapes[currentTrack].tape.name : audioData?.tapes[currentTape - 1]?.tape?.name}
 				</Link>
