@@ -18,9 +18,14 @@ const TapeTimeline = (tapeData: TapeData) => {
 		if (status === TapeStatus.MINT_OPEN) return () => dispatch.globalModel.setModal({ open: true, modal: Modals.MINT, locked: true });
 	};
 	return (
-		<div className="">
+		<div className="max-w-[80rem] mx-auto lg:mt-10 mt-4">
+			{/* <div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:mt-4 mb-1.5">
+				<i className="fa-regular fa-clock text-neutral-700 dark:text-neutral-400 text-xs place-self-center self-center -mb-0.25" />
+				<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">TAPE TIMELINE</span> */}
+				{/* <span className="font-light text-sm dark:text-neutral-500 text-neutral-600 tracking-widest">{tapeData?.sample?.artist}</span> */}
+			{/* </div> */}
 			{tapeData?.tape && (
-				<nav className="xl:mx-auto p-1 mx-2 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg mt-1.5" aria-label="Progress">
+				<nav className="mx-auto p-1 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg" aria-label="Progress">
 					<ol role="list" className="rounded-sm overflow-hidden flex lg:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
 						{calculateTapeStatus(+tapeData?.status?.status).map((step, idx: number) => {
 							if (step.status === "complete") {
@@ -61,7 +66,7 @@ const Completed = ({ step, idx }: any) => {
 const Current = ({ modal, step, idx }: any) => {
 	return (
 		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-md transition-all">
-			<button onClick={modal ? modal : () => {}} className="flex items-start justify-start">
+			<button onClick={modal ? modal : () => { }} className="flex items-start justify-start">
 				<span className={classNames(idx !== 0 ? "lg:pl-9" : "", "px-6 py-5 flex items-start text-sm font-medium")}>
 					<span className="flex-shrink-0 pt-2">
 						<span className="w-8 h-8 flex items-center justify-center bg-green-600 rounded-full mx-1.5">

@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
 import { PlayerSize, TrackMetadata } from "../../../models/common";
+import { toggleFullScreen } from "../../../utils/toggleFullScreen";
+import { isMobile } from "react-device-detect"
 
 const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null | undefined>) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -11,9 +13,8 @@ const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null
 	return (
 		<div className="inline-flex items-center justify-center px-2">
 			<div
-				className={`${
-					audioData?.playerSize === PlayerSize.LARGE ? "h-96 mb-1" : "h-[190px] mb-1"
-				} bottom-0 relative flex flex-col items-center justify-between text-center ml-auto py-2 lg:py-3 px-3`}>
+				className={`${audioData?.playerSize === PlayerSize.LARGE ? "h-96 mb-1" : "h-[190px] mb-1"
+					} bottom-0 relative flex flex-col items-center justify-between text-center ml-auto py-2 lg:py-3 px-3`}>
 				<button
 					disabled={audioData?.isLoading}
 					onClick={() => {
@@ -22,14 +23,18 @@ const RightAudioControls = (wavesurfer: React.MutableRefObject<WaveSurfer | null
 					}}
 					className="text-center transition-all">
 					<i
-						className={`fa-solid fa-angle-up lg:text-sm text-neutral-900 dark:text-neutral-300 transition-all ${
-							audioData?.playerSize > PlayerSize.MEDIUM ? "rotate-180" : "rotate-0"
-						}`}
+						className={`fa-solid fa-angle-up lg:text-sm text-neutral-900 dark:text-neutral-300 transition-all ${audioData?.playerSize > PlayerSize.MEDIUM ? "rotate-180" : "rotate-0"
+							}`}
 					/>
 				</button>
-				<button disabled={audioData?.isLoading} onClick={() => wavesurfer?.current?.skipForward(5)} className="text-center">
-					<i className="fa-solid fa-rotate-right text-neutral-900 dark:text-neutral-300"></i>
-				</button>
+				{audioData?.playerSize === PlayerSize.LARGE && isMobile ?
+					<button className="" onClick={() => toggleFullScreen()}>
+						<i className="fa-solid fa-expand text-neutral-900 dark:text-neutral-300"></i>
+					</button>
+					:
+					<button disabled={audioData?.isLoading} onClick={() => wavesurfer?.current?.skipForward(5)} className="">
+						<i className="fa-solid fa-rotate-right text-neutral-900 dark:text-neutral-300"></i>
+					</button>}
 				<button
 					disabled={audioData?.isLoading}
 					onClick={() => {

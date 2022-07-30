@@ -3,12 +3,12 @@ import { TapeData } from "../../../models/spaceModel";
 
 const TapeHeader = (tapeData: TapeData) => {
 	return (
-		<div className="w-screen xl:mx-auto bg-gray-300 dark:bg-neutral-950 transiton-all mb-7">
-			<div className="lg:z-10 w-screen lg:mx-auto bg-neutral-700 dark:bg-neutral-900 py-8 lg:py-10">
+		<div className="xl:w-screen xl:mx-auto">
+			<div className="lg:z-10 xl:w-screen xl:mx-auto py-8 lg:py-10 bg-neutral-600  dark:bg-neutral-900 xl:rounded-none rounded-md">
 				<div className="lg:max-w-4xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 					<div className="flex justify-center lg:col-span-2 px-2">
 						<img
-							className="object-contain rounded-sm w-[85%] sm:w-[50%] lg:w-[19rem] bg-neutral-900"
+							className="object-contain rounded-sm w-[85%] sm:w-[50%] lg:w-[19rem] bg-neutral-975"
 							src={tapeData.tape?.image}
 						/>
 					</div>
@@ -23,7 +23,7 @@ const TapeHeader = (tapeData: TapeData) => {
 										/>
 										<img
 											src={tapeData?.collab?.image}
-											className="h-20 w-20 aspect-square inline-block rounded-full bg-neutral-900 p-2 item item--sphere flex-shrink-0 flex-grow-0 -ml-2"
+											className="h-20 w-20 aspect-square inline-block rounded-full bg-neutral-975 p-2 item item--sphere flex-shrink-0 flex-grow-0 -ml-2"
 										/>
 									</div>
 									<div className="inline-flex items-center">
@@ -34,7 +34,7 @@ const TapeHeader = (tapeData: TapeData) => {
 											/
 										</span>
 										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
-											hedTAPE
+											hedsTAPE
 										</span>
 										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
 											/
@@ -51,7 +51,7 @@ const TapeHeader = (tapeData: TapeData) => {
 						</div>
 						<div className="px-10 lg:max-w-xl ">
 							<div className="flex flex-col md:items-start items-center">
-								<div className="lg:px-0 px-5 bg-opacity-60 text-neutral-300 text-xs text-center md:text-left tracking-wider min-h-[75px] lg:pb-0 lg:pt-0 pb-10 pt-5">
+								<div className="lg:px-0 px-5 bg-opacity-6 text-neutral-200 dark:text-neutral-300 text-xs text-center md:text-left tracking-widest min-h-[75px] lg:pb-0 lg:pt-0 pb-10 pt-5">
 									{tapeData.tape?.description}
 								</div>
 							</div>

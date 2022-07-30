@@ -19,7 +19,7 @@ const timeline = [
 	{
 		name: "Curation",
 		description:
-			"The 20 submissions with the most votes will then be sent to the sampe curator who will then select the final 10 submissions for the tape. If this number is less than 20, the curation step will move to the sample provider and 6ETH will be distributed evenly to those who submitted.",
+			"The 20 submissions with the most votes will then be sent to the sample curator who will then select the final 10 submissions for the tape. If this number is less than 20, the curation step will move to the sample provider and ETH from the treasury will be distributed evenly to those who submitted.",
 	},
 	{
 		name: "Mint",
