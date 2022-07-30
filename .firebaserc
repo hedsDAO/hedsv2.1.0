@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "heds": "heds-34ac0",
+    "default": "heds-34ac0"
+  },
+  "targets": {
+    "heds-34ac0": {
+      "hosting": {
+        "app": [
+          "heds-app"
+        ]
+      }
+    }
+  }
+}
