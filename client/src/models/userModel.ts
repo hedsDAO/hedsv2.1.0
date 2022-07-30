@@ -78,9 +78,7 @@ export const userModel = createModel<RootModel>()({
 					const walletIds: Array<string> = tape.map((track: any) => track.wallet.toLowerCase());
 					if (walletIds) return walletIdTank.push(...walletIds);
 				})
-	
 				const noDuplicateWalletIds = new Set(walletIdTank);
-				console.log(noDuplicateWalletIds)
 				if (noDuplicateWalletIds.has(wallet)) {
 					this.setIsTapeArtist(true);
 					this.getSplitsBalance(wallet);
