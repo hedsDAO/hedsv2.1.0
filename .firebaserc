@@ -8,15 +8,6 @@
       "hosting": {
         "app": [
           "heds-app"
-        ],
-        "hedsProtocol-GUI": [
-          "hedsProtocol-internal"
-        ],
-        "landing": [
-          "heds-34ac0"
-        ],
-        "hedsv2-1": [
-          "hedsv2-1"
         ]
       }
     }
