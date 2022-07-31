@@ -47,12 +47,13 @@ const SubmissionModal = () => {
 				dispatch.submissionsModel.loadUserSubmissions(walletId);
 				dispatch.submissionsModel.setLoading(false);
 				setError("");
+				dispatch.globalModel.clearModalState();
 			});
 		}
 	};
 	return (
 		<Transition appear show={open} as={Fragment}>
-			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => {} : () => dispatch.globalModel.setModalVisibility(false)}>
+			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex bg-neutral-950/90 min-h-full items-center justify-center text-center">
 						<Transition.Child
@@ -185,7 +186,7 @@ const SubmissionModal = () => {
 															disabled={loading}
 															onClick={() => dispatch.globalModel.setModalVisibility(false)}
 															className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all disabled:animate-pulse">
-															{loading ? <LoadingIcon /> : "CANCEL"}
+															CANCEL
 														</button>
 													</div>
 												</div>
