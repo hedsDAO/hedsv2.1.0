@@ -104,12 +104,11 @@ const GlobalAudio = () => {
 												: "h-full w-full xl:max-h-[30rem] xl:max-w-[30rem] max-h-[9rem] max-w-[9rem] object-fill rounded-md"
 									}
 								/>
-
 								{!audioData?.isLoading ? (
 									<TrackDetails {...{ audioData, currentTape, currentTrack }} />
 								) : (
 									<div className="flex flex-col items-start justify-center px-6 animate__animated animate__fadeIn">
-										<span className="text-neutral-900 dark:text-neutral-400 text-base lg:text-lg font-base whitespace-nowrapanimate-pulse rounded-full min-w-[10ch] px-2 font-thin">
+										<span className="text-neutral-900 dark:text-neutral-400 text-sm lg:text-base font-base whitespace-nowrapanimate-pulse rounded-full min-w-[10ch] px-2 font-thin">
 											Loading<span className="one">.</span><span className="two">.</span><span className="three">.</span>
 										</span>
 									</div>
@@ -123,7 +122,7 @@ const GlobalAudio = () => {
 											? "lg:h-52 lg:col-start-5 lg:col-span-8 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 											: "lg:h-80 lg:col-start-6 lg:col-span-7 col-span-0 w-full inline-flex justify-evenly lg:items-center items-end self-end"
 								}>
-								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400">
+								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-400 lg:-mb-0 -mb-7">
 									{audioData?.currentTime && !audioData?.isLoading && playerSize > SMALL && audioData?.currentTime[0]}
 								</span>
 								<div
@@ -135,7 +134,7 @@ const GlobalAudio = () => {
 									}
 									ref={waveformRef}
 								/>
-								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-600">
+								<span className="lg:-mx-2 min-w-[4ch] lg:text-base text-xs text-neutral-600 lg:-mb-0 -mb-7">
 									{audioData?.duration && !audioData?.isLoading && playerSize > SMALL && audioData?.duration[0]}
 								</span>
 							</div>

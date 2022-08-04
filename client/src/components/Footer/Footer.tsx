@@ -27,6 +27,7 @@ export default function Footer() {
 							))}
 						</nav>
 						<p className="mt-8 text-center text-xs text-neutral-500">&copy; 2022 heds inc. All rights reserved.</p>
+						<p className="mt-2 text-center text-[0.6rem] text-neutral-500">heds v2.1.0</p>
 					</div>
 				</footer>
 			)}
