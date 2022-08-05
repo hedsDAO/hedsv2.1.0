@@ -32,14 +32,14 @@ const SubmissionsPlayer = ({ tracks, walletId }: SubmissionsPlayerProps) => {
 	return (
 		<ul role="list" className="grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
 			{tracks?.map((sub, idx) => (
-				<li key={idx} className="flex justify-between bg-neutral-900 rounded-md py-1.5 px-1">
+				<li key={idx} className="flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-1">
 					<button
 						onClick={() => dispatch.voteModel.setSelectedTrack(idx)}
 						style={{ minWidth: "150px" }}
 						className={`text-left px-2 text-sm font-medium ${highlightSubmission(idx)}`}>
 						{formatSubId(sub.subId)}
 					</button>
-					<div className="text-sm font-medium text-gray-500">
+					<div className="text-sm font-medium text-gray-700 dark:text-gray-500">
 						{favorites?.favoritesList?.some((item) => item.id === sub.id) ? (
 							<button
 								role="button"

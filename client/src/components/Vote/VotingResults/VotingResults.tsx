@@ -88,7 +88,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 					{(viewAll ? sortedVoteResults : sortedVoteResults.slice(0, 5))?.map((vote: any) => {
 						if (round(resultsByPercentage(voteResults)[vote.i]))
 							return (
-								<div key={vote.i} className="bg-neutral-950 my-2 rounded-sm border border-neutral-900">
+								<div key={vote.i} className="bg-gray-200 dark:bg-neutral-950 my-2 rounded-sm border dark:border-neutral-900">
 									<div className="flex justify-between text-neutral-400 py-1">
 										<div
 											style={{ minWidth: "150px" }}
@@ -109,7 +109,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 											<div
 												className={
 													round(resultsByPercentage(resultsByUserBalance())[vote.i]) >=
-													round(resultsByPercentage(voteResults)[vote.i])
+														round(resultsByPercentage(voteResults)[vote.i])
 														? "bg-blue-800 h-2 rounded-full relative z-30"
 														: "bg-blue-800 h-2 rounded-full relative z-10"
 												}
@@ -131,7 +131,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 							);
 					})}
 					<button
-						className="w-full mx-auto py-1 bg-neutral-850 text-neutral-400 hover:text-neutral-300 inline-flex text-center justify-center items-center text-sm px-2 gap-x-2 transition-all mb-2 rounded-md"
+						className="w-full mx-auto py-1 bg-gray-200 dark:bg-neutral-850 text-neutral-700 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300 inline-flex text-center justify-center items-center text-sm px-2 gap-x-2 transition-all mb-2 rounded-md"
 						onClick={() => setViewAll(!viewAll)}>
 						{viewAll ? "less" : "more"}
 					</button>
