@@ -39,6 +39,10 @@ const Vote = () => {
 	}, []);
 
 	useEffect(() => {
+		dispatch.submissionsModel.loadUserFavorties([space || "heds", tape, id, walletId]);
+	}, [user])
+
+	useEffect(() => {
 		if (!voteState.votingPower && userData?.collection) {
 			dispatch.userModel.setVotingPower({ walletId, collection: userData?.collection, powerMapping });
 		}
