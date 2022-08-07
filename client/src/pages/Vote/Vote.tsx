@@ -76,7 +76,7 @@ const Vote = () => {
 								<VotingFavorites votingPower={userData?.votingPower} />
 							</VoteContentContainer>
 							{voteState?.snapshot?.proposalData?.state !== "closed" && (
-								<VoteContentContainer className="w-full bg-opacity-0 p-0">
+								<VoteContentContainer className="w-full bg-opacity-0 p-0 mt-1">
 									<VotingButtons votingPower={userData?.votingPower} />
 								</VoteContentContainer>
 							)}
@@ -113,7 +113,7 @@ const Vote = () => {
 									</div>
 								</div>
 							</VoteContentContainer>
-							{voteData && proposalData?.id && (
+							{voteData?.length > 0 && proposalData?.id && (
 								<VoteContentContainer className="">
 									<VotingResults voteData={voteData} proposalData={proposalData} />
 								</VoteContentContainer>

@@ -27,7 +27,7 @@ const VotingButtons = ({ votingPower }: { votingPower: number }) => {
 	};
 
 	return (
-		<div className="flex justify-center pt-3 items-center">
+		<div className="flex justify-center items-center py-2 dark:bg-neutral-950 rounded-sm">
 			{votingPower !== 0 && (
 				<>
 					{!web3 ? (
@@ -45,12 +45,11 @@ const VotingButtons = ({ votingPower }: { votingPower: number }) => {
 						<button
 							disabled={voteCount === 0}
 							onClick={() => castVote()}
-							className={`px-5 py-1.5 ${
-								voteCount === 0
+							className={`px-5 py-1.5 ${voteCount === 0
 									? "bg-neutral-700 text-neutral-400 border-neutral-800"
 									: "bg-green-800 hover:bg-green-900 text-green-200 border-green-800"
-							} bg-opacity-70 font-thin tracking-widest  text-sm border-2 uppercase rounded-full transition-all`}>
-							{}
+								} bg-opacity-70 font-thin tracking-widest  text-sm border-2 uppercase rounded-full transition-all`}>
+							{ }
 							{voteState.isLoading ? (
 								<ReactLoading className="w-5 h-5 mx-7" type={"bars"} color={"#089F6E"} height={"16"} width={"16"} />
 							) : hasUserVoted() ? (

@@ -9,7 +9,7 @@ export const getVoteData = async () => {
       votes (
         first: 1000
         where: {
-          proposal: "0xe8417fce83d56edb6d2351bde06309fad9a16573dee73bf00f41fe931adddd2e"
+          proposal: "0x584e05550c266a7bbf981224c64f481cf5e3d5f1f59f7c02a1d2d0c9344b791e"
         }
       ) {
         id
