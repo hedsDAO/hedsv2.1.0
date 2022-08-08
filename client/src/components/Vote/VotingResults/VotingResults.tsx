@@ -130,7 +130,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 								</div>
 							);
 					})}
-					{voteData && <button
+					{voteResults.includes(1) && <button
 						className="w-full mx-auto py-1 bg-gray-200 dark:bg-neutral-850 text-neutral-700 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300 inline-flex text-center justify-center items-center text-sm px-2 gap-x-2 transition-all mb-2 rounded-md"
 						onClick={() => setViewAll(!viewAll)}>
 						{viewAll ? "less" : "more"}
