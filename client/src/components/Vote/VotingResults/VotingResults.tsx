@@ -89,7 +89,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 						if (round(resultsByPercentage(voteResults)[vote.i]))
 							return (
 								<div key={vote.i} className="bg-gray-200 dark:bg-neutral-950 my-2 rounded-sm border dark:border-neutral-900">
-									<div className="flex justify-between text-neutral-400 py-1">
+									<div className="flex justify-between text-neutral-600 dark:text-neutral-400 py-1">
 										<div
 											style={{ minWidth: "150px" }}
 											className={`text-left px-3 text-sm font-medium sm:w-6/12 md:w-8/12 py-1`}>
@@ -105,7 +105,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 										</div>
 									</div>
 									<div className="mx-3 pb-3">
-										<div className="bg-neutral-600 rounded-full h-2 dark:bg-gray-700">
+										<div className="bg-neutral-400 rounded-full h-2 dark:bg-gray-700">
 											<div
 												className={
 													round(resultsByPercentage(resultsByUserBalance())[vote.i]) >=
@@ -130,7 +130,7 @@ const VotingResults = ({ voteData, proposalData }: any) => {
 								</div>
 							);
 					})}
-					{voteData?.length > 5 && <button
+					{voteData && <button
 						className="w-full mx-auto py-1 bg-gray-200 dark:bg-neutral-850 text-neutral-700 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-300 inline-flex text-center justify-center items-center text-sm px-2 gap-x-2 transition-all mb-2 rounded-md"
 						onClick={() => setViewAll(!viewAll)}>
 						{viewAll ? "less" : "more"}

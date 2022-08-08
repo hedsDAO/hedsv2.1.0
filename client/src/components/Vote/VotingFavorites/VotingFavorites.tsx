@@ -49,7 +49,7 @@ const VotingFavorites = ({ votingPower }: { votingPower: number }) => {
 									{formatSubId(favorite.subId)}
 								</button>
 								{votingPower > 0 && (
-									<div className="flex justify-between items-center text-sm font-medium text-neutral-800 dark:text-gray-500 px-2">
+									<div className="flex justify-between items-center text-sm font-medium text-neutral-700 dark:text-gray-500 px-2">
 										<div className="mr-3 flex gap-x-2 px-2">
 											<button
 												role="button"

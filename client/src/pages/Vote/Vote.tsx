@@ -113,7 +113,7 @@ const Vote = () => {
 									</div>
 								</div>
 							</VoteContentContainer>
-							{voteData?.length > 0 && proposalData?.id && (
+							{voteData && proposalData?.id && (
 								<VoteContentContainer className="">
 									<VotingResults voteData={voteData} proposalData={proposalData} />
 								</VoteContentContainer>
