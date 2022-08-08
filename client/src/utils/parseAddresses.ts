@@ -5,12 +5,12 @@ const hedsTapeAddresses: Array<string> = [
 	"0x5083cf11003f2b25ca7456717e6dc980545002e5",
 	"0x567e687c93103010962f9e9cf5730ae8dbfc6d41",
 	"0x8045fd700946a00436923f37d08f280ade3b4af6",
-	"0x8f36eb094f7b960a234a482d4d8ffb8b37f728c6",
 	"0x8f36eB094F7B960a234a482d4d8FFb8b37f728C6",
 	"0x885236535d5cf7033bdc5bc1050cad7fdf4970a6"
 ];
 
 const parseAddresses = (userCollection: any) => {
+	console.log(userCollection)
 	const collectionTank: CollectionTank = {};
 	if (Array.isArray(userCollection))
 		userCollection.map((item: CollectionItem) => {

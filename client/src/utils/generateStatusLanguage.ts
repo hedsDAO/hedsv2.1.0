@@ -1,6 +1,6 @@
 import { TapeStatus } from "../models/common";
 
-const generateStatusLanguage = (status: string) => {
+const generateStatusLanguage = (status: number) => {
 	if (+status >= TapeStatus?.MINT_CLOSE) return "closed";
 	if (+status === TapeStatus?.MINT_OPEN) return "mint open";
 	if (+status === TapeStatus?.VOTE_CLOSE) return "in curation";

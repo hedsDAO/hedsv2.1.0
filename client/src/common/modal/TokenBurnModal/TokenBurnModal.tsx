@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
 import { useMoralis, useERC20Balances } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
+import { useHistory } from "react-router";
 var ethers = require("ethers");
 const GENHEAD_TOKEN_ADDRESS = "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375";
 const GENHEAD_BURN_CONTRACT = "";
@@ -17,9 +18,11 @@ enum TokenBurnSteps {
 }
 
 const TokenBurnModal = () => {
+	const history = useHistory();
 	const [hasAcceptedTerms, setHasAcceptedTerms] = useState<boolean>(false);
 	const [step, setStep] = useState<TokenBurnSteps>(TokenBurnSteps.AUTHENTICATE);
 	const [loading, setLoading] = useState<boolean>(false);
+	const [balanceLoaded, setBalanceLoaded] = useState<boolean>(false);
 	const [genheadBalance, setGenheadBalance] = useState<string | void>();
 	const [error, setError] = useState<string | void>();
 	const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, web3 } = useMoralis();
@@ -69,9 +72,9 @@ const TokenBurnModal = () => {
 
 	return (
 		<Transition appear show={open} as={Fragment}>
-			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => {} : () => dispatch.globalModel.setModalVisibility(false)}>
+			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
 				<div className="fixed inset-0 overflow-y-auto">
-					<div className="flex bg-neutral-950/90 min-h-full items-center justify-center text-center">
+					<div className="flex bg-neutral-950/90 min-h-full pb-5 items-center justify-center text-center px-1">
 						<Transition.Child
 							as={Fragment}
 							enter="ease-out duration-300"
@@ -106,6 +109,8 @@ const TokenBurnModal = () => {
 												isWeb3Enabled={isWeb3Enabled}
 												hasAcceptedTerms={hasAcceptedTerms}
 												setHasAcceptedTerms={setHasAcceptedTerms}
+												setBalanceLoaded={setBalanceLoaded}
+												balanceLoaded={balanceLoaded}
 											/>
 										) : step === TokenBurnSteps.PENDING ? (
 											<div className="flex flex-col justify-center items-center h-full py-20">
@@ -128,8 +133,11 @@ const TokenBurnModal = () => {
 												</div>
 												<div className="gap-x-2 flex justify-center items-stretch pt-4">
 													<button
-														onClick={() => dispatch.globalModel.setModalVisibility(false)}
-														disabled={hasAcceptedTerms}
+														onClick={() => {
+															history.push('/profile')
+															dispatch.globalModel.setModalVisibility(false)
+														}}
+														disabled={!hasAcceptedTerms}
 														className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
 														VIEW PROFILE
 													</button>
@@ -171,9 +179,9 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 					<i className="fa-solid fa-bolt text-green-500 text-3xl"></i>
 				</div>
 				<div className="flex flex-col items-start justify-center rounded-lg col-span-3">
-					<h3 className="text-green-500 uppercase text-xs tracking-wide font-semibold">VOTING POWER</h3>
+					<h3 className="text-green-500 uppercase text-xs tracking-wide font-semibold">CLAIM THE STATUS</h3>
 					<p className="text-xs text-neutral-400 tracking-wide">
-						Voting power on the heds platform will be permanently increased by 10.
+						Solidify your status with the heds community and platform.
 					</p>
 				</div>
 			</div>
@@ -206,7 +214,7 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 	);
 };
 
-const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms }: any) => {
+const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, setBalanceLoaded, balanceLoaded }: any) => {
 	return (
 		<Fragment>
 			<div className="flex flex-col justify-center items-center">
@@ -217,7 +225,7 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 					<i className="fa-solid fa-circle-1 text-neutral-400 text-xl"></i>
 				</div>
 				<div className="flex flex-col items-start justify-center rounded-lg col-span-3">
-					<h3 className="text-neutral-400 uppercase text-xs tracking-wide font-semibold">BURN GENHEAD TOKENS</h3>
+					<h3 className="text-neutral-400 uppercase text-xs tracking-wide font-semibold">BURN GENHED TOKENS</h3>
 					<p className="text-xs text-neutral-400 tracking-wide">
 						After clicking burn, you will be prompted with a secure smart contract to burn your tokens.
 					</p>
@@ -241,19 +249,20 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 				<div className="flex flex-col items-start justify-center rounded-lg col-span-3">
 					<h3 className="text-neutral-400 uppercase text-xs tracking-wide font-semibold">PERKS</h3>
 					<p className="text-xs text-neutral-400 tracking-wide">
-						Voting power will automatically be allotted and the OG badge will appear shortly.
+						Your status will be solidified at heds and the OG badge will appear shortly.
 					</p>
 				</div>
 			</div>
 			{data?.length &&
 				isWeb3Enabled &&
 				data.map((token: any) => {
-					if (token.token_address === "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375")
+					if (token.token_address === "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375") {
+						setBalanceLoaded(true);
 						return (
 							<div key={token.name} className="py-4">
 								<div className="text-green-500 font-thin flex justify-center text-sm">
 									<h6>
-										GENHEAD BALANCE - {ethers.utils.formatUnits(token.balance, "ether")}{" "}
+										GENHED BALANCE - {ethers.utils.formatUnits(token.balance, "ether")}{" "}
 										<span className="ml-1">
 											({parseInt(ethers.utils.formatUnits(token.balance, "ether")) / 1000} ETH)
 										</span>
@@ -261,6 +270,7 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 								</div>
 							</div>
 						);
+					}
 				})}
 			<div className="relative flex justify-center items-start">
 				<div className="flex items-center h-5">
@@ -270,13 +280,13 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 						aria-describedby="comments-description"
 						name="comments"
 						type="checkbox"
-						className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+						className="focus:ring-transparent h-4 w-4 text-indigo-600 border-gray-300 rounded"
 					/>
 				</div>
 				<div className="ml-3 text-sm">
 					<span id="comments-description" className="text-neutral-500">
 						I accept{" "}
-						<a href="" target="_blank" className="text-blue-500">
+						<a href="https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/legal%2Fterms%20and%20conditions.pdf?alt=media&token=43655f7e-ed13-4839-91b6-71733d951c2a" target="_blank" className="text-blue-500">
 							terms and conditions.
 						</a>
 					</span>
@@ -290,7 +300,7 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 				</button>
 				<button
 					onClick={() => handleTokenBurn()}
-					disabled={!hasAcceptedTerms}
+					disabled={!hasAcceptedTerms || !balanceLoaded}
 					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
 					BURN
 				</button>
