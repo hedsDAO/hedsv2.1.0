@@ -19,7 +19,7 @@ const Vote = () => {
 	const dispatch = useDispatch<Dispatch>();
 	const spaceData = useSelector((state: RootState) => state.spaceModel);
 	const currentTape = spaceData?.[tape]?.[+id - 1];
-	const isLiveTape = currentTape?.status?.status === 5;
+	const isVoteLive = currentTape?.status?.status === 5;
 	const submissions = useSelector((state: RootState) => state.submissionsModel);
 	const voteState = useSelector((state: RootState) => state.voteModel);
 	const userData = useSelector((state: RootState) => state.userModel);
@@ -50,7 +50,7 @@ const Vote = () => {
 	}, [userData?.collection]);
 	return (
 		<div className="px-3 mb-10">
-			{submissions.allSubmissions?.length && voteData && proposalData && userData && currentTape && isLiveTape && (
+			{submissions.allSubmissions?.length && voteData && proposalData && userData && currentTape && isVoteLive && (
 				<div className="max-w-[80rem] mx-auto">
 					<VoteHeader {...currentTape} />
 					<VoteContentContainer>
