@@ -33,7 +33,7 @@ export interface TapeData {
 	};
 	status: {
 		countdown: boolean;
-		status: string;
+		status: number;
 		time: string;
 	};
 	collab: {

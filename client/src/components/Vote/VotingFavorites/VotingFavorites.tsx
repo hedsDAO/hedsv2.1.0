@@ -41,7 +41,7 @@ const VotingFavorites = ({ votingPower }: { votingPower: number }) => {
 				<ul role="list" className="flex flex-col -my-1">
 					{voteState?.favorites?.favoritesList.map((favorite) => {
 						return (
-							<div key={favorite.subId} className="flex justify-between bg-neutral-950 py-2 px-1 text-neutral-400 my-1">
+							<div key={favorite.subId} className="flex justify-between bg-gray-200 dark:bg-neutral-950 py-2 px-1 text-neutral-800 dark:text-neutral-400 my-1 rounded-sm">
 								<button
 									onClick={() => dispatch.voteModel.setSelectedTrack(favorite.index)}
 									style={{ minWidth: "150px" }}
@@ -49,28 +49,28 @@ const VotingFavorites = ({ votingPower }: { votingPower: number }) => {
 									{formatSubId(favorite.subId)}
 								</button>
 								{votingPower > 0 && (
-									<div className="flex justify-between items-center text-sm font-medium text-gray-500 px-2">
+									<div className="flex justify-between items-center text-sm font-medium text-neutral-700 dark:text-gray-500 px-2">
 										<div className="mr-3 flex gap-x-2 px-2">
 											<button
 												role="button"
 												type="button"
-												className="text-neutral-400 border-neutral-300"
+												className="text-neutral-800 dark:text-neutral-400 border-neutral-300"
 												onClick={() => handleDecreaseVote(voteCount - 1, favorite)}>
 												<i className="fa-thin fa-minus"></i>
 											</button>
-											<span className="text-neutral-300 min-w-[2ch] max-w-[2ch] text-center">
+											<span className="text-neutral-800 dark:text-neutral-300 min-w-[2ch] max-w-[2ch] text-center">
 												{userVotes[favorite.index + 1] || 0}
 											</span>
 											<button
 												role="button"
 												type="button"
-												className="text-neutral-400 border-neutral-300"
+												className="text-neutral-800 dark:text-neutral-400 border-neutral-300"
 												onClick={() => handleIncreaseVote(voteCount + 1, favorite)}>
 												<i className="fa-thin fa-plus"></i>
 											</button>
 										</div>
 										<div className="min-w-[6ch] max-w-[6ch] text-right px-1">
-											<span className="text-neutral-300">{calculateVotePercentage(favorite.index + 1)}%</span>
+											<span className="text-neutral-800 dark:text-neutral-300">{calculateVotePercentage(favorite.index + 1)}%</span>
 										</div>
 									</div>
 								)}
@@ -79,8 +79,8 @@ const VotingFavorites = ({ votingPower }: { votingPower: number }) => {
 					})}
 				</ul>
 			) : (
-				<div className="bg-neutral-850 flex text-red-500 text-opacity-70">
-					<div className="bg-neutral-950 text-center text-sm w-full py-3">[no favorites]</div>
+				<div className="bg-gray-300 dark:bg-neutral-850 flex text-red-500 text-opacity-70">
+					<div className="bg-gray-200 dark:bg-neutral-950 text-center text-sm w-full py-3 rounded-sm">[no favorites]</div>
 				</div>
 			)}
 		</>
