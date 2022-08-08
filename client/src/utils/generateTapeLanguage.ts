@@ -1,6 +1,6 @@
 import { TapeStatus } from "../models/common";
 
-const generateStatusColors = (status: string) => {
+const generateStatusColors = (status: number) => {
 	if (+status >= TapeStatus?.MINT_CLOSE) return "#9f0000";
 	if (+status === TapeStatus?.MINT_OPEN) return "green";
 	if (+status === TapeStatus?.VOTE_CLOSE) return "golderod";
