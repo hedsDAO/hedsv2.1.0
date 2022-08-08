@@ -3,11 +3,11 @@ import { models, RootModel } from "./models";
 
 export const store = init({
 	models,
-	// redux: {
-	// 	devtoolOptions: {
-	// 		disabled: true,
-	// 	},
-	// },
+	redux: {
+		devtoolOptions: {
+			disabled: true,
+		},
+	},
 });
 
 export type Store = typeof store;
