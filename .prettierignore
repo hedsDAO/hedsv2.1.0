@@ -1,0 +1,5 @@
+node_modules
+builds
+functions
+webpack.config.js
+package-lock.json

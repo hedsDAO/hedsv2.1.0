@@ -13,8 +13,8 @@ import { AudioPlayerProps } from "../../../models/common";
 
 const formWaveSurferOptions = (ref: HTMLElement) => ({
 	container: ref,
-	waveColor: "#a3a3a3",
-	progressColor: "#f59e0b",
+	waveColor: "#323232",
+	progressColor: "#C025D3",
 	cursorColor: "transparent",
 	barWidth: 2,
 	barRadius: 0,
@@ -121,30 +121,30 @@ const AudioPlayer = ({ tracks, selectedTrack }: AudioPlayerProps) => {
 	}, [selectedTrack]);
 
 	return (
-		<div className="bg-neutral-900 px-5 pt-2 pb-4 mb-2 rounded-md">
+		<div className="bg-neutral-200 dark:bg-neutral-900 px-5 pt-2 pb-4 mb-2 rounded-md">
 			{/* <h2 className="text-md font-thin mb-2 text-amber-500 mx-2">{formatSubId(subId)}</h2> */}
 			<div className="flex items-center md:justify-start justify-center w-12/12 md:w-1/12 sm:mx-4 ml-0.5">
 				<div className="flex md:justify-start justify-center items-center text-xs font-extralight tracking-widest text-neutral-100">
 					{isPlaying ? (
-						<div className="animate__animated animate__fadeInUp absolute -mt-2">NOW PLAYING</div>
+						<div className="animate__animated animate__fadeInUp absolute -mt-2 dark:text-neutral-300 text-neutral-700">NOW PLAYING</div>
 					) : firstMount ? (
 						<></>
 					) : (
-						<div className="animate__animated animate__fadeOutDown absolute -mt-2">NOW PLAYING</div>
+						<div className="animate__animated animate__fadeOutDown absolute -mt-2 dark:text-neutral-300 text-neutral-700">NOW PLAYING</div>
 					)}
 					{!isPlaying ? (
-						<div className="animate__animated animate__fadeInUp absolute -mt-2">QUEUED</div>
+						<div className="animate__animated animate__fadeInUp absolute -mt-2 dark:text-neutral-300 text-neutral-700">QUEUED</div>
 					) : firstMount ? (
 						<></>
 					) : (
-						<div className="animate__animated animate__fadeOutDown absolute -mt-2">QUEUED</div>
+						<div className="animate__animated animate__fadeOutDown absolute -mt-2 dark:text-neutral-300 text-neutral-700">QUEUED</div>
 					)}
-					<p className="text-sm font-bold tracking-widest text-amber-500 group-hover:text-gray-200 ease-in-out duration-300 pt-10 whitespace-nowrap">
+					<p className="text-sm font-bold tracking-widest text-neutral-800 dark:text-amber-500 group-hover:text-gray-200 ease-in-out duration-300 pt-10 whitespace-nowrap mb-2">
 						{formatSubId(subId)}
 					</p>
 				</div>
 			</div>
-			<div className="audio-player flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-10 mt-4 sm:mt-2">
+			<div className="audio-player flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-10 mt-4 sm:mt-6">
 				<div className="w-12/12 md:w-1/12 mx-1 flex flex-col justify-center items-center">
 					<AudioControls
 						isPlaying={isPlaying}

@@ -18,7 +18,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
 					onClick={() => onPlayPauseClick(false)}
 					aria-label="Pause">
 					<PauseIcon
-						className={`h-8 w-8 text-center text-amber-500
+						className={`h-8 w-8 text-center text-neutral-800 dark:text-amber-500
               z-40 group-hover:text-amber-900 transition-all ease-in-out duration-200 mt-0.5`}
 						aria-hidden="true"
 					/>
@@ -30,7 +30,7 @@ const AudioControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
 					onClick={() => onPlayPauseClick(true)}
 					aria-label="Play">
 					<PlayIcon
-						className={`h-8 w-8 text-center text-amber-500
+						className={`h-8 w-8 text-center text-neutral-800 dark:text-amber-500
               z-40 group-hover:text-amber-900 transition-all ease-in-out duration-200 mt-0.5`}
 						aria-hidden="true"
 					/>
