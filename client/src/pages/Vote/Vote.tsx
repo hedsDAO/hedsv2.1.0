@@ -11,10 +11,8 @@ import VotingFavorites from "../../components/Vote/VotingFavorites/VotingFavorit
 import VoteHeader from "../../components/Vote/VoteHeader/VoteHeader";
 import VoteContentContainer from "../../components/Vote/VoteContentContainer/VoteContentContainer";
 import VotingButtons from "../../components/Vote/VotingButtons/VotingButtons";
-import { useMoralis } from "react-moralis";
 
 const Vote = () => {
-	const { refetchUserData } = useMoralis()
 	const { user, getNFTs } = useMoralisHooks();
 	const walletId = user?.attributes.ethAddress;
 	const { space, tape, id } = useParams<{ space: string; tape: string; id: string }>();
@@ -27,10 +25,9 @@ const Vote = () => {
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { voteData, proposalData } = voteState.snapshot;
 	const powerMapping = [9, 6, 5, 7, 6, 5];
-
+ 
 	useEffect(() => {
 		// TODO: update collection name
-		refetchUserData()
 		getNFTs();
 		dispatch.spaceModel.getSpaceData("heds");
 		dispatch.globalModel.setSpaceTapeId([space, tape, id]);
@@ -80,9 +77,9 @@ const Vote = () => {
 								<VotingFavorites votingPower={userData?.votingPower} />
 							</VoteContentContainer>
 							{voteState?.snapshot?.proposalData?.state !== "closed" && (
-
-								<VotingButtons votingPower={userData?.votingPower} />
-
+								<VoteContentContainer className="w-full bg-opacity-0 p-0 mt-1">
+									<VotingButtons votingPower={userData?.votingPower} />
+								</VoteContentContainer>
 							)}
 						</div>
 						<div className="w-full md:w-5/12 md:mt-0 mt-2">

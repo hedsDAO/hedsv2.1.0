@@ -38,10 +38,12 @@ export const userModel = createModel<RootModel>()({
 			const newState = { ...state };
 			newState.votingPower = 0;
 			const { collection, walletId, powerMapping } = userData;
+			console.log("collection:", collection)
 			if (!collection || Object.values(collection).length === 0) return newState;
 			else {
 				if (whitelist.includes(walletId)) newState.votingPower += 10;
 				Object.values(collection).map((tape, idx) => {
+					console.log("vp:", newState.votingPower)
 					newState.votingPower += tape.quantity * powerMapping[idx];
 				});
 				return newState;
