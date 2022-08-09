@@ -24,7 +24,6 @@ const Vote = () => {
 	const voteState = useSelector((state: RootState) => state.voteModel);
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { voteData, proposalData } = voteState.snapshot;
-	const powerMapping = [9, 6, 5, 7, 6, 5];
  
 	useEffect(() => {
 		// TODO: update collection name
@@ -45,7 +44,7 @@ const Vote = () => {
 
 	useEffect(() => {
 		if (!voteState.votingPower && userData?.collection) {
-			dispatch.userModel.setVotingPower({ walletId, collection: userData?.collection, powerMapping });
+			dispatch.userModel.getVotingPower(walletId);
 		}
 	}, [userData?.collection]);
 	return (
