@@ -10,7 +10,6 @@ const hedsTapeAddresses: Array<string> = [
 ];
 
 const parseAddresses = (userCollection: any) => {
-	console.log(userCollection)
 	const collectionTank: CollectionTank = {};
 	if (Array.isArray(userCollection)) {
 		userCollection.sort((a,b) => a.block_number - b.block_number);
