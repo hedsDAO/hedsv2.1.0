@@ -32,14 +32,12 @@ const SubmissionsPlayer = ({ tracks, walletId }: SubmissionsPlayerProps) => {
 	return (
 		<ul role="list" className="grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
 			{tracks?.length &&
-				<li className="flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-3 col-span-full w-full">
+				<li className="flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-2.5 col-span-full w-full">
 					<button
 						onClick={() => dispatch.voteModel.setSelectedTrack(tracks?.length - 1)}
 						style={{ minWidth: "150px" }}
 						className={`flex justify-between w-full text-left text-sm font-medium ${highlightSubmission(tracks?.length - 1)}`}>
-
 						<h4>Daniel Allan</h4>
-
 						<i className="fa-regular fa-waveform text-neutral-400 text-sm"></i>
 					</button>
 				</li>}
