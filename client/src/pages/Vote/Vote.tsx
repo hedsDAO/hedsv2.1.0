@@ -11,8 +11,10 @@ import VotingFavorites from "../../components/Vote/VotingFavorites/VotingFavorit
 import VoteHeader from "../../components/Vote/VoteHeader/VoteHeader";
 import VoteContentContainer from "../../components/Vote/VoteContentContainer/VoteContentContainer";
 import VotingButtons from "../../components/Vote/VotingButtons/VotingButtons";
+import { useMoralis } from "react-moralis";
 
 const Vote = () => {
+	const { refetchUserData } = useMoralis()
 	const { user, getNFTs } = useMoralisHooks();
 	const walletId = user?.attributes.ethAddress;
 	const { space, tape, id } = useParams<{ space: string; tape: string; id: string }>();
@@ -28,6 +30,7 @@ const Vote = () => {
 
 	useEffect(() => {
 		// TODO: update collection name
+		refetchUserData()
 		getNFTs();
 		dispatch.spaceModel.getSpaceData("heds");
 		dispatch.globalModel.setSpaceTapeId([space, tape, id]);
