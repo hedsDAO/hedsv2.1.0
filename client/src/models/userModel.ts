@@ -4,16 +4,9 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../index";
 import { BadgeData, CollectionTank, TrackMetadata } from "./common";
 import { populateNewUser } from "../utils/populateNewUser";
-import { whitelist } from "../data/whitelists/tokenBurnWhitelist";
 import { getSplitsUserBalance } from "../utils/graphql/getSplitsUserBalance";
+import { getUserVotingPower } from "../utils/graphql/getUserVotingPower";
 import { ethers } from "ethers"
-
-
-interface SetVotingPower {
-	walletId: string | any;
-	collection?: CollectionTank;
-	powerMapping: Array<number>;
-}
 
 export interface UserState {
 	profilePicture?: string;
@@ -34,20 +27,10 @@ export const userModel = createModel<RootModel>()({
 	} as UserState,
 	reducers: {
 		setCollection: (state, collection: CollectionTank) => ({ ...state, collection }),
-		setVotingPower: (state, userData: SetVotingPower) => {
+		setVotingPower: (state, votingPower: number) => {
 			const newState = { ...state };
-			newState.votingPower = 0;
-			const { collection, walletId, powerMapping } = userData;
-			console.log("collection:", collection)
-			if (!collection || Object.values(collection).length === 0) return newState;
-			else {
-				if (whitelist.includes(walletId)) newState.votingPower += 10;
-				Object.values(collection).map((tape, idx) => {
-					console.log("vp:", newState.votingPower)
-					newState.votingPower += tape.quantity * powerMapping[idx];
-				});
-				return newState;
-			}
+			newState.votingPower = votingPower;
+			return newState;
 		},
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
 		setSplitsBalance: (state, splitsBalance: string) => ({ ...state, splitsBalance }),
@@ -133,6 +116,11 @@ export const userModel = createModel<RootModel>()({
 				this.setSplitsBalance(ethers.utils.formatEther(amount));
 				return;
 			}
+			return;
+		},
+		async getVotingPower(walletId: string) {
+			const votingPower = await getUserVotingPower(walletId);
+			this.setVotingPower(votingPower?.vp?.vp);
 			return;
 		},
 	}),
