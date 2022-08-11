@@ -172,11 +172,11 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 			<div className="text-center mx-auto">
 				<div className="text-sm font-medium text-neutral-400 my-4 px-8 py-5 bg-neutral-900 mx-10 rounded-lg">
 					The past year has been an eye-opening experience at heds. From day one, our goal has been supporting and rewarding
-					creativity- that will never change.
+					creativity.
 					<br />
 					<br />
 					<span className="text-neutral-300 pt-4">
-						We know you've been here since day one and, as always, it's our prerogative to reward the OG's.
+						We know you've been here since the beginning and, as always, it's our prerogative to reward the OG's.
 					</span>
 				</div>
 			</div>
