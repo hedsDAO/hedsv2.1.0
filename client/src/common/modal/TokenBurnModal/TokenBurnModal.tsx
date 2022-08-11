@@ -5,10 +5,11 @@ import { RootState, Dispatch } from "../../../store";
 import { useMoralis, useERC20Balances } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
 import { useHistory } from "react-router";
+import { BadgeData } from "../../../models/common";
 var ethers = require("ethers");
 const GENHEAD_TOKEN_ADDRESS = "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375";
-const GENHEAD_BURN_CONTRACT = "";
-const GENHEAD_BURN_ABI = {};
+const GENHEAD_BURN_CONTRACT = "0x96d5613fcA6Adc368757b98016D61Be43100bD44";
+const GENHEAD_BURN_ABI = require('../../../data/whitelists/abi/TokenBurnContractAbi.json');
 
 enum TokenBurnSteps {
 	AUTHENTICATE = 0,
@@ -16,6 +17,12 @@ enum TokenBurnSteps {
 	PENDING,
 	COMPLETE,
 }
+
+const OGHed: BadgeData = {
+	description: "OG HED",
+	image: "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/badges%2Fog.png?alt=media&token=0d6e7ee6-1672-4dab-9c56-9a08694443ef",
+	name: "OG",
+};
 
 const TokenBurnModal = () => {
 	const history = useHistory();
@@ -25,7 +32,7 @@ const TokenBurnModal = () => {
 	const [balanceLoaded, setBalanceLoaded] = useState<boolean>(false);
 	const [genheadBalance, setGenheadBalance] = useState<string | void>();
 	const [error, setError] = useState<string | void>();
-	const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, web3 } = useMoralis();
+	const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, web3, user } = useMoralis();
 	const { fetchERC20Balances, data } = useERC20Balances();
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
 	const dispatch = useDispatch<Dispatch>();
@@ -34,11 +41,13 @@ const TokenBurnModal = () => {
 		setLoading(true);
 		setStep(TokenBurnSteps.COMPLETE);
 		let contract;
-		if (web3) {
+		if (web3 && user) {
 			contract = new ethers.Contract(GENHEAD_BURN_CONTRACT, GENHEAD_BURN_ABI, web3.getSigner());
 			try {
+				const wallet = user?.attributes?.ethAddress
 				const txn = await contract.redeem(genheadBalance);
 				const receipt = await txn.wait();
+				if (txn && receipt && wallet) dispatch.userModel.updateBadges([wallet, OGHed]);
 				console.log(receipt, "txn reciept");
 				setStep(TokenBurnSteps.COMPLETE);
 			} catch (err: any) {
