@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
@@ -37,11 +37,16 @@ const TokenBurnModal = () => {
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
 	const dispatch = useDispatch<Dispatch>();
 
+	const calculateNumTokens = (tokenBalance: string): string => {
+		const tokenCount = tokenBalance.length - 18;
+		return tokenBalance.slice(0, tokenCount);
+	}
+
 	const handleTokenBurn = async () => {
+		console.log("hello there")
 		setLoading(true);
-		setStep(TokenBurnSteps.COMPLETE);
 		let contract;
-		if (web3 && user) {
+		if (web3 && isWeb3Enabled && user) {
 			contract = new ethers.Contract(GENHEAD_BURN_CONTRACT, GENHEAD_BURN_ABI, web3.getSigner());
 			try {
 				const wallet = user?.attributes?.ethAddress
@@ -51,6 +56,7 @@ const TokenBurnModal = () => {
 				console.log(receipt, "txn reciept");
 				setStep(TokenBurnSteps.COMPLETE);
 			} catch (err: any) {
+				console.log(err)
 				setError("There was a problem claiming your status. Please try again.");
 			}
 		}
@@ -66,7 +72,9 @@ const TokenBurnModal = () => {
 							res.map((token) => {
 								console.log(token);
 								if (token.token_address === GENHEAD_TOKEN_ADDRESS && token?.balance) {
-									setGenheadBalance(token.balance);
+									console.log(calculateNumTokens(token.balance))
+									setGenheadBalance(calculateNumTokens(token.balance));
+									setBalanceLoaded(true);
 								}
 							});
 						}
@@ -78,6 +86,10 @@ const TokenBurnModal = () => {
 			.catch(() => setError("unable to authenticate"));
 		setLoading(false);
 	};
+
+	useEffect(() => {
+		
+	},[step])
 
 	return (
 		<Transition appear show={open} as={Fragment}>
@@ -118,7 +130,6 @@ const TokenBurnModal = () => {
 												isWeb3Enabled={isWeb3Enabled}
 												hasAcceptedTerms={hasAcceptedTerms}
 												setHasAcceptedTerms={setHasAcceptedTerms}
-												setBalanceLoaded={setBalanceLoaded}
 												balanceLoaded={balanceLoaded}
 											/>
 										) : step === TokenBurnSteps.PENDING ? (
@@ -223,7 +234,7 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 	);
 };
 
-const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, setBalanceLoaded, balanceLoaded }: any) => {
+const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, balanceLoaded }: any) => {
 	return (
 		<Fragment>
 			<div className="flex flex-col justify-center items-center">
@@ -265,8 +276,6 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 			{data?.length &&
 				isWeb3Enabled &&
 				data.map((token: any) => {
-					if (token.token_address === "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375") {
-						setBalanceLoaded(true);
 						return (
 							<div key={token.name} className="py-4">
 								<div className="text-green-500 font-thin flex justify-center text-sm">
@@ -279,8 +288,7 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 								</div>
 							</div>
 						);
-					}
-				})}
+					})}
 			<div className="relative flex justify-center items-start">
 				<div className="flex items-center h-5">
 					<input
