@@ -24,8 +24,7 @@ const Vote = () => {
 	const userData = useSelector((state: RootState) => state.userModel);
 	const sampleData = useSelector((state: RootState) => state.audioModel)?.samples;
 	const { voteData, proposalData } = voteState.snapshot;
-	const powerMapping = [9, 6, 5, 7, 6, 5];
-
+ 
 	useEffect(() => {
 		// TODO: update collection name
 		getNFTs();
@@ -61,7 +60,7 @@ const Vote = () => {
 
 	useEffect(() => {
 		if (!voteState.votingPower && userData?.collection) {
-			dispatch.userModel.setVotingPower({ walletId, collection: userData?.collection, powerMapping });
+			dispatch.userModel.getVotingPower(walletId);
 		}
 	}, [userData?.collection]);
 	return (
@@ -93,9 +92,9 @@ const Vote = () => {
 								<VotingFavorites votingPower={userData?.votingPower} />
 							</VoteContentContainer>
 							{voteState?.snapshot?.proposalData?.state !== "closed" && (
-
-								<VotingButtons votingPower={userData?.votingPower} />
-
+								<VoteContentContainer className="w-full bg-opacity-0 p-0 mt-1">
+									<VotingButtons votingPower={userData?.votingPower} />
+								</VoteContentContainer>
 							)}
 						</div>
 						<div className="w-full md:w-5/12 md:mt-0 mt-2">
