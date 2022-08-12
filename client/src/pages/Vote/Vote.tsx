@@ -7,7 +7,6 @@ import AudioPlayer from "../../components/Vote/AudioPlayer/AudioPlayer";
 import SubmissionsPlayer from "../../components/Vote/SubmissionsPlayer/SubmissionsPlayer";
 import VotingResults from "../../components/Vote/VotingResults/VotingResults";
 import VotingFavorites from "../../components/Vote/VotingFavorites/VotingFavorites";
-// import InfoTooltip from "../../common/tooltip/InfoTooltip/InfoTooltip";
 import VoteHeader from "../../components/Vote/VoteHeader/VoteHeader";
 import VoteContentContainer from "../../components/Vote/VoteContentContainer/VoteContentContainer";
 import VotingButtons from "../../components/Vote/VotingButtons/VotingButtons";
@@ -23,21 +22,37 @@ const Vote = () => {
 	const submissions = useSelector((state: RootState) => state.submissionsModel);
 	const voteState = useSelector((state: RootState) => state.voteModel);
 	const userData = useSelector((state: RootState) => state.userModel);
+	const sampleData = useSelector((state: RootState) => state.audioModel)?.samples;
 	const { voteData, proposalData } = voteState.snapshot;
-	const powerMapping = [9, 6, 5, 7, 6, 5];
-
+ 
 	useEffect(() => {
 		// TODO: update collection name
 		getNFTs();
+		dispatch.audioModel.getSamples()
 		dispatch.spaceModel.getSpaceData("heds");
 		dispatch.globalModel.setSpaceTapeId([space, tape, id]);
 		dispatch.userModel.getUserData(walletId);
 		dispatch.voteModel.loadSnapshotSpaceData();
-		dispatch.submissionsModel.loadAllSubmissions([space || "heds", tape, id]);
 		dispatch.submissionsModel.loadUserFavorties([space || "heds", tape, id, walletId]);
 		dispatch.voteModel.setVoteCount(0);
 		dispatch.voteModel.setUserVotes({});
 	}, []);
+
+	useEffect(() => {
+		if (sampleData?.length && sampleData[+id - 1]) {
+			const { artist, audio, wallet } = sampleData[+id - 1];
+			dispatch.submissionsModel.loadAllSubmissions([
+				space || "heds",
+				tape,
+				id,
+				{
+					id: wallet,
+					subId: artist,
+					link: audio,
+				}])
+
+		}
+	}, [sampleData])
 
 	useEffect(() => {
 		dispatch.submissionsModel.loadUserFavorties([space || "heds", tape, id, walletId]);
@@ -45,7 +60,7 @@ const Vote = () => {
 
 	useEffect(() => {
 		if (!voteState.votingPower && userData?.collection) {
-			dispatch.userModel.setVotingPower({ walletId, collection: userData?.collection, powerMapping });
+			dispatch.userModel.getVotingPower(walletId);
 		}
 	}, [userData?.collection]);
 	return (
@@ -77,9 +92,9 @@ const Vote = () => {
 								<VotingFavorites votingPower={userData?.votingPower} />
 							</VoteContentContainer>
 							{voteState?.snapshot?.proposalData?.state !== "closed" && (
-
-								<VotingButtons votingPower={userData?.votingPower} />
-
+								<VoteContentContainer className="w-full bg-opacity-0 p-0 mt-1">
+									<VotingButtons votingPower={userData?.votingPower} />
+								</VoteContentContainer>
 							)}
 						</div>
 						<div className="w-full md:w-5/12 md:mt-0 mt-2">

@@ -31,8 +31,19 @@ const SubmissionsPlayer = ({ tracks, walletId }: SubmissionsPlayerProps) => {
 
 	return (
 		<ul role="list" className="grid grid-cols-1 gap-x-2 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
-			{tracks?.map((sub, idx) => (
-				<li key={idx} className="flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-1">
+			{tracks?.length &&
+				<li className="flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-2.5 col-span-full w-full">
+					<button
+						onClick={() => dispatch.voteModel.setSelectedTrack(tracks?.length - 1)}
+						style={{ minWidth: "150px" }}
+						className={`flex justify-between w-full text-left text-sm font-medium ${highlightSubmission(tracks?.length - 1)}`}>
+						<h4>Daniel Allan</h4>
+						<i className="fa-regular fa-waveform text-neutral-400 text-sm"></i>
+					</button>
+				</li>}
+				{/* TODO: Rework how we render sample audio */}
+			{tracks?.slice(0, tracks?.length - 1).map((sub, idx) => (
+				<li key={idx} className={`flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-1 ${idx === selectedTrack && "border-[0.5px] dark:border-gray-700 border-gray-500"}`}>
 					<button
 						onClick={() => dispatch.voteModel.setSelectedTrack(idx)}
 						style={{ minWidth: "150px" }}

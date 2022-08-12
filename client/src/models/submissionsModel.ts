@@ -42,7 +42,7 @@ export const submissionsModel = createModel<RootModel>()({
 		}),
 	},
 	effects: (dispatch) => ({
-		async loadAllSubmissions([space, tape, id]: Array<string>) {
+		async loadAllSubmissions([space, tape, id, sample]: [string, string, string, UserSubmission]) {
 			const querySnapshot = await getDocs(collection(db, "submissions"))
 			const submissionsTank: Array<UserSubmission> = [];
 			querySnapshot.forEach((doc) => {
@@ -55,6 +55,7 @@ export const submissionsModel = createModel<RootModel>()({
 					});
 				}
 			});
+			submissionsTank.push(sample);
 			this.setAllSubmissions(submissionsTank);
 			this.setSubmissionsCount(submissionsTank.length);
 		},
