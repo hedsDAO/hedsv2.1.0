@@ -41,6 +41,7 @@ const SubmissionsPlayer = ({ tracks, walletId }: SubmissionsPlayerProps) => {
 						<i className="fa-regular fa-waveform text-neutral-400 text-sm"></i>
 					</button>
 				</li>}
+				{/* TODO: Rework how we render sample audio */}
 			{tracks?.slice(0, tracks?.length - 1).map((sub, idx) => (
 				<li key={idx} className={`flex justify-between bg-neutral-200 dark:bg-neutral-900 rounded-md py-1.5 px-1 ${idx === selectedTrack && "border-[0.5px] dark:border-gray-700 border-gray-500"}`}>
 					<button
