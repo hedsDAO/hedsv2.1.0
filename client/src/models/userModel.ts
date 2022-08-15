@@ -108,6 +108,16 @@ export const userModel = createModel<RootModel>()({
 				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
 			}
 		},
+		async updateBadges([wallet, badge] : [string, BadgeData]) {
+			const docRef = doc(db, "users", wallet);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const { badges } = docSnap.data();
+				badges.push(badge);
+				const updatedUserData = { ...docSnap.data(), badges };
+				await updateDoc(docRef, updatedUserData).then(() => this.setUserData(updatedUserData));
+			}
+		},
 		async getSplitsBalance(walletId: string) {
 			const balance = await getSplitsUserBalance(walletId);
 			const tokenId = balance.user.internalBalances[0].token.id;

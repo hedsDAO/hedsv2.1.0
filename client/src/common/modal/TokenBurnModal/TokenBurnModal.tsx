@@ -1,14 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
 import { useMoralis, useERC20Balances } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
 import { useHistory } from "react-router";
+import { BadgeData } from "../../../models/common";
 var ethers = require("ethers");
+import { BigNumber } from "ethers";
 const GENHEAD_TOKEN_ADDRESS = "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375";
-const GENHEAD_BURN_CONTRACT = "";
-const GENHEAD_BURN_ABI = {};
+const GENHEAD_BURN_CONTRACT = "0x96d5613fcA6Adc368757b98016D61Be43100bD44";
+const GENHEAD_BURN_ABI = require('../../../data/whitelists/abi/TokenBurnContractAbi.json');
+const APPROVAL_ABI = require('../../../data/whitelists/abi/proxyAbi.json');
 
 enum TokenBurnSteps {
 	AUTHENTICATE = 0,
@@ -17,6 +20,12 @@ enum TokenBurnSteps {
 	COMPLETE,
 }
 
+const OGHed: BadgeData = {
+	description: "OG HED",
+	image: "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/badges%2Fog.png?alt=media&token=0d6e7ee6-1672-4dab-9c56-9a08694443ef",
+	name: "OG",
+};
+
 const TokenBurnModal = () => {
 	const history = useHistory();
 	const [hasAcceptedTerms, setHasAcceptedTerms] = useState<boolean>(false);
@@ -24,29 +33,64 @@ const TokenBurnModal = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [balanceLoaded, setBalanceLoaded] = useState<boolean>(false);
 	const [genheadBalance, setGenheadBalance] = useState<string | void>();
+	const [isApproved, setIsApproved] = useState(false);
 	const [error, setError] = useState<string | void>();
-	const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, web3 } = useMoralis();
+	const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, web3, user } = useMoralis();
 	const { fetchERC20Balances, data } = useERC20Balances();
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
 	const dispatch = useDispatch<Dispatch>();
 
+	// keep for possible float num bugs
+	// @ts-ignore
+	const calculateNumTokens = (tokenBalance: string): string => {
+		const tokenCount = tokenBalance.length - 18;
+		return tokenBalance.slice(0, tokenCount);
+	}
+
+	const handleApproval = async () => {
+		setLoading(true);
+		if (web3 && isWeb3Enabled && user && genheadBalance) {
+			let tokenContract = new ethers.Contract(GENHEAD_TOKEN_ADDRESS, APPROVAL_ABI, web3.getSigner());
+			try {
+				setLoading(true);
+				const txn = await tokenContract.approve(GENHEAD_BURN_CONTRACT, BigNumber.from(genheadBalance))
+				const receipt = await txn.wait();
+				if (receipt.status === 1) {
+					setIsApproved(true);
+					setLoading(false);
+				}
+			}
+			catch (err: any) {
+				setLoading(false)
+				setIsApproved(false);
+				setError("There was a problem claiming your status. Please try again.");
+			}
+		}
+	}
+
 	const handleTokenBurn = async () => {
 		setLoading(true);
-		setStep(TokenBurnSteps.COMPLETE);
 		let contract;
-		if (web3) {
+		if (web3 && isWeb3Enabled && user && genheadBalance) {
 			contract = new ethers.Contract(GENHEAD_BURN_CONTRACT, GENHEAD_BURN_ABI, web3.getSigner());
 			try {
+				const wallet = user?.attributes?.ethAddress
 				const txn = await contract.redeem(genheadBalance);
 				const receipt = await txn.wait();
-				console.log(receipt, "txn reciept");
-				setStep(TokenBurnSteps.COMPLETE);
+				if (txn && receipt && wallet) {
+					if (receipt.status === 1) {
+						dispatch.userModel.updateBadges([wallet, OGHed]);
+						setStep(TokenBurnSteps.COMPLETE);
+					}
+				}
 			} catch (err: any) {
+				setLoading(false)
 				setError("There was a problem claiming your status. Please try again.");
 			}
 		}
 		setLoading(false);
 	};
+
 	const handleAuthAndBalance = async () => {
 		setLoading(true);
 		await enableWeb3()
@@ -55,9 +99,11 @@ const TokenBurnModal = () => {
 					.then((res) => {
 						if (res?.length) {
 							res.map((token) => {
-								console.log(token);
+
 								if (token.token_address === GENHEAD_TOKEN_ADDRESS && token?.balance) {
+
 									setGenheadBalance(token.balance);
+									setBalanceLoaded(true);
 								}
 							});
 						}
@@ -69,6 +115,10 @@ const TokenBurnModal = () => {
 			.catch(() => setError("unable to authenticate"));
 		setLoading(false);
 	};
+
+	useEffect(() => {
+
+	}, [step])
 
 	return (
 		<Transition appear show={open} as={Fragment}>
@@ -95,6 +145,7 @@ const TokenBurnModal = () => {
 										{step === TokenBurnSteps.AUTHENTICATE ? (
 											<Authenticate
 												dispatch={dispatch}
+												clearModalState={dispatch.globalModel.clearModalState}
 												handleAuthAndBalance={handleAuthAndBalance}
 												isWeb3Enabled={isWeb3Enabled}
 												isWeb3EnableLoading={isWeb3EnableLoading}
@@ -109,8 +160,9 @@ const TokenBurnModal = () => {
 												isWeb3Enabled={isWeb3Enabled}
 												hasAcceptedTerms={hasAcceptedTerms}
 												setHasAcceptedTerms={setHasAcceptedTerms}
-												setBalanceLoaded={setBalanceLoaded}
 												balanceLoaded={balanceLoaded}
+												isApproved={isApproved}
+												handleApproval={handleApproval}
 											/>
 										) : step === TokenBurnSteps.PENDING ? (
 											<div className="flex flex-col justify-center items-center h-full py-20">
@@ -157,17 +209,17 @@ const TokenBurnModal = () => {
 
 export default TokenBurnModal;
 
-const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3EnableLoading, setStep }: any) => {
+const Authenticate = ({ handleAuthAndBalance, isWeb3Enabled, isWeb3EnableLoading, setStep, clearModalState }: any) => {
 	return (
 		<Fragment>
 			<div className="text-center mx-auto">
 				<div className="text-sm font-medium text-neutral-400 my-4 px-8 py-5 bg-neutral-900 mx-10 rounded-lg">
 					The past year has been an eye-opening experience at heds. From day one, our goal has been supporting and rewarding
-					creativity- that will never change.
+					creativity.
 					<br />
 					<br />
 					<span className="text-neutral-300 pt-4">
-						We know you've been here since day one and, as always, it's our prerogative to reward the OG's.
+						We know you've been here since the beginning and, as always, it's our prerogative to reward the OG's.
 					</span>
 				</div>
 			</div>
@@ -199,14 +251,14 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 			</div>
 			<div className="gap-x-2 flex justify-center items-stretch pt-4">
 				<button
-					onClick={() => dispatch.globalModel.setModalVisibility(false)}
-					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
+					onClick={() => clearModalState()}
+					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
 				</button>
 				<button
 					onClick={isWeb3Enabled ? () => setStep(TokenBurnSteps.BURN) : () => handleAuthAndBalance()}
 					disabled={isWeb3EnableLoading}
-					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+					className="px-4 py-1 text-sm bg-green-700 text-neutral-300 inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
 					{isWeb3Enabled ? "CONTINUE" : "AUTHENTICATE"}
 				</button>
 			</div>
@@ -214,7 +266,7 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 	);
 };
 
-const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, setBalanceLoaded, balanceLoaded }: any) => {
+const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, balanceLoaded, isApproved, handleApproval, loading }: any) => {
 	return (
 		<Fragment>
 			<div className="flex flex-col justify-center items-center">
@@ -256,54 +308,67 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 			{data?.length &&
 				isWeb3Enabled &&
 				data.map((token: any) => {
-					if (token.token_address === "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375") {
-						setBalanceLoaded(true);
-						return (
-							<div key={token.name} className="py-4">
-								<div className="text-green-500 font-thin flex justify-center text-sm">
-									<h6>
-										GENHED BALANCE - {ethers.utils.formatUnits(token.balance, "ether")}{" "}
-										<span className="ml-1">
-											({parseInt(ethers.utils.formatUnits(token.balance, "ether")) / 1000} ETH)
-										</span>
-									</h6>
-								</div>
+					if (token.token_address === GENHEAD_TOKEN_ADDRESS) return (
+						<div key={token.name} className="py-4">
+							<div className="text-green-500 font-thin flex justify-center text-sm">
+								<h6>
+									GENHED BALANCE - {parseInt(ethers.utils.formatUnits((token.balance), "ether")).toFixed(2)}{" "}
+									<span className="ml-1">
+										({parseInt(ethers.utils.formatUnits(token.balance, "ether")) / 1000} ETH)
+									</span>
+								</h6>
 							</div>
-						);
-					}
+						</div>
+					);
 				})}
 			<div className="relative flex justify-center items-start">
-				<div className="flex items-center h-5">
-					<input
-						id="comments"
-						onChange={() => setHasAcceptedTerms(!hasAcceptedTerms)}
-						aria-describedby="comments-description"
-						name="comments"
-						type="checkbox"
-						className="focus:ring-transparent h-4 w-4 text-indigo-600 border-gray-300 rounded"
-					/>
-				</div>
-				<div className="ml-3 text-sm">
-					<span id="comments-description" className="text-neutral-500">
-						I accept{" "}
-						<a href="https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/legal%2Fterms%20and%20conditions.pdf?alt=media&token=43655f7e-ed13-4839-91b6-71733d951c2a" target="_blank" className="text-blue-500">
-							terms and conditions.
-						</a>
-					</span>
-				</div>
+				{isApproved && hasAcceptedTerms ? <></>
+					:
+					<Fragment><div className="flex items-center h-5">
+						<input
+							id="comments"
+							onChange={() => setHasAcceptedTerms(!hasAcceptedTerms)}
+							aria-describedby="comments-description"
+							name="comments"
+							type="checkbox"
+							className="focus:ring-transparent h-4 w-4 text-indigo-600 border-gray-300 rounded"
+						/>
+					</div>
+						<div className="ml-3 text-sm">
+							<span id="comments-description" className="text-neutral-500">
+								I accept{" "}
+								<a href="https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/legal%2Fterms%20and%20conditions.pdf?alt=media&token=43655f7e-ed13-4839-91b6-71733d951c2a" target="_blank" className="text-blue-500">
+									terms and conditions.
+								</a>
+							</span>
+						</div>
+					</Fragment>}
 			</div>
 			<div className="gap-x-2 flex justify-center items-stretch pt-6">
-				<button
+				{!isApproved && !loading ? <button
 					onClick={() => dispatch.globalModel.setModalVisibility(false)}
 					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
-				</button>
-				<button
+				</button> : <></>}
+				{isApproved ? <div className="flex flex-col items-center"><button
 					onClick={() => handleTokenBurn()}
-					disabled={!hasAcceptedTerms || !balanceLoaded}
+					disabled={!hasAcceptedTerms || !balanceLoaded || loading}
 					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
-					BURN
+					{loading ? <LoadingIcon /> : "BURN"}
 				</button>
+				{loading && <p className="animate-pulse text-sm italic text-neutral-300 mt-3">awaiting transfer</p>}
+				</div> :
+					<div className="flex flex-col items-center">
+						<button
+							onClick={() => handleApproval()}
+							disabled={!hasAcceptedTerms || !balanceLoaded || loading}
+							className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+							{loading ?
+								<LoadingIcon />
+								: "APPROVE"}
+						</button>
+						{loading && <p className="animate-pulse text-sm italic text-neutral-300 mt-3">awaiting approval</p>}
+					</div>}
 			</div>
 		</Fragment>
 	);
