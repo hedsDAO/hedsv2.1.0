@@ -40,6 +40,8 @@ const TokenBurnModal = () => {
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
 	const dispatch = useDispatch<Dispatch>();
 
+	// keep for possible float num bugs
+	// @ts-ignore
 	const calculateNumTokens = (tokenBalance: string): string => {
 		const tokenCount = tokenBalance.length - 18;
 		return tokenBalance.slice(0, tokenCount);
@@ -59,14 +61,14 @@ const TokenBurnModal = () => {
 				}
 			}
 			catch (err: any) {
-				console.log(err)
+
 				setError("There was a problem claiming your status. Please try again.");
 			}
 		}
 	}
 
 	const handleTokenBurn = async () => {
-		console.log("hello there")
+
 		setLoading(true);
 		let contract;
 		if (web3 && isWeb3Enabled && user && genheadBalance) {
@@ -81,9 +83,9 @@ const TokenBurnModal = () => {
 						setStep(TokenBurnSteps.COMPLETE);
 					}
 				}
-				console.log(receipt, "txn reciept");
+
 			} catch (err: any) {
-				console.log(err)
+
 				setError("There was a problem claiming your status. Please try again.");
 			}
 		}
@@ -98,9 +100,9 @@ const TokenBurnModal = () => {
 					.then((res) => {
 						if (res?.length) {
 							res.map((token) => {
-								console.log(token);
+
 								if (token.token_address === GENHEAD_TOKEN_ADDRESS && token?.balance) {
-									console.log(calculateNumTokens(token.balance))
+
 									setGenheadBalance(token.balance);
 									setBalanceLoaded(true);
 								}
@@ -340,11 +342,11 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 				</div>
 			</div>
 			<div className="gap-x-2 flex justify-center items-stretch pt-6">
-				<button
+				{!isApproved && !loading ? <button
 					onClick={() => dispatch.globalModel.setModalVisibility(false)}
 					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
-				</button>
+				</button> : <></>}
 				{isApproved ? <button
 					onClick={() => handleTokenBurn()}
 					disabled={!hasAcceptedTerms || !balanceLoaded}
