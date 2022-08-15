@@ -61,14 +61,14 @@ const TokenBurnModal = () => {
 				}
 			}
 			catch (err: any) {
-
+				setLoading(false)
+				setIsApproved(false);
 				setError("There was a problem claiming your status. Please try again.");
 			}
 		}
 	}
 
 	const handleTokenBurn = async () => {
-
 		setLoading(true);
 		let contract;
 		if (web3 && isWeb3Enabled && user && genheadBalance) {
@@ -85,7 +85,7 @@ const TokenBurnModal = () => {
 				}
 
 			} catch (err: any) {
-
+				setLoading(false)
 				setError("There was a problem claiming your status. Please try again.");
 			}
 		}
@@ -322,24 +322,27 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 					);
 				})}
 			<div className="relative flex justify-center items-start">
-				<div className="flex items-center h-5">
-					<input
-						id="comments"
-						onChange={() => setHasAcceptedTerms(!hasAcceptedTerms)}
-						aria-describedby="comments-description"
-						name="comments"
-						type="checkbox"
-						className="focus:ring-transparent h-4 w-4 text-indigo-600 border-gray-300 rounded"
-					/>
-				</div>
-				<div className="ml-3 text-sm">
-					<span id="comments-description" className="text-neutral-500">
-						I accept{" "}
-						<a href="https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/legal%2Fterms%20and%20conditions.pdf?alt=media&token=43655f7e-ed13-4839-91b6-71733d951c2a" target="_blank" className="text-blue-500">
-							terms and conditions.
-						</a>
-					</span>
-				</div>
+				{isApproved && hasAcceptedTerms ? <></>
+					:
+					<Fragment><div className="flex items-center h-5">
+						<input
+							id="comments"
+							onChange={() => setHasAcceptedTerms(!hasAcceptedTerms)}
+							aria-describedby="comments-description"
+							name="comments"
+							type="checkbox"
+							className="focus:ring-transparent h-4 w-4 text-indigo-600 border-gray-300 rounded"
+						/>
+					</div>
+						<div className="ml-3 text-sm">
+							<span id="comments-description" className="text-neutral-500">
+								I accept{" "}
+								<a href="https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/legal%2Fterms%20and%20conditions.pdf?alt=media&token=43655f7e-ed13-4839-91b6-71733d951c2a" target="_blank" className="text-blue-500">
+									terms and conditions.
+								</a>
+							</span>
+						</div>
+					</Fragment>}
 			</div>
 			<div className="gap-x-2 flex justify-center items-stretch pt-6">
 				{!isApproved && !loading ? <button
