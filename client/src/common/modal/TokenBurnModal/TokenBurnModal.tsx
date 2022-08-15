@@ -75,7 +75,7 @@ const TokenBurnModal = () => {
 			contract = new ethers.Contract(GENHEAD_BURN_CONTRACT, GENHEAD_BURN_ABI, web3.getSigner());
 			try {
 				const wallet = user?.attributes?.ethAddress
-				const txn = await contract.redeem(`${+genheadBalance / 2}`);
+				const txn = await contract.redeem(genheadBalance);
 				const receipt = await txn.wait();
 				if (txn && receipt && wallet) {
 					if (receipt.status === 1) {
@@ -83,7 +83,6 @@ const TokenBurnModal = () => {
 						setStep(TokenBurnSteps.COMPLETE);
 					}
 				}
-
 			} catch (err: any) {
 				setLoading(false)
 				setError("There was a problem claiming your status. Please try again.");
@@ -253,13 +252,13 @@ const Authenticate = ({ handleAuthAndBalance, isWeb3Enabled, isWeb3EnableLoading
 			<div className="gap-x-2 flex justify-center items-stretch pt-4">
 				<button
 					onClick={() => clearModalState()}
-					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
+					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
 				</button>
 				<button
 					onClick={isWeb3Enabled ? () => setStep(TokenBurnSteps.BURN) : () => handleAuthAndBalance()}
 					disabled={isWeb3EnableLoading}
-					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+					className="px-4 py-1 text-sm bg-green-700 text-neutral-300 inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
 					{isWeb3Enabled ? "CONTINUE" : "AUTHENTICATE"}
 				</button>
 			</div>
@@ -351,17 +350,25 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
 				</button> : <></>}
-				{isApproved ? <button
+				{isApproved ? <div className="flex flex-col items-center"><button
 					onClick={() => handleTokenBurn()}
-					disabled={!hasAcceptedTerms || !balanceLoaded}
+					disabled={!hasAcceptedTerms || !balanceLoaded || loading}
 					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
 					{loading ? <LoadingIcon /> : "BURN"}
-				</button> : <button
-					onClick={() => handleApproval()}
-					disabled={!hasAcceptedTerms || !balanceLoaded}
-					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
-					{loading ? <LoadingIcon /> : "APPROVE"}
-				</button>}
+				</button>
+				{loading && <p className="animate-pulse text-sm italic text-neutral-300 mt-3">awaiting transfer</p>}
+				</div> :
+					<div className="flex flex-col items-center">
+						<button
+							onClick={() => handleApproval()}
+							disabled={!hasAcceptedTerms || !balanceLoaded || loading}
+							className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+							{loading ?
+								<LoadingIcon />
+								: "APPROVE"}
+						</button>
+						{loading && <p className="animate-pulse text-sm italic text-neutral-300 mt-3">awaiting approval</p>}
+					</div>}
 			</div>
 		</Fragment>
 	);
