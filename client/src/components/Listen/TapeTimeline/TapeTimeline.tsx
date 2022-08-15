@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { Dispatch } from "../../../store";
 import { TapeStatus } from "../../../models/common";
 import { Modals } from "../../../models/globalModel";
+import DateCountdown from "../../../common/countdown/Countdown";
 
 const TapeTimeline = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -19,11 +20,6 @@ const TapeTimeline = (tapeData: TapeData) => {
 	};
 	return (
 		<div className="max-w-[80rem] mx-auto lg:mt-10 mt-4">
-			{/* <div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:mt-4 mb-1.5">
-				<i className="fa-regular fa-clock text-neutral-700 dark:text-neutral-400 text-xs place-self-center self-center -mb-0.25" />
-				<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">TAPE TIMELINE</span> */}
-				{/* <span className="font-light text-sm dark:text-neutral-500 text-neutral-600 tracking-widest">{tapeData?.sample?.artist}</span> */}
-			{/* </div> */}
 			{tapeData?.tape && (
 				<nav className="mx-auto p-1 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg" aria-label="Progress">
 					<ol role="list" className="rounded-sm overflow-hidden flex lg:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
@@ -32,7 +28,7 @@ const TapeTimeline = (tapeData: TapeData) => {
 								return <Completed key={step.key} step={step} idx={idx} />;
 							} else if (step.status === "current") {
 								return <Current modal={handleTapeAction()} key={step.key} step={step} idx={idx} />;
-							} else return <Pending key={step.key} step={step} idx={idx} />;
+							} else return <Pending key={step.key} step={step} idx={idx} tapeData={tapeData} />;
 						})}
 					</ol>
 				</nav>
@@ -87,7 +83,8 @@ const Current = ({ modal, step, idx }: any) => {
 	);
 };
 
-const Pending = ({ step, idx }: any) => {
+const Pending = ({ step, idx, tapeData }: any) => {
+	console.log(tapeData?.status?.time, "pending")
 	return (
 		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-md group">
 			<span
@@ -102,9 +99,9 @@ const Pending = ({ step, idx }: any) => {
 						</span>
 					</span>
 				</span>
-				<span className="mt-0.5 ml-4 min-w-0 flex flex-col">
-					<span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">{step.name}</span>
-					<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">{step.description}</span>
+				<span className="mt-0.5 ml-4 min-w-0 flex flex-col justify-center">
+					<span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">{step.name === 'MINT' && +tapeData?.status?.status < 8 ? "MINT OPENS" : step.name}</span>
+					<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">{step.name === 'MINT' && +tapeData?.status?.status < 8 ? <DateCountdown deadline={tapeData?.status?.time} /> : <></>}</span>
 				</span>
 			</span>
 		</li>
