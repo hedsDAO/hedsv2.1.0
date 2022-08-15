@@ -7,9 +7,11 @@ import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
 import { useHistory } from "react-router";
 import { BadgeData } from "../../../models/common";
 var ethers = require("ethers");
+import { BigNumber } from "ethers";
 const GENHEAD_TOKEN_ADDRESS = "0x38da10d8a9fa9c98b27bc03a6f6999bb35d17375";
 const GENHEAD_BURN_CONTRACT = "0x96d5613fcA6Adc368757b98016D61Be43100bD44";
 const GENHEAD_BURN_ABI = require('../../../data/whitelists/abi/TokenBurnContractAbi.json');
+const APPROVAL_ABI = require('../../../data/whitelists/abi/proxyAbi.json');
 
 enum TokenBurnSteps {
 	AUTHENTICATE = 0,
@@ -31,6 +33,7 @@ const TokenBurnModal = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [balanceLoaded, setBalanceLoaded] = useState<boolean>(false);
 	const [genheadBalance, setGenheadBalance] = useState<string | void>();
+	const [isApproved, setIsApproved] = useState(false);
 	const [error, setError] = useState<string | void>();
 	const { isWeb3Enabled, enableWeb3, isWeb3EnableLoading, web3, user } = useMoralis();
 	const { fetchERC20Balances, data } = useERC20Balances();
@@ -42,19 +45,43 @@ const TokenBurnModal = () => {
 		return tokenBalance.slice(0, tokenCount);
 	}
 
+	const handleApproval = async () => {
+		setLoading(true);
+		if (web3 && isWeb3Enabled && user && genheadBalance) {
+			let tokenContract = new ethers.Contract(GENHEAD_TOKEN_ADDRESS, APPROVAL_ABI, web3.getSigner());
+			try {
+				setLoading(true);
+				const txn = await tokenContract.approve(GENHEAD_BURN_CONTRACT, BigNumber.from(genheadBalance))
+				const receipt = await txn.wait();
+				if (receipt.status === 1) {
+					setIsApproved(true);
+					setLoading(false);
+				}
+			}
+			catch (err: any) {
+				console.log(err)
+				setError("There was a problem claiming your status. Please try again.");
+			}
+		}
+	}
+
 	const handleTokenBurn = async () => {
 		console.log("hello there")
 		setLoading(true);
 		let contract;
-		if (web3 && isWeb3Enabled && user) {
+		if (web3 && isWeb3Enabled && user && genheadBalance) {
 			contract = new ethers.Contract(GENHEAD_BURN_CONTRACT, GENHEAD_BURN_ABI, web3.getSigner());
 			try {
 				const wallet = user?.attributes?.ethAddress
-				const txn = await contract.redeem(genheadBalance);
+				const txn = await contract.redeem(`${+genheadBalance / 2}`);
 				const receipt = await txn.wait();
-				if (txn && receipt && wallet) dispatch.userModel.updateBadges([wallet, OGHed]);
+				if (txn && receipt && wallet) {
+					if (receipt.status === 1) {
+						dispatch.userModel.updateBadges([wallet, OGHed]);
+						setStep(TokenBurnSteps.COMPLETE);
+					}
+				}
 				console.log(receipt, "txn reciept");
-				setStep(TokenBurnSteps.COMPLETE);
 			} catch (err: any) {
 				console.log(err)
 				setError("There was a problem claiming your status. Please try again.");
@@ -62,6 +89,7 @@ const TokenBurnModal = () => {
 		}
 		setLoading(false);
 	};
+
 	const handleAuthAndBalance = async () => {
 		setLoading(true);
 		await enableWeb3()
@@ -73,7 +101,7 @@ const TokenBurnModal = () => {
 								console.log(token);
 								if (token.token_address === GENHEAD_TOKEN_ADDRESS && token?.balance) {
 									console.log(calculateNumTokens(token.balance))
-									setGenheadBalance(calculateNumTokens(token.balance));
+									setGenheadBalance(token.balance);
 									setBalanceLoaded(true);
 								}
 							});
@@ -88,8 +116,8 @@ const TokenBurnModal = () => {
 	};
 
 	useEffect(() => {
-		
-	},[step])
+
+	}, [step])
 
 	return (
 		<Transition appear show={open} as={Fragment}>
@@ -131,6 +159,8 @@ const TokenBurnModal = () => {
 												hasAcceptedTerms={hasAcceptedTerms}
 												setHasAcceptedTerms={setHasAcceptedTerms}
 												balanceLoaded={balanceLoaded}
+												isApproved={isApproved}
+												handleApproval={handleApproval}
 											/>
 										) : step === TokenBurnSteps.PENDING ? (
 											<div className="flex flex-col justify-center items-center h-full py-20">
@@ -234,7 +264,7 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 	);
 };
 
-const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, balanceLoaded }: any) => {
+const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms, setHasAcceptedTerms, balanceLoaded, isApproved, handleApproval, loading }: any) => {
 	return (
 		<Fragment>
 			<div className="flex flex-col justify-center items-center">
@@ -276,19 +306,19 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 			{data?.length &&
 				isWeb3Enabled &&
 				data.map((token: any) => {
-						return (
-							<div key={token.name} className="py-4">
-								<div className="text-green-500 font-thin flex justify-center text-sm">
-									<h6>
-										GENHED BALANCE - {ethers.utils.formatUnits(token.balance, "ether")}{" "}
-										<span className="ml-1">
-											({parseInt(ethers.utils.formatUnits(token.balance, "ether")) / 1000} ETH)
-										</span>
-									</h6>
-								</div>
+					if (token.token_address === GENHEAD_TOKEN_ADDRESS) return (
+						<div key={token.name} className="py-4">
+							<div className="text-green-500 font-thin flex justify-center text-sm">
+								<h6>
+									GENHED BALANCE - {ethers.utils.formatUnits(token.balance, "ether")}{" "}
+									<span className="ml-1">
+										({parseInt(ethers.utils.formatUnits(token.balance, "ether")) / 1000} ETH)
+									</span>
+								</h6>
 							</div>
-						);
-					})}
+						</div>
+					);
+				})}
 			<div className="relative flex justify-center items-start">
 				<div className="flex items-center h-5">
 					<input
@@ -315,12 +345,17 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
 				</button>
-				<button
+				{isApproved ? <button
 					onClick={() => handleTokenBurn()}
 					disabled={!hasAcceptedTerms || !balanceLoaded}
 					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
-					BURN
-				</button>
+					{loading ? <LoadingIcon /> : "BURN"}
+				</button> : <button
+					onClick={() => handleApproval()}
+					disabled={!hasAcceptedTerms || !balanceLoaded}
+					className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+					{loading ? <LoadingIcon /> : "APPROVE"}
+				</button>}
 			</div>
 		</Fragment>
 	);
