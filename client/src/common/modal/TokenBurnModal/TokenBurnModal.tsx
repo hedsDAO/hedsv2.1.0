@@ -146,6 +146,7 @@ const TokenBurnModal = () => {
 										{step === TokenBurnSteps.AUTHENTICATE ? (
 											<Authenticate
 												dispatch={dispatch}
+												clearModalState={dispatch.globalModel.clearModalState}
 												handleAuthAndBalance={handleAuthAndBalance}
 												isWeb3Enabled={isWeb3Enabled}
 												isWeb3EnableLoading={isWeb3EnableLoading}
@@ -209,7 +210,7 @@ const TokenBurnModal = () => {
 
 export default TokenBurnModal;
 
-const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3EnableLoading, setStep }: any) => {
+const Authenticate = ({ handleAuthAndBalance, isWeb3Enabled, isWeb3EnableLoading, setStep, clearModalState }: any) => {
 	return (
 		<Fragment>
 			<div className="text-center mx-auto">
@@ -251,7 +252,7 @@ const Authenticate = ({ dispatch, handleAuthAndBalance, isWeb3Enabled, isWeb3Ena
 			</div>
 			<div className="gap-x-2 flex justify-center items-stretch pt-4">
 				<button
-					onClick={() => dispatch.globalModel.setModalVisibility(false)}
+					onClick={() => clearModalState()}
 					className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-900 transition-all">
 					CANCEL
 				</button>
