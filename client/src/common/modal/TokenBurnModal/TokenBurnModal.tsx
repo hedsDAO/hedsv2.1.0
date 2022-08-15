@@ -310,7 +310,7 @@ const Burn = ({ data, dispatch, handleTokenBurn, isWeb3Enabled, hasAcceptedTerms
 						<div key={token.name} className="py-4">
 							<div className="text-green-500 font-thin flex justify-center text-sm">
 								<h6>
-									GENHED BALANCE - {ethers.utils.formatUnits(token.balance, "ether")}{" "}
+									GENHED BALANCE - {parseInt(ethers.utils.formatUnits((token.balance), "ether")).toFixed(2)}{" "}
 									<span className="ml-1">
 										({parseInt(ethers.utils.formatUnits(token.balance, "ether")) / 1000} ETH)
 									</span>
