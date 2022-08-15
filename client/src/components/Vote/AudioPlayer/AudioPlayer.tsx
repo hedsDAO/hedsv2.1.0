@@ -64,7 +64,7 @@ const AudioPlayer = ({ tracks, selectedTrack }: AudioPlayerProps) => {
 		const options = formWaveSurferOptions(waveformRef.current);
 		wavesurfer.current = WaveSurfer.create(options);
 		wavesurfer.current.load(link);
-		wavesurfer.current.on("waveform-ready", () => {});
+		wavesurfer.current.on("waveform-ready", () => { });
 		wavesurfer.current.on("ready", function () {
 			if (wavesurfer.current) {
 				wavesurfer?.current?.setVolume(1);
@@ -140,7 +140,7 @@ const AudioPlayer = ({ tracks, selectedTrack }: AudioPlayerProps) => {
 						<div className="animate__animated animate__fadeOutDown absolute -mt-2 dark:text-neutral-300 text-neutral-700">QUEUED</div>
 					)}
 					<p className="text-sm font-bold tracking-widest text-neutral-800 dark:text-amber-500 group-hover:text-gray-200 ease-in-out duration-300 pt-10 whitespace-nowrap mb-2">
-						{formatSubId(subId)}
+						{selectedTrack === tracks?.length - 1 ? subId : formatSubId(subId)}
 					</p>
 				</div>
 			</div>

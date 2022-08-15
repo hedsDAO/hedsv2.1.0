@@ -27,7 +27,7 @@ const VotingButtons = ({ votingPower }: { votingPower: number }) => {
 	};
 
 	return (
-		<div className="flex justify-center items-center py-2 mt-2 rounded-sm">
+		<div className="flex justify-center items-center py-2 rounded-sm">
 			{votingPower !== 0 && (
 				<>
 					{!web3 ? (
