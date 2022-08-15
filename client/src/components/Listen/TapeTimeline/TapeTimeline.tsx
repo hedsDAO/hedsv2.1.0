@@ -22,7 +22,7 @@ const TapeTimeline = (tapeData: TapeData) => {
 		<div className="max-w-[80rem] mx-auto lg:mt-10 mt-4">
 			{tapeData?.tape && (
 				<nav className="mx-auto p-1 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg" aria-label="Progress">
-					<ol role="list" className="rounded-sm overflow-hidden flex lg:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
+					<ol role="list" className="rounded-sm overflow-hidden flex xl:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
 						{calculateTapeStatus(+tapeData?.status?.status).map((step, idx: number) => {
 							if (step.status === "complete") {
 								return <Completed key={step.key} step={step} idx={idx} />;
@@ -93,7 +93,7 @@ const Pending = ({ step, idx, tapeData }: any) => {
 			/>
 			<span className={classNames(idx !== 0 ? "lg:pl-9" : "", "px-6 py-5 flex items-start text-sm font-medium")}>
 				<span className="flex-shrink-0 pt-2">
-					<span className="w-8 h-8 flex items-center justify-center bg-neutral-600 bg-opacity-75 rounded-full mx-1.5">
+					<span className="w-8 h-8 flex items-center justify-center bg-neutral-400 dark:bg-neutral-700 bg-opacity-75 rounded-full mx-1.5">
 						<span className="text-neutral-900 uppercase tracking-wide ">
 							<i className={step.icon} />
 						</span>
