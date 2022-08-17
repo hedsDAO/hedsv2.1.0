@@ -24,11 +24,10 @@ const TapeArtists = (tapeData: TapeState) => {
 		<div className="max-w-[80rem] w-full mx-auto">
 			{tapeData && (
 				<Fragment>
-					<div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:mt-2 mt-5 mb-1.5">
+					{/* <div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:-mt-1.5 mb-1.5">
 						<i className="fa-regular fa-cassette-tape text-neutral-700 dark:text-neutral-400 text-xs place-self-center self-center -mb-0.25" />
 						<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">{"hedsTAPE 0" + id}</span>
-						{/* <span className="font-light text-sm dark:text-neutral-500 text-neutral-600 tracking-widest">{tapeData?.sample?.artist}</span> */}
-					</div>
+					</div> */}
 					<div className="max-w-[80rem] w-full bg-gray-300 dark:bg-neutral-975 rounded-md mx-auto">
 						<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
 							<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">

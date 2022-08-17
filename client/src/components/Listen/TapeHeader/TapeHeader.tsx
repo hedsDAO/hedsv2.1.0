@@ -4,7 +4,7 @@ import { TapeData } from "../../../models/spaceModel";
 const TapeHeader = (tapeData: TapeData) => {
 	return (
 		<div className="xl:w-screen xl:mx-auto">
-			<div className="lg:z-10 xl:w-screen xl:mx-auto py-8 lg:py-10 bg-neutral-600  dark:bg-neutral-900 xl:rounded-none rounded-md">
+			<div className="lg:z-10 xl:w-screen xl:mx-auto py-6 lg:py-8 bg-gray-500  dark:bg-neutral-900 xl:rounded-none rounded-md">
 				<div className="lg:max-w-4xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 					<div className="flex justify-center lg:col-span-2 px-2">
 						<img
@@ -43,7 +43,7 @@ const TapeHeader = (tapeData: TapeData) => {
 											{tapeData?.tape?.no}
 										</span>
 									</div>
-									<span className="text-neutral-100 text-2xl uppercase tracking-widest whitespace-nowrap mb-3">
+									<span className="text-neutral-100 text-xl xl:text-2xl uppercase tracking-widest whitespace-nowrap mb-3">
 										{tapeData?.sample?.artist} <span className="lowercase">x</span> Heds
 									</span>
 								</div>

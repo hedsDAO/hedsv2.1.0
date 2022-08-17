@@ -19,9 +19,9 @@ const TapeTimeline = (tapeData: TapeData) => {
 		if (status === TapeStatus.MINT_OPEN) return () => dispatch.globalModel.setModal({ open: true, modal: Modals.MINT, locked: true });
 	};
 	return (
-		<div className="max-w-[80rem] mx-auto lg:mt-10 mt-4">
+		<div className="mx-auto bg-gray-400 max-w-[80rem] dark:bg-neutral-975 p-1 rounded-lg mb-5">
 			{tapeData?.tape && (
-				<nav className="mx-auto p-1 max-w-[80rem] bg-gray-300 dark:bg-neutral-975 rounded-lg" aria-label="Progress">
+				<nav className="mx-auto max-w-[80rem]" aria-label="Progress">
 					<ol role="list" className="rounded-sm overflow-hidden flex xl:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
 						{calculateTapeStatus(+tapeData?.status?.status).map((step, idx: number) => {
 							if (step.status === "complete") {
@@ -39,7 +39,7 @@ const TapeTimeline = (tapeData: TapeData) => {
 
 const Completed = ({ step, idx }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 rounded-md lg:m-0 m-1 group">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 rounded-md lg:m-0 group">
 			<span
 				className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
 				aria-hidden="true"
@@ -84,9 +84,8 @@ const Current = ({ modal, step, idx }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
-	console.log(tapeData?.status?.time, "pending")
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-md group">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-md group lg:m-0">
 			<span
 				className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
 				aria-hidden="true"
