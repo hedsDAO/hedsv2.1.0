@@ -28,7 +28,6 @@ const SampleContainer = (tapeData: TapeData) => {
 	};
 	const handleGetSample = () => {
 		getDownloadURL(sampleRef).then((url: string) => {
-			console.log(url);
 			return handleDownloadFile(url, `HT${id}`);
 		});
 	};
