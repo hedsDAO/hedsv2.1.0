@@ -23,7 +23,7 @@ const SampleContainer = (tapeData: TapeData) => {
 		if (audioData?.samples?.[track]) {
 			dispatch.audioModel.setCurrentTrack(track);
 			dispatch.audioModel.setIsSample(true);
-			dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+			dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 		}
 	};
 	const handleGetSample = () => {

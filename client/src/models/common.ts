@@ -13,8 +13,7 @@ export enum TapeStatus {
 export enum PlayerSize {
 	HIDDEN = 0,
 	SMALL,
-	MEDIUM,
-	LARGE,
+	MINIMIZED
 }
 
 export interface TrackMetadata {

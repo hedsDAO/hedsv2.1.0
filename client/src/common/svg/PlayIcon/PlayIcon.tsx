@@ -14,7 +14,7 @@ const PlayIcon = (wavesurfer: React.MutableRefObject<any>) => {
 	return (
 		<Play
 			onClick={handlePausePlay}
-			className="h-5 w-5 text-center text-neutral-900 dark:text-neutral-300 z-40 group-hover:text-fuchsia-900 transition-all ease-in-out duration-200 animate__animated animate__fadeIn"
+			className="w-5 lg:w-6 h-5 lg:h-6 text-center text-neutral-900 dark:text-neutral-300 z-40 group-hover:text-fuchsia-900 transition-all ease-in-out duration-200 animate__animated animate__fadeIn"
 			aria-hidden="true"
 		/>
 	);

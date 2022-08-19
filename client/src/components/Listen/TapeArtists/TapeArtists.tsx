@@ -17,7 +17,7 @@ const TapeArtists = (tapeData: TapeState) => {
 		const currentTrack = (+id - 1) * 10 + no;
 		dispatch.audioModel.setIsSample(false);
 		dispatch.audioModel.setCurrentTrack(currentTrack);
-		dispatch.audioModel.setPlayerSize(PlayerSize.MEDIUM);
+		dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 	};
 
 	return (
