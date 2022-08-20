@@ -11,7 +11,9 @@ import DateCountdown from "../../../common/countdown/Countdown";
 
 const TapeTimeline = (tapeData: TapeData) => {
 	const dispatch = useDispatch<Dispatch>();
-	const status = +tapeData?.status?.status;
+	// const status = +tapeData?.status?.status;
+	const status = 7;
+	tapeData.status.status = 7;
 	const handleTapeAction = () => {
 		if (status === TapeStatus.SUBMIT_OPEN)
 			return () => dispatch.globalModel.setModal({ open: true, modal: Modals.SUBMIT, locked: true });
@@ -84,7 +86,6 @@ const Current = ({ modal, step, idx }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
-	console.log(tapeData?.status?.time, "pending")
 	return (
 		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-md group">
 			<span
