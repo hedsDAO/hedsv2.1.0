@@ -42,17 +42,16 @@ const Listen = () => {
 							</Fragment>
 						)}
 					</div>
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status > TapeStatus.MINT_CLOSE && (<div className="lg:w-full">
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (
+						<div className="lg:w-full">
+							<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
+						</div>)}
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (<div className="lg:w-full">
 						<TapeArtists {...tapeData} />
 					</div>)}
 					{+spaceData?.[tape]?.[+id - 1]?.status?.status > TapeStatus.MINT_CLOSE && <div className="max-w-[80rem] w-full mx-auto">
 						<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 					</div>}
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (
-						<div className="lg:w-full">
-							<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
-						</div>)}
-
 				</div>
 			)}
 		</Fragment>
