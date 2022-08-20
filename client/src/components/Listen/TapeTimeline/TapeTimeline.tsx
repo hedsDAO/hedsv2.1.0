@@ -84,7 +84,6 @@ const Current = ({ modal, step, idx }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
-	console.log(tapeData?.status?.time, "pending")
 	return (
 		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-md group">
 			<span
