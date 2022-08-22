@@ -63,7 +63,7 @@ const GlobalAudio = () => {
 		<Fragment>
 			{playerSize !== HIDDEN && (
 				<div className="bg-neutral-200 dark:bg-neutral-975 animate__animated animate__fadeInUp bottom-0 fixed z-50">
-					<div className="w-screen flex justify-start gap-x-1 bg-gray-300 dark:bg-neutral-800 dark:border-neutral-900 border-gray-400 border py-1.5 px-2.5">
+					<div className="w-screen flex justify-start gap-x-1 bg-gray-300 dark:bg-neutral-850 dark:border-neutral-900 border-gray-400 border py-1 lg:py-1.5 px-2.5">
 						<div className="flex gap-x-1">
 							<button onClick={() => {
 								dispatch.audioModel.setAudioOff({
@@ -72,13 +72,13 @@ const GlobalAudio = () => {
 									isLoading: false,
 									volume: 0,
 								});
-							}} className="bg-gray-200 hover:bg-gray-100 dark:bg-neutral-900 rounded-md px-1.5 dark:hover:bg-neutral-700 inline-flex items-center transition-all">
+							}} className="bg-gray-200 hover:bg-gray-100 dark:bg-neutral-900 dark:border-neutral-800 border-gray-400 border rounded-md px-1.5 dark:hover:bg-neutral-700 inline-flex items-center transition-all">
 								<i className="fa-solid fa-xmark text-red-500 text-xs"></i>
 							</button>
 							<button onClick={() => {
 								if (playerSize === MINIMIZED) dispatch.audioModel.setPlayerSize(SMALL)
 								else dispatch.audioModel.setPlayerSize(MINIMIZED)
-							}} className="bg-gray-200 hover:bg-gray-100 dark:bg-neutral-900 rounded-md px-1.5 dark:hover:bg-neutral-700 inline-flex items-center transition-all">
+							}} className="bg-gray-200 hover:bg-gray-100 dark:bg-neutral-900 dark:border-neutral-800 border-gray-400 border rounded-md px-1.5 dark:hover:bg-neutral-700 inline-flex items-center transition-all">
 								{playerSize === MINIMIZED ? <i className="fa-solid fa-caret-up text-teal-500 text-xs"></i> : <i className="fa-solid fa-caret-down text-teal-500 text-xs"></i>}
 							</button>
 						</div>
