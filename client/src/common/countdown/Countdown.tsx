@@ -35,7 +35,7 @@ const DateCountdown = ({ deadline, setIsMintOpen }: CountdownProps) => {
 
     useEffect(() => {
         if (done) {
-            dispatch.globalTapesModel.updateTapeStatus("4");
+            dispatch.spaceModel.updateTapeStatus();
         } else getTimeUntil(deadline);
     }, [done]);
 

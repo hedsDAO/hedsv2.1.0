@@ -44,7 +44,8 @@ const TapeHeader = (tapeData: TapeData) => {
 										</span>
 									</div>
 									<span className="text-neutral-100 text-xl xl:text-2xl uppercase tracking-widest whitespace-nowrap mb-3">
-										{tapeData?.sample?.artist} <span className="lowercase">x</span> Heds
+										{tapeData?.sample?.artist}{" "}
+										<span className="lowercase">x</span> Heds
 									</span>
 								</div>
 							</div>
@@ -59,6 +60,7 @@ const TapeHeader = (tapeData: TapeData) => {
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	);
 };

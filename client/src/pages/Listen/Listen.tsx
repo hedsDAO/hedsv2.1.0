@@ -31,28 +31,33 @@ const Listen = () => {
 	return (
 		<Fragment>
 			{spaceData && audioData && (
-				<div className="flex flex-col xl:px-0 px-2 gap-y-5 xl:gap-y-10">
+				<div className="flex flex-col xl:px-0 px-2 xl:gap-y-0 gap-y-1">
 					<div className="lg:w-full">
 						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
 					</div>
-					<div className="w-full gap-1 xl:rounded-none rounded-md">
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (
+						<div className="xl:inline hidden">
+							<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
+						</div>
+					)}
+					<div className="w-full xl:rounded-none rounded-md">
 						{+spaceData?.[tape]?.[+id - 1]?.status?.status >=
 							TapeStatus.SAMPLE_OPEN && (
 								<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
 							)}
 					</div>
 					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (
-						<div className="lg:w-full">
+						<div className="lg:w-full bg-gray-400 dark:bg-neutral-975 ">
 							<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
 						</div>
 					)}
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status > TapeStatus.MINT_CLOSE && (
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (
 						<div className="lg:w-full">
 							<TapeArtists {...tapeData} />
 						</div>
 					)}
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status > TapeStatus.MINT_CLOSE && (
-						<div className="max-w-[80rem] w-full mx-auto">
+					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (
+						<div className="xl:hidden inline xl:mt-0 mt-3">
 							<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
 						</div>
 					)}
