@@ -19,13 +19,14 @@ const GlobalAudio = () => {
 	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
 	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
 	const currentTape: number = Math.floor(useSelector((state: RootState) => state.audioModel.currentTrack) / 10 + 1);
+	const globalData = useSelector((state: RootState) => state.globalModel);
 	// const videoRef = useRef<HTMLVideoElement | null>(null);
 	const waveformRef = useRef<HTMLDivElement | null>(null);
 	const wavesurfer = useRef<WaveSurfer | null>();
 
 	useEffect(() => {
 		var options; // wavesurfer params
-		if (!audioData?.tapes?.length) dispatch.audioModel.getTapeData();
+		if (!audioData?.tapes?.length) dispatch.audioModel.getTapeData([globalData?.space, globalData.id]);
 		if (!audioData?.tracks?.length) dispatch.audioModel.getTrackData();
 		dispatch.audioModel.setPlayerSize(SMALL);
 		dispatch.audioModel.setIsLoading(true);

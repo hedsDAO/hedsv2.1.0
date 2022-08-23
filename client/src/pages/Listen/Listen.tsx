@@ -18,7 +18,7 @@ const Listen = () => {
 	useEffect(() => {
 		dispatch.spaceModel.getSpaceData();
 		dispatch.audioModel.getTrackData();
-		dispatch.audioModel.getTapeData();
+		dispatch.audioModel.getTapeData([space, tape]);
 		dispatch.audioModel.getSamples();
 		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
@@ -28,6 +28,8 @@ const Listen = () => {
 		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, [id]);
+
+	console.log(spaceData)
 	return (
 		<Fragment>
 			{spaceData && audioData && (

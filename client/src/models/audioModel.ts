@@ -49,15 +49,16 @@ export const audioModel = createModel<RootModel>()({
 			const docRef = doc(db, "audio", "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
+				console.log(docSnap.data(), "audio")
 				const tracks = Object.values(docSnap.data()?.hedstape).flat();
 				this.setAudio(tracks);
 			}
 		},
-		async getTapeData() {
-			const docRef = doc(db, "spaces", "heds");
+		async getTapeData([space, tape]: [string | void, string]) {
+			const docRef = doc(db, "spaces", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				const tapes = Object.values(docSnap.data()?.hedstape).flat();
+				const tapes = Object.values(docSnap.data()?.[tape]).flat();
 				this.setTapes(tapes);
 			}
 		},
