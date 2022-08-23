@@ -32,7 +32,9 @@ const GlobalAudio = () => {
 		dispatch.audioModel.setIsPlaying(false);
 		if (waveformRef.current) options = formWaveSurferOptions(waveformRef.current);
 		if (options) wavesurfer.current = WaveSurfer.create(options);
-		if (audioData?.isSample) wavesurfer?.current?.load(audioData?.samples?.[currentTrack]?.audio);
+		if (audioData?.isSample) {
+			wavesurfer?.current?.load(audioData?.samples?.[currentTrack]?.audio);
+		}
 		else wavesurfer?.current?.load(audioData?.tracks?.[currentTrack]?.audio);
 		wavesurfer?.current?.on("audioprocess", (res: number) => dispatch.audioModel.setCurrentTime([`${formatTime(res)}`, res]));
 		wavesurfer?.current?.on("ready", () => {
@@ -101,7 +103,10 @@ const GlobalAudio = () => {
 							<button
 								disabled={audioData?.isLoading}
 								onClick={() => {
-									if (tracks?.[currentTrack - 1]) dispatch.audioModel.setCurrentTrack(currentTrack - 1);
+									if (audioData?.isSample) {
+										if (!audioData?.samples[currentTrack - 1]?.audio) dispatch.audioModel.setCurrentTrack(audioData?.samples?.length);
+										else dispatch.audioModel.setCurrentTrack(currentTrack - 1);
+									} else if (tracks?.[currentTrack - 1]) dispatch.audioModel.setCurrentTrack(currentTrack - 1);
 									else dispatch.audioModel.setCurrentTrack(tracks.length - 1);
 								}}
 								className="inline-flex items-center">
@@ -113,7 +118,10 @@ const GlobalAudio = () => {
 							<button
 								disabled={audioData?.isLoading}
 								onClick={() => {
-									if (tracks?.[currentTrack + 1]) dispatch.audioModel.setCurrentTrack(currentTrack + 1);
+									if (audioData?.isSample) {
+										if (!audioData?.samples[currentTrack + 1]?.audio) dispatch.audioModel.setCurrentTrack(0);
+										else dispatch.audioModel.setCurrentTrack(currentTrack + 1);
+									} else if (tracks?.[currentTrack + 1]) dispatch.audioModel.setCurrentTrack(currentTrack + 1);
 									else dispatch.audioModel.setCurrentTrack(0);
 								}}
 								className="inline-flex items-center">
