@@ -104,7 +104,7 @@ const GlobalAudio = () => {
 								disabled={audioData?.isLoading}
 								onClick={() => {
 									if (audioData?.isSample) {
-										if (!audioData?.samples[currentTrack - 1]?.audio) dispatch.audioModel.setCurrentTrack(audioData?.samples?.length);
+										if (!audioData?.samples[currentTrack - 1]?.audio) dispatch.audioModel.setCurrentTrack(audioData?.samples?.length - 1);
 										else dispatch.audioModel.setCurrentTrack(currentTrack - 1);
 									} else if (tracks?.[currentTrack - 1]) dispatch.audioModel.setCurrentTrack(currentTrack - 1);
 									else dispatch.audioModel.setCurrentTrack(tracks.length - 1);
