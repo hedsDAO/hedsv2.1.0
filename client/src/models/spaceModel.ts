@@ -1,6 +1,6 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../index";
 
 export interface TapeData {
@@ -57,6 +57,29 @@ export const spaceModel = createModel<RootModel>()({
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				dispatch.spaceModel.setSpaceData(docSnap.data());
+			}
+		},
+		async updateTapeStatus() {
+			const docRef = doc(db, "spaces", "heds");
+			const tapeSnap = await getDoc(docRef);
+			const hedsTapes = [...tapeSnap.data()?.["hedstape"]];
+			const tapesLength = hedsTapes.length - 1;
+			hedsTapes[tapesLength] = {
+				...hedsTapes[tapesLength],
+				status: {
+						countdown: true,
+						status: 7,
+						time : "20 August 2022 12:00:00 GMT-07:00" 
+					},
+			};			
+			try {
+				await updateDoc(docRef, {
+					["hedstape"]: hedsTapes,
+				});
+				this.getSpaceData()
+
+			} catch (e) {
+				console.log(e);
 			}
 		},
 	}),

@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { TapeData } from "../../../models/spaceModel";
-import { PlayIcon } from "@heroicons/react/solid";
+// import { PlayIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../../store";
-import { PlayerSize, TapeStatus } from "../../../models/common";
+import { PlayerSize } from "../../../models/common";
 import { useParams } from "react-router";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { handleDownloadFile } from "../../../utils/handleDownloadFile";
@@ -28,63 +28,48 @@ const SampleContainer = (tapeData: TapeData) => {
 	};
 	const handleGetSample = () => {
 		getDownloadURL(sampleRef).then((url: string) => {
-			console.log(url);
-			return handleDownloadFile(url, `HT${id}`)
+			return handleDownloadFile(url, `HT${id}`);
 		});
-
-	}
+	};
 	return (
-		<Fragment>
-			<div className="w-full min-w-full  lg:max-w-lg gap-1 lg:mx-auto">
-				<div className="inline-flex lg:justify-center items-baseline rounded-md px-1.5 w-full xl:mt-4 mt-3 mb-1.5">
-					<i className="fa-regular fa-waveform text-neutral-700 dark:text-neutral-400 text-xs place-self-center self-center -mb-0.25" />
-					<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">SAMPLE CURATOR</span>
+		<div className="bg-gray-300 dark:bg-neutral-975 xl:rounded-none rounded-md mx-auto xl:w-screen">
+			<div className="flex xl:flex-row flex-col items-center justify-center xl:justify-between max-w-2xl gap-y-2 md:mx-auto px-6 py-6 rounded-lg">
+				<img
+					src={tapeData?.sample?.image}
+					className="item--sphere w-16 h-16 rounded-full m-0.5 justify-self-start ring-2 dark:ring-slate-300 ring-slate-700 xl:mr-2"
+				/>
+				<div className="flex flex-col lg:px-2 px-3 items-center xl:items-start justify-center w-full gap-x-2 xl:mb-0 mb-3">
+					<span className="text-neutral-700 dark:text-neutral-200 text-xs mb-1"><i className="fa-thin fa-waveform mr-1 text-[0.65rem]" /> sample curator</span>
+					<span className="text-neutral-700 dark:text-neutral-200 uppercase font-semibold tracking-widest text-lg lg:text-xl">
+						{tapeData?.sample?.artist}
+					</span>
+					<span className="inline-flex items-baseline text-neutral-700 dark:text-neutral-300 uppercase font-regular tracking-widest text-sm lg:text-base">
+						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-light text-sm lg:text-base mr-1.5">
+							bpm
+						</span>{" "}
+						{tapeData?.sample?.bpm}
+					</span>
 				</div>
-				<div className="bg-gray-300 dark:bg-neutral-975 rounded-md p-1">
-					<div className="flex justify-between lg:justify-evenly items-center lg:mx-auto bg-neutral-200 dark:bg-neutral-900 rounded-sm px-4 py-3">
-						<img src={tapeData?.sample?.image} className="w-16 h-16 rounded-md m-0.5 justify-self-start" />
-						<div className="flex flex-col lg:px-2 px-3 items-start justify-center w-full">
-							<span className="lg:px-2.5 text-neutral-700 dark:text-neutral-400 font-extralight uppercase tracking-widest text-xs lg:text-base">
-								{tapeData?.sample?.artist}
-							</span>
-							<span className="inline-flex items-baseline lg:px-2.5 text-neutral-700 dark:text-neutral-300 uppercase font-regular tracking-widest text-sm lg:text-base">
-								<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-thin text-sm lg:text-base mr-2">bpm</span> {tapeData?.sample?.bpm}
-							</span>
-						</div>
-						<div className="flex justify-center items-center">
-							<div className="flex justify-center items-center hover:bg-neutral-300 dark:hover:bg-neutral-700 bg-gray-300 dark:bg-neutral-850 rounded-md py-1 px-3 mx-1 transition-all">
-								<button onClick={
-									user?.attributes?.ethAddress
-										? () => handleGetSample()
-										: () => dispatch.globalModel.setModal({ open: true, modal: Modals.WARNING, locked: true })
-								} className="text-neutral-800 dark:text-neutral-400 tracking-widest font-medium text-xs lg:text-sm">DOWNLOAD</button>
-							</div>
-							<button onClick={() => playSample()} className="flex justify-center items-center hover:bg-neutral-300 dark:hover:bg-neutral-700 bg-gray-300 dark:bg-neutral-850 rounded-md py-[0.4rem] px-2 mx-1 group">
-								{!audioData?.isPlaying && !audioData?.isSample ? (
-									<PlayIcon
-										className="h-4 w-4 dark:text-neutral-400 text-neutral-700 hover:text-neutral-600 transition-all animate__animated animate__fadeIn"
-									/>
-								) : audioData?.isSample && audioData?.isPlaying ? (
-									<PlayIcon
-										className="h-4 w-4 dark:text-neutral-400 text-neutral-700 group-hover:text-neutral-600 dark:group-hover:text-neutral-600 transition-all animate-pulse"
-									/>
-								) : (
-									<PlayIcon
-										className="h-4 w-4 dark:text-neutral-400 text-neutral-700 group-hover:text-neutral-600 dark:group-hover:text-neutral-600 transition-all animate__animated animate__fadeIn"
-									/>
-								)}
-							</button>
-						</div>
-					</div>
-					{+tapeData?.status?.status < TapeStatus.SUBMIT_CLOSE && <div className="flex justify-center pt-1 pb-0.5 px-1 items-baseline">
-						<i className="fa-regular fa-circle-info mr-1 dark:text-red-400 text-red-600 text-xs"></i>
-						<span className="dark:text-red-400 text-red-600 text-xs uppercase">Submission must be{" "}
-							<span className="font-semibold">60-90 seconds </span> at
-							<span className="font-semibold"> {tapeData?.sample?.bpm} bpm</span></span>
-					</div>}
+				<div className="flex flex-row items-center gap-2 mx-2">
+					<button
+						onClick={user?.attributes?.ethAddress
+							? () => handleGetSample()
+							: () => dispatch.globalModel.setModal({
+								open: true,
+								modal: Modals.WARNING,
+								locked: true
+							})}
+						className="inline-flex items-center shadow-sm justify-center text-center px-6 py-1 text-sm hover:bg-indigo-600 dark:hover:bg-fuchsia-800 dark:bg-fuchsia-600 bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
+						<span className="my-auto tracking-widest">DOWNLOAD</span>
+					</button>
+					<button
+						onClick={() => playSample()}
+						className="inline-flex items-center shadow-sm justify-center text-center px-6 py-1 text-sm dark:hover:bg-indigo-600 hover:bg-fuchsia-800 bg-fuchsia-600 dark:bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
+						<span className="my-auto tracking-widest">LISTEN</span>
+					</button>
 				</div>
 			</div>
-		</Fragment>
+		</div>
 	);
 };
 export default SampleContainer;

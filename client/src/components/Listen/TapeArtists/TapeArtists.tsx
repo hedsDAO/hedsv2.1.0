@@ -4,8 +4,8 @@ import { PlayerSize, TrackMetadata } from "../../../models/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Dispatch, RootState } from "../../../store";
-import "react-circular-progressbar/dist/styles.css";
 import { formatTime } from "../../../utils/formatTime";
+import "react-circular-progressbar/dist/styles.css";
 
 const TapeArtists = (tapeData: TapeState) => {
 	const dispatch = useDispatch<Dispatch>();
@@ -21,15 +21,10 @@ const TapeArtists = (tapeData: TapeState) => {
 	};
 
 	return (
-		<div className="max-w-[80rem] w-full mx-auto">
+		<div className="w-full mx-auto">
 			{tapeData && (
 				<Fragment>
-					<div className="inline-flex justify-start items-baseline rounded-md px-1.5 w-full xl:mt-2 mt-5 mb-1.5">
-						<i className="fa-regular fa-cassette-tape text-neutral-700 dark:text-neutral-400 text-xs place-self-center self-center -mb-0.25" />
-						<span className="text-neutral-700 dark:text-neutral-400 tracking-widest px-3 font-semibold text-lg">{"hedsTAPE 0" + id}</span>
-						{/* <span className="font-light text-sm dark:text-neutral-500 text-neutral-600 tracking-widest">{tapeData?.sample?.artist}</span> */}
-					</div>
-					<div className="max-w-[80rem] w-full bg-gray-300 dark:bg-neutral-975 rounded-md mx-auto">
+					<div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-md mx-auto">
 						<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
 							<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
 								<div className="col-span-1">
@@ -55,7 +50,6 @@ const TapeArtists = (tapeData: TapeState) => {
 													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
 													: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
 											}>
-
 											<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">
 												<img className="h-4 w-4 rounded-full" src={track?.profilePicture} />

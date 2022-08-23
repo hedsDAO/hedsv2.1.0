@@ -4,36 +4,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useMoralis } from "react-moralis";
-import { getContractAbi } from "../../../utils/getContractAbi";
+import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
+const contractAbi = require("../../../data/whitelists/abi/hedsTAPE07.json");
+// import { getContractAbi } from "../../../utils/getContractAbi";
+var ethers = require("ethers");
 
 const quantities = [{ value: "1" }, { value: "3" }, { value: "5" }];
+
 const MintModal = () => {
 	const { web3, enableWeb3, isWeb3Enabled } = useMoralis();
+	const { id, tape } = useSelector((state: RootState) => state.globalModel);
 	// @ts-ignore
 	const [hasMinted, setHasMinted] = useState<boolean>(false);
+	const [isMinting, setIsMinting] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	// @ts-ignore
 	const [error, setError] = useState<string>("");
 	const [selected, setSelected] = useState({ value: "0" });
-	const { tape, id } = useSelector((state: RootState) => state.globalModel);
-	const currentTape = useSelector((state: RootState) => state.spaceModel?.[tape]?.[+id]);
+	const currentTape = useSelector((state: RootState) => state.spaceModel)?.[tape]?.[+id - 1];
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
 	const dispatch = useDispatch<Dispatch>();
-	var ethers = require("ethers");
 	const handleMint = async () => {
+		setError("")
 		setIsLoading(true);
 		if (web3 && currentTape?.tape?.contract) {
-			const contractAbi = await getContractAbi(currentTape.tape.contract);
-			const formattedAbi = JSON.parse(contractAbi.data.result);
-			const contract = new ethers.Contract(currentTape?.tape?.contract, formattedAbi, web3.getSigner());
+			// const contractAbi = await getContractAbi(currentTape.tape.contract);
+			// const formattedAbi = JSON.parse(contractAbi.data.result);
+			const contract = new ethers.Contract(currentTape?.tape?.contract, contractAbi, web3.getSigner());
 			try {
+				setIsMinting(true)
 				const txn = await contract.mintHead(parseInt(selected.value), {
 					value: `${selected.value}00000000000000000`,
 				});
-				setHasMinted(true);
 				const receipt = await txn.wait();
 				console.log(receipt);
+				setHasMinted(true);
 			} catch (err: any) {
+				setIsMinting(false)
 				console.log(err);
 				if (err?.message?.includes("insufficient funds")) {
 					setError("Insufficient funds for minting. Please try again.");
@@ -44,7 +51,7 @@ const MintModal = () => {
 	};
 	return (
 		<Transition appear show={open} as={Fragment}>
-			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => {} : () => dispatch.globalModel.setModalVisibility(false)}>
+			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex bg-neutral-950/90 min-h-full items-center justify-center text-center">
 						<Transition.Child
@@ -57,7 +64,7 @@ const MintModal = () => {
 							leaveTo="opacity-0 scale-95">
 							<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg align-middle transition-all mt-5">
 								<div className="relative z-50 inline-block align-bottom bg-neutral-950 border-[0.25px] border-neutral-700 rounded-lg py-4 lg:px-5 px-20 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-md sm:w-full">
-									<div className="flex flex-col h-full items-center justify-center py-5">
+									{!hasMinted ? <div className="flex flex-col h-full items-center justify-center py-5">
 										<h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center py-5">
 											{currentTape?.tape?.name}
 											<span className="uppercase font-normal ml-2 text-neutral-400">Mint</span>
@@ -94,17 +101,15 @@ const MintModal = () => {
 															<Listbox.Option
 																key={idx}
 																className={({ active }) =>
-																	`relative cursor-default select-none py-2 pl-3 lg:text-base text-sm ${
-																		active ? "bg-amber-100 text-neutral-600" : "text-neutral-900"
+																	`relative cursor-default select-none py-2 pl-3 lg:text-base text-sm ${active ? "bg-amber-100 text-neutral-600" : "text-neutral-900"
 																	}`
 																}
 																value={q}>
 																{({ selected }) => (
 																	<>
 																		<span
-																			className={`block truncate lg:text-base text-sm ${
-																				selected ? "font-medium" : "font-normal"
-																			}`}>
+																			className={`block truncate lg:text-base text-sm ${selected ? "font-medium" : "font-normal"
+																				}`}>
 																			{q.value}
 																		</span>
 																		{selected ? (
@@ -121,26 +126,32 @@ const MintModal = () => {
 											</div>
 										</Listbox>
 										<span
-											className={`${
-												+selected.value > 0 && "text-green-500"
-											} text-sm uppercase font-semibold mb-2 text-neutral-400`}>
+											className={`${+selected.value > 0 && "text-green-500"
+												} text-sm uppercase font-semibold mb-2 text-neutral-400`}>
 											{(+selected.value * 0.1).toFixed(2) || 0} ETH
 										</span>
+										{error && <span className="text-xs uppercase font-semibold mb-2 text-red-500">{error}</span>}
 										<div className="gap-x-2 flex justify-center items-stretch pt-4 mt-5">
-											<button
-												disabled={isLoading}
-												onClick={() => dispatch.globalModel.setModalVisibility(false)}
-												className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-												BACK
-											</button>
-											<button
-												disabled={+selected.value === 0 || isLoading ? true : false}
-												onClick={isWeb3Enabled ? () => handleMint() : () => enableWeb3()}
-												className="px-4 py-1 text-sm bg-green-900 hover:bg-green-800 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
-												{isWeb3Enabled ? "MINT" : "CONNECT"}
-											</button>
+											{isMinting ?
+												<LoadingIcon /> :
+												<Fragment>
+													<button
+														disabled={isLoading}
+														onClick={() => dispatch.globalModel.setModalVisibility(false)}
+														className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+														BACK
+													</button>
+													<button
+														disabled={+selected.value === 0 || isLoading ? true : false}
+														onClick={isWeb3Enabled ? () => handleMint() : () => enableWeb3()}
+														className="px-4 py-1 text-sm bg-green-900 hover:bg-green-800 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+														{isWeb3Enabled ? "MINT" : "CONNECT"}
+													</button></Fragment>}
 										</div>
-									</div>
+									</div> : <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center py-5">
+										{currentTape?.tape?.name}
+										<span className="uppercase font-normal ml-2 text-neutral-400">Minted <i className="fa-solid fa-circle-check text-green-500 ml-1"></i></span>
+									</h5>}
 								</div>
 							</Dialog.Panel>
 						</Transition.Child>
