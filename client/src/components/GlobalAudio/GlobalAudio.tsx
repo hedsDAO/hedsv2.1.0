@@ -18,7 +18,7 @@ const GlobalAudio = () => {
 	const playerSize = useSelector((state: RootState) => state.audioModel?.playerSize);
 	const currentTrack: number = useSelector((state: RootState) => state.audioModel?.currentTrack);
 	const tracks: Array<TrackMetadata> = useSelector((state: RootState) => state.audioModel?.tracks);
-	const currentTape: number = Math.floor(useSelector((state: RootState) => state.audioModel.currentTrack) / 10 + 1);
+	const currentTape: number = Math.floor(useSelector((state: RootState) => state.audioModel.currentTrack) / 10);
 	const globalData = useSelector((state: RootState) => state.globalModel);
 	// const videoRef = useRef<HTMLVideoElement | null>(null);
 	const waveformRef = useRef<HTMLDivElement | null>(null);
@@ -26,16 +26,14 @@ const GlobalAudio = () => {
 
 	useEffect(() => {
 		var options; // wavesurfer params
-		if (!audioData?.tapes?.length) dispatch.audioModel.getTapeData([globalData?.space, globalData.id]);
-		if (!audioData?.tracks?.length) dispatch.audioModel.getTrackData();
+		if (!audioData?.tapes?.length) dispatch.audioModel.getTapeData([globalData?.space, globalData?.tape]);
+		if (!audioData?.tracks?.length) dispatch.audioModel.getTrackData([globalData?.space, globalData?.tape]);
 		dispatch.audioModel.setPlayerSize(SMALL);
 		dispatch.audioModel.setIsLoading(true);
 		dispatch.audioModel.setIsPlaying(false);
 		if (waveformRef.current) options = formWaveSurferOptions(waveformRef.current);
 		if (options) wavesurfer.current = WaveSurfer.create(options);
-		if (audioData?.isSample) {
-			wavesurfer?.current?.load(audioData?.samples?.[currentTrack]?.audio);
-		}
+		if (audioData?.isSample) wavesurfer?.current?.load(audioData?.samples?.[currentTrack]?.audio);
 		else wavesurfer?.current?.load(audioData?.tracks?.[currentTrack]?.audio);
 		wavesurfer?.current?.on("audioprocess", (res: number) => dispatch.audioModel.setCurrentTime([`${formatTime(res)}`, res]));
 		wavesurfer?.current?.on("ready", () => {
@@ -66,7 +64,7 @@ const GlobalAudio = () => {
 		<Fragment>
 			{playerSize !== HIDDEN && (
 				<div className="bg-neutral-200 dark:bg-neutral-975 animate__animated animate__fadeInUp bottom-0 fixed z-50">
-					<div className="w-screen flex justify-start gap-x-1 bg-gray-300 dark:bg-neutral-850 dark:border-neutral-900 border-gray-400 border py-1 lg:py-1.5 px-2.5">
+					<div className="w-screen flex justify-start gap-x-1 bg-gray-300 dark:bg-neutral-950 dark:border-neutral-900 border-gray-400 border py-1 lg:py-1.5 px-2.5">
 						<div className="flex gap-x-1">
 							<button onClick={() => {
 								dispatch.audioModel.setAudioOff({
@@ -88,16 +86,16 @@ const GlobalAudio = () => {
 						{playerSize === MINIMIZED &&
 							<Marquee className="w-[200px] mx-2" direction="right" gradient={false}>
 								<div className="flex justify-evenly text-xs uppercase gap-x-2">
-									<span className="dark:text-gray-400 text-neutral-500">{audioData?.isSample ? audioData?.tapes[currentTrack].tape.name : audioData?.tapes[currentTape - 1]?.tape?.name}</span>
+									<span className="dark:text-gray-400 text-neutral-500">{audioData?.isSample ? audioData?.tapes?.[currentTrack].tape.name : audioData?.tapes?.[currentTape - 1]?.tape?.name}</span>
 									<span className="dark:text-gray-300 text-neutral-600">#{audioData?.isSample ? 0 : (currentTrack % 10) + 1}</span>
-									<span className="dark:text-gray-200 text-neutral-700">{audioData?.isSample ? audioData?.samples[currentTrack]?.artist : audioData?.tracks[currentTrack].artist}</span>
+									<span className="dark:text-gray-200 text-neutral-700">{audioData?.isSample ? audioData?.samples?.[currentTrack]?.artist : audioData?.tracks?.[currentTrack]?.artist}</span>
 								</div>
 							</Marquee>
 						}
 					</div>
 					<div className={playerSize === MINIMIZED ? "hidden" : "inline-flex items-center w-screen py-2.5 px-2.5 animate__animated animate__fadeInUp"}>
-						<div className="flex lg:w-[10%]">
-							{audioData?.isSample ? <img className="h-full w-full xl:max-h-[4rem] xl:max-w-[4rem] max-h-[4rem] max-w-[4rem] object-fill rounded-sm mr-3" src={audioData?.tapes[currentTrack]?.tape?.image} /> : <img className="h-full w-full xl:max-h-[4rem] xl:max-w-[4rem] max-h-[4rem] max-w-[4rem] object-fill rounded-sm mr-3" src={audioData?.tapes[currentTape - 1]?.tape?.image} />}
+						<div className="flex lg:w-[10%] p-6">
+							{audioData?.isSample ? <img className="h-full w-full xl:max-h-[4rem] xl:max-w-[4rem] max-h-[4rem] max-w-[4rem] object-fill rounded-sm mr-3" src={audioData?.tapes?.[currentTrack]?.tape?.image} /> : <img className="h-full w-full xl:max-h-[4rem] xl:max-w-[4rem] max-h-[4rem] max-w-[4rem] object-fill rounded-sm mr-3" src={audioData?.tapes?.[currentTape]?.tape?.image} />}
 							<TrackDetails {...{ audioData, currentTape, currentTrack }} />
 						</div>
 						<div className="flex items-center lg:justify-center justify-end gap-x-2 w-[50%] lg:w-[10%]">

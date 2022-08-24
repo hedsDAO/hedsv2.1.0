@@ -20,7 +20,7 @@ export const tapeModel = createModel<RootModel>()({
 			const docRef = doc(db, "audio", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				this.setTapeData(docSnap.data()?.[tape]?.[+id]);
+				this.setTapeData(docSnap.data()?.[tape]?.[id]);
 			}
 		},
 	}),

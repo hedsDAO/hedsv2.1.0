@@ -28,7 +28,7 @@ const Vote = () => {
 	useEffect(() => {
 		// TODO: update collection name
 		getNFTs();
-		dispatch.audioModel.getSamples()
+		dispatch.audioModel.getSamples([space, tape])
 		dispatch.spaceModel.getSpaceData("heds");
 		dispatch.globalModel.setSpaceTapeId([space, tape, id]);
 		dispatch.userModel.getUserData(walletId);

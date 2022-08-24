@@ -8,6 +8,7 @@ import TapeInfo from "../../components/Listen/TapeInfo/TapeInfo";
 import TapeArtists from "../../components/Listen/TapeArtists/TapeArtists";
 import TapeTimeline from "../../components/Listen/TapeTimeline/TapeTimeline";
 import { TapeStatus } from "../../models/common";
+import PreMintTimeline from "../../components/Listen/PreMintTimeline/PreMintTimeline";
 
 const Listen = () => {
 	const { space, tape, id } = useParams<{ space?: string; tape: string; id: string }>();
@@ -17,50 +18,55 @@ const Listen = () => {
 	const tapeData = useSelector((state: RootState) => state.tapeModel);
 	useEffect(() => {
 		dispatch.spaceModel.getSpaceData();
-		dispatch.audioModel.getTrackData();
+		dispatch.audioModel.getTrackData([space, tape]);
 		dispatch.audioModel.getTapeData([space, tape]);
-		dispatch.audioModel.getSamples();
+		if (id === "hedstape") dispatch.audioModel.getSamples([space, tape]);
 		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, []);
-
 	useEffect(() => {
 		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
 		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
 	}, [id]);
-
-	console.log(spaceData)
+	console.log(tapeData)
 	return (
 		<Fragment>
-			{spaceData && audioData && (
-				<div className="flex flex-col xl:px-0 px-2 xl:gap-y-0 gap-y-1">
+			{spaceData && audioData && tapeData && (
+				<div className="flex flex-col xl:px-1 px-2 xl:gap-y-0 gap-y-1">
 					<div className="lg:w-full">
-						<TapeHeader {...spaceData?.[tape]?.[+id - 1]} />
+						<TapeHeader {...spaceData?.[tape]?.[id]} />
 					</div>
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (
+					{+spaceData?.[tape]?.[+id]?.status?.status >= TapeStatus.MINT_OPEN && (
 						<div className="xl:inline hidden">
-							<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
+							<TapeInfo {...spaceData?.[tape]?.[id]} />
 						</div>
 					)}
 					<div className="w-full xl:rounded-none rounded-md">
-						{+spaceData?.[tape]?.[+id - 1]?.status?.status >=
+						{+spaceData?.[tape]?.[+id]?.status?.status >=
 							TapeStatus.SAMPLE_OPEN && (
-								<SampleContainer {...spaceData?.[tape]?.[+id - 1]} />
+								<div className="">
+								<SampleContainer {...spaceData?.[tape]?.[id]} />
+								</div>
 							)}
 					</div>
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status < TapeStatus.MINT_CLOSE && (
+					{+spaceData?.[tape]?.[+id]?.status?.status < TapeStatus.MINT_CLOSE && (
 						<div className="lg:w-full bg-gray-400 dark:bg-neutral-975 ">
-							<TapeTimeline {...spaceData?.[tape]?.[+id - 1]} />
+							<TapeTimeline {...spaceData?.[tape]?.[id]} />
 						</div>
 					)}
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (
+					{
+						id === "goodsociety" && (<div>
+							<PreMintTimeline {...spaceData?.[tape]?.[id]} />
+						</div>)
+					}
+					{+spaceData?.[tape]?.[+id]?.status?.status >= TapeStatus.MINT_OPEN || id === "goodsociety" ? (
 						<div className="lg:w-full">
 							<TapeArtists {...tapeData} />
 						</div>
-					)}
-					{+spaceData?.[tape]?.[+id - 1]?.status?.status >= TapeStatus.MINT_OPEN && (
+					) : <></>}
+					{+spaceData?.[tape]?.[+id]?.status?.status >= TapeStatus.MINT_OPEN && (
 						<div className="xl:hidden inline xl:mt-0 mt-3">
-							<TapeInfo {...spaceData?.[tape]?.[+id - 1]} />
+							<TapeInfo {...spaceData?.[tape]?.[id]} />
 						</div>
 					)}
 				</div>

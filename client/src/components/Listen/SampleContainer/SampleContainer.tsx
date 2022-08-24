@@ -32,7 +32,7 @@ const SampleContainer = (tapeData: TapeData) => {
 		});
 	};
 	return (
-		<div className="bg-gray-300 dark:bg-neutral-975 xl:rounded-none rounded-md mx-auto xl:w-screen">
+		<div className="bg-gray-300 dark:bg-gradient-to-b lg:dark:bg-gradient-to-br dark:from-neutral-975 dark:to-neutral-950 xl:rounded-none rounded-sm mx-auto lg:pt-3 my-1">
 			<div className="flex xl:flex-row flex-col items-center justify-center xl:justify-between max-w-2xl gap-y-2 md:mx-auto px-6 py-6 rounded-lg">
 				<img
 					src={tapeData?.sample?.image}
@@ -44,7 +44,7 @@ const SampleContainer = (tapeData: TapeData) => {
 						{tapeData?.sample?.artist}
 					</span>
 					<span className="inline-flex items-baseline text-neutral-700 dark:text-neutral-300 uppercase font-regular tracking-widest text-sm lg:text-base">
-						<span className="text-neutral-500 dark:text-neutral-500 tracking-tight font-light text-sm lg:text-base mr-1.5">
+						<span className="text-neutral-600 dark:text-neutral-400 tracking-tight font-light text-sm lg:text-base mr-1.5">
 							bpm
 						</span>{" "}
 						{tapeData?.sample?.bpm}
@@ -59,12 +59,12 @@ const SampleContainer = (tapeData: TapeData) => {
 								modal: Modals.WARNING,
 								locked: true
 							})}
-						className="inline-flex items-center shadow-sm justify-center text-center px-6 py-1 text-sm hover:bg-indigo-600 dark:hover:bg-fuchsia-800 dark:bg-fuchsia-600 bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
+						className="inline-flex items-center shadow-md justify-center text-center px-6 py-1 text-sm hover:bg-indigo-400 dark:hover:bg-fuchsia-500 dark:bg-fuchsia-600 bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
 						<span className="my-auto tracking-widest">DOWNLOAD</span>
 					</button>
 					<button
 						onClick={() => playSample()}
-						className="inline-flex items-center shadow-sm justify-center text-center px-6 py-1 text-sm dark:hover:bg-indigo-600 hover:bg-fuchsia-800 bg-fuchsia-600 dark:bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
+						className="inline-flex items-center shadow-md justify-center text-center px-6 py-1 text-sm dark:hover:bg-indigo-400 hover:bg-fuchsia-500 bg-fuchsia-600 dark:bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
 						<span className="my-auto tracking-widest">LISTEN</span>
 					</button>
 				</div>

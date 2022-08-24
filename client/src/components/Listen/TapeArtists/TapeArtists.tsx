@@ -11,7 +11,7 @@ const TapeArtists = (tapeData: TapeState) => {
 	const dispatch = useDispatch<Dispatch>();
 	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const spaceData = useSelector((state: RootState) => state.spaceModel);
-	const tapeLength = spaceData?.[tape]?.[+id - 1]?.tape?.tracks;
+	const tapeLength = spaceData?.[tape]?.[+id]?.tape?.tracks;
 	const { currentTrack, tracks, isLoading } = useSelector((state: RootState) => state.audioModel);
 	const playTrack = (no: number) => {
 		const currentTrack = (+id - 1) * 10 + no;
@@ -20,11 +20,13 @@ const TapeArtists = (tapeData: TapeState) => {
 		dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 	};
 
+	console.log(tapeData.tracks)
+
 	return (
 		<div className="w-full mx-auto">
 			{tapeData && (
 				<Fragment>
-					<div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-md mx-auto">
+					<div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-sm mx-auto">
 						<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
 							<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
 								<div className="col-span-1">
@@ -39,16 +41,16 @@ const TapeArtists = (tapeData: TapeState) => {
 									</span>
 								</div>
 							</div>
-							{tapeData?.tracks?.length
+							{tapeData?.tracks
 								? tapeData.tracks.map((track: TrackMetadata, i: number) => {
 									return (
 										<div
 											onClick={() => playTrack(i)}
 											key={track?.profilePicture}
 											className={
-												tracks?.[currentTrack]?.video === track.video && isLoading
-													? "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
-													: "col-span-12 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1 rounded-sm"
+												tracks?.[currentTrack]?.audio === track.audio && !isLoading
+													? "col-span-12 bg-gray-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1.5 rounded-sm"
+													: "col-span-12 bg-gray-200 hover:bg-neutral-100 dark:bg-neutral-850 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1 w-full px-1.5 rounded-sm"
 											}>
 											<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">

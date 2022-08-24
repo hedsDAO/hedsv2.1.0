@@ -10,6 +10,14 @@ export enum TapeStatus {
 	MINT_CLOSE,
 }
 
+export enum PreMintStatus {
+	PENDING = 0,
+	PRE_MINT_OPEN,
+	PRE_MINT_CLOSED, 
+	PUBLIC_MINT_OPEN, 
+	PUBLIC_MINT_CLOSED
+}
+
 export enum PlayerSize {
 	HIDDEN = 0,
 	SMALL,

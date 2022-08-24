@@ -1,10 +1,12 @@
 import React from "react";
+import { useParams } from "react-router";
 import { TapeData } from "../../../models/spaceModel";
 
 const TapeHeader = (tapeData: TapeData) => {
+	const { tape, id } = useParams<{ space?: string; tape: string; id: string }>();
 	return (
-		<div className="xl:w-screen xl:mx-auto">
-			<div className="lg:z-10 xl:w-screen xl:mx-auto py-6 lg:py-8 bg-gray-500  dark:bg-neutral-900 xl:rounded-none rounded-md">
+		<div className="xl:mx-auto">
+			<div className="lg:z-10 xl:mx-auto py-6 lg:py-8 bg-gray-500  dark:bg-neutral-900 xl:rounded-none rounded-sm">
 				<div className="lg:max-w-4xl lg:px-1 lg:grid lg:grid-cols-5 lg:gap-2 lg:mx-auto items-center">
 					<div className="flex justify-center lg:col-span-2 px-2">
 						<img
@@ -18,7 +20,7 @@ const TapeHeader = (tapeData: TapeData) => {
 								<div className="flex flex-col justify-start items-center lg:items-start lg:mt-0 mt-10">
 									<div className="flex items-center justify-start mb-4">
 										<img
-											src={tapeData?.sample?.image}
+											src={tapeData?.sample?.image || tapeData?.collab?.curator}
 											className="h-20 w-20 aspect-square inline-block rounded-full item item--sphere flex-shrink-0 flex-grow-0"
 										/>
 										<img
@@ -28,23 +30,17 @@ const TapeHeader = (tapeData: TapeData) => {
 									</div>
 									<div className="inline-flex items-center">
 										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
-											heds
+											{tape}
 										</span>
 										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
 											/
 										</span>
 										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
-											hedsTAPE
-										</span>
-										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
-											/
-										</span>
-										<span className="text-neutral-300 font-serif text-xs mt-2 mb-1 tracking-widest whitespace-nowrap pr-1 py-1 mr-0.5">
-											{tapeData?.tape?.no}
+											{id}
 										</span>
 									</div>
 									<span className="text-neutral-100 text-xl xl:text-2xl uppercase tracking-widest whitespace-nowrap mb-3">
-										{tapeData?.sample?.artist}{" "}
+										{tapeData?.sample?.artist || id}{" "}
 										<span className="lowercase">x</span> Heds
 									</span>
 								</div>
@@ -60,7 +56,6 @@ const TapeHeader = (tapeData: TapeData) => {
 					</div>
 				</div>
 			</div>
-			
 		</div>
 	);
 };

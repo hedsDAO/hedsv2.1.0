@@ -4,19 +4,21 @@ import { useSelector, useDispatch } from "react-redux";
 import Artists from "../../components/Explore/Artists/Artists";
 import Spotlight from "../../components/Explore/Spotlight/Spotlight";
 import Tapes from "../../components/Explore/Tapes/Tapes";
-// import TapesToggle from "../../common/toggles/TapesToggle/TapesToggle";
 
 const Explore = () => {
 	const dispatch = useDispatch<Dispatch>();
 	const exploreData = useSelector((state: RootState) => state.exploreModel);
+	const tapeData = useSelector((state: RootState) => state.spaceModel);
 	const hedsTapes = useSelector((state: RootState) => state.spaceModel)?.hedstape;
 	useEffect(() => {
 		dispatch.spaceModel.getSpaceData();
+		dispatch.audioModel.getSamples(['heds', 'hedstape'])
 		dispatch.exploreModel.getSpotlightData();
 	}, []);
+
 	return (
 		<div className="min-h-screen">
-			{hedsTapes?.length && exploreData?.spotlight && (
+			{hedsTapes && exploreData?.spotlight && (
 				<Fragment>
 					<div className="xl:max-w-7xl flex flex-col lg:flex-row justify-center items-center lg:items-baseline gap-x-2 mx-auto mb-5 px-2">
 						<h1 className="text-4xl lg:text-5xl tracking-wide font-extrabold text-neutral-800 dark:text-neutral-300 animate__animated animate__fadeInLeft">FEATURED </h1>
@@ -29,10 +31,9 @@ const Explore = () => {
 							<p className="mt-3 text-sm lg:text-base text-neutral-500 xl:whitespace-nowrap xl:max-w-full max-w-sm">
 								Listen to the collaborative collections curated by artists, heds and the community.
 							</p>
-						</div>				
-						{/* <TapesToggle /> */}
+						</div>
 					</div>
-					<Tapes {...hedsTapes} />
+					<Tapes {...tapeData} />
 					<Artists />
 				</Fragment>
 			)}

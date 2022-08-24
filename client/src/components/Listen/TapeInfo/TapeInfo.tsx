@@ -16,7 +16,7 @@ const TapeInfo = (tapeData: TapeData) => {
 	}, [id]);
 
 	return (
-		<div className="xl:mx-auto xl:w-screen bg-gray-300 dark:bg-neutral-975 p-1 xl:rounded-none rounded-md">
+		<div className="xl:mx-auto xl:w-screen bg-gray-300 dark:bg-neutral-975 p-1 xl:rounded-none rounded-sm">
 			<div className="w-full rounded-sm xl:mx-auto">
 				<div className="grid lg:grid-cols-8 grid-cols-1 items-center rounded-sm w-full gap-1 mx-auto">
 					<div className="col-span-1 inline-flex items-center lg:justify-center justify-start w-full bg-neutral-200 dark:bg-neutral-900 px-4 py-1.5 rounded-sm">
