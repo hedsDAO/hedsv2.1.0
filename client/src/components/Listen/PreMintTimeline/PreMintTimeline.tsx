@@ -29,7 +29,7 @@ const PreMintTimeline = (tapeData: TapeData) => {
                 <nav className="mx-auto " aria-label="Progress">
                     <ol
                         role="list"
-                        className="rounded-sm overflow-hidden flex xl:flex-row flex-col lg:rounded-none lg:gap-y-0 gap-y-1 lg:gap-x-1 ">
+                        className="rounded-sm overflow-hidden flex xl:flex-row flex-col lg:rounded-none lg:gap-y-0 gap-y-1 lg:gap-x-1">
                         {calculatePreMintStatus(+tapeData?.status?.status).map(
                             (step, idx: number) => {
                                 return (
@@ -65,7 +65,7 @@ const Completed = ({ step, idx }: any) => {
     return (
         <li
             key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 lg:m-0 group">
+            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 lg:m-0 group lg:border-2 border-neutral-300 dark:border-neutral-975">
             <span
                 className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
@@ -97,7 +97,7 @@ const Current = ({ modal, step, idx }: any) => {
     return (
         <li
             key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 transition-all">
+            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 transition-all lg:border-2 border-neutral-300 dark:border-neutral-975">
             <button onClick={modal ? modal : () => { }} className="flex items-start justify-start">
                 <span
                     className={classNames(
@@ -129,7 +129,7 @@ const Pending = ({ step, idx, tapeData }: any) => {
     return (
         <li
             key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-850 group">
+            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-850 group lg:border-2 border-neutral-300 dark:border-neutral-975">
             <span
                 className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"

@@ -32,7 +32,7 @@ const Listen = () => {
 	return (
 		<Fragment>
 			{spaceData && audioData && tapeData && (
-				<div className="flex flex-col xl:px-1 px-2 xl:gap-y-0 gap-y-1">
+				<div className="flex flex-col px-2 xl:gap-y-0 gap-y-1">
 					<div className="lg:w-full">
 						<TapeHeader {...spaceData?.[tape]?.[id]} />
 					</div>

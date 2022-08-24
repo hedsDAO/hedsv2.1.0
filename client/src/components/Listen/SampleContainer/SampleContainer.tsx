@@ -32,11 +32,11 @@ const SampleContainer = (tapeData: TapeData) => {
 		});
 	};
 	return (
-		<div className="bg-gray-300 dark:bg-gradient-to-b lg:dark:bg-gradient-to-br dark:from-neutral-975 dark:to-neutral-950 xl:rounded-none rounded-sm mx-auto lg:pt-3 my-1">
+		<div className="from-gray-300 to-gray-200 bg-gradient-to-b lg:bg-gradient-to-br dark:from-neutral-975 dark:to-neutral-950 xl:rounded-none rounded-sm mx-auto lg:py-2 my-1">
 			<div className="flex xl:flex-row flex-col items-center justify-center xl:justify-between max-w-2xl gap-y-2 md:mx-auto px-6 py-6 rounded-lg">
 				<img
 					src={tapeData?.sample?.image}
-					className="item--sphere w-16 h-16 rounded-full m-0.5 justify-self-start ring-2 dark:ring-slate-300 ring-slate-700 xl:mr-2"
+					className="item--sphere w-16 h-16 rounded-full m-0.5 justify-self-start ring-2 dark:ring-slate-900 ring-slate-300 xl:mr-2"
 				/>
 				<div className="flex flex-col lg:px-2 px-3 items-center xl:items-start justify-center w-full gap-x-2 xl:mb-0 mb-3">
 					<span className="text-neutral-700 dark:text-neutral-200 text-xs mb-1"><i className="fa-thin fa-waveform mr-1 text-[0.65rem]" /> sample curator</span>
