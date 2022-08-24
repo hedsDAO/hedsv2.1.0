@@ -1,35 +1,30 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { AudioState } from "../../../models/audioModel";
+import { RootState } from "../../../store";
 
-interface TrackDetailsProps {
-    audioData: AudioState;
-    currentTape: number;
-    currentTrack: number;
-}
-
-const TrackDetails = ({ audioData, currentTape, currentTrack }: TrackDetailsProps) => {
-    // console.log(audioData, currentTape, currentTrack)
+const TrackDetails = () => {
+    const { currentTape, currentTrack, currentTapeId, isSample } = useSelector((state: RootState) => state.audioModel);
+    const trackData = useSelector((state: RootState) => state.tapeModel);
+    const spaceData = useSelector((state: RootState) => state.spaceModel);
     return (
         <div className="flex flex-col items-start justify-center animate__animated animate__fadeIn animate__fast">
-            {audioData?.tapes && (
+            {trackData?.tracks && spaceData && (
                 <>
-                    <span className="text-neutral-900 dark:text-neutral-300 text-sm lg:text-sm font-base whitespace-nowrap">
-                        {audioData?.tapes?.[currentTape - 1]?.links?.route && (
-                            <Link to={audioData?.tapes?.[currentTape]?.links?.route}>
-                                {audioData?.isSample
-                                    ? audioData?.tapes?.[currentTrack].tape.name
-                                    : audioData?.tapes?.[currentTape]?.tape?.name}
+                    <span className="text-neutral-800 dark:text-neutral-300 text-sm lg:text-xs font-base whitespace-nowrap">
+                        {trackData?.tapes?.[currentTape]?.[currentTapeId] && (
+                            <Link to={trackData?.tapes?.[currentTape]?.[currentTapeId]?.links?.route}>
+                                {isSample
+                                    ? trackData?.tapes?.[currentTape]?.[currentTapeId]?.tape.name
+                                    : trackData?.tapes?.[currentTape]?.[currentTapeId]?.tape?.name}
                             </Link>
                         )}
                     </span>
                     <span className="text-neutral-800 dark:text-neutral-400 text-sm lg:text-sm font-thin">
-                        #{audioData?.isSample ? 0 : (currentTrack % 10) + 1}
+                        #{spaceData?.isSample ? 0 : (currentTrack)}
                     </span>
                     <span className="text-neutral-700 dark:text-neutral-500 text-xs lg:text-sm font-extralight whitespace-nowrap">
-                        {audioData?.isSample
-                            ? audioData?.samples?.[currentTrack]?.artist
-                            : audioData?.tracks?.[currentTrack].artist}
+                        {isSample ? trackData?.tapes?.[currentTape]?.[currentTrack]?.sample?.artist : trackData?.tracks?.[currentTape]?.[currentTapeId]?.[currentTrack]?.artist}
                     </span>
                 </>
             )}

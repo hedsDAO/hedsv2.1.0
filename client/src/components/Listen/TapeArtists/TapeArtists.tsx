@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { TapeState } from "../../../models/tapeModel";
 import { PlayerSize, TrackMetadata } from "../../../models/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -7,24 +6,22 @@ import { Dispatch, RootState } from "../../../store";
 import { formatTime } from "../../../utils/formatTime";
 import "react-circular-progressbar/dist/styles.css";
 
-const TapeArtists = (tapeData: TapeState) => {
+const TapeArtists = (trackData: [TrackMetadata]) => {
 	const dispatch = useDispatch<Dispatch>();
 	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const spaceData = useSelector((state: RootState) => state.spaceModel);
 	const tapeLength = spaceData?.[tape]?.[+id]?.tape?.tracks;
-	const { currentTrack, tracks, isLoading } = useSelector((state: RootState) => state.audioModel);
+	const { currentTrack, currentTape, tracks, isLoading } = useSelector((state: RootState) => state.audioModel);
 	const playTrack = (no: number) => {
-		const currentTrack = (+id - 1) * 10 + no;
 		dispatch.audioModel.setIsSample(false);
-		dispatch.audioModel.setCurrentTrack(currentTrack);
+		dispatch.audioModel.setCurrentTrack(no);
+		dispatch.audioModel.setCurrentTape(tape);
+		dispatch.audioModel.setCurrentTapeId(id);
 		dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 	};
-
-	console.log(tapeData.tracks)
-
 	return (
 		<div className="w-full mx-auto">
-			{tapeData && (
+			{trackData && (
 				<Fragment>
 					<div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-sm mx-auto">
 						<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
@@ -41,14 +38,14 @@ const TapeArtists = (tapeData: TapeState) => {
 									</span>
 								</div>
 							</div>
-							{tapeData?.tracks
-								? tapeData.tracks.map((track: TrackMetadata, i: number) => {
+							{Object.values(trackData)?.length
+								? Object.values(trackData).map((track: TrackMetadata, i: number) => {
 									return (
 										<div
 											onClick={() => playTrack(i)}
 											key={track?.profilePicture}
 											className={
-												tracks?.[currentTrack]?.audio === track.audio && !isLoading
+												tracks?.[currentTape]?.[+currentTrack - 1]?.audio === track.audio && !isLoading
 													? "col-span-12 bg-gray-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-sm"
 													: "col-span-12 bg-gray-200 hover:bg-neutral-100 dark:bg-neutral-850 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-sm"
 											}>

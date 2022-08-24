@@ -7,9 +7,11 @@ import { TapeData } from "./spaceModel";
 
 export interface AudioState {
 	currentTrack: number;
-	tracks: Array<TrackMetadata>;
-	tapes: Array<TapeData>;
-	samples: Array<SampleData>;
+	currentTapeId: any;
+	currentTape: string;
+	tracks: {[key:string] : [TrackMetadata]};
+	tapes: {[key:string] : TapeData};
+	samples: {[key:string] : SampleData};
 	playerSize: PlayerSize;
 	isPlaying: boolean;
 	isLoading: boolean;
@@ -27,9 +29,9 @@ export const audioModel = createModel<RootModel>()({
 		volume: 0,
 	} as AudioState,
 	reducers: {
-		setAudio: (state, tracks: Array<TrackMetadata>) => ({ ...state, tracks }),
-		setSamples: (state, samples: Array<SampleData>) => ({ ...state, samples }),
-		setTapes: (state, tapes: Array<TapeData>) => ({ ...state, tapes }),
+		setAudio: (state, tracks: {[key:string] : [TrackMetadata]}) => ({ ...state, tracks }),
+		setSamples: (state, samples: {[key:string] : SampleData}) => ({ ...state, samples }),
+		setTapes: (state, tapes: {[key:string] :TapeData}) => ({ ...state, tapes }),
 		setPlayerSize: (state, playerSize: PlayerSize) => ({ ...state, playerSize }),
 		setIsPlaying: (state, isPlaying: boolean) => ({ ...state, isPlaying }),
 		setIsSample: (state, isSample: boolean) => ({ ...state, isSample }),
@@ -38,6 +40,8 @@ export const audioModel = createModel<RootModel>()({
 		setDuration: (state, duration: [string, number]) => ({ ...state, duration }),
 		setIsLoading: (state, isLoading: boolean) => ({ ...state, isLoading }),
 		setCurrentTrack: (state, currentTrack: number) => ({ ...state, currentTrack }),
+		setCurrentTapeId: (state, currentTapeId: any) => ({ ...state, currentTapeId }),
+		setCurrentTape: (state, currentTape: string) => ({ ...state, currentTape }),
 		setAudioOff: (state, payload) => {
 			const newState = { ...state };
 			const { tracks, tapes, samples } = newState;
@@ -49,25 +53,24 @@ export const audioModel = createModel<RootModel>()({
 			const docRef = doc(db, "audio", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				const tracks = Object.values(docSnap.data()?.[tape]).flat();
-				this.setAudio(tracks);
+				this.setAudio(docSnap.data()?.[tape]);
 			}
 		},
 		async getTapeData([space, tape]: [string | void, string]) {
 			const docRef = doc(db, "spaces_test", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				const tapes = Object.values(docSnap.data()?.[space || "heds"]?.[tape]).flat();
-				this.setTapes(tapes);
+				const tapes = docSnap.data()?.[space || "heds"]?.[tape];
+				this.setTapes((tapes));
 			}
 		},
 		async getSamples([space, tape]: [string | void, string]) {
 			const docRef = doc(db, "spaces_test", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				let sampleTank: Array<SampleData> = [];
-				let tapeTank: Array<TapeData | any> = Object.values(docSnap.data()?.[space || "heds"]?.[tape]).flat();
-				tapeTank.map((tapeData) => sampleTank.push(tapeData?.sample));
+				let sampleTank: {[id:string] : SampleData} = {};
+				let tapeTank: {[id: string] : TapeData} = docSnap.data()?.[space || "heds"]?.[tape];
+				for (let id in tapeTank) sampleTank[id] = tapeTank[id].sample;
 				this.setSamples(sampleTank);
 			}
 		},

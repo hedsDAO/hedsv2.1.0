@@ -12,7 +12,7 @@ import { Modals } from "../../../models/globalModel";
 import { useMoralis } from "react-moralis";
 
 const SampleContainer = (tapeData: TapeData) => {
-	const { id } = useParams<{ id: string }>();
+	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const { user } = useMoralis();
 	const dispatch = useDispatch<Dispatch>();
 	const storage = getStorage();
@@ -21,8 +21,10 @@ const SampleContainer = (tapeData: TapeData) => {
 	const playSample = () => {
 		const track = +tapeData.tape.no - 1;
 		if (audioData?.samples?.[track]) {
-			dispatch.audioModel.setCurrentTrack(track);
 			dispatch.audioModel.setIsSample(true);
+			dispatch.audioModel.setCurrentTape(tape);
+			dispatch.audioModel.setCurrentTapeId(+id);
+			dispatch.audioModel.setCurrentTrack(track);
 			dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
 		}
 	};

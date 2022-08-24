@@ -18,17 +18,18 @@ const Listen = () => {
 	const tapeData = useSelector((state: RootState) => state.tapeModel);
 	useEffect(() => {
 		dispatch.spaceModel.getSpaceData();
+		dispatch.audioModel.getTapeData([space, tape])
 		dispatch.audioModel.getTrackData([space, tape]);
-		dispatch.audioModel.getTapeData([space, tape]);
-		if (id === "hedstape") dispatch.audioModel.getSamples([space, tape]);
-		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
-		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
+		if (spaceData?.[tape]?.[id]?.sample) dispatch.audioModel.getSamples([space, tape]);
+		dispatch.globalModel.setSpaceTapeId([space, tape, id]);
 	}, []);
 	useEffect(() => {
-		dispatch.globalModel.setSpaceTapeId([space || "heds", tape, id]);
-		dispatch.tapeModel.getTapeData([space || "heds", tape, id]);
-	}, [id]);
-	console.log(tapeData)
+		if (spaceData?.[tape]?.[id]?.sample) dispatch.audioModel.getSamples([space, tape]);
+		dispatch.globalModel.setSpaceTapeId([space, tape, id]);
+		dispatch.audioModel.getTapeData([space, tape])
+		dispatch.audioModel.getTrackData([space, tape]);
+		if (spaceData?.[tape]?.[id]?.sample) dispatch.audioModel.getSamples([space, tape]);
+	}, [id, tape]);
 	return (
 		<Fragment>
 			{spaceData && audioData && tapeData && (
@@ -36,35 +37,38 @@ const Listen = () => {
 					<div className="lg:w-full">
 						<TapeHeader {...spaceData?.[tape]?.[id]} />
 					</div>
-					{+spaceData?.[tape]?.[+id]?.status?.status >= TapeStatus.MINT_OPEN && (
+					{+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.MINT_OPEN && (
 						<div className="xl:inline hidden">
 							<TapeInfo {...spaceData?.[tape]?.[id]} />
 						</div>
 					)}
 					<div className="w-full xl:rounded-none rounded-md">
-						{+spaceData?.[tape]?.[+id]?.status?.status >=
-							TapeStatus.SAMPLE_OPEN && (
-								<div className="">
+						{+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.SAMPLE_OPEN && (
+							<div className="">
 								<SampleContainer {...spaceData?.[tape]?.[id]} />
-								</div>
-							)}
+							</div>
+						)}
 					</div>
-					{+spaceData?.[tape]?.[+id]?.status?.status < TapeStatus.MINT_CLOSE && (
-						<div className="lg:w-full bg-gray-400 dark:bg-neutral-975 ">
-							<TapeTimeline {...spaceData?.[tape]?.[id]} />
+					{+spaceData?.[tape]?.[id]?.status?.status < TapeStatus.MINT_CLOSE &&
+						tape === "hedstape" && (
+							<div className="lg:w-full bg-gray-400 dark:bg-neutral-975 ">
+								<TapeTimeline {...spaceData?.[tape]?.[id]} />
+							</div>
+						)}
+					{id === "goodsociety" && (
+						<div>
+							<PreMintTimeline {...spaceData?.[tape]?.[id]} />
 						</div>
 					)}
-					{
-						id === "goodsociety" && (<div>
-							<PreMintTimeline {...spaceData?.[tape]?.[id]} />
-						</div>)
-					}
-					{+spaceData?.[tape]?.[+id]?.status?.status >= TapeStatus.MINT_OPEN || id === "goodsociety" ? (
+					{+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.MINT_OPEN ||
+						id === "goodsociety" ? (
 						<div className="lg:w-full">
-							<TapeArtists {...tapeData} />
+							<TapeArtists {...audioData?.tracks?.[id]} />
 						</div>
-					) : <></>}
-					{+spaceData?.[tape]?.[+id]?.status?.status >= TapeStatus.MINT_OPEN && (
+					) : (
+						<></>
+					)}
+					{+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.MINT_OPEN && (
 						<div className="xl:hidden inline xl:mt-0 mt-3">
 							<TapeInfo {...spaceData?.[tape]?.[id]} />
 						</div>

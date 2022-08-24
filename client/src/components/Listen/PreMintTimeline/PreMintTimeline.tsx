@@ -5,7 +5,7 @@ import { classNames } from "../../../utils/classNames";
 import { TapeData } from "../../../models/spaceModel";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "../../../store";
-import { TapeStatus } from "../../../models/common";
+import { PreMintStatus } from "../../../models/common";
 import { Modals } from "../../../models/globalModel";
 // import DateCountdown from "../../../common/countdown/Countdown";
 
@@ -13,15 +13,15 @@ const PreMintTimeline = (tapeData: TapeData) => {
     const dispatch = useDispatch<Dispatch>();
     const status = +tapeData?.status?.status;
     const handleTapeAction = () => {
-        if (status === TapeStatus.SUBMIT_OPEN)
+        if (status === PreMintStatus.PRE_MINT_OPEN)
             return () =>
-                dispatch.globalModel.setModal({ open: true, modal: Modals.SUBMIT, locked: true });
-        if (status === TapeStatus.VOTE_OPEN)
-            return () =>
-                dispatch.globalModel.setModal({ open: true, modal: Modals.VOTE, locked: true });
-        if (status === TapeStatus.MINT_OPEN)
-            return () =>
-                dispatch.globalModel.setModal({ open: true, modal: Modals.MINT, locked: true });
+                dispatch.globalModel.setModal({ open: true, modal: Modals.PRE_MINT, locked: true });
+        // if (status === TapeStatus.VOTE_OPEN)
+        //     return () =>
+        //         dispatch.globalModel.setModal({ open: true, modal: Modals.VOTE, locked: true });
+        // if (status === TapeStatus.MINT_OPEN)
+        //     return () =>
+        //         dispatch.globalModel.setModal({ open: true, modal: Modals.MINT, locked: true });
     };
     return (
         <div className="mx-auto rounded-sm lg:my-1 my-0 mb-1">
@@ -33,7 +33,7 @@ const PreMintTimeline = (tapeData: TapeData) => {
                         {calculatePreMintStatus(+tapeData?.status?.status).map(
                             (step, idx: number) => {
                                 return (
-                                    <div className="bg-gray-400 dark:bg-neutral-950 lg:p-0 p-1 w-full">
+                                    <div key={step.key} className="bg-gray-400 dark:bg-neutral-950 lg:p-0 p-1 w-full">
                                         {step.status === "complete" ? (
                                             <Completed key={step.key} step={step} idx={idx} />
                                         ) : step.status === "current" ? (
@@ -64,8 +64,8 @@ const PreMintTimeline = (tapeData: TapeData) => {
 const Completed = ({ step, idx }: any) => {
     return (
         <li
-            key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 lg:m-0 group lg:border-2 border-neutral-300 dark:border-neutral-975">
+            key={step.key + step.name}
+            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 lg:m-0 group lg:border-2 border-neutral-300 dark:border-neutral-950">
             <span
                 className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
@@ -96,8 +96,8 @@ const Completed = ({ step, idx }: any) => {
 const Current = ({ modal, step, idx }: any) => {
     return (
         <li
-            key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 transition-all lg:border-2 border-neutral-300 dark:border-neutral-975">
+            key={step.key + step.name}
+            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 transition-all lg:border-2 border-neutral-300 dark:border-neutral-950">
             <button onClick={modal ? modal : () => { }} className="flex items-start justify-start">
                 <span
                     className={classNames(
@@ -128,8 +128,8 @@ const Current = ({ modal, step, idx }: any) => {
 const Pending = ({ step, idx, tapeData }: any) => {
     return (
         <li
-            key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-850 group lg:border-2 border-neutral-300 dark:border-neutral-975">
+            key={step.key + step.name}
+            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-850 group lg:border-2 border-neutral-300 dark:border-neutral-950">
             <span
                 className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
