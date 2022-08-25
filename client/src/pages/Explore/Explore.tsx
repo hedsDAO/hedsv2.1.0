@@ -8,23 +8,23 @@ import Tapes from "../../components/Explore/Tapes/Tapes";
 const Explore = () => {
 	const dispatch = useDispatch<Dispatch>();
 	const exploreData = useSelector((state: RootState) => state.exploreModel);
-	const tapeData = useSelector((state: RootState) => state.spaceModel);
-	const hedsTapes = useSelector((state: RootState) => state.spaceModel)?.hedstape;
+	const spaceData = useSelector((state: RootState) => state.spaceModel);
+	const tapeData = useSelector((state: RootState) => state.tapeModel)
 	useEffect(() => {
 		dispatch.spaceModel.getSpaceData();
-		dispatch.audioModel.getSamples(['heds', 'hedstape'])
+		dispatch.audioModel.getSamples(['heds', 'hedstape']);
 		dispatch.exploreModel.getSpotlightData();
 	}, []);
 
 	return (
 		<div className="min-h-screen">
-			{hedsTapes && exploreData?.spotlight && (
+			{tapeData && exploreData?.spotlight && (
 				<Fragment>
 					<div className="xl:max-w-7xl flex flex-col lg:flex-row justify-center items-center lg:items-baseline gap-x-2 mx-auto mb-5 px-2">
 						<h1 className="text-4xl lg:text-5xl tracking-wide font-extrabold text-neutral-800 dark:text-neutral-300 animate__animated animate__fadeInLeft">FEATURED </h1>
-						<h5 className="text-2xl lg:text-3xl font-light dark:text-neutral-400 text-neutral-800 animate__animated animate__fadeInRight">{hedsTapes?.[exploreData?.spotlight?.id]?.tape?.name}</h5>
+						<h5 className="text-2xl lg:text-3xl font-light dark:text-neutral-400 text-neutral-800 animate__animated animate__fadeInRight">{tapeData?.tapes?.[exploreData?.spotlight?.tape]?.[exploreData?.spotlight?.id]?.tape?.name}</h5>
 					</div>
-					<Spotlight featured={hedsTapes?.[exploreData?.spotlight?.id]} exploreData={exploreData} />
+					<Spotlight exploreData={exploreData} />
 					<div className="xl:max-w-7xl flex lg:flex-row flex-col justify-between mx-auto items-center xl:items-end pb-3 lg:px-1 px-6 gap-y-4 mt-5 xl:mt-14">
 						<div className="xl:mx-0 mx-2 xl:my-0 my-5 text-center lg:text-left">
 							<h1 className="text-4xl tracking-wide font-extrabold text-neutral-800 dark:text-neutral-300 animate__animated animate__fadeInUp">EXPLORE</h1>
@@ -33,7 +33,7 @@ const Explore = () => {
 							</p>
 						</div>
 					</div>
-					<Tapes {...tapeData} />
+					<Tapes {...spaceData} />
 					<Artists />
 				</Fragment>
 			)}
