@@ -11,7 +11,8 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
 	const { tape, id } = useParams<{ tape: string; id: string }>();
 	const spaceData = useSelector((state: RootState) => state.spaceModel);
 	const tapeLength = spaceData?.[tape]?.[+id]?.tape?.tracks;
-	const { currentTrack, currentTape, tracks, isLoading } = useSelector((state: RootState) => state.audioModel);
+	const tapeData = useSelector((state: RootState) => state.tapeModel);
+	const { currentTrack, currentTape, currentTapeId, isLoading } = useSelector((state: RootState) => state.audioModel);
 	const playTrack = (no: number) => {
 		dispatch.audioModel.setIsSample(false);
 		dispatch.audioModel.setCurrentTrack(no);
@@ -21,9 +22,9 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
 	};
 	return (
 		<div className="w-full mx-auto">
-			{trackData && (
+			{trackData && tapeData && (
 				<Fragment>
-					<div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-sm mx-auto">
+					<div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-lg xl:rounded-xl mx-auto">
 						<div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
 							<div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
 								<div className="col-span-1">
@@ -45,9 +46,9 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
 											onClick={() => playTrack(i)}
 											key={track?.profilePicture}
 											className={
-												tracks?.[currentTape]?.[+currentTrack - 1]?.audio === track.audio && !isLoading
-													? "col-span-12 bg-gray-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-sm"
-													: "col-span-12 bg-gray-200 hover:bg-neutral-100 dark:bg-neutral-850 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-sm"
+												tapeData?.tracks?.[currentTape]?.[currentTapeId]?.[currentTrack]?.audio === track.audio && !isLoading
+													? "col-span-12 bg-gray-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
+													: "col-span-12 bg-gray-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
 											}>
 											<div className="text-neutral-800 dark:text-neutral-500 col-span-1 font-thin px-1">{i + 1}</div>
 											<div className="col-span-6 inline-flex items-center justify-start gap-x-4 uppercase text-sm tracking-widest text-neutral-800 dark:text-neutral-500 px-1 whitespace-nowrap">

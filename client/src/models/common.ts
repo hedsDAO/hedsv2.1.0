@@ -32,6 +32,7 @@ export interface TrackMetadata {
 	profilePicture: string;
 	wallet: string;
 	social: string;
+	title?:string;
 	duration: number;
 }
 

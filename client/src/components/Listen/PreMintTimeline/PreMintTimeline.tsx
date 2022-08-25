@@ -18,19 +18,23 @@ const PreMintTimeline = (tapeData: TapeData) => {
                 dispatch.globalModel.setModal({ open: true, modal: Modals.PRE_MINT, locked: true });
         if (status === PreMintStatus.PUBLIC_MINT_OPEN)
             return () =>
-                dispatch.globalModel.setModal({ open: true, modal: Modals.PUBLIC_MINT, locked: true });
+                dispatch.globalModel.setModal({
+                    open: true,
+                    modal: Modals.PUBLIC_MINT,
+                    locked: true,
+                });
     };
     return (
-        <div className="mx-auto rounded-sm lg:my-1 my-0 mb-1">
+        <div className="mx-auto p-1 rounded-lg">
             {tapeData?.tape && (
-                <nav className="mx-auto " aria-label="Progress">
+                <nav className="mx-auto" aria-label="Progress">
                     <ol
                         role="list"
-                        className="rounded-sm overflow-hidden flex xl:flex-row flex-col lg:rounded-none lg:gap-y-0 gap-y-1 lg:gap-x-1">
+                        className="rounded-sm overflow-hidden flex xl:flex-row flex-col gap-x-1 gap-y-1">
                         {calculatePreMintStatus(+tapeData?.status?.status).map(
                             (step, idx: number) => {
                                 return (
-                                    <div key={step.key} className="bg-gray-400 dark:bg-neutral-950 lg:p-0 p-1 w-full">
+                                    <div key={step.key} className="rounded-xl w-full">
                                         {step.status === "complete" ? (
                                             <Completed key={step.key} step={step} idx={idx} />
                                         ) : step.status === "current" ? (
@@ -48,7 +52,8 @@ const PreMintTimeline = (tapeData: TapeData) => {
                                                 tapeData={tapeData}
                                             />
                                         )}
-                                    </div>);
+                                    </div>
+                                );
                             }
                         )}
                     </ol>
@@ -62,7 +67,7 @@ const Completed = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 lg:m-0 group lg:border-2 border-neutral-300 dark:border-neutral-950">
+            className="relative overflow-hidden lg:flex-1 bg-gray-200/50 dark:bg-neutral-950 lg:m-0 group rounded-lg">
             <span
                 className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
@@ -94,8 +99,8 @@ const Current = ({ modal, step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 transition-all lg:border-2 border-neutral-300 dark:border-neutral-950">
-            <button onClick={modal ? modal : () => { }} className="flex items-start justify-start">
+            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all">
+            <button onClick={modal ? modal : () => {}} className="flex items-start justify-start">
                 <span
                     className={classNames(
                         idx !== 0 ? "lg:pl-9" : "",
@@ -126,7 +131,7 @@ const Pending = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-850 group lg:border-2 border-neutral-300 dark:border-neutral-950">
+            className="relative overflow-hidden lg:flex-1 bg-gray-300 dark:bg-neutral-850 group rounded-lg">
             <span
                 className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"

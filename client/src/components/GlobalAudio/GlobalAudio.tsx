@@ -16,6 +16,7 @@ const GlobalAudio = () => {
 	const dispatch = useDispatch<Dispatch>();
 	const audioData = useSelector((state: RootState) => state.audioModel);
 	const playerSize = useSelector((state: RootState) => state.audioModel?.playerSize);
+	const trackData = useSelector((state: RootState) => state.tapeModel);
 	const { currentTape, currentTrack, currentTapeId } = useSelector(
 		(state: RootState) => state.audioModel
 	);
@@ -32,7 +33,7 @@ const GlobalAudio = () => {
 		if (options) wavesurfer.current = WaveSurfer.create(options);
 		if (audioData?.isSample)
 			wavesurfer?.current?.load(
-				tapeData?.tapes?.[currentTape]?.[currentTrack]?.sample?.audio
+				tapeData?.tapes?.[currentTape]?.[currentTapeId]?.sample?.audio
 			);
 		else
 			wavesurfer?.current?.load(
@@ -51,19 +52,29 @@ const GlobalAudio = () => {
 			wavesurfer?.current?.playPause();
 		});
 		wavesurfer?.current?.on("finish", function () {
-			// if (audioData?.samples && audioData?.isSample) {
-			// 	dispatch.audioModel.setIsSample(false);
-			// 	if (audioData?.tracks?.[+currentTrack + 10]) dispatch.audioModel.setCurrentTrack(currentTrack * 10);
-			// 	else dispatch.audioModel.setCurrentTrack(0);
-			// } else {
-			// 	if (currentTrack === tracks?.length - 1) dispatch.audioModel.setCurrentTrack(0);
-			// 	if (tracks?.[currentTrack + 1]) dispatch.audioModel.setCurrentTrack(currentTrack + 1);
-			// }
+			let nextTapeId;
+			let nextTrack = audioData?.currentTrack + 1;
+			let allTapeIds = Object.keys(tapeData?.tapes?.[currentTape]);
+			for (let i = 0; i < allTapeIds.length; i++) {
+				if (allTapeIds[i] == currentTapeId && allTapeIds?.[i + 1]) nextTapeId = allTapeIds[i + 1];
+				if (allTapeIds[i] == currentTapeId && !allTapeIds?.[i + 1]) nextTapeId = allTapeIds[0];
+			}
+			if (!nextTapeId) nextTapeId = currentTapeId;
+			let currentTrackLength = tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length;
+			if (audioData?.isSample) {
+				dispatch.audioModel.setIsSample(false);
+				dispatch.audioModel.setCurrentTrack(0);
+			} else if (nextTrack >= 0 && nextTrack < currentTrackLength) dispatch.audioModel.setCurrentTrack(nextTrack);
+			else if (nextTrack >= currentTrackLength) {
+				dispatch.audioModel.setCurrentTrack(0);
+				if (nextTapeId in tapeData?.tapes?.[audioData?.currentTape]) dispatch.audioModel.setCurrentTapeId(nextTapeId);
+				else dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
+			}
 		});
 		return () => {
 			wavesurfer?.current?.destroy();
 		};
-	}, [audioData?.currentTrack, audioData?.currentTapeId]);
+	}, [audioData?.currentTrack, audioData?.currentTapeId, audioData?.isSample]);
 
 	return (
 		<Fragment>
@@ -106,7 +117,7 @@ const GlobalAudio = () => {
 											: tapeData?.tapes?.[currentTape]?.[currentTapeId]?.tape?.name}
 									</span>
 									<span className="dark:text-gray-300 text-neutral-600 px-1">
-										#{audioData?.isSample ? 0 : (currentTrack % 10) + 1}
+										{audioData?.isSample ? `#0` : trackData?.tracks?.[currentTape]?.[currentTapeId]?.[currentTrack]?.title || `#${currentTrack + 1}`}
 									</span>
 									<span className="dark:text-gray-200 text-neutral-700 px-1">
 										{audioData?.isSample
@@ -124,29 +135,18 @@ const GlobalAudio = () => {
 								: "inline-flex justify-between lg:justify-evenly items-center w-screen py-2.5 px-2.5 animate__animated animate__fadeInUp"
 						}>
 						<div className="flex lg:w-[10%] p-6">
-							{audioData?.isSample ? (
 								<img
 									className="h-full w-full xl:max-h-[4rem] xl:max-w-[4rem] max-h-[4rem] max-w-[4rem] object-fill rounded-sm mr-3"
 									src={
 										tapeData?.tapes?.[currentTape]?.[currentTapeId]?.tape?.image
 									}
 								/>
-							) : (
-								<img
-									className="h-full w-full xl:max-h-[4rem] xl:max-w-[4rem] max-h-[4rem] max-w-[4rem] object-fill rounded-sm mr-3"
-									src={tapeData?.tapes?.[currentTape]?.[currentTapeId]?.tape?.image}
-								/>
-							)}
 							<TrackDetails />
 						</div>
 						<div className="flex items-center lg:justify-center justify-end gap-x-2 w-[20%] lg:w-[20%]">
 							<button
 								disabled={audioData?.isLoading}
 								onClick={() => {
-									if (audioData?.isSample) {
-										dispatch.audioModel.setIsSample(false);
-										dispatch.audioModel.setCurrentTrack(0);
-									} else {
 										let prevTapeId;
 										let prevTrack = audioData?.currentTrack - 1;
 										let allTapeIds = Object.keys(tapeData?.tapes?.[currentTape]);
@@ -156,14 +156,18 @@ const GlobalAudio = () => {
 										}
 										if (!prevTapeId) prevTapeId = currentTapeId;
 										let currentTrackLength = tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length;
-										if (prevTrack >= 0 && prevTrack < currentTrackLength) dispatch.audioModel.setCurrentTrack(prevTrack);
-										if (prevTrack < 0) {
+										if (audioData?.isSample) {											
+											dispatch.audioModel.setIsSample(false);
+											dispatch.audioModel.setCurrentTapeId(prevTapeId);
+											dispatch.audioModel.setCurrentTrack(0);
+										} 							
+										else if (audioData?.currentTrack > 0 && prevTrack < currentTrackLength) dispatch.audioModel.setCurrentTrack(prevTrack);
+										else if (audioData?.currentTrack === 0) {
 											let prevTrackLength = tapeData?.tracks?.[currentTape]?.[prevTapeId]?.length - 1;
 											dispatch.audioModel.setCurrentTrack(prevTrackLength);
 											if (prevTapeId in tapeData?.tapes?.[audioData?.currentTape]) dispatch.audioModel.setCurrentTapeId(prevTapeId);
 											else dispatch.audioModel.setCurrentTapeId(allTapeIds[allTapeIds.length - 1]);
 										}
-									}
 								}}
 								className="inline-flex items-center">
 								<i className="fa-solid fa-backward-step lg:text-base text-sm text-neutral-900 dark:text-neutral-300"></i>
@@ -178,10 +182,6 @@ const GlobalAudio = () => {
 							<button
 								disabled={audioData?.isLoading}
 								onClick={() => {
-									if (audioData?.isSample) {
-										dispatch.audioModel.setIsSample(false);
-										dispatch.audioModel.setCurrentTrack(0);
-									} else {
 										let nextTapeId;
 										let nextTrack = audioData?.currentTrack + 1;
 										let allTapeIds = Object.keys(tapeData?.tapes?.[currentTape]);
@@ -191,15 +191,16 @@ const GlobalAudio = () => {
 										}
 										if (!nextTapeId) nextTapeId = currentTapeId;
 										let currentTrackLength = tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length;
-										if (nextTrack >= 0 && nextTrack < currentTrackLength) dispatch.audioModel.setCurrentTrack(nextTrack);
-										if (nextTrack >= currentTrackLength) {
-											let nextTrackLength = tapeData?.tracks?.[currentTape]?.[nextTapeId]?.length - 1;
-											dispatch.audioModel.setCurrentTrack(nextTrackLength);
+										if (audioData?.isSample) {
+											dispatch.audioModel.setIsSample(false);
+											dispatch.audioModel.setCurrentTrack(0);
+										} else if (nextTrack >= 0 && nextTrack < currentTrackLength) dispatch.audioModel.setCurrentTrack(nextTrack);
+										else if (nextTrack >= currentTrackLength) {
+											dispatch.audioModel.setCurrentTrack(0);
 											if (nextTapeId in tapeData?.tapes?.[audioData?.currentTape]) dispatch.audioModel.setCurrentTapeId(nextTapeId);
 											else dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
 										}
-									}
-								}}
+									}}
 								className="inline-flex items-center">
 								<i className="fa-solid fa-forward-step lg:text-base text-sm text-neutral-900 dark:text-neutral-300"></i>
 							</button>
