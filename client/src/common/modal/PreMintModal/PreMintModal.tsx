@@ -69,7 +69,8 @@ const PreMintModal = () => {
                                     {!hasMinted ? <div className="flex flex-col h-full items-center justify-center py-5">
                                         <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center py-5">
                                             {currentTape?.tape?.name}
-                                            <span className="uppercase font-normal ml-2 text-neutral-400">Mint</span>
+                                            <span className="uppercase font-normal ml-2 text-neutral-400">Whitelist Mint</span>
+                                            <span className="uppercase text-sm ml-2 text-neutral-500">Max Quantity: 1</span>
                                         </h5>
                                         <div className="mb-2">
                                             <div className="mt-5 flex justify-center flex-col gap-y-3">
