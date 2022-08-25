@@ -11,6 +11,7 @@ import WarningModal from "../../modal/WarningModal/WarningModal";
 import TokenBurnModal from "../../modal/TokenBurnModal/TokenBurnModal";
 import VoteModal from "../../modal/VoteModal/VoteModal";
 import PreMintModal from "../../modal/PreMintModal/PreMintModal";
+import PublicMintModal from "../../modal/PublicMintModal/PublicMintModal";
 const warningTitle = "Unverified Account";
 const warningMessageTwitter = "Verify your account with twitter to continue.";
 const warningMessageUser = "Connect your wallet to download the sample.";
@@ -29,6 +30,7 @@ const GlobalWrapper = ({ children }: { children: JSX.Element }) => {
 			<WarningModal title={warningTitle} message={warningMessageTwitter} />
 		),
 		[Modals.PRE_MINT]: <PreMintModal />,
+		[Modals.PUBLIC_MINT]: <PublicMintModal />,
 		[Modals.MINT]: <MintModal />,
 		[Modals.OGHED]: <TokenBurnModal />,
 		[Modals.WARNING]: <WarningModal title={warningTitle} message={warningMessageUser} />,

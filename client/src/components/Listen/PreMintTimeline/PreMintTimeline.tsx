@@ -16,12 +16,9 @@ const PreMintTimeline = (tapeData: TapeData) => {
         if (status === PreMintStatus.PRE_MINT_OPEN)
             return () =>
                 dispatch.globalModel.setModal({ open: true, modal: Modals.PRE_MINT, locked: true });
-        // if (status === TapeStatus.VOTE_OPEN)
-        //     return () =>
-        //         dispatch.globalModel.setModal({ open: true, modal: Modals.VOTE, locked: true });
-        // if (status === TapeStatus.MINT_OPEN)
-        //     return () =>
-        //         dispatch.globalModel.setModal({ open: true, modal: Modals.MINT, locked: true });
+        if (status === PreMintStatus.PUBLIC_MINT_OPEN)
+            return () =>
+                dispatch.globalModel.setModal({ open: true, modal: Modals.PUBLIC_MINT, locked: true });
     };
     return (
         <div className="mx-auto rounded-sm lg:my-1 my-0 mb-1">
