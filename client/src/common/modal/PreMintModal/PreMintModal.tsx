@@ -5,10 +5,8 @@ import { RootState, Dispatch } from "../../../store";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useMoralis } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
-import { BigNumber } from "ethers";
 const contractAbi = require("../../../data/whitelists/abi/collabTAPE01.json");
 const proof = require("../../../data/whitelists/proofs.json");
-// import { getContractAbi } from "../../../utils/getContractAbi";
 var ethers = require("ethers");
 
 const quantities = [{ value: "1" }];

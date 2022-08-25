@@ -125,7 +125,7 @@ const Current = ({ modal, step, idx }: any) => {
     );
 };
 
-const Pending = ({ step, idx, tapeData }: any) => {
+const Pending = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
