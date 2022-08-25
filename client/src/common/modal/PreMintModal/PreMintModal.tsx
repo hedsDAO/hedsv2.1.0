@@ -1,15 +1,13 @@
 import React, { Fragment, useState } from "react";
-import { Dialog, Transition, Listbox } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, Dispatch } from "../../../store";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useMoralis } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
 const contractAbi = require("../../../data/whitelists/abi/collabTAPE01.json");
 const proof = require("../../../data/whitelists/proofs.json");
 var ethers = require("ethers");
 
-const quantities = [{ value: "1" }];
 
 const PreMintModal = () => {
     const { web3, enableWeb3, isWeb3Enabled, user } = useMoralis();
@@ -20,7 +18,6 @@ const PreMintModal = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     // @ts-ignore
     const [error, setError] = useState<string>("");
-    const [selected, setSelected] = useState({ value: "0" });
     const currentTape = useSelector((state: RootState) => state.tapeModel).tapes?.[tape]?.[id];
     const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
     const dispatch = useDispatch<Dispatch>();
@@ -37,10 +34,15 @@ const PreMintModal = () => {
             const contract = new ethers.Contract("0xfb30153A13217815C08a1Ad26EAdAe5723116a14", contractAbi, web3.getSigner());
             try {
                 setIsMinting(true)
-                const txn = await contract.preMint(userProof);
-                const receipt = await txn.wait();
-                console.log(receipt);
-                setHasMinted(true);
+                const claimed  = await contract.claimed();
+                if (claimed) {
+                    setHasMinted(true);
+                } else {
+                    const txn = await contract.preMint(userProof);
+                    const receipt = await txn.wait();
+                    console.log(receipt);
+                    setHasMinted(true);
+                }
             } catch (err: any) {
                 setIsMinting(false)
                 console.log(err);
@@ -69,9 +71,8 @@ const PreMintModal = () => {
                                     {!hasMinted ? <div className="flex flex-col h-full items-center justify-center py-5">
                                         <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center py-5">
                                             {currentTape?.tape?.name}
-                                            <span className="uppercase font-normal ml-2 text-neutral-400">Whitelist Mint</span>
-                                            <span className="uppercase text-sm ml-2 text-neutral-500">Max Quantity: 1</span>
                                         </h5>
+                                        <span className="uppercase font-normal ml-2 text-neutral-400">Whitelist Mint</span>
                                         <div className="mb-2">
                                             <div className="mt-5 flex justify-center flex-col gap-y-3">
                                                 <div className="mx-auto self-center mb-10 py-5 max-w-[10rem] max-h-[10rem]">
@@ -83,56 +84,7 @@ const PreMintModal = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <span className="text-neutral-400 text-xs uppercase font-semibold mb-2">select quantity</span>
-                                        <Listbox value={selected} onChange={setSelected}>
-                                            <div className="relative mt-1 mb-10">
-                                                <Listbox.Button className="relative w-full cursor-default rounded-sm bg-neutral-975 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-fuchsia-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                                    <span className="block text-neutral-300 truncate lg:text-base text-sm">
-                                                        {selected.value}
-                                                    </span>
-                                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                                        <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                    </span>
-                                                </Listbox.Button>
-                                                <Transition
-                                                    as={Fragment}
-                                                    leave="transition ease-in duration-100"
-                                                    leaveFrom="opacity-100"
-                                                    leaveTo="opacity-0">
-                                                    <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-sm bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                        {quantities.map((q, idx: number) => (
-                                                            <Listbox.Option
-                                                                key={idx}
-                                                                className={({ active }) =>
-                                                                    `relative cursor-default select-none py-2 pl-3 lg:text-base text-sm ${active ? "bg-amber-100 text-neutral-600" : "text-neutral-900"
-                                                                    }`
-                                                                }
-                                                                value={q}>
-                                                                {({ selected }) => (
-                                                                    <>
-                                                                        <span
-                                                                            className={`block truncate lg:text-base text-sm ${selected ? "font-medium" : "font-normal"
-                                                                                }`}>
-                                                                            {q.value}
-                                                                        </span>
-                                                                        {selected ? (
-                                                                            <span className="absolute inset-y-0 left-0 flex items-center pl-7 text-neutral-700">
-                                                                                <CheckIcon className="h-4 w-4" aria-hidden="true" />
-                                                                            </span>
-                                                                        ) : null}
-                                                                    </>
-                                                                )}
-                                                            </Listbox.Option>
-                                                        ))}
-                                                    </Listbox.Options>
-                                                </Transition>
-                                            </div>
-                                        </Listbox>
-                                        <span
-                                            className={`${+selected.value > 0 && "text-green-500"
-                                                } text-sm uppercase font-semibold mb-2 text-neutral-400`}>
-                                            {(+selected.value * 0.1).toFixed(2) || 0} ETH
-                                        </span>
+                                        <span className="uppercase text-sm ml-2 text-neutral-500">Quantity: 1</span>
                                         {error && <span className="text-xs uppercase font-semibold mb-2 text-red-500 text-center">{error}</span>}
                                         <div className="gap-x-2 flex justify-center items-stretch pt-4 mt-5">
                                             {isMinting ?
@@ -145,7 +97,7 @@ const PreMintModal = () => {
                                                         BACK
                                                     </button>
                                                     <button
-                                                        disabled={+selected.value === 0 || isLoading ? true : false}
+                                                        disabled={isLoading ? true : false}
                                                         onClick={isWeb3Enabled ? () => handleMint() : () => enableWeb3()}
                                                         className="px-4 py-1 text-sm bg-green-900 hover:bg-green-800 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
                                                         {isWeb3Enabled ? "MINT" : "CONNECT"}
