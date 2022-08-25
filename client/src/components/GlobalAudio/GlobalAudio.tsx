@@ -98,21 +98,20 @@ const GlobalAudio = () => {
 							</button>
 						</div>
 						{playerSize === MINIMIZED && (
-							<Marquee className="w-[200px] mx-2" direction="right" gradient={false}>
+							<Marquee className="w-[200px] py-0.5 mx-2" direction="right" gradient={false}>
 								<div className="flex justify-evenly text-xs uppercase gap-x-2">
-									<span className="dark:text-gray-400 text-neutral-500">
+									<span className="dark:text-gray-400 text-neutral-500 px-1">
 										{audioData?.isSample
-											? audioData?.tapes?.[currentTrack].tape.name
-											: audioData?.tapes?.[currentTape]?.tape?.name}
+											? tapeData?.tapes?.[currentTape]?.[currentTapeId]?.tape.name
+											: tapeData?.tapes?.[currentTape]?.[currentTapeId]?.tape?.name}
 									</span>
-									<span className="dark:text-gray-300 text-neutral-600">
+									<span className="dark:text-gray-300 text-neutral-600 px-1">
 										#{audioData?.isSample ? 0 : (currentTrack % 10) + 1}
 									</span>
-									<span className="dark:text-gray-200 text-neutral-700">
+									<span className="dark:text-gray-200 text-neutral-700 px-1">
 										{audioData?.isSample
-											? audioData?.samples?.[currentTrack]?.artist
-											: audioData?.tracks?.[currentTape]?.[currentTrack]
-												?.artist}
+											? tapeData?.tapes?.[currentTape]?.[currentTapeId]?.sample?.artist
+											: tapeData?.tracks?.[currentTape]?.[currentTapeId]?.[currentTrack]?.artist}
 									</span>
 								</div>
 							</Marquee>
@@ -122,7 +121,7 @@ const GlobalAudio = () => {
 						className={
 							playerSize === MINIMIZED
 								? "hidden"
-								: "inline-flex justify-between items-center w-screen py-2.5 px-2.5 animate__animated animate__fadeInUp"
+								: "inline-flex justify-between lg:justify-evenly items-center w-screen py-2.5 px-2.5 animate__animated animate__fadeInUp"
 						}>
 						<div className="flex lg:w-[10%] p-6">
 							{audioData?.isSample ? (
@@ -140,7 +139,7 @@ const GlobalAudio = () => {
 							)}
 							<TrackDetails />
 						</div>
-						<div className="flex items-center lg:justify-center justify-end gap-x-2 w-[30%] lg:w-[10%]">
+						<div className="flex items-center lg:justify-center justify-end gap-x-2 w-[20%] lg:w-[20%]">
 							<button
 								disabled={audioData?.isLoading}
 								onClick={() => {
@@ -167,7 +166,7 @@ const GlobalAudio = () => {
 									}
 								}}
 								className="inline-flex items-center">
-								<i className="fa-solid fa-backward-step lg:text-base text-xs text-neutral-900 dark:text-neutral-300"></i>
+								<i className="fa-solid fa-backward-step lg:text-base text-sm text-neutral-900 dark:text-neutral-300"></i>
 							</button>
 							{audioData?.isLoading && <LoadingIcon />}
 							{!audioData?.isPlaying && !audioData?.isLoading && (
@@ -202,29 +201,31 @@ const GlobalAudio = () => {
 									}
 								}}
 								className="inline-flex items-center">
-								<i className="fa-solid fa-forward-step lg:text-base text-xs text-neutral-900 dark:text-neutral-300"></i>
+								<i className="fa-solid fa-forward-step lg:text-base text-sm text-neutral-900 dark:text-neutral-300"></i>
 							</button>
 						</div>
 						<div
 							id="waveform-global"
-							className="flex-shrink-0 flex-grow-0 lg:max-w-[70%] lg:w-screen w-[0px] mx-2"
+							className="flex-shrink-0 flex-grow-0 lg:max-w-[55%] xl:max-w-[65%] lg:w-screen w-[0px] mx-2"
 							ref={waveformRef}
 						/>
-						<div className="lg:w-[3%] flex lg:justify-end">
-							<span className="min-w-[4ch] lg:text-sm text-xs text-neutral-900 dark:text-neutral-400">
-								{audioData?.currentTime &&
-									!audioData?.isLoading &&
-									playerSize > HIDDEN &&
-									audioData?.currentTime[0]}
-							</span>
-						</div>
-						<div className="lg:w-[3%] flex lg:justify-start">
-							<span className="min-w-[4ch] lg:text-sm text-xs text-neutral-700 dark:text-neutral-600">
-								{audioData?.duration &&
-									!audioData?.isLoading &&
-									playerSize > HIDDEN &&
-									audioData?.duration[0]}
-							</span>
+						<div className="lg:w-[6%] flex items-center gap-x-1 lg:px-2 px-6">
+							<div className="flex lg:justify-end">
+								<span className="min-w-[4ch] lg:text-sm text-xs text-neutral-900 dark:text-neutral-400">
+									{audioData?.currentTime &&
+										!audioData?.isLoading &&
+										playerSize > HIDDEN &&
+										audioData?.currentTime[0]}
+								</span>
+							</div>
+							<div className="flex lg:justify-start">
+								<span className="min-w-[4ch] lg:text-sm text-xs text-neutral-700 dark:text-neutral-600">
+									{audioData?.duration &&
+										!audioData?.isLoading &&
+										playerSize > HIDDEN &&
+										audioData?.duration[0]}
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -21,7 +21,7 @@ const TrackDetails = () => {
                         )}
                     </span>
                     <span className="text-neutral-800 dark:text-neutral-400 text-sm lg:text-sm font-thin">
-                        #{spaceData?.isSample ? 0 : (currentTrack)}
+                        #{spaceData?.isSample ? 0 : (currentTrack + 1)}
                     </span>
                     <span className="text-neutral-700 dark:text-neutral-500 text-xs lg:text-sm font-extralight whitespace-nowrap">
                         {isSample ? trackData?.tapes?.[currentTape]?.[currentTrack]?.sample?.artist : trackData?.tracks?.[currentTape]?.[currentTapeId]?.[currentTrack]?.artist}
