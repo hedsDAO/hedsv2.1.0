@@ -43,7 +43,7 @@ const Listen = () => {
 						</div>
 					)}
 					<div className="w-full xl:rounded-none rounded-md">
-						{+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.SAMPLE_OPEN && (
+						{+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.SAMPLE_OPEN && spaceData?.[tape]?.[id]?.sample?.audio &&  (
 							<div className="">
 								<SampleContainer {...spaceData?.[tape]?.[id]} />
 							</div>
