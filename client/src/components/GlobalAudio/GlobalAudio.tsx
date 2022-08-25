@@ -122,7 +122,7 @@ const GlobalAudio = () => {
 						className={
 							playerSize === MINIMIZED
 								? "hidden"
-								: "inline-flex items-center w-screen py-2.5 px-2.5 animate__animated animate__fadeInUp"
+								: "inline-flex justify-between items-center w-screen py-2.5 px-2.5 animate__animated animate__fadeInUp"
 						}>
 						<div className="flex lg:w-[10%] p-6">
 							{audioData?.isSample ? (
@@ -140,7 +140,7 @@ const GlobalAudio = () => {
 							)}
 							<TrackDetails />
 						</div>
-						<div className="flex items-center lg:justify-center justify-end gap-x-2 w-[50%] lg:w-[10%]">
+						<div className="flex items-center lg:justify-center justify-end gap-x-2 w-[30%] lg:w-[10%]">
 							<button
 								disabled={audioData?.isLoading}
 								onClick={() => {
