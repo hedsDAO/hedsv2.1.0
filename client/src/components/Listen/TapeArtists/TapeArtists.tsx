@@ -58,7 +58,7 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
                                 )}
 
                                 <div className="col-span-3 lg:col-span-2 text-right">
-                                    <span className="text-neutral-700 dark:text-neutral-500 text-sm px-1">
+                                    <span className="text-neutral-700 dark:text-neutral-500 text-sm px-4">
                                         <i className="fa-light fa-clock"></i>
                                     </span>
                                 </div>

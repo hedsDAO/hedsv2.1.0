@@ -11,10 +11,11 @@ var ethers = require("ethers");
 const PreMintModal = () => {
     const { web3, enableWeb3, isWeb3Enabled, user } = useMoralis();
     const { id, tape } = useSelector((state: RootState) => state.globalModel);
-    const [hasMinted, setHasMinted] = useState<boolean>(false);
+    const [hasMinted, setHasMinted] = useState<boolean>(true);
     const [isMinting, setIsMinting] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [hasClaimed, setHasClaimed] = useState<boolean>(false);
+    const [txnHash, setTxnHash] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const currentTape = useSelector((state: RootState) => state.tapeModel).tapes?.[tape]?.[id];
     const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
@@ -30,7 +31,7 @@ const PreMintModal = () => {
         } else if (web3 && user) {
             const wallet = user?.attributes?.ethAddress;
             const contract = new ethers.Contract(
-                "0xfb30153A13217815C08a1Ad26EAdAe5723116a14",
+                "0xEeB431Caa15B526f48Ee4DB3697FE57EC8223A8e",
                 contractAbi,
                 web3.getSigner()
             );
@@ -42,6 +43,7 @@ const PreMintModal = () => {
                 try {
                     setIsMinting(true);
                     const txn = await contract.preMint(userProof);
+                    setTxnHash(txn.hash);
                     const receipt = await txn.wait();
                     console.log(receipt);
                     setHasMinted(true);
@@ -84,11 +86,11 @@ const PreMintModal = () => {
                                                 TAPE CLAIMED{" "}
                                                 <i className="fa-solid fa-circle-check text-green-500 ml-1"></i>
                                             </span>
-                                            <div className="flex gap-x-2 justify-center items-center mt-2">
+                                            {/* <div className="flex gap-x-2 justify-center items-center mt-2">
                                                 <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-                                                   VIEW ON OPENSEA
+                                                    VIEW ON OPENSEA
                                                 </button>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     ) : !hasMinted ? (
                                         <div className="flex flex-col h-full items-center justify-center py-3">
@@ -116,7 +118,22 @@ const PreMintModal = () => {
                                             )}
                                             <div className="gap-x-2 flex justify-center items-stretch pt-4 my-3">
                                                 {isMinting ? (
-                                                    <LoadingIcon />
+                                                    <div className="flex flex-col items-center justify-center ">
+                                                        <span className="font-semibold text-sm uppercase text-neutral-300 animate__animated animate__fadeInUp mb-3">
+                                                            transaction in progress...
+                                                        </span>
+                                                        {txnHash && (
+                                                            <a
+                                                                className="animate__animated animate__fadeInUp mb-5"
+                                                                href={`https://etherscan.io/tx/${txnHash}`}
+                                                                target="_blank">
+                                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                                    VIEW TXN
+                                                                </button>
+                                                            </a>
+                                                        )}
+                                                        <LoadingIcon />
+                                                    </div>
                                                 ) : (
                                                     <Fragment>
                                                         <button
@@ -150,12 +167,22 @@ const PreMintModal = () => {
                                                 <i className="fa-solid fa-circle-check text-green-500 ml-1"></i>
                                             </span>
                                             <div className="flex gap-x-2 justify-center items-center mt-2">
-                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-                                                    VIEW TXN
-                                                </button>
-                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-                                                    OPENSEA
-                                                </button>
+                                                {txnHash && (
+                                               
+                                                        <a
+                                                            href={`https://etherscan.io/tx/${txnHash}`}
+                                                            target="_blank">
+                                                            <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                                VIEW TXN
+                                                            </button>
+                                                        </a> )}
+                                                        <a
+                                                            href={`https://opensea.io/collection/collabtape-goodsociety`}
+                                                            target="_blank">
+                                                            <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                                OPENSEA
+                                                            </button>
+                                                        </a>                                                                                     
                                             </div>
                                         </div>
                                     )}

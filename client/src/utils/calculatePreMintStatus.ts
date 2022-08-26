@@ -10,9 +10,17 @@ const steps = [
 		status: "pending",
 	},
 	{
+		name: "minted",
+		icon: "fa-duotone fa-cassette-tape text-neutral-300 dark:text-neutral-850",
+		key: "2",
+		description: "Minted",
+		href: "#",
+		status: "minted",
+	},
+	{
 		name: "PUBLIC MINT",
 		icon: "fa-solid fa-cassette-tape text-neutral-300 dark:text-neutral-850",
-		key: "2",
+		key: "3",
 		description: "Public mint will be available for any tapes not sold during the heds mint.",
 		href: "#",
 		status: "pending",

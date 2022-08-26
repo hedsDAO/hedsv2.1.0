@@ -32,14 +32,18 @@ const PreMintTimeline = (tapeData: TapeData) => {
         if (id === "goodsociety") {
             const options = {
                 method: "GET",
-                url: `https://deep-index.moralis.io/api/v2/nft/0xfb30153A13217815C08a1Ad26EAdAe5723116a14`,
-                params: { chain: "rinkeby", format: "decimal" },
-                headers: { Accept: "application/json", "X-API-Key": "xZqpyPL3oIBNmjtTNj90SsEZpCorYVqDFjya9aJE3dkClvWfyx4EHFnuNz7RAUpN" },
+                url: `https://deep-index.moralis.io/api/v2/nft/0xEeB431Caa15B526f48Ee4DB3697FE57EC8223A8e`,
+                params: { chain: "eth", format: "decimal" },
+                headers: {
+                    Accept: "application/json",
+                    "X-API-Key": "xZqpyPL3oIBNmjtTNj90SsEZpCorYVqDFjya9aJE3dkClvWfyx4EHFnuNz7RAUpN",
+                },
             };
             axios
                 // @ts-ignore
                 .request(options)
                 .then(function (response) {
+                    console.log(response, 'res')
                     setTotalMinted(response.data.total);
                 })
                 .catch(function (error) {
@@ -57,28 +61,35 @@ const PreMintTimeline = (tapeData: TapeData) => {
                         className="rounded-sm overflow-hidden flex xl:flex-row flex-col gap-x-1 gap-y-1">
                         {calculatePreMintStatus(+tapeData?.status?.status).map(
                             (step, idx: number) => {
-                                return (
-                                    <div key={step.key} className="rounded-xl w-full">
-                                        {step.status === "complete" ? (
-                                            <Completed key={step.key} step={step} idx={idx} />
-                                        ) : step.status === "current" ? (
-                                            <Current
-                                                modal={handleTapeAction()}
-                                                key={step.key}
-                                                step={step}
-                                                totalMinted={totalMinted}
-                                                idx={idx}
-                                            />
-                                        ) : (
-                                            <Pending
-                                                key={step.key}
-                                                step={step}
-                                                idx={idx}
-                                                tapeData={tapeData}
-                                            />
-                                        )}
-                                    </div>
-                                );
+                                if (step.name === "minted") {
+                                    return (
+                                        <div key={step.key} className="rounded-xl">
+                                            <TotalMinted step={step} totalMinted={totalMinted} />
+                                        </div>
+                                    );
+                                } else
+                                    return (
+                                        <div key={step.key} className="rounded-xl w-full">
+                                            {step.status === "complete" ? (
+                                                <Completed key={step.key} step={step} idx={idx} />
+                                            ) : step.status === "current" ? (
+                                                <Current
+                                                    modal={handleTapeAction()}
+                                                    key={step.key}
+                                                    step={step}
+                                                    totalMinted={totalMinted}
+                                                    idx={idx}
+                                                />
+                                            ) : (
+                                                <Pending
+                                                    key={step.key}
+                                                    step={step}
+                                                    idx={idx}
+                                                    tapeData={tapeData}
+                                                />
+                                            )}
+                                        </div>
+                                    );
                             }
                         )}
                     </ol>
@@ -88,18 +99,41 @@ const PreMintTimeline = (tapeData: TapeData) => {
     );
 };
 
+const TotalMinted = ({ step, totalMinted }: any) => {
+    return (
+        <li
+            key={step.key + step.name}
+            className="relative overflow-hidden lg:flex-1 bg-green-500/50 dark:bg-green-400/50 lg:m-0 group rounded-lg h-full shadow-sm">
+            <span className="px-10 py-4 flex-col items-center justify-center text-sm font-medium lg:flex hidden gap-y-1.5">
+                <span className="text-sm font-semibold tracking-wide uppercase">MINTED</span>
+                <span className="text-sm font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900 bg-gray-100 px-2 rounded-md shadow-sm">
+                    {totalMinted}/100
+                </span>
+            </span>
+            <span className="px-6 py-4 justify-center gap-x-2 items-center text-sm font-medium lg:hidden flex">
+                <span className="text-base font-semibold tracking-widest uppercase text-neutral-700 dark:text-neutral-900">
+                    MINTED
+                </span>
+                <span className="text-sm font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900 bg-gray-100 px-2 rounded-md shadow-sm">
+                    {totalMinted}/100
+                </span>
+            </span>
+        </li>
+    );
+};
+
 const Completed = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-200/50 dark:bg-neutral-950 lg:m-0 group rounded-lg h-full">
+            className="relative overflow-hidden lg:flex-1 bg-gray-200/50 dark:bg-neutral-950 lg:m-0 group rounded-lg h-full shadow-sm">
             <span
                 className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
             />
             <span
                 className={classNames(
-                    idx !== 0 ? "lg:pl-9" : "",
+                    idx !== 0 ? "" : "",
                     "px-6 py-4 flex items-start text-sm font-medium"
                 )}>
                 <span className="flex-shrink-0 pt-1">
@@ -120,17 +154,17 @@ const Completed = ({ step, idx }: any) => {
     );
 };
 
-const Current = ({ modal, step, idx, totalMinted }: any) => {
+const Current = ({ modal, step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all h-full">
+            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all h-full shadow-sm">
             <button
                 onClick={modal ? modal : () => {}}
                 className="flex items-start justify-start w-full">
                 <span
                     className={classNames(
-                        idx !== 0 ? "lg:pl-9" : "",
+                        idx !== 0 ? "" : "",
                         "px-6 py-4 flex items-start text-sm font-medium w-full"
                     )}>
                     <span className="flex-shrink-0 pt-1">
@@ -148,7 +182,6 @@ const Current = ({ modal, step, idx, totalMinted }: any) => {
                             {step.description}
                         </span>
                     </span>
-                    <span className="flex ml-auto text-sm self-center font-semibold items-center tracking-widest bg-gray-500 text-neutral-200 dark:text-neutral-300 dark:bg-neutral-700 px-3 py-0.5 text-center rounded-md shadow-md">{totalMinted}/100</span>
                 </span>
             </button>
         </li>
@@ -159,14 +192,14 @@ const Pending = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-300 dark:bg-neutral-850 group rounded-lg h-full">
+            className="relative overflow-hidden lg:flex-1 bg-gray-300 dark:bg-neutral-850 group rounded-lg h-full shadow-sm">
             <span
                 className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
             />
             <span
                 className={classNames(
-                    idx !== 0 ? "lg:pl-9" : "",
+                    idx !== 0 ? "" : "",
                     "px-6 py-4 flex items-start text-sm font-medium"
                 )}>
                 <span className="flex-shrink-0 pt-1">
