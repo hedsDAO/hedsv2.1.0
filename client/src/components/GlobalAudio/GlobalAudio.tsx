@@ -87,7 +87,7 @@ const GlobalAudio = () => {
         <Fragment>
             {playerSize !== HIDDEN && (
                 <div className="bg-neutral-200 dark:bg-neutral-975 animate__animated animate__fadeInUp bottom-0 fixed z-50">
-                    <div className={classNames(playerSize === MINIMIZED ? "lg:justify-between justify-center" : "justify-start", "w-screen flex lg:justify-between gap-x-1 bg-gray-300 dark:bg-neutral-950 dark:border-neutral-900 border-gray-400 border py-1 lg:py-1.5 transition-all px-3")}>
+                    <div className={classNames(playerSize === MINIMIZED ? "lg:justify-between justify-center py-2" : "justify-start py-1", "w-screen flex lg:justify-between gap-x-1 bg-gray-300 dark:bg-neutral-950 dark:border-neutral-900 border-gray-400 border  lg:py-1.5 transition-all px-3")}>
                         <div className="flex gap-x-1">
                             <button     
                                 onClick={() => {
