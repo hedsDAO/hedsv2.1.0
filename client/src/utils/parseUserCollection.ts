@@ -4,12 +4,14 @@ const hedsTAPE03 = "0x567e687C93103010962F9E9Cf5730Ae8DBFC6d41";
 const hedsTAPE04 = "0x8045fd700946A00436923f37d08f280ADe3b4af6";
 const hedsTAPE05 = "0x8f36eB094F7B960a234a482d4d8FFb8b37f728C6";
 const hedsTAPE06 = "0x885236535d5cf7033bdc5bc1050cad7fdf4970a6";
+const hedsTAPE07 = "0x20f2717f113d0b3815124876f3d72f8e1179341e";
 const HT1_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/tapes%2F1%2Fassets%2Fimg_cover.png?alt=media&token=bf42c72d-4999-452b-932a-2d500a9e45d1";
 const HT2_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/tapes%2F2%2Fassets%2Fimg_cover.png?alt=media&token=74108fde-b3c6-4a8b-87fc-9a7c47c1d8c6";
 const HT3_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/tapes%2F3%2Fassets%2Fimg_cover.png?alt=media&token=8ae97e34-1ac6-4cff-9ed9-59bba9f67752";
 const HT4_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/tapes%2F4%2Fsample%2Fcover.png?alt=media&token=12472a00-1744-42d3-a447-8a8a66a4bbe3";
 const HT5_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/public%2Fcovers%2FHT5_COVER.png?alt=media&token=33463281-549c-4a3a-b10c-7a94fd3c2971";
 const HT6_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/tapes%2F6%2Fassets%2Fht62.png?alt=media&token=4aa905e3-56bd-450a-bcb5-3a00852a8805"
+const HT7_img = "https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/tapes%2F7%2Fht7.png?alt=media&token=4e5aab66-b518-4707-9d49-ef91155f9773"
 // const empty =
 // 	"https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/public%2F2.png?alt=media&token=236158dd-d775-4f88-93aa-27045cd67792";
 
@@ -45,12 +47,13 @@ export interface UserNFTBalance {
 
 const parseUserCollection = (balance: UserNFTBalance): Array<UserFormattedOwnership> => {
     const ownership: Array<UserFormattedOwnership> = [
-        { name: "hedsTAPE 01", quantity: 0, token_ids: [], src: HT1_img, href: "/listen/hedstape/1" },
-        { name: "hedsTAPE 02", quantity: 0, token_ids: [], src: HT2_img, href: "/listen/hedstape/2" },
-        { name: "hedsTAPE 03", quantity: 0, token_ids: [], src: HT3_img, href: "/listen/hedstape/3" },
-        { name: "hedsTAPE 04", quantity: 0, token_ids: [], src: HT4_img, href: "/listen/hedstape/4" },
-        { name: "hedsTAPE 05", quantity: 0, token_ids: [], src: HT5_img, href: "/listen/hedstape/5" },
-        { name: "hedsTAPE 06", quantity: 0, token_ids: [], src: HT6_img, href: "/listen/hedstape/6" },
+        { name: "hedsTAPE 01", quantity: 0, token_ids: [], src: HT1_img, href: "/listen/heds/hedstape/1" },
+        { name: "hedsTAPE 02", quantity: 0, token_ids: [], src: HT2_img, href: "/listen/heds/hedstape/2" },
+        { name: "hedsTAPE 03", quantity: 0, token_ids: [], src: HT3_img, href: "/listen/heds/hedstape/3" },
+        { name: "hedsTAPE 04", quantity: 0, token_ids: [], src: HT4_img, href: "/listen/heds/hedstape/4" },
+        { name: "hedsTAPE 05", quantity: 0, token_ids: [], src: HT5_img, href: "/listen/heds/hedstape/5" },
+        { name: "hedsTAPE 06", quantity: 0, token_ids: [], src: HT6_img, href: "/listen/heds/hedstape/6" },
+        { name: "hedsTAPE 07", quantity: 0, token_ids: [], src: HT7_img, href: "/listen/heds/hedstape/7" },
     ]
     balance?.result?.map((token) => {
         if (token.token_address.toLowerCase() === hedsTAPE01.toLowerCase()) {
@@ -71,6 +74,9 @@ const parseUserCollection = (balance: UserNFTBalance): Array<UserFormattedOwners
         } else if (token.token_address.toLowerCase() === hedsTAPE06.toLowerCase()) {
             ownership[5].quantity++;
             ownership[5].token_ids.unshift(token.token_id);
+        } else if (token.token_address.toLowerCase() === hedsTAPE07.toLowerCase()) {
+            ownership[6].quantity++;
+            ownership[6].token_ids.unshift(token.token_id);
         }
     })
     return ownership
