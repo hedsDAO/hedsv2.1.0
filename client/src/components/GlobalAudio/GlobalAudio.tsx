@@ -10,6 +10,7 @@ import LoadingIcon from "../../common/svg/LoadingIcon/LoadingIcon";
 import PlayIcon from "../../common/svg/PlayIcon/PlayIcon";
 import PauseIcon from "../../common/svg/PauseIcon/PauseIcon";
 import Marquee from "react-fast-marquee";
+import { classNames } from "../../utils/classNames";
 
 const GlobalAudio = () => {
     const { SMALL, MINIMIZED, HIDDEN } = PlayerSize;
@@ -86,9 +87,9 @@ const GlobalAudio = () => {
         <Fragment>
             {playerSize !== HIDDEN && (
                 <div className="bg-neutral-200 dark:bg-neutral-975 animate__animated animate__fadeInUp bottom-0 fixed z-50">
-                    <div className="w-screen flex lg:justify-between justify-start gap-x-1 bg-gray-300 dark:bg-neutral-950 dark:border-neutral-900 border-gray-400 border py-1 lg:py-1.5 px-2.5">
+                    <div className={classNames(playerSize === MINIMIZED ? "lg:justify-between justify-center" : "justify-start", "w-screen flex lg:justify-between gap-x-1 bg-gray-300 dark:bg-neutral-950 dark:border-neutral-900 border-gray-400 border py-1 lg:py-1.5 transition-all px-3")}>
                         <div className="flex gap-x-1">
-                            <button
+                            <button     
                                 onClick={() => {
                                     dispatch.audioModel.setAudioOff({
                                         playerSize: PlayerSize.HIDDEN,
@@ -195,7 +196,7 @@ const GlobalAudio = () => {
                         </div>
                         {playerSize === MINIMIZED && (
                             <Marquee
-                                className="w-[200px] py-0.5 mx-2"
+                                className="w-[120px] lg:w-[200px] py-0.5 mx-2"
                                 direction="right"
                                 gradient={false}>
                                 <div className="flex justify-evenly text-xs uppercase gap-x-2">
@@ -243,7 +244,7 @@ const GlobalAudio = () => {
                             className="flex-shrink-0 flex-grow-0 lg:max-w-[60%] xl:max-w-[65%] lg:w-screen w-[0px] mx-2"
                             ref={waveformRef}
                         />
-                        <div className="lg:max-w-[10%] flex items-center gap-x-1 px-6">
+                        <div className="lg:max-w-[10%] flex self-end lg:self-center lg:py-0 py-5 items-center gap-x-1 lg:px-6 px-3">
                             <div className="flex lg:justify-end">
                                 <span className="min-w-[4ch] lg:text-sm text-xs text-neutral-900 dark:text-neutral-400">
                                     {audioData?.currentTime &&
