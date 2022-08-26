@@ -41,7 +41,7 @@
 		"generate-avatar": "^1.4.10",
 		"js-sha256": "^0.9.0",
 		"magic-sdk": "^7.0.0",
-		"moralis": "^1.5.9",
+		"moralis": "^1.11.0",
 		"react": "^17.0.2",
 		"react-card-flip": "^1.1.5",
 		"react-circular-progressbar": "^2.1.0",

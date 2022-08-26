@@ -27,6 +27,10 @@ const App = () => {
 	const { user } = useMoralis();
 	const { getNFTs } = useMoralisHooks();
 	useEffect(() => {
+		dispatch.tapeModel.getTracks();
+		dispatch.tapeModel.getTapes();
+	}, [])
+	useEffect(() => {
 		if (user && !userData?.profilePicture) {
 			getNFTs();
 			dispatch.userModel.getUserData(user?.attributes?.ethAddress);

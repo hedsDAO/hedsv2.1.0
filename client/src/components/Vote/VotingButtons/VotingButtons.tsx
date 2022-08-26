@@ -19,6 +19,7 @@ const VotingButtons = ({ votingPower }: { votingPower: number }) => {
 	const voteCount = voteState.snapshot.voteCount[proposalIndex];
 	const voteData = voteState.snapshot.voteData;
 	const hasUserVoted = () => voteData?.filter((vote: any) => vote.voter.toLowerCase() === user?.attributes?.ethAddress).length;
+	//@ts-ignore
 	const castVote = () => web3 && dispatch.voteModel.castVote([web3, userVotes, ethers.utils.getAddress(walletId)]);
 
 	const getWeb3Provider = async () => {

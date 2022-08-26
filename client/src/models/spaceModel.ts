@@ -38,12 +38,13 @@ export interface TapeData {
 	};
 	collab: {
 		name: string;
+		curator?:string;
 		image: string;
 	};
 }
 
-interface SpaceData {
-	[tape: string]: Array<TapeData>;
+export interface SpaceData {
+	[tape: string]: {[id: string | number] : TapeData};
 }
 
 export const spaceModel = createModel<RootModel>()({
@@ -53,12 +54,13 @@ export const spaceModel = createModel<RootModel>()({
 	},
 	effects: (dispatch) => ({
 		async getSpaceData(space?: string) {
-			const docRef = doc(db, "spaces", space || "heds");
+			const docRef = doc(db, "spaces_test", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				dispatch.spaceModel.setSpaceData(docSnap.data());
+				dispatch.spaceModel.setSpaceData(docSnap.data()?.[space || 'heds']);
 			}
 		},
+		// DEPRECATED
 		async updateTapeStatus() {
 			const docRef = doc(db, "spaces", "heds");
 			const tapeSnap = await getDoc(docRef);

@@ -11,6 +11,8 @@ export enum Modals {
 	MINT,
 	OGHED,
 	WARNING,
+	PRE_MINT,
+	PUBLIC_MINT
 }
 
 interface ModalState {

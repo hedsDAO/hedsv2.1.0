@@ -11,7 +11,7 @@ const LandingHead = ({ src }: { src: string }) => {
 		<img
 			src={src}
 			className={`absolute object-cover top-1/4 md:right-[9.3%] z-10 md:w-[19%] cover md:top-40 lg:top-28 md:inline hidden 
-        				animate-pulse border-[0.25px] rounded-sm ${pathname === "/" ? "invert" : "dark:invert-0"} saturate-100`}
+        				animate-pulse border-[0.25px] rounded-sm ${pathname === "/" ? "invert-0" : "dark:invert-0"} saturate-100`}
 		/>
 	);
 };

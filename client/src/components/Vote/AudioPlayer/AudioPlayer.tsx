@@ -64,7 +64,7 @@ const AudioPlayer = ({ tracks, selectedTrack }: AudioPlayerProps) => {
 		const options = formWaveSurferOptions(waveformRef.current);
 		wavesurfer.current = WaveSurfer.create(options);
 		wavesurfer.current.load(link);
-		wavesurfer.current.on("waveform-ready", () => { });
+		wavesurfer.current.on("waveform-ready", () => {});
 		wavesurfer.current.on("ready", function () {
 			if (wavesurfer.current) {
 				wavesurfer?.current?.setVolume(1);
