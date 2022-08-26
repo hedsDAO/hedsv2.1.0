@@ -86,11 +86,15 @@ const PreMintModal = () => {
                                                 TAPE CLAIMED{" "}
                                                 <i className="fa-solid fa-circle-check text-green-500 ml-1"></i>
                                             </span>
-                                            {/* <div className="flex gap-x-2 justify-center items-center mt-2">
-                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-                                                    VIEW ON OPENSEA
-                                                </button>
-                                            </div> */}
+                                            <div className="flex gap-x-2 justify-center items-center my-3">
+                                                <a
+                                                    href={`https://opensea.io/collection/collabtape-goodsociety`}
+                                                    target="_blank">
+                                                    <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                        VIEW ON OPENSEA
+                                                    </button>
+                                                </a>
+                                            </div>
                                         </div>
                                     ) : !hasMinted ? (
                                         <div className="flex flex-col h-full items-center justify-center py-3">
@@ -168,21 +172,21 @@ const PreMintModal = () => {
                                             </span>
                                             <div className="flex gap-x-2 justify-center items-center mt-2">
                                                 {txnHash && (
-                                               
-                                                        <a
-                                                            href={`https://etherscan.io/tx/${txnHash}`}
-                                                            target="_blank">
-                                                            <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-                                                                VIEW TXN
-                                                            </button>
-                                                        </a> )}
-                                                        <a
-                                                            href={`https://opensea.io/collection/collabtape-goodsociety`}
-                                                            target="_blank">
-                                                            <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
-                                                                OPENSEA
-                                                            </button>
-                                                        </a>                                                                                     
+                                                    <a
+                                                        href={`https://etherscan.io/tx/${txnHash}`}
+                                                        target="_blank">
+                                                        <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                            VIEW TXN
+                                                        </button>
+                                                    </a>
+                                                )}
+                                                <a
+                                                    href={`https://opensea.io/collection/collabtape-goodsociety`}
+                                                    target="_blank">
+                                                    <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                        OPENSEA
+                                                    </button>
+                                                </a>
                                             </div>
                                         </div>
                                     )}
