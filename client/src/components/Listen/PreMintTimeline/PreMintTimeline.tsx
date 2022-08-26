@@ -34,7 +34,7 @@ const PreMintTimeline = (tapeData: TapeData) => {
                 method: "GET",
                 url: `https://deep-index.moralis.io/api/v2/nft/0xfb30153A13217815C08a1Ad26EAdAe5723116a14`,
                 params: { chain: "rinkeby", format: "decimal" },
-                headers: { Accept: "application/json", "X-API-Key": "test" },
+                headers: { Accept: "application/json", "X-API-Key": "xZqpyPL3oIBNmjtTNj90SsEZpCorYVqDFjya9aJE3dkClvWfyx4EHFnuNz7RAUpN" },
             };
             axios
                 // @ts-ignore

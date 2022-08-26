@@ -2,10 +2,10 @@ import { PreMintStatus } from "../models/common";
 
 const steps = [
 	{
-		name: "PRE MINT",
+		name: "HEDS MINT",
 		icon: "fa-duotone fa-cassette-tape text-neutral-300 dark:text-neutral-850",
 		key: "1",
-		description: "Whitelisted pre mint for for tape owners.",
+		description: "Whitelisted mint for hedsTAPE owners.",
 		href: "#",
 		status: "pending",
 	},
@@ -13,7 +13,7 @@ const steps = [
 		name: "PUBLIC MINT",
 		icon: "fa-solid fa-cassette-tape text-neutral-300 dark:text-neutral-850",
 		key: "2",
-		description: "Public mint will be available for any tapes not sold in the pre-mint period.",
+		description: "Public mint will be available for any tapes not sold during the heds mint.",
 		href: "#",
 		status: "pending",
 	},
