@@ -8,11 +8,11 @@ import { generateStatusLanguage } from "../../../utils/generateStatusLanguage";
 import { TapeStatus } from "../../../models/common";
 
 const TapeInfo = (tapeData: TapeData) => {
-	const { id } = useParams<{ space: string; tape: string; id: string }>();
+	const { tape, id } = useParams<{ space: string; tape: string; id: string }>();
 	const dispatch = useDispatch<Dispatch>();
 	const openSeaData = useSelector((state: RootState) => state.openSeaModel);
 	useEffect(() => {
-		dispatch.openSeaModel.getCollectionData(`hedstape-${id}`);
+		dispatch.openSeaModel.getCollectionData(`${tape}-${id}`);
 	}, [id]);
 
 	return (
