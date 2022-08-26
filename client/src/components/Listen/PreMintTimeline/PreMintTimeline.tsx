@@ -92,7 +92,7 @@ const Completed = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-200/50 dark:bg-neutral-950 lg:m-0 group rounded-lg">
+            className="relative overflow-hidden lg:flex-1 bg-gray-200/50 dark:bg-neutral-950 lg:m-0 group rounded-lg h-full">
             <span
                 className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
@@ -124,7 +124,7 @@ const Current = ({ modal, step, idx, totalMinted }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all">
+            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all h-full">
             <button
                 onClick={modal ? modal : () => {}}
                 className="flex items-start justify-start w-full">
@@ -159,7 +159,7 @@ const Pending = ({ step, idx }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-300 dark:bg-neutral-850 group rounded-lg">
+            className="relative overflow-hidden lg:flex-1 bg-gray-300 dark:bg-neutral-850 group rounded-lg h-full">
             <span
                 className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
                 aria-hidden="true"
