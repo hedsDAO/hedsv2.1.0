@@ -24,7 +24,10 @@ const PreMintModal = () => {
         setError("");
         setIsLoading(true);
         const userProof = proof?.[user?.attributes?.ethAddress];
-        if (web3 && user) {
+        if (!userProof) {
+            setIsLoading(false);
+            setError("Whitelist address not found. Mint is only available to tape owners.");
+        } else if (web3 && user) {
             const wallet = user?.attributes?.ethAddress;
             const contract = new ethers.Contract(
                 "0xfb30153A13217815C08a1Ad26EAdAe5723116a14",
@@ -58,7 +61,11 @@ const PreMintModal = () => {
             <Dialog
                 as="div"
                 className="relative z-[60]"
-                onClose={locked && !hasClaimed && !hasMinted ? () => {} : () => dispatch.globalModel.setModalVisibility(false)}>
+                onClose={
+                    locked && !hasClaimed && !hasMinted
+                        ? () => {}
+                        : () => dispatch.globalModel.setModalVisibility(false)
+                }>
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex bg-neutral-950/90 min-h-full items-center justify-center text-center">
                         <Transition.Child
@@ -73,17 +80,19 @@ const PreMintModal = () => {
                                 <div className="relative z-50 inline-block align-bottom bg-neutral-950 border-[0.25px] border-neutral-700 rounded-lg py-4 lg:px-5 px-20 text-left overflow-hidden shadow-xl transform transition-all sm:align-middle max-w-full sm:max-w-md sm:w-full">
                                     {hasClaimed ? (
                                         <div className="flex flex-col items-center gap-y-1 py-3">
-                                            <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center">
-                                                {currentTape?.tape?.name}
-                                            </h5>
                                             <span className="uppercase font-normal ml-2 text-neutral-400">
-                                                CLAIMED{" "}
+                                                TAPE CLAIMED{" "}
                                                 <i className="fa-solid fa-circle-check text-green-500 ml-1"></i>
                                             </span>
+                                            <div className="flex gap-x-2 justify-center items-center mt-2">
+                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                   VIEW ON OPENSEA
+                                                </button>
+                                            </div>
                                         </div>
                                     ) : !hasMinted ? (
                                         <div className="flex flex-col h-full items-center justify-center py-3">
-                                            <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center py-5">
+                                            <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center py-3">
                                                 {currentTape?.tape?.name}
                                             </h5>
                                             <span className="uppercase font-normal ml-2 text-neutral-400">
@@ -101,11 +110,11 @@ const PreMintModal = () => {
                                                 </div>
                                             </div>
                                             {error && (
-                                                <span className="text-xs uppercase font-semibold mb-2 text-red-500 text-center">
+                                                <span className="text-xs uppercase font-semibold mb-2 text-red-500 text-center px-10">
                                                     {error}
                                                 </span>
                                             )}
-                                            <div className="gap-x-2 flex justify-center items-stretch pt-4 mt-5">
+                                            <div className="gap-x-2 flex justify-center items-stretch pt-4 my-3">
                                                 {isMinting ? (
                                                     <LoadingIcon />
                                                 ) : (
@@ -135,14 +144,19 @@ const PreMintModal = () => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="flex flex-col items-center gap-y-1 py-3">
-                                            <h5 className="text-base font-semibold text-gray-200 lg:text-xl text-center">
-                                                {currentTape?.tape?.name}
-                                            </h5>
+                                        <div className="flex flex-col items-center gap-y-1 py-3 animate__animated animate__fadeIn">
                                             <span className="uppercase font-normal ml-2 text-neutral-400">
                                                 MINTED{" "}
                                                 <i className="fa-solid fa-circle-check text-green-500 ml-1"></i>
                                             </span>
+                                            <div className="flex gap-x-2 justify-center items-center mt-2">
+                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                    VIEW TXN
+                                                </button>
+                                                <button className="px-4 py-1 text-sm bg-neutral-850 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none hover:bg-neutral-800 transition-all">
+                                                    OPENSEA
+                                                </button>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
