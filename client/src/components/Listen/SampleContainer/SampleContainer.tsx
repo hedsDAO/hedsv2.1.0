@@ -30,7 +30,7 @@ const SampleContainer = (tapeData: TapeData) => {
         });
     };
     return (
-        <div className="from-gray-300 to-gray-200 bg-gradient-to-b lg:bg-gradient-to-br dark:from-neutral-975 dark:to-neutral-950 rounded-xl mx-2 xl:mx-auto lg:py-2 xl:my-1">
+        <div className="from-gray-300 to-gray-200 bg-gradient-to-b lg:bg-gradient-to-br dark:from-neutral-975 dark:to-neutral-950 rounded-xl mx-2 xl:mx-auto lg:py-2 xl:mb-1">
             <div className="flex xl:flex-row flex-col items-center justify-center xl:justify-between max-w-2xl gap-y-2 md:mx-auto px-6 py-6 rounded-lg">
                 <img
                     src={tapeData?.sample?.image}

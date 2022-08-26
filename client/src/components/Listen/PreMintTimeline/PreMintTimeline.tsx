@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CheckIcon } from "@heroicons/react/solid";
 import { calculatePreMintStatus } from "../../../utils/calculatePreMintStatus";
 import { classNames } from "../../../utils/classNames";
@@ -7,9 +7,12 @@ import { useDispatch } from "react-redux";
 import { Dispatch } from "../../../store";
 import { PreMintStatus } from "../../../models/common";
 import { Modals } from "../../../models/globalModel";
-// import DateCountdown from "../../../common/countdown/Countdown";
+import axios from "axios";
+import { useParams } from "react-router";
 
 const PreMintTimeline = (tapeData: TapeData) => {
+    const { id } = useParams<{ id: string }>();
+    const [totalMinted, setTotalMinted] = useState<number | null>(null);
     const dispatch = useDispatch<Dispatch>();
     const status = +tapeData?.status?.status;
     const handleTapeAction = () => {
@@ -24,6 +27,27 @@ const PreMintTimeline = (tapeData: TapeData) => {
                     locked: true,
                 });
     };
+
+    useEffect(() => {
+        if (id === "goodsociety") {
+            const options = {
+                method: "GET",
+                url: `https://deep-index.moralis.io/api/v2/nft/0xfb30153A13217815C08a1Ad26EAdAe5723116a14`,
+                params: { chain: "rinkeby", format: "decimal" },
+                headers: { Accept: "application/json", "X-API-Key": "test" },
+            };
+            axios
+                // @ts-ignore
+                .request(options)
+                .then(function (response) {
+                    setTotalMinted(response.data.total);
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    return 0;
+                });
+        }
+    }, []);
     return (
         <div className="mx-auto p-1 rounded-lg">
             {tapeData?.tape && (
@@ -42,6 +66,7 @@ const PreMintTimeline = (tapeData: TapeData) => {
                                                 modal={handleTapeAction()}
                                                 key={step.key}
                                                 step={step}
+                                                totalMinted={totalMinted}
                                                 idx={idx}
                                             />
                                         ) : (
@@ -95,16 +120,18 @@ const Completed = ({ step, idx }: any) => {
     );
 };
 
-const Current = ({ modal, step, idx }: any) => {
+const Current = ({ modal, step, idx, totalMinted }: any) => {
     return (
         <li
             key={step.key + step.name}
             className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all">
-            <button onClick={modal ? modal : () => {}} className="flex items-start justify-start">
+            <button
+                onClick={modal ? modal : () => {}}
+                className="flex items-start justify-start w-full">
                 <span
                     className={classNames(
                         idx !== 0 ? "lg:pl-9" : "",
-                        "px-6 py-4 flex items-start text-sm font-medium"
+                        "px-6 py-4 flex items-start text-sm font-medium w-full"
                     )}>
                     <span className="flex-shrink-0 pt-1">
                         <span className="w-8 h-8 flex items-center justify-center bg-green-600 rounded-full mx-1.5">
@@ -121,6 +148,7 @@ const Current = ({ modal, step, idx }: any) => {
                             {step.description}
                         </span>
                     </span>
+                    <span className="flex ml-auto text-sm self-center items-center tracking-widest bg-gray-600 text-neutral-300 dark:text-neutral-900 dark:bg-gray-400 px-3 text-center rounded-md shadow-sm">{totalMinted}/100</span>
                 </span>
             </button>
         </li>
