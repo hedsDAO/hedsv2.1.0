@@ -8,9 +8,9 @@ const formWaveSurferOptions = (ref: HTMLDivElement): WaveSurferParams => ({
 	barWidth: 2,
 	barRadius: 0,
 	responsive: true,
-	height: 50,
+	height: 40,
+	normalize: true, 
 	hideScrollbar: true,
-	backend: "MediaElement",
 });
 
 export { formWaveSurferOptions };

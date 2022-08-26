@@ -14,7 +14,7 @@ const PauseIcon = (wavesurfer: React.MutableRefObject<any>) => {
 	return (
 		<Pause
 			onClick={handlePausePlay}
-			className="h-5 w-5 text-center text-neutral-900 dark:text-neutral-300 z-40 group-hover:text-fuchsia-900 transition-all ease-in-out duration-200"
+			className="w-5 h-5 lg:w-5 lg:h-5 text-center text-neutral-900 dark:text-neutral-300 z-40 group-hover:text-fuchsia-900 transition-all ease-in-out duration-200"
 			aria-hidden="true"
 		/>
 	);

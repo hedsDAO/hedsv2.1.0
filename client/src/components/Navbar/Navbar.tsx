@@ -31,7 +31,7 @@ const Navbar = () => {
 			<div className={`${pathname === "/" && "absolute"} md:hidden z-50 w-screen mb-10`}>
 				<div className="absolute left-5 top-5 -mt-1 md:left-6 md:top-6 z-50">
 					<Link to="/">
-						<img className={`w-7 hover:contrast-50 transition-all ml-2 ${pathname === '/' ? "invert" : "invert dark:invert-0"}`} src={HedDot} />
+						<img className={`w-7 hover:contrast-50 transition-all ml-2 ${pathname === '/' ? "" : "invert dark:invert-0"}`} src={HedDot} />
 					</Link>
 				</div>
 				<button
@@ -48,14 +48,14 @@ const Navbar = () => {
 					<Link to="/">
 						<div className="inline-flex items-end -ml-2 mt-1">
 							<img className={pathname === '/' ?
-								"w-10 object-cover transition-all hover:contrast-50 mr-3 mt-1.5 invert" :
+								"w-10 object-cover transition-all hover:contrast-50 mr-3 mt-1.5" :
 								"w-10 object-cover transition-all hover:contrast-50 mr-3 mt-1.5 invert dark:invert-0"
 							} src={HedDot} />
 						</div>
 					</Link>
 					<ul
 						className={`static w-screen py-1 text-left`}>
-						<div className={`inline-flex items-center justify-start navbar-parent ${pathname === "/" ? "dark:text-neutral-900" : "dark:text-neutral-300"} text-neutral-975 font-semibold`}>
+						<div className={`inline-flex items-center justify-start navbar-parent ${pathname === "/" ? "text-neutral-300 dark:text-neutral-300" : "dark:text-neutral-300 text-neutral-975"} font-semibold`}>
 							{navigation.map((item, i) => (
 								<div key={item.href + i}>
 									{pathname === item.href ? (

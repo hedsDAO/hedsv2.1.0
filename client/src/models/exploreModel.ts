@@ -7,7 +7,7 @@ export interface ExploreState {
 	spotlight: {
 		space: string;
 		tape: string;
-		id: number;
+		id: any;
 		text: string;
 		description: string;
 	};
@@ -20,7 +20,7 @@ export const exploreModel = createModel<RootModel>()({
 	},
 	effects: () => ({
 		async getSpotlightData() {
-			const docRef = doc(db, "explore", "spotlight");
+			const docRef = doc(db, "explore", "goodsociety");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				this.setExploreData({spotlight: docSnap.data()});

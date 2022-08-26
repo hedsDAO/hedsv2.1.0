@@ -21,8 +21,8 @@ const TapeTimeline = (tapeData: TapeData) => {
 	return (
 		<div className="mx-auto p-1 rounded-lg">
 			{tapeData?.tape && (
-				<nav className="mx-auto " aria-label="Progress">
-					<ol role="list" className="rounded-sm overflow-hidden flex xl:flex-row flex-col lg:rounded-none gap-x-1 gap-y-1">
+				<nav className="mx-auto" aria-label="Progress">
+					<ol role="list" className="rounded-sm overflow-hidden flex xl:flex-row flex-col gap-x-1 gap-y-1">
 						{calculateTapeStatus(+tapeData?.status?.status).map((step, idx: number) => {
 							if (step.status === "complete") {
 								return <Completed key={step.key} step={step} idx={idx} />;
@@ -39,7 +39,7 @@ const TapeTimeline = (tapeData: TapeData) => {
 
 const Completed = ({ step, idx }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 rounded-sm lg:m-0 group">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-300 dark:bg-neutral-950 rounded-lg lg:m-0 group">
 			<span
 				className="absolute top-0 left-0 w-0.5 h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
 				aria-hidden="true"
@@ -61,7 +61,7 @@ const Completed = ({ step, idx }: any) => {
 
 const Current = ({ modal, step, idx }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-sm transition-all">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all">
 			<button onClick={modal ? modal : () => { }} className="flex items-start justify-start">
 				<span className={classNames(idx !== 0 ? "lg:pl-9" : "", "px-6 py-5 flex items-start text-sm font-medium")}>
 					<span className="flex-shrink-0 pt-2">
@@ -85,7 +85,7 @@ const Current = ({ modal, step, idx }: any) => {
 
 const Pending = ({ step, idx, tapeData }: any) => {
 	return (
-		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-sm group lg:m-0">
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-lg group lg:m-0">
 			<span
 				className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
 				aria-hidden="true"
