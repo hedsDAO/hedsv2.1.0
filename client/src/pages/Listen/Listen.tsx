@@ -70,7 +70,7 @@ const Listen = () => {
                         </div>
                     )}
                     {tape === "collabtape" && (
-                        <div className="xl:inline hidden">
+                        <div className="xl:inline hidden xl:mt-1">
                             <CollabTapeInfo tapeData={spaceData?.[tape]?.[id]} totalMinted={totalMinted} />
                         </div>
                     )}
@@ -89,7 +89,7 @@ const Listen = () => {
                             </div>
                         )}
                     {id === "goodsociety" && (
-                        <div className="lg:w-full rounded-xl bg-gray-300 dark:bg-neutral-975 xl:mx-0 mx-2 xl:my-1">
+                        <div className="lg:w-full rounded-xl bg-gray-300 dark:bg-neutral-975 xl:mx-0 mx-2 xl:mb-1">
                             <PreMintTimeline {...spaceData?.[tape]?.[id]} />
                         </div>
                     )}
