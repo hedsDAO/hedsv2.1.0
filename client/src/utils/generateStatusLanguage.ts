@@ -1,4 +1,5 @@
 import { TapeStatus } from "../models/common";
+import { PreMintStatus } from "../models/common";
 
 const generateStatusLanguage = (status: number) => {
 	if (+status >= TapeStatus?.MINT_CLOSE) return "closed";
@@ -12,4 +13,11 @@ const generateStatusLanguage = (status: number) => {
 	if (+status === TapeStatus?.PENDING) return "pending";
 };
 
-export { generateStatusLanguage };
+const generateCollabStatusLanguage = (status: number) => {
+	if (+status >= PreMintStatus?.PRE_MINT_CLOSED) return "pending";
+	if (+status === PreMintStatus?.PRE_MINT_OPEN) return "heds mint open";
+	if (+status === PreMintStatus?.PUBLIC_MINT_OPEN) return "public mint open";
+	if (+status === PreMintStatus?.PUBLIC_MINT_CLOSED) return "closed";
+};
+
+export { generateStatusLanguage, generateCollabStatusLanguage };
