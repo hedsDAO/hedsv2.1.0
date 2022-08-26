@@ -26,9 +26,9 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
         <div className="w-full mx-auto">
             {trackData && tapeData && (
                 <Fragment>
-                    <div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-lg xl:rounded-xl mx-auto">
-                        <div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 pb-1 pt-1 mx-1">
-                            <div className="col-span-12 grid grid-cols-12 mx-2 w-full px-1 items-start">
+                    <div className="w-full bg-gray-300 dark:bg-neutral-975 rounded-lg xl:rounded-lg mx-auto shadow-sm">
+                        <div className="grid grid-cols-12 place-items-center rounded-md gap-y-1 py-2 mx-2">
+                            <div className="col-span-12 grid grid-cols-12 mx-2 w-full items-start">
                                 {tapeData?.tracks?.[tape]?.[id]?.[0]?.title ? (
                                     <>
                                         <div className="col-span-7 lg:col-span-6 text-left">
@@ -75,15 +75,15 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
                                                           currentTapeId
                                                       ]?.[currentTrack]?.audio === track.audio &&
                                                       !isLoading
-                                                          ? "col-span-12 bg-gray-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
-                                                          : "col-span-12 bg-gray-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1.5 rounded-md"
+                                                          ? "col-span-12 bg-gray-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 transition-all grid grid-cols-12 py-1.5 w-full px-1 rounded-md shadow-sm"
+                                                          : "col-span-12 bg-gray-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-950 transition-all grid grid-cols-12 py-1.5 w-full px-1 rounded-md shadow-sm"
                                                   }>
                                                   <Fragment>
                                                       {track.title ? (
                                                           <>
                                                               <div className="col-span-7 lg:col-span-6 inline-flex items-center justify-start gap-x-4 px-1">
                                                                   <img
-                                                                      className="h-6 w-6 rounded-full aspect-square"
+                                                                      className="h-5 w-5 rounded-md aspect-square shadow-sm"
                                                                       src={track?.profilePicture}
                                                                   />
                                                                   <div className="uppercase text-xs tracking-widest text-neutral-700 dark:text-neutral-500 truncate overflow-hidden text-ellipsis">{track?.artist}</div>
@@ -99,7 +99,7 @@ const TapeArtists = (trackData: [TrackMetadata]) => {
                                                               </div>
                                                               <div className="col-span-8 lg:col-span-9 inline-flex items-center justify-start gap-x-4 uppercase text-xs tracking-widest text-neutral-700 dark:text-neutral-500 px-1 whitespace-nowrap">
                                                                   <img
-                                                                      className="h-6 w-6 rounded-full aspect-square"
+                                                                      className="h-5 w-5 rounded-md aspect-square shadow-sm"
                                                                       src={track?.profilePicture}
                                                                   />
                                                                   {track?.artist}

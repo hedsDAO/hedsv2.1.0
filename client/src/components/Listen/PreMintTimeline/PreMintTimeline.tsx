@@ -140,7 +140,7 @@ const Current = ({ modal, step, idx, totalMinted }: any) => {
                             </span>
                         </span>
                     </span>
-                    <span className="mt-1 ml-4 min-w-0 flex flex-col items-start justify-start">
+                    <span className="mt-1 mx-4 min-w-0 flex flex-col items-start justify-start">
                         <span className="text-xs font-semibold dark:text-neutral-200 text-neutral-800 tracking-wide uppercase mb-1">
                             {step.name}
                         </span>
@@ -148,7 +148,7 @@ const Current = ({ modal, step, idx, totalMinted }: any) => {
                             {step.description}
                         </span>
                     </span>
-                    <span className="flex ml-auto text-sm self-center items-center tracking-widest bg-gray-600 text-neutral-300 dark:text-neutral-900 dark:bg-gray-400 px-3 text-center rounded-md shadow-sm">{totalMinted}/100</span>
+                    <span className="flex ml-auto text-sm self-center font-semibold items-center tracking-widest bg-gray-500 text-neutral-200 dark:text-neutral-300 dark:bg-neutral-700 px-3 py-0.5 text-center rounded-md shadow-md">{totalMinted}/100</span>
                 </span>
             </button>
         </li>

@@ -34,7 +34,7 @@ const SampleContainer = (tapeData: TapeData) => {
             <div className="flex xl:flex-row flex-col items-center justify-center xl:justify-between max-w-2xl gap-y-2 md:mx-auto px-6 py-6 rounded-lg">
                 <img
                     src={tapeData?.sample?.image}
-                    className="item--sphere w-16 h-16 rounded-full m-0.5 justify-self-start ring-2 dark:ring-slate-900 ring-slate-300 xl:mr-2"
+                    className="item--sphere w-16 h-16 rounded-full m-0.5 justify-self-start ring-1 dark:ring-neutral-800 ring-neutral-800 xl:mr-2 shadow-sm"
                 />
                 <div className="flex flex-col lg:px-2 px-3 items-center xl:items-start justify-center w-full gap-x-2 xl:mb-0 mb-3">
                     <span className="text-neutral-700 dark:text-neutral-200 text-xs mb-1">

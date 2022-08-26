@@ -33,7 +33,7 @@ const Listen = () => {
     return (
         <Fragment>
             {spaceData && audioData && tapeData && (
-                <div className="flex flex-col max-w-7xl mx-auto xl:gap-y-0 gap-y-1">
+                <div className="flex flex-col max-w-7xl mx-auto xl:gap-y-2 gap-y-1">
                     <div className="lg:w-full">
                         <TapeHeader {...spaceData?.[tape]?.[id]} />
                     </div>
@@ -70,7 +70,7 @@ const Listen = () => {
                         <></>
                     )}
                     {+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.MINT_OPEN && (
-                        <div className="xl:hidden inline xl:mt-0 mt-3">
+                        <div className="xl:hidden inline xl:mt-0 mt-2">
                             <TapeInfo {...spaceData?.[tape]?.[id]} />
                         </div>
                     )}
