@@ -55,7 +55,7 @@ const Navbar = () => {
 					</Link>
 					<ul
 						className={`static w-screen py-1 text-left`}>
-						<div className={`inline-flex items-center justify-start navbar-parent ${pathname === "/" ? "dark:text-neutral-300" : "dark:text-neutral-300"} text-neutral-975 font-semibold`}>
+						<div className={`inline-flex items-center justify-start navbar-parent ${pathname === "/" ? "text-neutral-300 dark:text-neutral-300" : "dark:text-neutral-300 text-neutral-975"} font-semibold`}>
 							{navigation.map((item, i) => (
 								<div key={item.href + i}>
 									{pathname === item.href ? (
