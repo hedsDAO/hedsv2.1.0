@@ -9,17 +9,22 @@ import { PreMintStatus } from "../../../models/common";
 import { Modals } from "../../../models/globalModel";
 import axios from "axios";
 import { useParams } from "react-router";
+import { useMoralis } from "react-moralis";
 
 const PreMintTimeline = (tapeData: TapeData) => {
     const { id } = useParams<{ id: string }>();
+    const { user } = useMoralis();
     const [totalMinted, setTotalMinted] = useState<number | null>(null);
     const dispatch = useDispatch<Dispatch>();
     const status = +tapeData?.status?.status;
     const handleTapeAction = () => {
-        if (status === PreMintStatus.PRE_MINT_OPEN)
+        if (!user) {
+            return () => 
+                dispatch.globalModel.setModal({ open: true, modal: Modals.CONNECT, locked: true });
+        } else if (status === PreMintStatus.PRE_MINT_OPEN)
             return () =>
                 dispatch.globalModel.setModal({ open: true, modal: Modals.PRE_MINT, locked: true });
-        if (status === PreMintStatus.PUBLIC_MINT_OPEN)
+            else if (status === PreMintStatus.PUBLIC_MINT_OPEN)
             return () =>
                 dispatch.globalModel.setModal({
                     open: true,
@@ -43,7 +48,6 @@ const PreMintTimeline = (tapeData: TapeData) => {
                 // @ts-ignore
                 .request(options)
                 .then(function (response) {
-                    console.log(response, 'res')
                     setTotalMinted(response.data.total);
                 })
                 .catch(function (error) {
