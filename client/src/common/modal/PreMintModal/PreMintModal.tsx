@@ -11,7 +11,7 @@ var ethers = require("ethers");
 const PreMintModal = () => {
     const { web3, enableWeb3, isWeb3Enabled, user } = useMoralis();
     const { id, tape } = useSelector((state: RootState) => state.globalModel);
-    const [hasMinted, setHasMinted] = useState<boolean>(true);
+    const [hasMinted, setHasMinted] = useState<boolean>(false);
     const [isMinting, setIsMinting] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [hasClaimed, setHasClaimed] = useState<boolean>(false);
