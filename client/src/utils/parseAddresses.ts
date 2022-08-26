@@ -6,7 +6,9 @@ const hedsTapeAddresses: Array<string> = [
 	"0x567e687c93103010962f9e9cf5730ae8dbfc6d41".toLowerCase(),
 	"0x8045fd700946a00436923f37d08f280ade3b4af6".toLowerCase(),
 	"0x8f36eB094F7B960a234a482d4d8FFb8b37f728C6".toLowerCase(),
-	"0x885236535d5cf7033bdc5bc1050cad7fdf4970a6".toLowerCase()
+	"0x885236535d5cf7033bdc5bc1050cad7fdf4970a6".toLowerCase(),
+	"0x20f2717f113d0b3815124876f3d72f8e1179341e".toLowerCase()
+
 ];
 
 const parseAddresses = (userCollection: any) => {
