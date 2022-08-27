@@ -49,7 +49,7 @@ const CollabTapeInfo = ({ tapeData, totalMinted }: any) => {
                                             ? "dark:text-red-400/70 text-red-500/70"
                                             : "dark:text-green-400 text-green-500"
                                     }`}>
-                                    {openSeaData?.numOfOwners === totalMinted ? openSeaData?.numOfOwners : totalMinted}
+                                    {openSeaData?.numOfOwners}
                                 </span>
                             </div>
                             <div className="col-span-1 inline-flex items-center lg:justify-center justify-start gap-x-2 w-full bg-gray-200 dark:bg-neutral-850 px-4 py-1.5 rounded-xl">
