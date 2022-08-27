@@ -10,6 +10,7 @@ import { Modals } from "../../../models/globalModel";
 import axios from "axios";
 import { useParams } from "react-router";
 import { useMoralis } from "react-moralis";
+import DateCountdown from "../../../common/countdown/Countdown";
 
 const PreMintTimeline = (tapeData: TapeData) => {
     const { id } = useParams<{ id: string }>();
@@ -82,6 +83,7 @@ const PreMintTimeline = (tapeData: TapeData) => {
                                                     key={step.key}
                                                     step={step}
                                                     totalMinted={totalMinted}
+                                                    tapeData={tapeData}
                                                     idx={idx}
                                                 />
                                             ) : (
@@ -158,7 +160,7 @@ const Completed = ({ step, idx }: any) => {
     );
 };
 
-const Current = ({ modal, step, idx }: any) => {
+const Current = ({ modal, step, idx, tapeData }: any) => {
     return (
         <li
             key={step.key + step.name}
@@ -182,9 +184,9 @@ const Current = ({ modal, step, idx }: any) => {
                         <span className="text-xs font-semibold dark:text-neutral-200 text-neutral-800 tracking-wide uppercase mb-1">
                             {step.name}
                         </span>
-                        <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
+                        {tapeData?.status?.time ? <DateCountdown deadline={tapeData?.status?.time} /> : <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
                             {step.description}
-                        </span>
+                        </span>}
                     </span>
                 </span>
             </button>

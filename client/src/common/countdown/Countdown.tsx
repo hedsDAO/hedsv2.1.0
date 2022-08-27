@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Dispatch } from "../../store";
 
 interface CountdownProps {
     deadline: string;
@@ -13,7 +11,6 @@ const DateCountdown = ({ deadline, setIsMintOpen }: CountdownProps) => {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [done, setDone] = useState(false);
-    const dispatch = useDispatch<Dispatch>();
 
     const getTimeUntil = (deadline: string) => {
         const currentTime = new Date();
@@ -34,9 +31,6 @@ const DateCountdown = ({ deadline, setIsMintOpen }: CountdownProps) => {
     };
 
     useEffect(() => {
-        if (done) {
-            dispatch.spaceModel.updateTapeStatus();
-        } else getTimeUntil(deadline);
     }, [done]);
 
     useEffect(() => {
