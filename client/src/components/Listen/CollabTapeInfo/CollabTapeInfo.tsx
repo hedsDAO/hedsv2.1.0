@@ -13,7 +13,6 @@ const CollabTapeInfo = ({ tapeData, totalMinted }: any) => {
     useEffect(() => {
         dispatch.openSeaModel.getCollectionData(`${tape}-${id}`);
     }, [id]);
-    console.log(tapeData);
     return (
         <div className="xl:mx-auto bg-gray-300 dark:bg-neutral-900 p-1 rounded-2xl xl:my-1 mx-2 shadow-sm">
             <div className="w-full rounded-sm xl:mx-auto">

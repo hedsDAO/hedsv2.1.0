@@ -14,7 +14,7 @@ const generateStatusColors = (status: number) => {
 };
 
 const generateCollabStatusColors = (status: number) => {
-	if (+status >= PreMintStatus?.PRE_MINT_CLOSED) return "goldenrod";
+	if (+status === PreMintStatus?.PRE_MINT_CLOSED) return "goldenrod";
 	if (+status === PreMintStatus?.PRE_MINT_OPEN) return "green";
 	if (+status === PreMintStatus?.PUBLIC_MINT_OPEN) return "green";
 	if (+status === PreMintStatus?.PUBLIC_MINT_CLOSED) return "red";

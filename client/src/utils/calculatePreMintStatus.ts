@@ -29,37 +29,35 @@ const steps = [
 
 const calculatePreMintStatus = (status: number) => {
 	const updatedSteps = [...steps];
-	if (status <= PreMintStatus.PENDING) {
+	if (status === PreMintStatus.PENDING) {
 		updatedSteps[0].status = "pending";
         updatedSteps[0].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
-		updatedSteps[1].status = "pending";
-        updatedSteps[1].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
+		updatedSteps[2].status = "pending";
+        updatedSteps[2].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
 
 		return updatedSteps;
 	}
 	if (status === PreMintStatus.PRE_MINT_OPEN) {
 		updatedSteps[0].status = "current";
-		updatedSteps[1].status = "pending";
-        updatedSteps[1].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
+		updatedSteps[2].status = "pending";
+        updatedSteps[2].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
 		return updatedSteps;
 	}
 	if (status === PreMintStatus.PRE_MINT_CLOSED) {
 		updatedSteps[0].status = "complete";
         updatedSteps[0].icon = "fa-solid fa-check-circle text-neutral-300 dark:text-neutral-850";
-		updatedSteps[1].status = "pending";
-        updatedSteps[1].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
-
+		updatedSteps[2].status = "pending";
+        updatedSteps[2].icon = "fa-solid fa-lock text-neutral-300 dark:text-neutral-850";
 		return updatedSteps;
 	}
 	if (status === PreMintStatus.PUBLIC_MINT_OPEN) {
 		updatedSteps[0].status = "complete";
-		updatedSteps[1].status = "current";
+		updatedSteps[2].status = "current";
 		return updatedSteps;
 	}
 	if (status === PreMintStatus.PUBLIC_MINT_CLOSED) {
 		updatedSteps[0].status = "complete";
-		updatedSteps[1].status = "complete";
-
+		updatedSteps[2].status = "complete";
 		return updatedSteps;
 	}
 	return steps;
