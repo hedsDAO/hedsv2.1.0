@@ -11,7 +11,7 @@ const Collection = (userData: UserState) => {
 				{Object.values(userData?.collection)?.length ? (
 					<h1 className="col-span-12 text-2xl tracking-widest font-semibold dark:text-neutral-400 text-neutral-500 px-2.5 mb-2 w-full min-w-full lg:text-left text-center">COLLECTION</h1>
 				) : null}
-				<div className="grid grid-cols-2 xl:grid-cols-6 place-items-center items-center gap-y-2 gap-x-2 bg-neutral-300 dark:bg-neutral-800 p-2 rounded-md mx-2">
+				<div className="grid grid-cols-2 xl:grid-cols-7 place-items-center items-center gap-y-2 gap-x-2 bg-neutral-300 dark:bg-neutral-800 p-2 rounded-md mx-2">
 					{Object.values(userData?.collection)?.length
 						&& collectionEmptyStates(Object.values(userData?.collection)).map((tape: CollectionItem, index: number) => {
 							if (tape.quantity > 0) {
