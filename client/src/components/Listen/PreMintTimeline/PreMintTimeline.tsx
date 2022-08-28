@@ -20,12 +20,12 @@ const PreMintTimeline = (tapeData: TapeData) => {
     const status = +tapeData?.status?.status;
     const handleTapeAction = () => {
         if (!user) {
-            return () => 
+            return () =>
                 dispatch.globalModel.setModal({ open: true, modal: Modals.CONNECT, locked: true });
         } else if (status === PreMintStatus.PRE_MINT_OPEN)
             return () =>
                 dispatch.globalModel.setModal({ open: true, modal: Modals.PRE_MINT, locked: true });
-            else if (status === PreMintStatus.PUBLIC_MINT_OPEN)
+        else if (status === PreMintStatus.PUBLIC_MINT_OPEN)
             return () =>
                 dispatch.globalModel.setModal({
                     open: true,
@@ -111,17 +111,39 @@ const TotalMinted = ({ step, totalMinted }: any) => {
             key={step.key + step.name}
             className="relative overflow-hidden lg:flex-1 bg-green-500/50 dark:bg-green-400/50 lg:m-0 group rounded-lg h-full shadow-sm">
             <span className="px-10 py-4 flex-col items-center justify-center text-sm font-medium lg:flex hidden gap-y-1.5">
-                <span className="text-sm font-semibold tracking-wide uppercase">MINTED</span>
-                <span className="text-sm font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900 bg-gray-100 px-2 rounded-md shadow-sm">
-                    {totalMinted}/100
+                <span className="flex justify-between items-center text-sm whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900/80 bg-gray-100 px-1 py-1 rounded-md shadow-sm">
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-600 dark:text-gray-400 px-1 rounded-sm">
+                        PRICE:
+                    </span>
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-300 px-1 rounded-sm">
+                        0.1 ETH
+                    </span>
+                </span>
+                <span className="flex justify-between items-center text-sm whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900/80 bg-gray-100 px-1 py-1 rounded-md shadow-sm">
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-600 dark:text-gray-400 px-1 rounded-sm">
+                        MINTED:
+                    </span>
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-300 px-1 rounded-sm">
+                        {totalMinted}/100
+                    </span>
                 </span>
             </span>
             <span className="px-6 py-4 justify-center gap-x-2 items-center text-sm font-medium lg:hidden flex">
-                <span className="text-base font-semibold tracking-widest uppercase text-neutral-700 dark:text-neutral-900">
-                    MINTED
+                <span className="flex justify-between text-sm whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900/80 bg-gray-100 px-3 py-1 rounded-md shadow-sm">
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-600 dark:text-gray-400 px-1 rounded-sm">
+                        PRICE:
+                    </span>
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-300 px-1 rounded-sm">
+                        0.1 ETH
+                    </span>
                 </span>
-                <span className="text-sm font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900 bg-gray-100 px-2 rounded-md shadow-sm">
-                    {totalMinted}/100
+                <span className="flex justify-between text-sm whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-400 dark:bg-neutral-900/80 bg-gray-100 px-3 py-1 rounded-md shadow-sm">
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-600 dark:text-gray-400 px-1 rounded-sm">
+                        MINTED:
+                    </span>
+                    <span className="text-xs whitespace-nowrap font-semibold tracking-widest uppercase text-neutral-700 dark:text-gray-300 px-1 rounded-sm">
+                        {totalMinted}/100
+                    </span>
                 </span>
             </span>
         </li>
@@ -164,7 +186,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
     return (
         <li
             key={step.key + step.name}
-            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all h-full shadow-sm">
+            className="relative overflow-hidden lg:flex-1 bg-gray-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-850 border-[0.5px] dark:border-green-400/50 rounded-lg transition-all h-full shadow-sm">
             <button
                 onClick={modal ? modal : () => {}}
                 className="flex items-start justify-start w-full">
@@ -184,9 +206,13 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                         <span className="text-xs font-semibold dark:text-neutral-200 text-neutral-800 tracking-wide uppercase mb-1">
                             {step.name}
                         </span>
-                        {tapeData?.status?.time ? <DateCountdown deadline={tapeData?.status?.time} /> : <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
-                            {step.description}
-                        </span>}
+                        {tapeData?.status?.time ? (
+                            <DateCountdown deadline={tapeData?.status?.time} />
+                        ) : (
+                            <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
+                                {step.description}
+                            </span>
+                        )}
                     </span>
                 </span>
             </button>
