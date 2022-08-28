@@ -57,8 +57,8 @@ const CollabTapeInfo = ({ tapeData, totalMinted }: any) => {
                                     volume:
                                 </span>
                                 <span
-                                    className={`uppercase font-semibold  dark:text-amber-500/70 text-amber-500 text-xs truncate overflow-hidden text-ellipsis`}>
-                                    PENDING
+                                    className={`uppercase font-semibold  dark:text-green-400 text-green-500 text-xs truncate overflow-hidden text-ellipsis`}>
+                                    {openSeaData?.totalVolume}
                                 </span>
                             </div>
                         </Fragment>
