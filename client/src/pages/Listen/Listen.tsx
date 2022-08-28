@@ -7,7 +7,7 @@ import TapeHeader from "../../components/Listen/TapeHeader/TapeHeader";
 import TapeInfo from "../../components/Listen/TapeInfo/TapeInfo";
 import TapeArtists from "../../components/Listen/TapeArtists/TapeArtists";
 import TapeTimeline from "../../components/Listen/TapeTimeline/TapeTimeline";
-import { TapeStatus } from "../../models/common";
+import { PreMintStatus, TapeStatus } from "../../models/common";
 import PreMintTimeline from "../../components/Listen/PreMintTimeline/PreMintTimeline";
 import CollabTapeInfo from "../../components/Listen/CollabTapeInfo/CollabTapeInfo";
 import axios from "axios";
@@ -71,7 +71,10 @@ const Listen = () => {
                     )}
                     {tape === "collabtape" && (
                         <div className="xl:inline hidden xl:mt-1">
-                            <CollabTapeInfo tapeData={spaceData?.[tape]?.[id]} totalMinted={totalMinted} />
+                            <CollabTapeInfo
+                                tapeData={spaceData?.[tape]?.[id]}
+                                totalMinted={totalMinted}
+                            />
                         </div>
                     )}
                     <div className="w-full xl:rounded-none rounded-md">
@@ -88,10 +91,14 @@ const Listen = () => {
                                 <TapeTimeline {...spaceData?.[tape]?.[id]} />
                             </div>
                         )}
-                    {id === "goodsociety" && (
+                    {id === "goodsociety" &&
+                    +spaceData?.[tape]?.[id]?.status?.status ===
+                        PreMintStatus.PUBLIC_MINT_OPEN ? (
                         <div className="lg:w-full rounded-xl bg-gray-300 dark:bg-neutral-975 xl:mx-0 mx-2 xl:mb-1">
                             <PreMintTimeline {...spaceData?.[tape]?.[id]} />
                         </div>
+                    ) : (
+                        <></>
                     )}
                     {+spaceData?.[tape]?.[id]?.status?.status >= TapeStatus.MINT_OPEN ||
                     id === "goodsociety" ? (
@@ -108,7 +115,10 @@ const Listen = () => {
                     )}
                     {tape === "collabtape" && (
                         <div className="xl:hidden inline xl:mt-0 mt-2">
-                            <CollabTapeInfo tapeData={spaceData?.[tape]?.[id]} totalMinted={totalMinted} />
+                            <CollabTapeInfo
+                                tapeData={spaceData?.[tape]?.[id]}
+                                totalMinted={totalMinted}
+                            />
                         </div>
                     )}
                 </div>

@@ -17,7 +17,7 @@ const generateCollabStatusLanguage = (status: number) => {
 	if (+status === PreMintStatus?.PRE_MINT_CLOSED) return "pending";
 	if (+status === PreMintStatus?.PRE_MINT_OPEN) return "heds mint open";
 	if (+status === PreMintStatus?.PUBLIC_MINT_OPEN) return "public mint open";
-	if (+status === PreMintStatus?.PUBLIC_MINT_CLOSED) return "closed";
+	if (+status === PreMintStatus?.PUBLIC_MINT_CLOSED) return "sold out";
 };
 
 export { generateStatusLanguage, generateCollabStatusLanguage };
