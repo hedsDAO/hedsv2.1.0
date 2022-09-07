@@ -13,7 +13,7 @@ const Landing = () => {
 		dispatch.landingModel.getLandingData();
 	}, []);
 	return (
-		<div className="bg-neutral-850 w-screen h-[97vh] overflow-hidden">
+		<div className="bg-[#f2f0e9] w-screen h-[97vh] overflow-hidden">
 			{landingData && (
 				<Fragment>
 					<div className="absolute right-12 bottom-1/3 md:bottom-[40%] md:right-[20%] z-30 px-5 pb-5 sm:-mb-20">
