@@ -24,7 +24,7 @@ const SubmissionModal = () => {
 	const userData = useSelector((state: RootState) => state.userModel);
 	const { space, tape, id } = useSelector((state: RootState) => state.globalModel);
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
-	const currentTape = useSelector((state: RootState) => state.spaceModel?.[tape]?.[+id - 1]);
+	const currentTape = useSelector((state: RootState) => state.spaceModel?.[tape]?.[+id]);
 	const submissionsState = useSelector((state: RootState) => state.submissionsModel);
 	const { loading, currentSubmission } = submissionsState;
 	const submissionData: Array<string> = [currentSubmission, walletId, userData?.twitterHandle, space, tape, id];
@@ -35,9 +35,9 @@ const SubmissionModal = () => {
 	}, []);
 
 	const handleSubmit = async () => {
+		dispatch.submissionsModel.setLoading(true);
 		const subId = await generateSubmissionId();
 		if (userData?.twitterHandle && subId && duration) {
-			dispatch.submissionsModel.setLoading(true);
 			const options = handlePinataMetadata(walletId, userData.twitterHandle, subId?.data, space, tape, id, duration);
 			axios.post(`${PIN_HASH_TO_IPFS}/${currentSubmission}`, options).then((response) => {
 				const pinnedHash = response.data.ipfsHash;
@@ -174,14 +174,12 @@ const SubmissionModal = () => {
 														</small>
 													</div>
 													<div className="gap-x-2 flex justify-center items-stretch pt-4 mt-5 pb-2">
-														{currentSubmission && (
-															<button
-																onClick={() => handleSubmit()}
-																disabled={!currentSubmission}
-																className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
-																{loading ? <LoadingIcon /> : "SUBMIT"}
-															</button>
-														)}
+														<button
+															onClick={() => handleSubmit()}
+															disabled={!currentSubmission}
+															className="px-4 py-1 text-sm bg-green-900 text-neutral-400 font-thin inline-flex items-center rounded-sm focus:outline-none disabled:bg-neutral-700">
+															{loading ? <LoadingIcon /> : "SUBMIT"}
+														</button>
 														<button
 															disabled={loading}
 															onClick={() => dispatch.globalModel.setModalVisibility(false)}
