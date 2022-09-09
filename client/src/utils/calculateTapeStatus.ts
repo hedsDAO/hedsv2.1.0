@@ -21,7 +21,7 @@ const steps = [
 		name: "MINT",
 		icon: "fa-solid fa-cassette-tape text-neutral-300 dark:text-neutral-850",
 		key: "3",
-		description: "The collection has been released. Minting will be open for 24 hours.",
+		description: "Upon release, minting will be open for 24 hours.",
 		href: "#",
 		status: "pending",
 	},
