@@ -67,7 +67,7 @@ const GlobalAudio = () => {
             }
             if (!nextTapeId) nextTapeId = currentTapeId;
             let currentTrackLength = tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length;
-            if (!tapeData?.tracks?.[currentTapeId]?.length && audioData?.isSample) {
+            if (!currentTrackLength && audioData?.isSample) {
                 dispatch.audioModel.setIsSample(false);
                 dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
                 dispatch.audioModel.setCurrentTrack(0);
@@ -77,8 +77,10 @@ const GlobalAudio = () => {
             } else if (nextTrack >= 0 && nextTrack < currentTrackLength)
                 dispatch.audioModel.setCurrentTrack(nextTrack);
             else if (nextTrack >= currentTrackLength) {
-                dispatch.audioModel.setCurrentTrack(0);
-                if (nextTapeId in tapeData?.tapes?.[audioData?.currentTape])
+                if (!tapeData?.tracks?.[currentTape]?.[nextTapeId]?.length) {
+                    dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
+                    dispatch.audioModel.setCurrentTrack(0);
+                } else if (nextTapeId in tapeData?.tapes?.[audioData?.currentTape])
                     dispatch.audioModel.setCurrentTapeId(nextTapeId);
                 else dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
             }
@@ -131,8 +133,8 @@ const GlobalAudio = () => {
                                     let prevTapeId;
                                     let prevTrack = audioData?.currentTrack - 1;
                                     let allTapeIds = Object.keys(tapeData?.tapes?.[currentTape]);
-                                    if (!tapeData?.tracks) {
-                                        prevTapeId = allTapeIds[-1];
+                                    if (!tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length) {
+                                        prevTapeId = allTapeIds[0];
                                     } else {
                                         for (let i = 0; i < allTapeIds.length; i++) {
                                             if (
@@ -147,12 +149,14 @@ const GlobalAudio = () => {
                                                 prevTapeId = allTapeIds[allTapeIds.length - 1];
                                         }
                                     }
+
                                     if (!prevTapeId) prevTapeId = currentTapeId;
+
                                     let currentTrackLength =
                                         tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length;
                                     if (
                                         currentTrack === 0 &&
-                                        !tapeData?.tracks?.prevTapeId?.length
+                                        !tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length
                                     ) {
                                         dispatch.audioModel.setIsSample(false);
                                         dispatch.audioModel.setCurrentTapeId(
@@ -172,10 +176,14 @@ const GlobalAudio = () => {
                                         let prevTrackLength =
                                             tapeData?.tracks?.[currentTape]?.[prevTapeId]?.length -
                                             1;
-                                        dispatch.audioModel.setCurrentTrack(prevTrackLength);
-                                        if (prevTapeId in tapeData?.tapes?.[audioData?.currentTape])
+                                        if (!prevTrackLength) {
+                                            dispatch.audioModel.setCurrentTrack(0);
+                                            dispatch.audioModel.setCurrentTapeId(
+                                                allTapeIds[allTapeIds.length - 2]
+                                            );
+                                        } else if (prevTrackLength > 0) {
                                             dispatch.audioModel.setCurrentTapeId(prevTapeId);
-                                        else
+                                        } else
                                             dispatch.audioModel.setCurrentTapeId(
                                                 allTapeIds[allTapeIds.length - 1]
                                             );
@@ -198,7 +206,6 @@ const GlobalAudio = () => {
                                 onClick={() => {
                                     let nextTapeId;
                                     let nextTrack = audioData?.currentTrack + 1;
-
                                     let allTapeIds = Object.keys(tapeData?.tapes?.[currentTape]);
                                     for (let i = 0; i < allTapeIds.length; i++) {
                                         if (allTapeIds[i] == currentTapeId && allTapeIds?.[i + 1])
@@ -209,35 +216,29 @@ const GlobalAudio = () => {
                                     if (!nextTapeId) nextTapeId = currentTapeId;
                                     let currentTrackLength =
                                         tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length;
-                                    if (
-                                        !tapeData?.tracks?.nextTapeId &&
-                                        !tapeData?.tracks?.[currentTape]?.[currentTapeId]?.length
-                                    ) {
+                                    if (!currentTrackLength && audioData.isSample) {
                                         dispatch.audioModel.setIsSample(false);
+                                        dispatch.audioModel.setCurrentTrack(0);
                                         dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
+                                    } else if (audioData?.currentTrack >= currentTrackLength) {
+                                        if (audioData?.isSample)
+                                            dispatch.audioModel.setIsSample(false);
+                                        if (audioData?.tracks?.[nextTapeId]?.[nextTrack])
+                                            dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
                                         dispatch.audioModel.setCurrentTrack(0);
-                                    } else if (
-                                        audioData?.isSample &&
-                                        !tapeData?.tracks?.nextTapeId
-                                    ) {
-                                        dispatch.audioModel.setIsSample(false);
-                                        dispatch.audioModel.setCurrentTrack(0);
-                                    } else if (
-                                        nextTrack >= 0 &&
-                                        nextTrack < currentTrackLength &&
-                                        tapeData?.tracks?.nextTapeId
-                                    ) {
-                                        console.log("1");
-                                        dispatch.audioModel.setCurrentTrack(nextTrack);
+                                    } else if (nextTrack >= 0 && nextTrack < currentTrackLength) {
+                                        if (audioData?.isSample) {
+                                            dispatch.audioModel.setCurrentTrack(0);
+                                            dispatch.audioModel.setIsSample(false);
+                                        } else dispatch.audioModel.setCurrentTrack(nextTrack);
                                     } else if (nextTrack >= currentTrackLength) {
                                         dispatch.audioModel.setCurrentTrack(0);
-                                        if (!tapeData?.tracks?.[nextTapeId])
-                                            dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
-                                        else if (
-                                            nextTapeId in tapeData?.tapes?.[audioData?.currentTape]
-                                        )
+                                        if (tapeData?.tracks?.[currentTape]?.[nextTapeId]?.length)
                                             dispatch.audioModel.setCurrentTapeId(nextTapeId);
-                                        else dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
+                                        else {
+                                            dispatch.audioModel.setCurrentTapeId(nextTapeId);
+                                            dispatch.audioModel.setCurrentTapeId(allTapeIds[0]);
+                                        }
                                     }
                                 }}
                                 className="bg-gray-200 hover:bg-gray-100 dark:bg-neutral-900 dark:border-neutral-800 border-gray-400 border rounded-md px-2.5 lg:py-0 py-0.5 dark:hover:bg-neutral-700 inline-flex items-center transition-all">
