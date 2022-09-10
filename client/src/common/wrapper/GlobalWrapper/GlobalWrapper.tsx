@@ -12,6 +12,7 @@ import TokenBurnModal from "../../modal/TokenBurnModal/TokenBurnModal";
 import VoteModal from "../../modal/VoteModal/VoteModal";
 import PreMintModal from "../../modal/PreMintModal/PreMintModal";
 import PublicMintModal from "../../modal/PublicMintModal/PublicMintModal";
+import VinylFormModal from "../../modal/VinylFormModal/VinylFormModal";
 const warningTitle = "Unverified Account";
 const warningMessageTwitter = "Verify your account with twitter to continue.";
 const warningMessageUser = "Connect your wallet to download the sample.";
@@ -34,6 +35,7 @@ const GlobalWrapper = ({ children }: { children: JSX.Element }) => {
 		[Modals.MINT]: <MintModal />,
 		[Modals.OGHED]: <TokenBurnModal />,
 		[Modals.WARNING]: <WarningModal title={warningTitle} message={warningMessageUser} />,
+		[Modals.VINYL_FORM] : <VinylFormModal />
 	
 	};
 

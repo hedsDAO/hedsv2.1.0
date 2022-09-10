@@ -6,6 +6,7 @@ import { BadgeData, CollectionTank, TrackMetadata } from "./common";
 import { populateNewUser } from "../utils/populateNewUser";
 import { getSplitsUserBalance } from "../utils/graphql/getSplitsUserBalance";
 import { getUserVotingPower } from "../utils/graphql/getUserVotingPower";
+import vinylAddresses from "../data/whitelists/abi/vinylAddresses.json";
 import { ethers } from "ethers"
 
 export interface UserState {
@@ -17,6 +18,7 @@ export interface UserState {
 	votingPower: number;
 	splitsBalance?: string;
 	isTapeArtist?: boolean;
+	isVinylAddress?: boolean;
 }
 
 export const userModel = createModel<RootModel>()({
@@ -35,6 +37,7 @@ export const userModel = createModel<RootModel>()({
 		setUserData: (state, payload: UserState) => ({ ...state, ...payload }),
 		setSplitsBalance: (state, splitsBalance: string) => ({ ...state, splitsBalance }),
 		setIsTapeArtist: (state, isTapeArtist: boolean) => ({...state, isTapeArtist}),
+		isVinylAddress: (state, isVinylAddress: boolean) => ({...state, isVinylAddress}),
 		clearUserData: (state) => {
 			let newState = { ...state };
 			newState = { votingPower: 0, description: "", collection: {}, twitterHandle: "", profilePicture: "" };
@@ -67,6 +70,7 @@ export const userModel = createModel<RootModel>()({
 				if (noDuplicateWalletIds.has(wallet)) {
 					this.setIsTapeArtist(true);
 					this.getSplitsBalance(wallet);
+					this.isVinylAddress(vinylAddresses.includes(wallet.toLowerCase()));
 				} else this.setIsTapeArtist(false);
 			}
 		},
