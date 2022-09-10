@@ -76,6 +76,7 @@ export const submissionsModel = createModel<RootModel>()({
 			}
 		},
 		async handleSubmit([url, walletId, displayName, space, tape, id, submissionId]: Array<string>) {
+			dispatch.submissionsModel.setLoading(true);
 			const db = getFirestore();
 			const userRef = doc(db, "submissions", walletId);
 			const getUserSubmissions = await getDoc(userRef);
@@ -123,7 +124,9 @@ export const submissionsModel = createModel<RootModel>()({
 						name: displayName,
 					});
 				}
+				dispatch.submissionsModel.setLoading(false);
 			} catch (e) {
+				dispatch.submissionsModel.setLoading(false);
 				this.setUpdateError(true);
 				console.log(e);
 			}

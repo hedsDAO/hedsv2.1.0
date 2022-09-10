@@ -13,7 +13,8 @@ const Landing = () => {
 		dispatch.landingModel.getLandingData();
 	}, []);
 	return (
-		<div className="bg-neutral-850 w-screen h-[97vh] overflow-hidden">
+		<div className="overflow-y-hidden">
+		<div className="bg-[#f2f0e9] w-screen max-h-[100vh] min-h-full overflow-hidden">
 			{landingData && (
 				<Fragment>
 					<div className="absolute right-12 bottom-1/3 md:bottom-[40%] md:right-[20%] z-30 px-5 pb-5 sm:-mb-20">
@@ -36,6 +37,7 @@ const Landing = () => {
 					<VideoContainer src={landingData?.media.sm} placeholder="https://firebasestorage.googleapis.com/v0/b/heds-34ac0.appspot.com/o/landing%2FScreen%20Shot%202022-07-29%20at%2010.34.49%20AM.png?alt=media&token=3c77cbbc-3eb6-45f3-8e4e-1f9b30cf6d68" size="lg" />
 				</Fragment>
 			)}
+		</div>
 		</div>
 	);
 };

@@ -99,8 +99,8 @@ const Pending = ({ step, idx, tapeData }: any) => {
 					</span>
 				</span>
 				<span className="mt-0.5 ml-4 min-w-0 flex flex-col justify-center">
-					<span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">{step.name === 'MINT' && +tapeData?.status?.status < 8 ? "MINT OPENS" : step.name}</span>
-					<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">{step.name === 'MINT' && +tapeData?.status?.status < 8 ? <DateCountdown deadline={tapeData?.status?.time} /> : <></>}</span>
+					<span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">{step.name === 'MINT' && +tapeData?.status?.status < 8 && +tapeData?.status?.status > 8 ? "MINT OPENS" : step.name}</span>
+					<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">{step.name === 'MINT' && +tapeData?.status?.status < 8 && +tapeData?.status?.status > 6 ? <DateCountdown deadline={tapeData?.status?.time} /> : <>{step.description}</>}</span>
 				</span>
 			</span>
 		</li>

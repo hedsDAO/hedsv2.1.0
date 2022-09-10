@@ -26,7 +26,7 @@ export const landingModel = createModel<RootModel>()({
 	},
 	effects: () => ({
 		async getLandingData() {
-			const docRef = doc(db, "landing", "goodsociety");
+			const docRef = doc(db, "landing", "featured");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				this.setLandingData(docSnap.data());
