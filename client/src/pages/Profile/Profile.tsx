@@ -17,6 +17,7 @@ const Profile = () => {
 	useEffect(() => {
 		if (!userData?.collection) getNFTs();
 		if (!userData?.isTapeArtist) dispatch.userModel.getTapeArtistsWalletIds(user?.attributes?.ethAddress.toLowerCase());
+		if (!userData?.isVinylAddress) dispatch.userModel.getVinylAddress(user?.attributes?.ethAddress.toLowerCase());
 	}, [userData]);
 	useEffect(() => {
 		if (isUnauthenticated) history.push("/explore");

@@ -6,7 +6,6 @@ import { BadgeData, CollectionTank, TrackMetadata } from "./common";
 import { populateNewUser } from "../utils/populateNewUser";
 import { getSplitsUserBalance } from "../utils/graphql/getSplitsUserBalance";
 import { getUserVotingPower } from "../utils/graphql/getUserVotingPower";
-import vinylAddresses from "../data/whitelists/abi/vinylAddresses.json";
 import { ethers } from "ethers"
 
 export interface UserState {
@@ -70,7 +69,6 @@ export const userModel = createModel<RootModel>()({
 				if (noDuplicateWalletIds.has(wallet)) {
 					this.setIsTapeArtist(true);
 					this.getSplitsBalance(wallet);
-					this.isVinylAddress(vinylAddresses.includes(wallet.toLowerCase()));
 				} else this.setIsTapeArtist(false);
 			}
 		},
@@ -136,6 +134,15 @@ export const userModel = createModel<RootModel>()({
 			const votingPower = await getUserVotingPower(walletId);
 			this.setVotingPower(votingPower?.vp?.vp);
 			return;
+		},
+		async getVinylAddress(walletId: string) {
+			const docRef = doc(db, "vinyls", walletId);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				if (docSnap.data()?.redeemed === false) {
+					this.isVinylAddress(true);
+				}
+			}
 		},
 	}),
 });
