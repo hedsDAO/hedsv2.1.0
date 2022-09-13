@@ -25,7 +25,7 @@ export const tapeModel = createModel<RootModel>()({
             }
         },
         async getTapes() {
-            const docRef = doc(db, "spaces_test", "heds");
+            const docRef = doc(db, "spaces", "heds");
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 let tapeTank: { [id: string]: { [id: string]: TapeData } } = docSnap.data()?.["heds"];

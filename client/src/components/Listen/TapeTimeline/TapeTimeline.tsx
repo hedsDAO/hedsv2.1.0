@@ -133,43 +133,27 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
-    return (
-        <li
-            key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-lg group lg:m-0">
-            <span
-                className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
-                aria-hidden="true"
-            />
-            <span
-                className={classNames(
-                    idx !== 0 ? "lg:pl-9" : "",
-                    "px-6 py-5 flex items-start text-sm font-medium"
-                )}>
-                <span className="flex-shrink-0 pt-2">
-                    <span className="w-8 h-8 flex items-center justify-center bg-neutral-400 dark:bg-neutral-700 bg-opacity-75 rounded-full mx-1.5">
-                        <span className="text-neutral-900 uppercase tracking-wide ">
-                            <i className={step.icon} />
-                        </span>
-                    </span>
-                </span>
-                <span className="mt-0.5 ml-4 min-w-0 flex flex-col justify-center">
-                    <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">
-                        {step.name === "MINT" && +tapeData?.status?.status < 8
-                            ? "MINT OPENS"
-                            : step.name}
-                    </span>
-                    <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                        {step.name === "MINT" && +tapeData?.status?.status < 8 ? (
-                            <DateCountdown deadline={tapeData?.status?.time} />
-                        ) : (
-                            <></>
-                        )}
-                    </span>
-                </span>
-            </span>
-        </li>
-    );
+	return (
+		<li key={step.key} className="relative overflow-hidden lg:flex-1 bg-neutral-200 dark:bg-neutral-850 rounded-lg group lg:m-0">
+			<span
+				className="absolute top-0 left-0 w-[0.075rem] h-full bg-transparent lg:w-full lg:h-[0.075rem] lg:bottom-0 lg:top-auto"
+				aria-hidden="true"
+			/>
+			<span className={classNames(idx !== 0 ? "lg:pl-9" : "", "px-6 py-5 flex items-start text-sm font-medium")}>
+				<span className="flex-shrink-0 pt-2">
+					<span className="w-8 h-8 flex items-center justify-center bg-neutral-400 dark:bg-neutral-700 bg-opacity-75 rounded-full mx-1.5">
+						<span className="text-neutral-900 uppercase tracking-wide ">
+							<i className={step.icon} />
+						</span>
+					</span>
+				</span>
+				<span className="mt-0.5 ml-4 min-w-0 flex flex-col justify-center">
+					<span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">{step.name === 'MINT' && +tapeData?.status?.status < 8 && +tapeData?.status?.status > 8 ? "MINT OPENS" : step.name}</span>
+					<span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">{step.name === 'MINT' && +tapeData?.status?.status < 8 && +tapeData?.status?.status > 6 ? <DateCountdown deadline={tapeData?.status?.time} /> : <>{step.description}</>}</span>
+				</span>
+			</span>
+		</li>
+	);
 };
 
 export default TapeTimeline;
