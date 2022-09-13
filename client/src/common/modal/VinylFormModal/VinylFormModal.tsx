@@ -35,7 +35,7 @@ const VinylFormModal = () => {
                                                 Link for Vinyl Redemption Shipping Form
                                             </div>
 											<div className="text-neutral-500 text-xs text-center mt-2 w-1/2 mb-4">
-                                                note: The information on the form is only used for shipping purposes and is not stored on heds.
+                                                note: The information on the form is only used for shipping purposes, heds will not save this data.
                                             </div>
 											<a href="https://heds.formstack.com/forms/good_society_vinyl" target="_blank">
                                             <button className="bg-neutral-800 uppercase text-sm text-neutral-300 py-1 hover:bg-neutral-900 rounded-sm px-3 transition-all">
