@@ -70,8 +70,8 @@ export const userModel = createModel<RootModel>()({
 				if (noDuplicateWalletIds.has(wallet)) {
 					this.setIsTapeArtist(true);
 					this.getSplitsBalance(wallet);
-					this.isVinylAddress(vinylAddresses.includes(wallet.toLowerCase()));
 				} else this.setIsTapeArtist(false);
+				this.isVinylAddress(vinylAddresses.includes(wallet.toLowerCase()));
 			}
 		},
 		async updateProfilePicture([wallet, profilePicture]: [string, string]) {
