@@ -141,8 +141,10 @@ export const userModel = createModel<RootModel>()({
 			if (docSnap.exists()) {
 				if (docSnap.data()?.redeemed === false) {
 					this.isVinylAddress(true);
+					return;
 				}
-			}
+			};
+			return;
 		},
 	}),
 });

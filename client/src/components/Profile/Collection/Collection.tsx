@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { CollectionItem } from "../../../models/common";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { UserState } from "../../../models/userModel";
 import { collectionEmptyStates } from "../../../utils/emptyStates/collectionEmptyState";
 
@@ -17,7 +17,7 @@ const Collection = (userData: UserState) => {
 							if (tape.quantity > 0) {
 								return (
 									<div key={tape.token_address + index} className="group relative rounded-lg shadow-sm">
-										<Link to={`/listen/heds/hedstape/${tape.name[tape.name.length - 1]}`}>
+										{/* <Link to={`/listen/heds/hedstape/${tape.name[tape.name.length - 1]}`}> */}
 											<div className="overflow-hidden group-hover:opacity-50 lg:aspect-none transition-all rounded-md bg-neutral-900">
 												<img
 													src={`http://www.heds.cloud/ipfs/${JSON.parse(tape.metadata).image.split("://")[1]
@@ -26,7 +26,7 @@ const Collection = (userData: UserState) => {
 														} group-hover:grayscale-0`}
 												/>
 											</div>
-										</Link>
+										{/* </Link> */}
 									</div>
 								)
 							}
