@@ -3,8 +3,8 @@ import type { RootModel } from ".";
 import { PublicSubmission } from "./common";
 import { getProposalData } from "./../utils/graphql/getProposalData";
 import { getVoteData } from "./../utils/graphql/getVoteData";
-// import { snapshotClient } from "./..";
-// import MoralisType from "moralis";
+import { snapshotClient } from "./..";
+import MoralisType from "moralis";
 
 interface Favorites {
 	count: number;
@@ -120,25 +120,26 @@ export const voteModel = createModel<RootModel>()({
 			const proposalData = await getProposalData();
 			this.setSnapshotSpaceData([voteData.votes, proposalData.proposals]);
 		},
-		// async castVote([web3, userVotes, walletId]: [MoralisType.MoralisWeb3Provider, any, string]) {
-		// 	this.setIsLoading(true);
-		// 	try {
-		// 		const receipt = await snapshotClient.vote(web3, walletId, {
-		// 			space: "camb0t.eth",
-		// 			proposal: "0x864583ca2d5526b8d44f3c41c2c4f8507bece0ba95aad071d16dd13bac4b395c",
-		// 			type: "quadratic",
-		// 			choice: userVotes,
-		// 			// @ts-ignore
-		// 			metadata: JSON.stringify({}),
-		// 		});
-		// 		await receipt;
-		// 		this.setDidCastVote([true, 0]);
-		// 		this.loadSnapshotSpaceData();
-		// 		this.setIsLoading(false);
-		// 	} catch (e) {
-		// 		this.setDidCastVote([false, 0]);
-		// 		this.setIsLoading(false);
-		// 	}
-		// },
+		async castVote([web3, userVotes, walletId]: [MoralisType.MoralisWeb3Provider, any, string]) {
+			this.setIsLoading(true);
+			try {
+				//@ts-ignore
+				const receipt = await snapshotClient.vote(web3, walletId, {
+					space: "camb0t.eth",
+					proposal: "0x38ea2647ea27266b92422b59a97082ef58b30304ad27ca7cd13b898f7da0d9b3",
+					type: "quadratic",
+					choice: userVotes,
+					// @ts-ignore
+					metadata: JSON.stringify({}),
+				});
+				await receipt;
+				this.setDidCastVote([true, 0]);
+				this.loadSnapshotSpaceData();
+				this.setIsLoading(false);
+			} catch (e) {
+				this.setDidCastVote([false, 0]);
+				this.setIsLoading(false);
+			}
+		},
 	}),
 });
