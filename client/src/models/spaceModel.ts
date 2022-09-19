@@ -57,7 +57,10 @@ export const spaceModel = createModel<RootModel>()({
 			const docRef = doc(db, "spaces", space || "heds");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				dispatch.spaceModel.setSpaceData(docSnap.data()?.[space || 'heds']);
+				let spaceData = {...docSnap.data()?.[space || 'heds']};
+				// note: vote status test
+				// spaceData.hedstape["8"].status.status = 5;
+				dispatch.spaceModel.setSpaceData(spaceData || docSnap.data()?.[space || 'heds']);
 			}
 		},
 		// DEPRECATED
