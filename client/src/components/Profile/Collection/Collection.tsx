@@ -6,7 +6,6 @@ import { collectionEmptyStates } from "../../../utils/emptyStates/collectionEmpt
 import { generateCollectionLinks } from "../../../utils/generateCollectionLinks";
 
 const Collection = (userData: UserState) => {
-    console.log(Object.keys(userData?.collection));
     return (
         <Fragment>
             {Object.values(userData?.collection)?.length ? (

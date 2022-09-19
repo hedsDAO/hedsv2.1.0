@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Dispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { TapeStatus } from "../../models/common";
 import useMoralisHooks from "../../hooks/useMoralis";
 import AudioPlayer from "../../components/Vote/AudioPlayer/AudioPlayer";
 import SubmissionsPlayer from "../../components/Vote/SubmissionsPlayer/SubmissionsPlayer";
@@ -10,6 +11,8 @@ import VotingFavorites from "../../components/Vote/VotingFavorites/VotingFavorit
 import VoteHeader from "../../components/Vote/VoteHeader/VoteHeader";
 import VoteContentContainer from "../../components/Vote/VoteContentContainer/VoteContentContainer";
 import VotingButtons from "../../components/Vote/VotingButtons/VotingButtons";
+import InfoTooltip from "../../common/tooltip/InfoTooltip/InfoTooltip";
+import { voteTooltip } from "../../data/whitelists/abi/voteToolTip";
 
 const Vote = () => {
     const { user, getNFTs } = useMoralisHooks();
@@ -18,7 +21,7 @@ const Vote = () => {
     const dispatch = useDispatch<Dispatch>();
     const spaceData = useSelector((state: RootState) => state.spaceModel);
     const currentTape = spaceData?.[tape]?.[id];
-    const isVoteLive = true;
+    const isVoteLive = spaceData?.[tape]?.[id]?.status?.status === TapeStatus.VOTE_OPEN;
     const submissions = useSelector((state: RootState) => state.submissionsModel);
     const voteState = useSelector((state: RootState) => state.voteModel);
     const userData = useSelector((state: RootState) => state.userModel);
@@ -102,6 +105,9 @@ const Vote = () => {
                                                 <span className="text-green-500 fon-thin ml-1">
                                                     HED
                                                 </span>
+                                            </span>
+                                            <span className="inline-flex items-center">
+                                                <InfoTooltip infoText={voteTooltip}/>
                                             </span>
                                         </div>
                                     </div>

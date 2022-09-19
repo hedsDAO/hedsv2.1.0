@@ -93,7 +93,6 @@ const Completed = ({ step, idx }: any) => {
 };
 
 const Current = ({ modal, step, idx, tapeData }: any) => {
-    console.log(tapeData.status.time, step.name);
     return (
         <li
             key={step.key}
@@ -113,10 +112,10 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                     </span>
                     <span className="mt-0.5 ml-4 min-w-0 flex flex-col items-start justify-start">
                         <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                            {step.name === "SUBMIT" && tapeData?.status.time ? (
+                            {step.name === "VOTE" && tapeData?.status.time ? (
                                 <div className="">
                                     <p className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
-                                        {step.name} YOUR FLIP
+                                        {step.name}
                                     </p>
                                     <span className="mb-2 mt-1 text-neutral-500">
                                         closes in:{" "}
