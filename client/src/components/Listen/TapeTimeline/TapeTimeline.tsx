@@ -141,7 +141,6 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
-    console.log(step)
     return (
         <li
             key={step.key}
