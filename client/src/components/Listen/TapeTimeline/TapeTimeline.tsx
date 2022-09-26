@@ -141,6 +141,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
+    console.log(step)
     return (
         <li
             key={step.key}
@@ -170,9 +171,9 @@ const Pending = ({ step, idx, tapeData }: any) => {
                             : step.name}
                     </span>
                     <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                        {step.name === "MINT" &&
+                        {step.name === "MINT" && step.status === 'pending' &&
                         +tapeData?.status?.status < 8 &&
-                        +tapeData?.status?.status > 6 ? (
+                        +tapeData?.status?.status >= 6 ? (
                             <DateCountdown deadline={tapeData?.status?.time} />
                         ) : (
                             <>{step.description}</>
