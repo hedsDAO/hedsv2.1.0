@@ -5,7 +5,7 @@ import { RootState, Dispatch } from "../../../store";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useMoralis } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
-const contractAbi = require("../../../data/whitelists/abi/hedsTAPE07.json");
+import contractAbi from "../../../data/whitelists/abi/hedsTAPE08.json";
 // import { getContractAbi } from "../../../utils/getContractAbi";
 var ethers = require("ethers");
 
@@ -21,13 +21,14 @@ const MintModal = () => {
 	// @ts-ignore
 	const [error, setError] = useState<string>("");
 	const [selected, setSelected] = useState({ value: "0" });
-	const currentTape = useSelector((state: RootState) => state.spaceModel)?.[tape]?.[+id - 1];
+	const currentTape = useSelector((state: RootState) => state.spaceModel)?.[tape]?.[id];
 	const { locked, open } = useSelector((state: RootState) => state.globalModel.modal);
 	const dispatch = useDispatch<Dispatch>();
 	const handleMint = async () => {
 		setError("")
 		setIsLoading(true);
 		if (web3 && currentTape?.tape?.contract) {
+			console.log(currentTape?.tape?.contract)
 			// const contractAbi = await getContractAbi(currentTape.tape.contract);
 			// const formattedAbi = JSON.parse(contractAbi.data.result);
 			const contract = new ethers.Contract(currentTape?.tape?.contract, contractAbi, web3.getSigner());

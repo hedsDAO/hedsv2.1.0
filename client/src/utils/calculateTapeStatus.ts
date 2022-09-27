@@ -21,7 +21,7 @@ const steps = [
 		name: "MINT",
 		icon: "fa-solid fa-cassette-tape text-neutral-300 dark:text-neutral-850",
 		key: "3",
-		description: "Upon release, minting will be open for 24 hours.",
+		description: "Minting will be open for 24 hours.",
 		href: "#",
 		status: "pending",
 	},
@@ -63,6 +63,7 @@ const calculateTapeStatus = (status: number) => {
 		updatedSteps[0].status = "complete";
 		updatedSteps[1].status = "complete";
 		updatedSteps[2].status = "current";
+		updatedSteps[2].name = "MINT OPEN"
 		return updatedSteps;
 	}
 	if (status === TapeStatus.MINT_CLOSE) {
