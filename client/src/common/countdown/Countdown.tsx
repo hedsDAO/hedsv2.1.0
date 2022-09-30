@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Dispatch } from "../../store";
 
 interface CountdownProps {
     deadline: string;
@@ -6,6 +8,7 @@ interface CountdownProps {
 }
 
 const DateCountdown = ({ deadline, setIsMintOpen }: CountdownProps) => {
+    const dispatch = useDispatch<Dispatch>();
     const [days, setDays] = useState(0);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
@@ -31,6 +34,7 @@ const DateCountdown = ({ deadline, setIsMintOpen }: CountdownProps) => {
     };
 
     useEffect(() => {
+       if (done) dispatch.spaceModel.updateTapeStatus()
     }, [done]);
 
     useEffect(() => {

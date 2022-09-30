@@ -117,19 +117,24 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                                     <p className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
                                         {step.name}
                                     </p>
-                                    <span className="mb-2 mt-1 text-neutral-500">
-                                        closes in:{" "}
-                                    </span>
+                                    <span className="mb-2 mt-1 text-neutral-500">closes in: </span>
                                     <DateCountdown deadline={tapeData?.status?.time} />
                                 </div>
                             ) : (
                                 <>
-                                    <span className="text-xs font-semibold dark:text-neutral-200 text-neutral-800 tracking-wide uppercase mb-1">
-                                        {step.name} 
-                                    </span>
-                                    <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
-                                        {step.description}
-                                    </span>
+                                    <p className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left mb-1">
+                                        {step.name}
+                                    </p>
+                                    {step.name === "MINT OPEN" &&
+                                    tapeData?.status?.status === TapeStatus.MINT_OPEN ? (
+                                        <DateCountdown
+                                            deadline={tapeData?.status?.time}
+                                        />
+                                    ) : (
+                                        <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
+                                            {step.description}
+                                        </span>
+                                    )}
                                 </>
                             )}
                         </span>
@@ -170,7 +175,8 @@ const Pending = ({ step, idx, tapeData }: any) => {
                             : step.name}
                     </span>
                     <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                        {step.name === "MINT" && step.status === 'pending' &&
+                        {step.name === "MINT" &&
+                        step.status === "pending" &&
                         +tapeData?.status?.status < 8 &&
                         +tapeData?.status?.status >= 6 ? (
                             <DateCountdown deadline={tapeData?.status?.time} />
