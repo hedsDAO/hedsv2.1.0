@@ -106,7 +106,7 @@ const TapeInfo = (tapeData: TapeData) => {
                             {tapeData?.links?.opensea ? (
                                 <a href={tapeData?.links?.opensea} target="_blank">
                                     <div className="col-span-1 inline-flex items-center lg:justify-center justify-start w-full hover:bg-neutral-100 dark:hover:bg-neutral-900 bg-gray-200 dark:bg-neutral-850 px-4 py-1.5 rounded-xl transition-all">
-                                        <span className="font-medium font-sans uppercase text-neutral-600 dark:text-neutral-700 text-xs">
+                                        <span className="font-medium font-sans uppercase text-neutral-700 dark:text-neutral-500  text-xs">
                                             <i className="fak fa-opensea mr-1.5" />
                                             OpenSea
                                         </span>
@@ -114,7 +114,7 @@ const TapeInfo = (tapeData: TapeData) => {
                                 </a>
                             ) : (
                                 <div className="pointer-events-none col-span-1 inline-flex items-center lg:justify-center justify-start w-full bg-gray-400 dark:bg-neutral-950 px-4 py-1.5 rounded-xl transition-all">
-                                    <span className="font-medium font-sans uppercase text-neutral-700 dark:text-neutral-500 text-xs animate-pulse">
+                                    <span className="font-medium font-sans uppercase text-neutral-600 dark:text-neutral-700 text-xs animate-pulse">
                                         <i className="fak fa-opensea mr-1.5" />
                                         PENDING
                                     </span>
