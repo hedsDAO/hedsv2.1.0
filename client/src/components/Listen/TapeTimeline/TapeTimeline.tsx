@@ -128,7 +128,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                                     {step.name === "MINT OPEN" &&
                                     tapeData?.status?.status === TapeStatus.MINT_OPEN ? (
                                         <DateCountdown
-                                            deadline={"31 September 2022 12:00:00 GMT-07:00"}
+                                            deadline={tapeData?.status?.time}
                                         />
                                     ) : (
                                         <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
@@ -146,7 +146,6 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
 };
 
 const Pending = ({ step, idx, tapeData }: any) => {
-    console.log(step);
     return (
         <li
             key={step.key}

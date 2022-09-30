@@ -5,7 +5,7 @@ import { RootState, Dispatch } from "../../../store";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useMoralis } from "react-moralis";
 import LoadingIcon from "../../svg/LoadingIcon/LoadingIcon";
-import contractAbi from "../../../data/whitelists/abi/hedsTAPE08.json";
+const contractAbi = require("../../../data/whitelists/abi/hedsTAPE08.json");
 // import { getContractAbi } from "../../../utils/getContractAbi";
 var ethers = require("ethers");
 
@@ -131,7 +131,7 @@ const MintModal = () => {
 												} text-sm uppercase font-semibold mb-2 text-neutral-400`}>
 											{(+selected.value * 0.1).toFixed(2) || 0} ETH
 										</span>
-										{error && <span className="text-xs uppercase font-semibold mb-2 text-red-500">{error}</span>}
+										{error && <span className="text-xs uppercase font-semibold mb-2 text-red-500 text-center">{error}</span>}
 										<div className="gap-x-2 flex justify-center items-stretch pt-4 mt-5">
 											{isMinting ?
 												<LoadingIcon /> :
