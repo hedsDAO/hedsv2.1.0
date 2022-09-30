@@ -1,7 +1,7 @@
 const functions = require("firebase-functions");
 const { MongoClient } = require("mongodb");
 const admin = require("firebase-admin");
-const serviceKey = require("../utils/service_key.json");
+// const serviceKey = require("../utils/service_key.json");
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -33,20 +33,20 @@ const getUsers = async () => {
   }
 };
 
-const backupUsersToFirebase = async (userData) => {
-  await admin.initializeApp({
-    credential: admin.credential.cert(serviceKey),
-    databaseURL: process.env.FIREBASE_DATABASE_URL,
-  });
-  const firestore = admin.firestore();
-  const userRef = firestore.collection("usersBackup");
-  userData.forEach(async (user) => {
-    if (user.ethAddress) {
-      await userRef.doc(user.ethAddress).set(user);
-    }
-  });
-  functions.logger.log("Backup Completed")
-};
+// const backupUsersToFirebase = async (userData) => {
+//   await admin.initializeApp({
+//     credential: admin.credential.cert(serviceKey),
+//     databaseURL: process.env.FIRE_DB_URL,
+//   });
+//   const firestore = admin.firestore();
+//   const userRef = firestore.collection("usersBackup");
+//   userData.forEach(async (user) => {
+//     if (user.ethAddress) {
+//       await userRef.doc(user.ethAddress).set(user);
+//     }
+//   });
+//   functions.logger.log("Backup Completed")
+// };
 
 
 app.get("/", (request, response) => {
