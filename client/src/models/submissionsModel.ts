@@ -52,6 +52,7 @@ export const submissionsModel = createModel<RootModel>()({
 						id: doc.data().name,
 						subId: doc.data().submissionIds?.[space]?.[tape]?.[id],
 						link: doc.data().audio?.[space]?.[tape]?.[id],
+						walletId: doc.id,
 					});
 				}
 			});
