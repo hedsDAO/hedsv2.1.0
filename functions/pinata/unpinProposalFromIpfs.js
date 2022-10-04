@@ -13,10 +13,10 @@ const app = express();
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
 
-app.post("/", (request, response) => {
-    functions.logger.log("body", request.body);
-    const { IpfsHash } = request.body;
-    pinata.unpin(IpfsHash).then((result) => {
+app.delete("/:ipfsHash", (request, response) => {
+    functions.logger.log("params", request.params);
+    const ipfsHash = request.params.ipfsHash;
+    pinata.unpin(ipfsHash).then((result) => {
         functions.logger.log(result);
         return response.status(200).send(result);
     }).catch((err) => {
