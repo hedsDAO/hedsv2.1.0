@@ -20,7 +20,7 @@ export const exploreModel = createModel<RootModel>()({
 	},
 	effects: () => ({
 		async getSpotlightData() {
-			const docRef = doc(db, "explore", "spotlight");
+			const docRef = doc(db, "explore", "joshpan");
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				this.setExploreData({spotlight: docSnap.data()});

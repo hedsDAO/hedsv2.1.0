@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TapeData } from "../../../models/spaceModel";
 // import { PlayIcon } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
@@ -10,8 +10,10 @@ import { handleDownloadFile } from "../../../utils/handleDownloadFile";
 import { generateSampleLink } from "../../../utils/generateSampleLink";
 import { Modals } from "../../../models/globalModel";
 import { useMoralis } from "react-moralis";
+import LoadingIcon from "../../../common/svg/LoadingIcon/LoadingIcon";
 
 const SampleContainer = (tapeData: TapeData) => {
+    const [isLoading, setIsLoading] = useState(false);
     const { tape, id } = useParams<{ tape: string; id: string }>();
     const { user } = useMoralis();
     const dispatch = useDispatch<Dispatch>();
@@ -25,7 +27,9 @@ const SampleContainer = (tapeData: TapeData) => {
         dispatch.audioModel.setPlayerSize(PlayerSize.SMALL);
     };
     const handleGetSample = () => {
+        setIsLoading(true);
         getDownloadURL(sampleRef).then((url: string) => {
+            setIsLoading(false)
             return handleDownloadFile(url, `HT${id}`);
         });
     };
@@ -63,7 +67,7 @@ const SampleContainer = (tapeData: TapeData) => {
                                       })
                         }
                         className="inline-flex items-center shadow-md justify-center text-center px-6 py-1 text-sm hover:bg-indigo-400 dark:hover:bg-fuchsia-500 dark:bg-fuchsia-600 bg-indigo-500 text-white rounded-sm uppercase transition-all w-full">
-                        <span className="my-auto tracking-widest">DOWNLOAD</span>
+                        <span className="my-auto tracking-widest">{!isLoading ? "DOWNLOAD" : <LoadingIcon />}</span>
                     </button>
                     <button
                         onClick={() => playSample()}
