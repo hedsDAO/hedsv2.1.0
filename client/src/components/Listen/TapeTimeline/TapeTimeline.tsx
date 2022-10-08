@@ -112,7 +112,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                     </span>
                     <span className="mt-0.5 ml-4 min-w-0 flex flex-col items-start justify-start">
                         <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                            {step.name === "VOTE" && tapeData?.status.time ? (
+                            {tapeData?.status.time ? (
                                 <div className="">
                                     <p className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
                                         {step.name}
