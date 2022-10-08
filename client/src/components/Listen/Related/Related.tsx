@@ -20,7 +20,7 @@ const Related = () => {
 					<div className="flex lg:grid lg:grid-cols-7 lg:place-items-center flex-col items-evenly gap-1 p-1 mx-auto">
 						{tapeContent &&
 							tapeContent.map((allTracks) => {
-								return allTracks?.map((tape: TapeData, index) => {
+								return allTracks.slice(0, 7)?.map((tape: TapeData, index) => {
 									if (id != tape?.tape?.no && tape?.tape?.name.includes('hedsTAPE')) return (
 										<Link key={tape.links.route + index} to={tape.links.route}>
 											<div key={tape.tape.contract + tape.tape.image} className="group flex lg:col-span-1 flex-col items-start justify-between lg:bg-transparent lg:p-0 p-1 gap-y-1 rounded-sm transition-all ease-in-out">
