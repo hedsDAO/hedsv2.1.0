@@ -75,6 +75,7 @@ export interface UserSubmission {
 	subId: string;
 	link: string;
 	index?: number;
+	walletId?: string;
 }
 
 export interface PublicSubmission {

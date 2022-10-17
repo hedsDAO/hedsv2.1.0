@@ -112,7 +112,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                     </span>
                     <span className="mt-0.5 ml-4 min-w-0 flex flex-col items-start justify-start">
                         <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                            {step.name === "VOTE" && tapeData?.status.time ? (
+                            {tapeData?.status.time ? (
                                 <div className="">
                                     <p className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
                                         {step.name}
@@ -127,9 +127,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
                                     </p>
                                     {step.name === "MINT OPEN" &&
                                     tapeData?.status?.status === TapeStatus.MINT_OPEN ? (
-                                        <DateCountdown
-                                            deadline={tapeData?.status?.time}
-                                        />
+                                        <DateCountdown deadline={tapeData?.status?.time} />
                                     ) : (
                                         <span className="text-xs font-thin lg:font-normal tracking-widest dark:text-neutral-300 text-neutral-600 text-left">
                                             {step.description}
@@ -175,11 +173,13 @@ const Pending = ({ step, idx, tapeData }: any) => {
                             : step.name}
                     </span>
                     <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
-                        {step.name === "MINT" &&
-                        step.status === "pending" &&
-                        +tapeData?.status?.status < 8 &&
-                        +tapeData?.status?.status >= 6 ? (
-                            <DateCountdown deadline={tapeData?.status?.time} />
+                        {tapeData?.status.time &&
+                        tapeData?.status.status === TapeStatus.SUBMIT_CLOSE &&
+                        step.name === "VOTE" ? (
+                            <div className="">
+                                <span className="mb-2 mt-1 text-neutral-500">opens in: </span>
+                                <DateCountdown deadline={tapeData?.status?.time} />
+                            </div>
                         ) : (
                             <>{step.description}</>
                         )}

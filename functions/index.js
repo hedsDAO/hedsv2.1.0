@@ -13,6 +13,7 @@ const twitterGetUserImage = require("./twitter/getUserImage");
 // PINATA API
 const pinHashToIpfs = require("./pinata/pinHashToIpfs");
 const uploadProposalToIpfs = require("./pinata/uploadProposalToIpfs");
+const unpinProposalFromIpfs = require("./pinata/unpinProposalFromIpfs");
 
 //Moralis User Data Backup
 const dataBackup = require("./dataBackup/dataBackup");
@@ -22,4 +23,5 @@ exports.twitterAuth = twitterAuth.auth;
 exports.twitterGetUserImage = twitterGetUserImage.getUserImage;
 exports.pinHashToIpfs = pinHashToIpfs.pinHashToIpfs;
 exports.uploadProposalToIpfs = uploadProposalToIpfs.uploadProposalToIpfs;
+exports.unpinProposalFromIpfs = unpinProposalFromIpfs.unpinProposalFromIpfs;
 exports.dataBackup = dataBackup.dataBackup;
