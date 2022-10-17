@@ -9,7 +9,7 @@ export const getUserVotingPower = async (walletId: string) => {
         vp (
           voter: "${walletId}"
           space: "camb0t.eth"
-          proposal: "0x38ea2647ea27266b92422b59a97082ef58b30304ad27ca7cd13b898f7da0d9b3"
+          proposal: "0xf9716a70e510aec8668633428c43e88e517634522445bff7596b0c9afec30e10"
         ) {
           vp
           vp_by_strategy
