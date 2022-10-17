@@ -37,7 +37,7 @@ const SubmissionsPlayer = ({ tracks, walletId }: SubmissionsPlayerProps) => {
 						onClick={() => dispatch.voteModel.setSelectedTrack(tracks?.length - 1)}
 						style={{ minWidth: "150px" }}
 						className={`flex justify-between w-full text-left text-sm font-medium ${highlightSubmission(tracks?.length - 1)}`}>
-						<h4>Medasin</h4>
+						<h4>Josh Pan</h4>
 						<i className="fa-regular fa-waveform text-neutral-400 text-sm"></i>
 					</button>
 				</li>}
