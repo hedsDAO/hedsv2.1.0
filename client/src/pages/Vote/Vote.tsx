@@ -74,8 +74,7 @@ const Vote = () => {
                 voteData &&
                 proposalData &&
                 userData &&
-                currentTape &&
-                isVoteLive && (
+                currentTape &&(
                     <div className="max-w-[80rem] mx-auto">
                         <VoteHeader {...currentTape} />
                         <VoteContentContainer>

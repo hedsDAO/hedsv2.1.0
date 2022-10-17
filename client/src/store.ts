@@ -4,9 +4,9 @@ import { models, RootModel } from "./models";
 export const store = init({
 	models,
 	redux: {
-		devtoolOptions: {
-			disabled: true,
-		},
+		// devtoolOptions: {
+		// 	disabled: true,
+		// },
 	},
 });
 
