@@ -284,8 +284,8 @@ const SubmissionModal = () => {
                                                                 id="comments-description"
                                                                 className="text-neutral-500 ml-2 text-[0.65rem]">
                                                                 There are no copyright
-                                                                protected samples used in the
-                                                                submissions<span className="text-red-500 text-[0.65rem] ml-1">*</span>
+                                                                protected samples used in this
+                                                                submission<span className="text-red-500 text-[0.65rem] ml-1">*</span>
                                                             </span>
                                                         </div>
                                                     </Fragment>
