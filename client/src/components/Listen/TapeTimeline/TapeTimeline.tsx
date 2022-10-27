@@ -96,7 +96,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
     return (
         <li
             key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all">
+            className={`${tapeData?.status.status === TapeStatus.MINT_OPEN && 'animate-pulse'} relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all`}>
             <button onClick={modal ? modal : () => {}} className="flex items-start justify-start">
                 <span
                     className={classNames(
