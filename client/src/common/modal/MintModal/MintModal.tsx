@@ -52,7 +52,7 @@ const MintModal = () => {
 	};
 	return (
 		<Transition appear show={open} as={Fragment}>
-			<Dialog as="div" className="relative z-[60]" onClose={locked ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
+			<Dialog as="div" className="relative z-[60]" onClose={locked && !hasMinted ? () => { } : () => dispatch.globalModel.setModalVisibility(false)}>
 				<div className="fixed inset-0 overflow-y-auto">
 					<div className="flex bg-neutral-950/90 min-h-full items-center justify-center text-center">
 						<Transition.Child
