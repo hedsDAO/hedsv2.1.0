@@ -11,6 +11,8 @@ const Artists = () => {
         dispatch.tapeModel.getTapes()
         dispatch.audioModel.getSamples(["heds", "hedstape"]);
     }, []);
+
+    console.log(tapeData)
     return (
         <div className="max-w-7xl w-full mx-auto my-5 px-2 mb-20">
             {audioData?.samples && 
@@ -49,9 +51,7 @@ const Artists = () => {
                                                             {tape.sample.wallet.slice(0, 5) + "..."}
                                                         </dd>
                                                     </dl>
-                                                    <span className="text-gray-700 dark:text-gray-400 text-xs mt-1 font-semibold">{`hedsTAPE 0${
-                                                        index + 1
-                                                    }`}</span>
+                                                    <span className="text-gray-700 dark:text-gray-400 text-xs mt-1 font-semibold">{tape.tape.name}</span>
                                                 </div>
                                             </div>
                                         </Link>
