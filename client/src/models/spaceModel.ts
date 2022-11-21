@@ -60,7 +60,7 @@ export const spaceModel = createModel<RootModel>()({
             if (docSnap.exists()) {
                 let spaceData = { ...docSnap.data()?.[space || "heds"] };
                 // note: tape status test
-                spaceData.hedstape["10"].status.status = 3;
+                // spaceData.hedstape["10"].status.status = 3;
                 dispatch.spaceModel.setSpaceData(spaceData || docSnap.data()?.[space || "heds"]);
             }
         },
