@@ -126,7 +126,7 @@ export const voteModel = createModel<RootModel>()({
 				//@ts-ignore
 				const receipt = await snapshotClient.vote(web3, walletId, {
 					space: "camb0t.eth",
-					proposal: "0xf9716a70e510aec8668633428c43e88e517634522445bff7596b0c9afec30e10",
+					proposal: "0xce946575fcd3de552dc3265dc533faa9b12d706b8f0035cf0c0e790efd4c940a",
 					type: "quadratic",
 					choice: userVotes,
 					// @ts-ignore
