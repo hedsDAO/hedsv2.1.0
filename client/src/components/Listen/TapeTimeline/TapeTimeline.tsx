@@ -96,7 +96,7 @@ const Current = ({ modal, step, idx, tapeData }: any) => {
     return (
         <li
             key={step.key}
-            className="relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all">
+            className={`${tapeData?.status.status === TapeStatus.MINT_OPEN && 'animate-pulse'} relative overflow-hidden lg:flex-1 bg-neutral-100 hover:bg-neutral-200 dark:hover:bg-neutral-700 dark:bg-neutral-900 rounded-lg transition-all`}>
             <button onClick={modal ? modal : () => {}} className="flex items-start justify-start">
                 <span
                     className={classNames(
@@ -165,12 +165,18 @@ const Pending = ({ step, idx, tapeData }: any) => {
                     </span>
                 </span>
                 <span className="mt-0.5 ml-4 min-w-0 flex flex-col justify-center">
-                    <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">
+                    <span className="text-xs text-neutral-700 dark:text-neutral-500 tracking-wide uppercase mb-1">
                         {step.name === "MINT" &&
-                        +tapeData?.status?.status < 8 &&
-                        +tapeData?.status?.status > 8
-                            ? "MINT OPENS"
-                            : step.name}
+                        tapeData?.status?.status === TapeStatus.VOTE_CLOSE ? (
+                            <div className="font-medium">
+                                <span className="mb-3 mt-1 text-neutral-500">
+                                    {step.name} opens in:{" "}
+                                </span>
+                                <DateCountdown deadline={tapeData?.status?.time} />
+                            </div>
+                        ) : (
+                            step.name
+                        )}
                     </span>
                     <span className="text-xs font-thin lg:font-normal tracking-widest text-neutral-700 text-left">
                         {tapeData?.status.time &&
