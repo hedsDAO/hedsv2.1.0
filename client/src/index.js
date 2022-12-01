@@ -1,5 +1,7 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
+import { createClient, configureChains, defaultChains, WagmiConfig } from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
 import { BrowserRouter } from "react-router-dom";
 import "regenerator-runtime/runtime.js";
 import { store } from "./store";
@@ -30,6 +32,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const storage = getStorage(app, "gs://heds-34ac0.appspot.com");
+const { provider, webSocketProvider } = configureChains(defaultChains, [
+	publicProvider(),
+  ]);
+const client = createClient({
+provider,
+webSocketProvider,
+});
 
 ReactDOM.render(
 	<MoralisProvider serverUrl="https://qmwf2weydi0m.usemoralis.com:2053/server" appId="KiB7e8lPCvDMU9VkOf2uM7d8Dt7DowQGR272Wkxd">
@@ -37,9 +46,11 @@ ReactDOM.render(
 			<BrowserRouter>
 				<AudioWrapper>
 					<GlobalWrapper>
-						<OGsWrapper>
-							<App />
-						</OGsWrapper>
+						<WagmiConfig client={client}>
+							<OGsWrapper>
+								<App />
+							</OGsWrapper>
+						</WagmiConfig>
 					</GlobalWrapper>
 				</AudioWrapper>
 			</BrowserRouter>

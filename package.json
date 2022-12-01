@@ -59,6 +59,7 @@
 		"redux": "^4.2.0",
 		"regenerator-runtime": "^0.13.9",
 		"sass": "^1.53.0",
+		"wagmi": "^0.7.5",
 		"wavesurfer.js": "^6.1.0"
 	},
 	"devDependencies": {
