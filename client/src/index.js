@@ -1,7 +1,10 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
-import { createClient, configureChains, defaultChains, WagmiConfig } from 'wagmi'
+import { createClient, configureChains, defaultChains, WagmiConfig, chain } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
+import { infuraProvider } from 'wagmi/providers/infura';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { BrowserRouter } from "react-router-dom";
 import "regenerator-runtime/runtime.js";
 import { store } from "./store";
@@ -32,29 +35,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const storage = getStorage(app, "gs://heds-34ac0.appspot.com");
-const { provider, webSocketProvider } = configureChains(defaultChains, [
-	publicProvider(),
-  ]);
+const { chains, provider } = configureChains(
+	[chain.mainnet],
+	[infuraProvider({ apiKey: "1ee6f1f8a76e48d6821782b8f2f2a022", priority: 0 }), publicProvider({ priority: 1 })],
+);
 const client = createClient({
-provider,
-webSocketProvider,
+	connectors: [
+		new InjectedConnector({ chains }),
+		new WalletConnectConnector({
+			chains,
+			options: {
+				qrcode: true,
+			},
+		}),
+	],
+	autoConnect: true,
+	provider,
 });
+
 
 ReactDOM.render(
 	<MoralisProvider serverUrl="https://qmwf2weydi0m.usemoralis.com:2053/server" appId="KiB7e8lPCvDMU9VkOf2uM7d8Dt7DowQGR272Wkxd">
-		<Provider store={store}>
-			<BrowserRouter>
-				<AudioWrapper>
-					<GlobalWrapper>
-						<WagmiConfig client={client}>
+		<WagmiConfig client={client}>
+			<Provider store={store}>
+				<BrowserRouter>
+					<AudioWrapper>
+						<GlobalWrapper>
 							<OGsWrapper>
 								<App />
 							</OGsWrapper>
-						</WagmiConfig>
-					</GlobalWrapper>
-				</AudioWrapper>
-			</BrowserRouter>
-		</Provider>
+						</GlobalWrapper>
+					</AudioWrapper>
+				</BrowserRouter>
+			</Provider>
+		</WagmiConfig>
 	</MoralisProvider>,
 	document.getElementById("root")
 );

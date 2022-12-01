@@ -60,7 +60,7 @@ export const spaceModel = createModel<RootModel>()({
             if (docSnap.exists()) {
                 let spaceData = { ...docSnap.data()?.[space || "heds"] };
                 // note: mint status test
-                // spaceData.hedstape["8"].status.status = 7;
+                spaceData.hedstape["10"].status.status = 7;
                 dispatch.spaceModel.setSpaceData(spaceData || docSnap.data()?.[space || "heds"]);
             }
         },

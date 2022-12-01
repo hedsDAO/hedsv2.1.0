@@ -71,7 +71,7 @@ const Completed = ({ step, idx }: any) => {
             />
             <span
                 className={classNames(
-                    idx !== 0 ? "lg:pl-9" : "",
+                    idx !== 0 ? "lg:pl-9" : "lg:pl-9",
                     "px-6 py-5 flex items-start text-sm font-medium"
                 )}>
                 <span className="flex-shrink-0 pt-2">
