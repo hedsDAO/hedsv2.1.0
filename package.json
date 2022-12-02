@@ -25,6 +25,8 @@
 		"@heroicons/react": "^1.0.6",
 		"@rematch/core": "^2.2.0",
 		"@snapshot-labs/snapshot.js": "^0.3.83",
+		"@soundxyz/sdk": "^0.6.3",
+		"@soundxyz/sound-protocol": "^1.1.0",
 		"@tailwindcss/forms": "^0.5.0",
 		"@tailwindcss/typography": "^0.5.2",
 		"@trendyol-js/react-carousel": "^3.0.0",
@@ -57,6 +59,7 @@
 		"redux": "^4.2.0",
 		"regenerator-runtime": "^0.13.9",
 		"sass": "^1.53.0",
+		"wagmi": "^0.7.5",
 		"wavesurfer.js": "^6.1.0"
 	},
 	"devDependencies": {

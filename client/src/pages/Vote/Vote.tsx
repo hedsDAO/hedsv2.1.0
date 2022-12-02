@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Dispatch, RootState } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { TapeStatus } from "../../models/common";
+// import { TapeStatus } from "../../models/common";
 import useMoralisHooks from "../../hooks/useMoralis";
 import AudioPlayer from "../../components/Vote/AudioPlayer/AudioPlayer";
 import SubmissionsPlayer from "../../components/Vote/SubmissionsPlayer/SubmissionsPlayer";
@@ -21,7 +21,7 @@ const Vote = () => {
     const dispatch = useDispatch<Dispatch>();
     const spaceData = useSelector((state: RootState) => state.spaceModel);
     const currentTape = spaceData?.[tape]?.[id];
-    const isVoteLive = spaceData?.[tape]?.[id]?.status?.status === TapeStatus.VOTE_OPEN;
+    // const isVoteLive = spaceData?.[tape]?.[id]?.status?.status === TapeStatus.VOTE_OPEN;
     const submissions = useSelector((state: RootState) => state.submissionsModel);
     const voteState = useSelector((state: RootState) => state.voteModel);
     const userData = useSelector((state: RootState) => state.userModel);
@@ -74,8 +74,7 @@ const Vote = () => {
                 voteData &&
                 proposalData &&
                 userData &&
-                currentTape &&
-                isVoteLive && (
+                currentTape &&(
                     <div className="max-w-[80rem] mx-auto">
                         <VoteHeader {...currentTape} />
                         <VoteContentContainer>
