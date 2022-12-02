@@ -12,7 +12,6 @@ const Artists = () => {
         dispatch.audioModel.getSamples(["heds", "hedstape"]);
     }, []);
 
-    console.log(tapeData)
     return (
         <div className="max-w-7xl w-full mx-auto my-5 px-2 mb-20">
             {audioData?.samples && 
