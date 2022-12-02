@@ -28,9 +28,6 @@ const MintModal = () => {
 		setError("")
 		setIsLoading(true);
 		if (web3 && currentTape?.tape?.contract) {
-			console.log(currentTape?.tape?.contract)
-			// const contractAbi = await getContractAbi(currentTape.tape.contract);
-			// const formattedAbi = JSON.parse(contractAbi.data.result);
 			const contract = new ethers.Contract(currentTape?.tape?.contract, contractAbi, web3.getSigner());
 			try {
 				setIsMinting(true)
