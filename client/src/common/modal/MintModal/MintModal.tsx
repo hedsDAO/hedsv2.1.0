@@ -32,11 +32,9 @@ const MintModal = () => {
         setIsLoading(true);
         if (!isConnected) await connect();
         const signer = await connector?.getSigner();
-        console.log(signer);
         const client = SoundClient({ signer });
         const editionAddress = "0x9f396644EC4b2A2bc3C6Cf665d29165Dde0e83F1";
         const mintSchedule = (await client.activeMintSchedules({ editionAddress })).shift();
-        console.log(mintSchedule);
         if (!mintSchedule) {
             setIsLoading(false);
             throw Error(`No active mint schedule available!`);
@@ -57,7 +55,6 @@ const MintModal = () => {
         setError("");
         setIsLoading(true);
         if (web3 && currentTape?.tape?.contract) {
-            console.log(currentTape?.tape?.contract);
             const contract = new ethers.Contract(
                 currentTape?.tape?.contract,
                 contractAbi,
@@ -69,11 +66,9 @@ const MintModal = () => {
                     value: `${selected.value}00000000000000000`,
                 });
                 const receipt = await txn.wait();
-                console.log(receipt);
-                setHasMinted(true);
+                if (receipt) setHasMinted(true);
             } catch (err: any) {
                 setIsMinting(false);
-                console.log(err);
                 if (err?.message?.includes("insufficient funds")) {
                     setError("Insufficient funds for minting. Please try again.");
                 } else setError("There was a problem minting your tapes. Please try again.");
