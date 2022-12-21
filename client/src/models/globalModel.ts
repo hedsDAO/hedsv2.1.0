@@ -13,7 +13,6 @@ export enum Modals {
 	WARNING,
 	PRE_MINT,
 	PUBLIC_MINT,
-	VINYL_FORM
 }
 
 interface ModalState {

@@ -60,17 +60,7 @@ const ProfileHeader = ({ user, userData }: { user: Moralis.User<Moralis.Attribut
 											<span className="font-regular text-xs">ETH</span>
 										</a>
 									</button>
-								)}
-								{userData?.isVinylAddress && (
-									<button
-										onClick={() => dispatch.globalModel.setModal({ open: true, modal: Modals.VINYL_FORM, locked: false })}
-										className="mx-1 px-2 py-0.5 text-xs rounded-sm border-1 border-neutral-500 dark:border-neutral-800 bg-teal-300 dark:bg-teal-700 text-neutral-900 dark:text-neutral-300 inline-flex items-center tracking-widest whitespace-nowrap">
-										<div className="flex items-center gap-x-2">
-										<i className="fa-duotone fa-record-vinyl text-xs"></i>
-										<span className="text-xs">REDEEM</span>
-										</div>
-									</button>
-								)}
+								)}	
 								{userData?.twitterHandle?.length === 0 && (
 									<button
 										onClick={() => dispatch.globalModel.setModal({ open: true, modal: Modals.TWITTER, locked: true })}
