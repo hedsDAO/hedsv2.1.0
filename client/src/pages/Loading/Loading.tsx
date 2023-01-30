@@ -11,7 +11,7 @@ const Loading = () => {
             {isUnderConstruction && (
                 <div className="flex flex-col items-center justify-center gap-2">
                     <div className="mb-4 text-white font-thin flex items-center gap-2">
-                        <span className="text-sm">v2.1.0</span>
+                        <span className="text-sm">heds v2.1.0</span>
                         <i className="fa-light fa-arrow-right-long text-xs"></i>
                         <span className="text-sm">v3.0.0</span>
                     </div>
